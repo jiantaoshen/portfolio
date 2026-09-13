@@ -2,7 +2,7 @@
   "story": {
     "title": "背景介绍",
     "paragraphs": [
-      "机器人方向工程硕士，具备机器学习、系统开发及全栈开发经验。拥有 C#/.NET、ASP.NET Core Web API、PostgreSQL、React 和 TypeScript 的实际开发经验，并熟悉基于 REST API 的应用开发，包括身份认证与权限控制。同时具备将应用部署至 Microsoft Azure 和 Firebase 的实践经验。"
+      "机器人方向工程硕士，具备机器学习、系统开发及全栈开发经验。拥有 C#/.NET、ASP.NET Core Web API、PostgreSQL、React 和 TypeScript 的实际开发经验，并熟悉基于 REST API 的应用开发，包括身份认证与权限控制。同时具备将应用部署至 Microsoft Azure 的实践经验。"
     ]
   },
   "skills": {
