@@ -193,12 +193,6 @@ The backend is used only during local development.
 
 This means the production portfolio does not depend on an application server for serving its content.
 
-### Language-Specific CV Downloads
-
-The portfolio provides CV downloads for English, Swedish and Chinese.
-
-Visitors can access the CV version that matches the selected site language.
-
 ### Responsive Interface
 
 Tailwind CSS is used for the portfolio and dashboard layouts.

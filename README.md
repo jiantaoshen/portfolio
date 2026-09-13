@@ -24,7 +24,6 @@ https://www.jiantao.dev
 * Markdown-based Blog and Project content
 * Static HTML-first portfolio
 * Responsive design
-* Language-specific CV downloads
 * Public dashboard Trial mode
 * Local content management dashboard
 * Blog and Project Edit / Preview tabs

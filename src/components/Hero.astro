@@ -18,13 +18,6 @@ const {
   common,
 } = Astro.props;
 
-const cvFiles: Record<Locale, string> = {
-  en: "/cv/Jiantao_Shen_CV_EN.pdf",
-  sv: "/cv/Jiantao_Shen_CV_SV.pdf",
-  zh: "/cv/Jiantao_Shen_CV_ZH.pdf",
-};
-
-const cvFile = cvFiles[lang];
 ---
 
 <section class="hero flex min-h-screen items-center">
@@ -46,14 +39,6 @@ const cvFile = cvFiles[lang];
       <div class="mx-auto mt-9 flex flex-wrap justify-center items-center gap-3">
         <a href="#projects" class="btn btn-primary">
           {common.buttons.viewWork}
-        </a>
-
-        <a
-          href={cvFile}
-          download
-          class="btn btn-secondary"
-        >
-          {common.buttons.downloadCV}
         </a>
       </div>
     </div>

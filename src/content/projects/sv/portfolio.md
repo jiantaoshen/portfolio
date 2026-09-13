@@ -193,12 +193,6 @@ Backend-tjänsten används endast under lokal utveckling.
 
 Det innebär att produktionsportfolion inte är beroende av en applikationsserver för att leverera innehåll.
 
-### Språkspecifika CV-nedladdningar
-
-Portfolion erbjuder CV-versioner på engelska, svenska och kinesiska.
-
-Besökare kan ladda ner den CV-version som motsvarar det valda språket på webbplatsen.
-
 ### Responsivt gränssnitt
 
 Tailwind CSS används för layouten i både portfolion och dashboardet.
