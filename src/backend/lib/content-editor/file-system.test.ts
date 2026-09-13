@@ -1,17 +1,19 @@
 /*
     Test: File system
-    Test_1: Create a new file if target file does not exits
-    Test_2: Write text on target file if exits
-    Test_3: Delete tmp file after writing text. 
+    Test1: Create a new file if target file does not exist
+    Test2: Write text on target file if exist
+    Test3: Delete tmp file after writing text
+    Test4: Create a new file and delete it
+    Test5: Delete a non-existent file
 */
 
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 
-import {afterEach, describe, expect, it} from "vitest";
 
-import {writeFileAtomic} from "./file-system";
+import {afterEach, describe, expect, it} from "vitest";
+import {deleteFileIfExists, writeFileAtomic} from "./file-system";
 
 const testDirectories: string[] = [];
 
@@ -75,5 +77,31 @@ describe("writeFileAtomic", () => {
     await writeFileAtomic(targetPath, "hello");
 
     await expect(fs.access(`${targetPath}.tmp`)).rejects.toThrow();
+  });
+});
+
+describe("deleteFileIfExists", () => {
+  it("deletes an existing file", async () => {
+    const directory = await createTestDirectory();
+
+    const targetPath = path.join(directory,"example.txt");
+
+    await fs.writeFile(targetPath, "hello", "utf8");
+
+    const deleted =await deleteFileIfExists(targetPath);
+
+    expect(deleted).toBe(true);
+
+    await expect(fs.access(targetPath)).rejects.toThrow();
+  });
+
+  it("returns false when the file does not exist", async () => {
+    const directory = await createTestDirectory();
+
+    const targetPath = path.join(directory,"missing.txt");
+
+    const deleted =await deleteFileIfExists(targetPath);
+
+    expect(deleted).toBe(false);
   });
 });
