@@ -1,3 +1,11 @@
+/*
+  Feat: Validate slugs and url from content editor
+  Export Const: SUPPORTED_LOCALES
+  Export Type: SupportedLocale
+  Export Function: isSupportedLocale; normalizeProjectSlug; isValidOptionalHttpUrl
+
+*/
+
 import "server-only";
 
 export const SUPPORTED_LOCALES = [
@@ -72,4 +80,21 @@ function hasInvalidFilenameChars(value: string): boolean {
   const hasControlChars = [...value].some((char) => char.charCodeAt(0) < 32);
 
   return hasInvalidChars || hasControlChars;
+}
+
+export function isValidOptionalHttpUrl(value: string | null | undefined): boolean {
+  if (!value || value.trim() === "") {
+    return true;
+  }
+
+  try {
+    const url = new URL(value);
+
+    return (
+      url.protocol === "http:" ||
+      url.protocol === "https:"
+    );
+  } catch {
+    return false;
+  }
 }
