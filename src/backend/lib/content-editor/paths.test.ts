@@ -1,3 +1,11 @@
+/*
+    Test: Paths
+    Test1: allows paths inside the content root
+    Test2: allows nested project paths
+    Test3: rejects parent directory traversal
+    Test4: rejects deeply nested traversal
+    Test5: rejects traversal after a valid segment
+*/
 import { describe, expect, it } from "vitest";
 
 import {
