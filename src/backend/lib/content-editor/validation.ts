@@ -6,8 +6,6 @@
 
 */
 
-import "server-only";
-
 export const SUPPORTED_LOCALES = [
   "en",
   "sv",

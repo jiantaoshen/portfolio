@@ -5,7 +5,6 @@
 
 */
 
-import "server-only";
 import path from "node:path";
 
 export const PROJECT_CONTENT_ROOT = path.resolve(

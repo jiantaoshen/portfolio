@@ -1,9 +1,10 @@
-import "server-only";
-
 export function assertLocalContentEditingEnabled(): void {
-  if (process.env.NODE_ENV === "production") {
+  if (
+    import.meta.env.PROD ||
+    !import.meta.env.LOCAL_CONTENT_EDITOR_ENABLED
+  ) {
     throw new Error(
-      "Local content editing is disabled in production."
+      "Local content editing is disabled.",
     );
   }
 }

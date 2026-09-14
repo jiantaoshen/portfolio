@@ -3,9 +3,6 @@
   Export Function: writeFileAtomic; deleteFileIfExists
 
 */
-
-import "server-only";
-
 import fs from "node:fs/promises";
 
 export async function writeFileAtomic(targetPath: string,content: string): Promise<void> {
