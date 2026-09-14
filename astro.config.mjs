@@ -5,6 +5,8 @@ import sitemap from "@astrojs/sitemap";
 
 import react from "@astrojs/react";
 
+import vercel from "@astrojs/vercel";
+
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
@@ -20,8 +22,6 @@ export default defineConfig({
   },
 
   site: "https://jiantao-dev.vercel.app",
-
   integrations: [sitemap(), react()],
-
-
+  adapter: vercel(),
 });
