@@ -94,7 +94,6 @@ export type HomeTranslation = {
   contact: {
     title: string;
     description: string;
-    email: string;
   };
 };
 
