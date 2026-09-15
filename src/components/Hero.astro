@@ -4,43 +4,92 @@ import type { Locale } from "../i18n";
 import type {
   HomeTranslation,
   CommonTranslation,
+  AboutTranslation,
 } from "../i18n/types";
 
 interface Props {
   lang: Locale;
   home: HomeTranslation;
   common: CommonTranslation;
+  skills: AboutTranslation["skills"];
 }
 
 const {
-  lang,
   home,
   common,
+  skills,
 } = Astro.props;
-
 ---
 
-<section class="hero flex min-h-screen items-center">
+<section id="about" class="hero-shell">
   <div class="container">
-    <div class="mx-auto max-w-2xl text-center">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <h1 class="hero-title">
+          {home.hero.titleBefore}
+          {" "}
+          <span class="text-role-blue">
+            {home.hero.titleHighlight}
+          </span>
+        </h1>
 
-      <h1 class="text-title max-w-3xl text-light">
-        {home.hero.titleBefore}
-        {" "}
-        <span class="text-navy-muted">
-          {home.hero.titleHighlight}
-        </span>
-      </h1>
+        <p class="hero-description">
+          {home.hero.description}
+        </p>
 
-      <p class="text-large mx-auto max-w-xl text-slate-muted">
-        {home.hero.description}
-      </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">
+            {common.buttons.viewWork}
+            <span aria-hidden="true">→</span>
+          </a>
 
-      <div class="mx-auto mt-9 flex flex-wrap justify-center items-center gap-3">
-        <a href="#projects" class="btn btn-primary">
-          {common.buttons.viewWork}
-        </a>
+          <a
+            href="https://github.com/jiantaoshen"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-outline"
+          >
+            GitHub
+            <span aria-hidden="true">↗</span>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/jiantaoshen"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-outline"
+          >
+            LinkedIn
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
       </div>
+
+      <aside
+        class="hero-skills"
+        aria-labelledby="hero-skills-title"
+      >
+        <h2
+          id="hero-skills-title"
+          class="skills-heading hero-skills-heading"
+        >
+          {skills.title}
+        </h2>
+
+        <div class="skill-groups">
+          {skills.items.map((group) => (
+            <div class="skill-group">
+              <h3>{group.title}</h3>
+
+              <div class="skill-tags">
+                {group.items.map((item) => (
+                  <span>{item}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </aside>
     </div>
   </div>
 </section>

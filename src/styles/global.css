@@ -2,17 +2,19 @@
 @source "../career";
 
 @theme {
-  --color-navy: #2563eb;
-  --color-navy-muted: #93c5fd;
+  /* Brand palette */
+  --color-dark: #182033;
+  --color-dark-muted: #28344f;
 
-  --color-light: #ffffff;
-  --color-light-muted: #f8fafc;
+  --color-role: #7196C9;
+  --color-ui: #7FA7D8;
+  --color-soft: #DCE8F5;
 
-  --color-dark: #07111f;
-  --color-dark-muted: #13223a;
+  --color-light: #FAFBFD;
+  --color-light-muted: #FFFFFF;
 
-  --color-slate: #475569;
-  --color-slate-muted: #cbd5e1;
+  --color-slate: #5F6C84;
+  --color-slate-muted: #CBD5E1;
 
   --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
@@ -43,7 +45,7 @@ select {
 }
 
 ::selection {
-  background: var(--color-navy);
+  background: var(--color-role);
   color: var(--color-light);
 }
 
@@ -52,7 +54,7 @@ select {
    ============================================================ */
 
 .container {
-  @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10;
+  @apply mx-auto w-full max-w-6xl px-5;
 }
 
 .section {
@@ -92,23 +94,66 @@ select {
 }
 
 .card-hover {
-  @apply transition duration-200 hover:-translate-y-1 hover:border-navy-muted hover:shadow-md;
+  @apply transition duration-200 hover:-translate-y-1 hover:border-role hover:shadow-md;
 }
 
 /* ============================================================
-   Buttons
+   Buttons / Links
    ============================================================ */
 
 .btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition duration-200;
+  @apply inline-flex min-h-12 items-center justify-center
+    gap-2 rounded-lg px-5
+    text-sm font-semibold
+    transition-colors duration-150;
 }
 
 .btn-primary {
-  @apply bg-navy text-light hover:-translate-y-0.5  hover:bg-navy-muted;
+  @apply border border-ui
+    bg-ui text-light-muted
+    hover:border-role hover:bg-role;
+}
+
+.btn-outline {
+  @apply border border-ui
+    bg-light-muted text-dark
+    hover:bg-soft;
 }
 
 .btn-secondary {
-  @apply border border-light/20 bg-light/5 text-light hover:-translate-y-0.5 hover:border-light/30 hover:bg-light/10;
+  @apply border border-soft
+    bg-light-muted text-dark
+    hover:border-ui hover:bg-soft;
+}
+
+.btn-ghost {
+  @apply border border-transparent
+    bg-transparent text-dark
+    hover:bg-soft;
+}
+
+.btn-md {
+  @apply min-h-10 px-4;
+}
+
+.btn-sm {
+  @apply min-h-9 px-3 text-xs;
+}
+
+.btn-lg {
+  @apply min-h-12 px-6;
+}
+
+.btn-icon {
+  @apply size-10 min-h-10 p-0;
+}
+
+.text-link,
+.link-navy {
+  @apply inline-flex items-center gap-2
+    text-sm font-semibold text-role
+    transition-colors
+    hover:text-dark;
 }
 
 /* ============================================================
@@ -124,7 +169,7 @@ select {
 }
 
 .tag-star {
-  @apply border-navy text-navy text-xs;
+  @apply border-role text-role text-xs;
 }
 
 /* ============================================================
@@ -166,19 +211,113 @@ select {
 /* ============================================================
    Hero
    ============================================================ */
-.hero {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at 72% 38%, rgba(37, 99, 235, 0.2), transparent 32%),
-    radial-gradient(circle at 18% 10%, rgba(59, 130, 246, 0.08), transparent 28%),
-    linear-gradient(135deg, var(--color-dark) 0%, var(--color-dark-muted) 55%, #081426 100%);
+.hero-shell {
+  @apply flex items-center bg-light
+    py-14
+    sm:py-16
+    md:py-20
+    lg:py-24;
 }
 
-.link-navy {
-  @apply inline-flex items-center gap-2 text-sm font-semibold text-navy transition hover:text-navy-muted;
+.hero-grid {
+  @apply grid grid-cols-1 items-center gap-10
+    lg:grid-cols-3
+    lg:gap-16;
+}
+
+.hero-copy {
+  @apply max-w-3xl
+    lg:col-span-2
+    xl:max-w-4xl;
+}
+
+.hero-title {
+  @apply m-0 max-w-4xl
+    text-5xl leading-none font-extrabold tracking-tighter text-dark
+    sm:text-6xl
+    lg:text-7xl
+    xl:text-8xl;
+}
+
+.hero-description {
+  @apply mt-6 mb-0 max-w-2xl
+    text-base leading-relaxed text-slate
+    sm:text-lg
+    md:mt-8
+    md:text-xl
+    lg:text-2xl;
+}
+
+.hero-actions {
+  @apply mt-8 flex flex-col gap-3
+    sm:flex-row
+    sm:flex-wrap;
+}
+
+.hero-actions .btn {
+  @apply w-full sm:w-auto;
+}
+
+.hero-skills {
+  @apply flex flex-col justify-center
+    border-t border-soft pt-8
+    lg:col-span-1
+    lg:border-t-0
+    lg:border-l
+    lg:pt-0
+    lg:pl-11;
+}
+
+.text-role-blue {
+  @apply text-role;
+}
+
+.hero-skills-heading {
+  @apply mt-0;
+}
+
+.hero-skill-groups {
+  @apply gap-5;
+}
+
+.hero-skills .skill-tags span {
+  @apply bg-light-muted;
+}
+
+/* ============================================================
+   Skills
+   ============================================================ */
+
+.skills-heading {
+  @apply mt-0 mb-5
+    font-mono text-xs font-bold uppercase tracking-widest text-role
+    sm:mb-6;
+}
+
+.skill-groups {
+  @apply grid gap-5
+    sm:gap-6;
+}
+
+.skill-group {
+  @apply grid gap-3;
+}
+
+.skill-group h3 {
+  @apply m-0 text-sm font-bold text-dark;
+}
+
+.skill-tags {
+  @apply flex flex-wrap gap-2;
+}
+
+.skill-tags span,
+.tag,
+.tag-dark {
+  @apply inline-flex min-h-9 w-fit items-center
+    rounded-lg border border-soft
+    bg-light-muted px-3
+    font-mono text-xs text-slate;
 }
 
 /* ============================================================
@@ -218,7 +357,7 @@ select {
 }
 
 .article-content a {
-  @apply font-medium text-navy underline decoration-navy/30 underline-offset-4 transition hover:text-navy-muted;
+  @apply font-medium text-role underline decoration-role/30 underline-offset-4 transition hover:text-role;
 }
 
 .article-content strong {
@@ -226,7 +365,7 @@ select {
 }
 
 .article-content blockquote {
-  @apply my-6 border-l-4 border-navy bg-light-muted px-5 py-3 italic;
+  @apply my-6 border-l-4 border-role bg-light-muted px-5 py-3 italic;
 }
 
 .article-content code {
