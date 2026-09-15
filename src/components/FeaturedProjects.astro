@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 
 import type { Locale } from "../i18n";
-
 import type {
   HomeTranslation,
   CommonTranslation,
@@ -33,7 +32,7 @@ const featuredProjects = (
       (a.data.order ?? 999) -
       (b.data.order ?? 999),
   )
-  .slice(0, 2);
+  .slice(0, 3);
 
 function getProjectSlug(id: string) {
   const [, ...parts] = id.split("/");
@@ -41,106 +40,55 @@ function getProjectSlug(id: string) {
 }
 ---
 
-{
-  featuredProjects.length > 0 && (
-    <section
-      id="projects"
-      class="section bg-light-muted"
-    >
-      <div class="container">
+<section
+  id="projects"
+  class="projects-section section"
+>
+  <div class="container">
+    <div class="projects-header">
+      <h2 class="projects-title">
+        {home.featuredProjects.title}
+      </h2>
+    </div>
 
-        <!-- Section header -->
-        <div class="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div class="max-w-2xl">
-            <h2 class="text-title text-dark">
-              {home.featuredProjects.title}
-            </h2>
+    <div class="projects-list">
+      {featuredProjects.map((project, index) => (
+        <article class="project-row">
+          <div class="project-index">
+            {String(index + 1).padStart(2, "0")}
           </div>
 
+          <div class="project-main">
+            <div class="project-heading">
+              <h3>{project.data.title}</h3>
+
+              {project.data.status && (
+                <span class="project-status">
+                  {project.data.status}
+                </span>
+              )}
+            </div>
+
+            <div class="project-tech">
+              {project.data.technologies.map((tech) => (
+                <span>{tech}</span>
+              ))}
+            </div>
+          </div>
+
+          <p class="project-description">
+            {project.data.description}
+          </p>
+
           <a
-            href={`/${lang}/projects/`}
-            class="link-role shrink-0"
+            href={`/${lang}/projects/${getProjectSlug(project.id)}/`}
+            class="project-link"
           >
-            {home.featuredProjects.viewAll}
-
-            <span aria-hidden="true">
-              →
-            </span>
+            {common.buttons.caseStudy}
+            <span aria-hidden="true">→</span>
           </a>
-        </div>
-
-        <!-- Featured projects -->
-        <div class="grid gap-6 md:grid-cols-2">
-          {
-            featuredProjects.map((project) => (
-              <article class="card card-hover flex flex-col overflow-hidden p-7 sm:p-8">
-
-                <!-- status -->
-                <div class="flex flex-wrap items-center justify-between gap-3">
-                  <span class="tag">
-                    {project.data.status}
-                  </span>
-                </div>
-
-                <!-- Content -->
-                <div>
-                  <h3 class="text-card-title text-dark">
-                    {project.data.title}
-                  </h3>
-
-                  <p class="text-body max-w-xl text-slate">
-                    {project.data.description}
-                  </p>
-
-                  <!-- Technologies -->
-                  {
-                    project.data.technologies.length > 0 && (
-                      <div class="mt-auto mb-5 flex flex-wrap gap-2">
-                        {
-                          project.data.technologies
-                            .slice(0, 4)
-                            .map((technology) => (
-                              <span class="tag">
-                                {technology}
-                              </span>
-                            ))
-                        }
-
-                        {
-                          project.data.technologies.length > 4 && (
-                            <span
-                              class="tag"
-                              title={project.data.technologies
-                                .slice(4)
-                                .join(", ")}
-                            >
-                              +{project.data.technologies.length - 4}
-                            </span>
-                          )
-                        }
-
-                      </div>
-                    )
-                  }
-                </div>
-              
-                <!-- Link -->
-                <div class="mt-auto border-t border-slate-muted pt-5">
-                  <a href={`/${lang}/projects/${getProjectSlug(project.id)}/`}
-                    class="link-role"
-                  >
-                    {common.buttons.caseStudy}
-
-                    <span aria-hidden="true">
-                      →
-                    </span>
-                  </a>
-                </div>
-              </article>
-            ))
-          }
-        </div>
-      </div>
-    </section>
-  )
-}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -321,6 +321,83 @@ select {
 }
 
 /* ============================================================
+   Projects
+   ============================================================ */
+
+.projects-section {
+  @apply bg-light;
+}
+
+.projects-header {
+  @apply mb-10
+    lg:mb-12;
+}
+
+.projects-title {
+  @apply m-0 text-3xl font-bold tracking-tight text-dark
+    sm:text-4xl;
+}
+
+.projects-list {
+  @apply border-b border-soft;
+}
+
+.project-row {
+  @apply grid grid-cols-1 gap-4
+    border-t border-soft
+    py-7
+    sm:py-8
+    lg:grid-cols-12
+    lg:items-center
+    lg:gap-6;
+}
+
+.project-index {
+  @apply font-mono text-xs font-bold text-role
+    lg:col-span-1;
+}
+
+.project-main {
+  @apply grid gap-3
+    lg:col-span-4;
+}
+
+.project-heading {
+  @apply flex flex-wrap items-center gap-3;
+}
+
+.project-heading h3 {
+  @apply m-0 text-lg font-bold text-dark
+    sm:text-xl;
+}
+
+.project-status {
+  @apply font-mono text-xs font-medium text-role;
+}
+
+.project-tech {
+  @apply flex flex-wrap gap-x-3 gap-y-1;
+}
+
+.project-tech span {
+  @apply font-mono text-xs text-slate;
+}
+
+.project-description {
+  @apply m-0 text-sm leading-relaxed text-slate
+    lg:col-span-5;
+}
+
+.project-link {
+  @apply inline-flex items-center gap-2
+    text-sm font-semibold text-role
+    transition-colors
+    hover:text-dark
+    lg:col-span-2
+    lg:justify-self-end;
+}
+
+/* ============================================================
    Article Content
    ============================================================ */
 
