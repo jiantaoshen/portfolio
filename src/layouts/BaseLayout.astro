@@ -1,12 +1,13 @@
 ---
 import "../styles/global.css";
 
-import Seo from "../components/Seo.astro";
+import Seo from "./Seo.astro";
 
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
-import Analytics from '@vercel/analytics/astro';
-import SpeedInsights from '@vercel/speed-insights/astro';
+
+import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 
 import {
   getTranslations,
@@ -25,12 +26,21 @@ type CommonTranslation = {
 
 interface Props {
   title?: string;
+  description: string;
   lang: Locale;
+
+  image?: string;
+  type?: "website" | "article";
+  noindex?: boolean;
 }
 
 const {
   title = "JIANTAO.dev",
+  description,
   lang,
+  image,
+  type = "website",
+  noindex = false,
 } = Astro.props;
 
 const common =
@@ -38,25 +48,34 @@ const common =
     lang,
     "common",
   );
-
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
 
 <html lang={lang}>
-
   <head>
     <meta charset="UTF-8" />
+
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1"
     />
-    
+
+    <Seo
+      title={title}
+      description={description}
+      image={image}
+      type={type}
+      noindex={noindex}
+    />
+
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/favicon-js.svg"
+    />
+
     <Analytics />
-    <link rel="icon" type="image/svg+xml" href="/favicon-js.svg" />
-    <link rel="canonical" href={canonicalURL}/>
-    <title>{title}</title>
     <SpeedInsights />
   </head>
 
