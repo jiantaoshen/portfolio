@@ -1,40 +1,32 @@
 ---
 lang: sv
-
 title: "Utvecklarportfolio"
-
-description: "En flerspråkig utvecklarportfolio byggd med Astro, TypeScript, Tailwind CSS och ASP.NET Core, med statisk innehållsrendering, projektstudier, ett publikt dashboard i Trial-läge och ett lokalt arbetsflöde för innehållshantering."
-
+description: "En flerspråkig utvecklarportfolio byggd med Astro, React, TypeScript och Tailwind CSS, med statisk innehållsrendering, projektstudier, ett publikt Dashboard i Trial-läge och ett lokalt Content Editor-arbetsflöde som körs i en enda utvecklingsprocess."
 status: "Live"
-
 order: 3
-
 technologies:
   - "Astro"
   - "React"
   - "TypeScript"
   - "Tailwind CSS"
-  - "ASP.NET Core"
   - "Astro Content Collections"
   - "Markdown"
   - "Vercel"
-
 links:
   github: "https://github.com/jiantaoshen/portfolio-dev"
   live: "https://www.jiantao.dev"
-
 draft: false
 ---
 
 ## Översikt
 
-Developer Portfolio är en flerspråkig utvecklarportfolio byggd med Astro, TypeScript, Tailwind CSS och ASP.NET Core.
+Developer Portfolio är en flerspråkig utvecklarportfolio byggd med Astro, React, TypeScript och Tailwind CSS.
 
 Den publika webbplatsen använder Astro för att generera statiska sidor från Markdown- och JSON-innehåll. De engelska, svenska och kinesiska versionerna delar samma applikationsstruktur men använder språkspecifika routes och separat innehåll.
 
 Projektstudier lagras som Markdown genom Astro Content Collections, medan strukturerat profilinnehåll som About, Skills och Education hanteras som flerspråkig JSON.
 
-Projektet innehåller även två dashboard-lägen: ett publikt Trial-gränssnitt för att utforska redigeraren och ett lokalt dashboard med en ASP.NET Core-backend för att hantera portfolions källfiler.
+Projektet innehåller även två Dashboard-lägen: ett publikt Trial-gränssnitt för att utforska Content Editor och ett lokalt Dashboard som är integrerat i Astro/Vite dev server för att hantera portfolions källfiler.
 
 Resultatet är en statisk produktionswebbplats med ett lättviktigt och Git-baserat innehållsflöde i stället för en produktionsdatabas eller ett CMS.
 
@@ -71,18 +63,18 @@ JSON / Markdown
     Vercel
 ```
 
-Astro använder dessa källfiler under byggprocessen för att generera den publika portfolion.
+Astro använder dessa källfiler under build-processen för att generera den publika portfolion.
 
-För innehållshantering lägger projektet till ett React-baserat dashboard ovanpå samma filer.
+För innehållshantering lägger projektet till ett React-baserat Dashboard ovanpå samma filer.
 
-Den publika routen `/trial` erbjuder en sandbox-version av redigeraren där ändringar endast finns i webbläsarens state.
+Den publika routen `/trial` erbjuder en sandbox-version av Content Editor där ändringar endast finns i browser state.
 
-Den lokala routen `/dashboard` ansluter till en ASP.NET Core-backend som direkt kan uppdatera portfolions JSON- och Markdown-filer.
+Den lokala routen `/dashboard` använder development-only middleware i Astro/Vite dev server för att direkt uppdatera portfolions JSON- och Markdown-filer.
 
 ```text
 Dashboard
    ↓
-ASP.NET Core
+Astro / Vite dev middleware
    ↓
 JSON / Markdown
    ↓
@@ -93,13 +85,15 @@ Vercel rebuild
 
 Detta gör att Git kan fortsätta vara den enda källan till sanning samtidigt som innehållet kan hanteras genom ett visuellt redigeringsflöde.
 
+Det förenklar även den lokala utvecklingsmiljön eftersom portfolion, Dashboard och Content Editor middleware körs genom samma `npm run dev`-process.
+
 ## Funktioner
 
 ### Statisk HTML-first-portfolio
 
 Den publika portfolion är byggd med Astro och genereras som statiskt innehåll.
 
-Markdown och JSON omvandlas till sidor under byggprocessen, vilket håller den driftsatta webbplatsen lättviktig och väl anpassad för en portfolio med fokus på utvecklarinformation och tekniska projektstudier.
+Markdown och JSON omvandlas till sidor under build-processen, vilket håller den driftsatta webbplatsen lättviktig och väl anpassad för en portfolio med fokus på utvecklarinformation och tekniska projektstudier.
 
 ### Flerspråkigt stöd
 
@@ -138,7 +132,7 @@ src/
 
 Astro Content Collections används för att validera och hantera Markdown-innehållet.
 
-Frontmatter innehåller strukturerad metadata som projektstatus, tekniker och länkar, medan Markdown innehåller själva projektstudien.
+Frontmatter innehåller strukturerad metadata som projektstatus, technologies och links, medan Markdown innehåller själva projektstudien.
 
 ### Flerspråkigt JSON-innehåll
 
@@ -157,45 +151,47 @@ Detta separerar strukturerad profilinformation från längre projektinnehåll sa
 
 ### Publikt Trial-läge
 
-Portfolion innehåller ett publikt dashboard-sandbox på:
+Portfolion innehåller ett publikt Dashboard sandbox på:
 
 ```text
 /trial
 ```
 
-Besökare kan utforska redigeringsgränssnittet och ändra innehåll direkt i webbläsaren.
+Besökare kan utforska Content Editor-gränssnittet och ändra innehåll direkt i browsern.
 
-Ändringarna finns endast i webbläsarens state och skrivs aldrig till källfilerna.
+Ändringarna finns endast i browser state och skrivs aldrig till källfilerna.
 
 När sidan laddas om återställs Trial-innehållet.
 
 ### Lokalt Content Dashboard
 
-Ett separat lokalt dashboard finns på:
+Ett separat lokalt Dashboard finns på:
 
 ```text
 /dashboard
 ```
 
-Det erbjuder ett React-baserat gränssnitt för att hantera portfolions innehåll under utveckling.
+Det erbjuder ett React-baserat gränssnitt för att hantera portfolions innehåll under development.
 
-Dashboardet stöder flerspråkig innehållshantering och projektredigering.
+Dashboard stöder flerspråkig innehållshantering och projektredigering.
 
-Projektredigeraren har separata vyer för `Edit` och `Preview`, vilket gör det möjligt att kontrollera Markdown-innehållet innan källfilerna uppdateras.
+Project Editor har separata vyer för `Edit` och `Preview`, vilket gör det möjligt att kontrollera Markdown-innehållet innan källfilerna uppdateras.
 
-### ASP.NET Core-backend för innehåll
+### Development-Only Content Editor Middleware
 
-Det lokala dashboardet kommunicerar med en mindre ASP.NET Core-backend.
+Det lokala Dashboard kommunicerar med development-only middleware som registreras i Astro/Vite dev server.
 
-I stället för att lagra innehåll i en databas redigerar backend-tjänsten direkt de JSON- och Markdown-filer som Astro använder.
+I stället för att lagra innehåll i en databas redigerar middleware direkt de JSON- och Markdown-filer som Astro använder.
 
-Backend-tjänsten används endast under lokal utveckling.
+Middleware används endast under local development.
 
-Det innebär att produktionsportfolion inte är beroende av en applikationsserver för att leverera innehåll.
+Content Editor API körs i samma process som Astro/Vite dev server, vilket innebär att ingen separat backend service, port eller proxy behövs.
+
+Production build exponerar inga API:er som kan skriva permanent till portfolions källfiler.
 
 ### Responsivt gränssnitt
 
-Tailwind CSS används för layouten i både portfolion och dashboardet.
+Tailwind CSS används för layouten i både portfolion och Dashboard.
 
 Gränssnittet är utformat för att fungera på både desktop och mindre skärmar samtidigt som återanvändbara stylingmönster delas mellan sidor och komponenter.
 
@@ -215,14 +211,16 @@ Markdown / JSON
    Vercel
 ```
 
-Den driftsatta portfolion läser innehållet under byggprocessen och producerar en statisk webbplats.
+Den driftsatta portfolion läser innehållet under build-processen och producerar en statisk webbplats.
+
+Det publika Trial-läget ingår också i den statiska deploymenten, men ändringar stannar i browser state och skrivs inte tillbaka till repository-filerna.
 
 ### Lokal innehållshantering
 
 ```text
 React Dashboard
        ↓
-ASP.NET Core
+Astro / Vite dev middleware
        ↓
 Markdown / JSON
        ↓
@@ -233,9 +231,9 @@ Markdown / JSON
     Vercel
 ```
 
-Dashboardet fungerar som ett visuellt redigeringslager ovanpå samma källfiler som används av den publika portfolion.
+Dashboard fungerar som ett visuellt redigeringslager ovanpå samma källfiler som används av den publika portfolion.
 
-Det finns ingen separat produktionsdatabas för innehåll.
+Content Editor middleware körs endast under `astro dev` och är inte en del av production architecture.
 
 ## Viktiga beslut
 
@@ -243,17 +241,38 @@ Det finns ingen separat produktionsdatabas för innehåll.
 
 Markdown och JSON fortsätter att vara portfolions enda källa till sanning.
 
-Det håller innehållet tillsammans med applikationskoden och gör att innehållsändringar kan följa samma Git-arbetsflöde som resten av projektet.
+Det håller innehållet tillsammans med applikationskoden och gör att innehållsändringar kan följa samma Git-workflow som resten av projektet.
 
-Det innebär också att Astro kan generera hela webbplatsen direkt från innehållet i repositoryt vid varje build.
+Det innebär också att Astro kan generera hela webbplatsen direkt från innehållet i repository vid varje build.
 
-### Använda en lokal backend
+### Använda Astro/Vite Development Middleware
 
-ASP.NET Core-backenden behövs endast när lokala källfiler ska redigeras.
+Content Editor behöver endast kunna skriva till filer under local development.
 
-Den behöver inte köras som en del av den driftsatta portfolion.
+I stället för att behålla en separat backend application implementeras Editor API som development-only middleware i den befintliga Astro/Vite-processen.
 
-Detta håller produktionsarkitekturen enklare samtidigt som dashboardet kan erbjuda filbaserad innehållshantering under utveckling.
+Det minskar den lokala utvecklingsmiljön från två processer till en:
+
+```text
+Tidigare
+
+Astro / Vite
++
+ASP.NET Core
+```
+
+```text
+Nu
+
+Astro / Vite
+├── Portfolio
+├── Dashboard
+└── Content Editor middleware
+```
+
+Detta behåller den statiska production architecture samtidigt som en onödig lokal runtime, extra port och proxy-konfiguration tas bort.
+
+Middleware behåller fortfarande de viktiga beteendena från den tidigare implementationen, inklusive validation, safe path handling, atomic writes, project rename, locale move, collision protection och file deletion.
 
 ### Separera Trial och lokalt Dashboard
 
@@ -263,15 +282,15 @@ Projektet erbjuder två versioner av redigeringsupplevelsen för olika syften.
 /trial
 ```
 
-är publik och icke-persistent.
+är publik och non-persistent.
 
 ```text
 /dashboard
 ```
 
-är avsedd för lokal utveckling och kan uppdatera det faktiska källinnehållet genom ASP.NET Core.
+är avsedd för local development och kan uppdatera det faktiska källinnehållet genom development-only Content Editor middleware.
 
-Det gör det möjligt att demonstrera dashboardet publikt utan att exponera funktionalitet som kan skriva till källfilerna.
+Det gör det möjligt att demonstrera Dashboard publikt utan att exponera funktionalitet som kan skriva permanent till källfilerna.
 
 ### Använda Markdown och JSON för olika typer av innehåll
 
@@ -303,7 +322,7 @@ Skills
 Projects
 → Vad jag har byggt
 
-Project case studies
+Project Case Studies
 → Hur systemen har designats och utvecklats
 
 GitHub
@@ -317,56 +336,63 @@ Att ta bort bloggen minskar dessutom duplicerat innehåll, översättningsarbete
 
 ## Utveckling
 
-Installera frontend-beroenden:
+Installera frontend dependencies:
 
 ```bash
 npm install
 ```
 
-Starta Astro:
+Starta portfolion och den lokala Content Editor:
 
 ```bash
 npm run dev
 ```
 
-Starta den lokala ASP.NET Core-backenden för innehåll:
-
-```bash
-cd backend/Career.Api
-dotnet run
-```
-
-Standardadresserna lokalt är:
+Development environment körs nu som en enda Astro/Vite-process:
 
 ```text
-Astro:   http://localhost:4321
-Backend: http://127.0.0.1:5080
+Astro / Vite
+├── Portfolio
+├── Dashboard
+└── Content Editor middleware
 ```
 
-## Driftsättning
-
-Den publika portfolion är driftsatt på Vercel.
-
-Astro bygger Markdown- och JSON-innehållet till den statiska webbplatsen, medan ASP.NET Core-tjänsten förblir en del av det lokala utvecklingsflödet.
-
-Innehållsuppdateringar följer ett Git-baserat arbetsflöde:
+Standardadressen lokalt är:
 
 ```text
-Edit content
+http://localhost:4321
+```
+
+Ingen separat backend process behöver startas.
+
+## Deployment
+
+Den publika portfolion är deployad på Vercel.
+
+Astro bygger Markdown- och JSON-innehållet till en statisk webbplats.
+
+Development-only Content Editor middleware ingår inte i production deployment, så den deployade portfolion exponerar inga API:er som kan skriva till repository-filerna.
+
+Det publika Trial-läget är fortfarande tillgängligt i production, men alla ändringar lagras endast i browser state.
+
+Innehållsuppdateringar följer ett Git-baserat workflow:
+
+```text
+Edit content locally
      ↓
 Git commit
      ↓
 Vercel rebuild
 ```
 
-Det gör att den driftsatta webbplatsen kan förbli statisk samtidigt som portfolions innehåll versionshanteras i repositoryt.
+Det gör att den deployade webbplatsen kan förbli statisk samtidigt som portfolions innehåll versionshanteras i repository.
 
 ## Framtida förbättringar
 
-- Förbättra redigering och validering i dashboardet
+- Förbättra redigering och validation i Dashboard
 - Fortsätta utveckla Project Case Studies i takt med att systemen utvecklas
-- Förbättra arkitekturdiagram och projektvisualiseringar
-- Lägga till rikare strukturerad SEO-metadata
-- Fortsätta förbättra tillgängligheten
-- Fortsätta förbättra prestandan
-- Fortsätta förenkla innehållsflödet när underhållskostnaden överstiger det praktiska värdet
+- Förbättra architecture diagrams och project visualizations
+- Lägga till rikare structured SEO metadata
+- Fortsätta förbättra accessibility
+- Fortsätta förbättra performance
+- Fortsätta förenkla content workflow när maintenance cost överstiger det praktiska värdet

@@ -1,8 +1,8 @@
-# Phase 2 — Target Architecture and API Contract
+# Phase 2 — Target Astro Architecture and API Contract
 
 ## Objective
 
-Define the target Next.js architecture and preserve the existing backend behavior before implementation begins.
+Define the target Astro/TypeScript architecture and preserve the existing backend behavior before implementation begins.
 
 The migration should simplify the application architecture without changing the existing content model or user-facing behavior.
 
@@ -17,7 +17,7 @@ The primary principle of this phase is:
 ## Current Architecture
 
 ```text
-Next.js application
+Astro application
         │
         │ HTTP
         ▼
@@ -29,26 +29,35 @@ Repository content files
 └── src/content/projects/
 ```
 
-The current architecture requires two application runtimes:
+The current architecture requires two separate application environments:
 
-* Next.js / Node.js
-* ASP.NET Core / .NET
+* Astro / TypeScript / Node.js
+* ASP.NET Core / C# / .NET
 
 The ASP.NET Core service exists only to provide a small number of development-only content editing operations.
+
+For the current scope of the portfolio, maintaining a separate backend application provides little practical benefit.
 
 ---
 
 ## Target Architecture
 
 ```text
-Next.js application
+Astro application
+│
 ├── UI
-├── Route Handlers
-├── validation
-├── content services
-└── file system utilities
-        │
-        ▼
+│
+├── server endpoints
+│
+└── backend/
+    └── content-editor/
+        ├── environment protection
+        ├── validation
+        ├── path safety
+        ├── content services
+        └── file-system utilities
+                │
+                ▼
 Repository content files
 ├── src/i18n/locales/
 └── src/content/projects/
@@ -57,6 +66,10 @@ Repository content files
 The separate ASP.NET Core application will be removed after migration and validation are complete.
 
 The existing source-file-based content model will remain unchanged.
+
+Astro will not be used as a new general-purpose backend platform.
+
+Instead, its server-side capabilities will host the small amount of local functionality already required by the application.
 
 ---
 
@@ -77,10 +90,16 @@ This includes:
 * supported locales
 * generated JSON structure
 * generated Markdown structure
+* Markdown frontmatter
 * file naming
 * content paths
 * update behavior
 * delete behavior
+* error behavior where the existing frontend depends on it
+
+The first Astro implementation should prioritize behavioral equivalence with the ASP.NET Core implementation.
+
+Improvements can be made separately after the migration is complete.
 
 ---
 
@@ -88,76 +107,86 @@ This includes:
 
 The application does not require a general-purpose backend architecture.
 
-The Next.js implementation should therefore avoid unnecessary abstractions such as:
+The Astro/TypeScript implementation should therefore avoid unnecessary abstractions such as:
 
-* additional backend services
+* an additional backend application
 * microservices
 * databases
 * message queues
 * background workers
-* repository layers that provide no practical benefit
-* complex dependency injection frameworks
+* unnecessary repository layers
+* complex dependency injection systems
+* a separate Node.js API server
+* an additional application framework
 
-The implementation should remain small and easy to understand.
+The implementation should remain small, explicit, and easy to understand.
 
 ---
 
 ## 3. Separate HTTP Handling from Content Logic
 
-Route Handlers should remain thin.
+Astro API endpoints should remain thin.
 
 They should primarily:
 
-1. receive requests
-2. parse input
-3. call validation
-4. call the appropriate content service
-5. return the HTTP response
+1. receive the request
+2. verify that local editing is enabled
+3. parse input
+4. call validation
+5. call the appropriate content service
+6. convert known errors into HTTP responses
+7. return the response
 
-Business and file-system logic should not be concentrated inside `route.ts`.
+Business logic and file-system operations should not be concentrated inside endpoint files.
 
-Example:
+Conceptually:
 
 ```text
 Request
    ↓
-Route Handler
+Astro API Endpoint
+   ↓
+Environment Guard
    ↓
 Validation
    ↓
 Content Service
    ↓
+Safe Path Resolution
+   ↓
 File System
 ```
 
+This keeps HTTP-specific code separate from reusable content-editing logic.
+
 ---
 
-# Proposed Next.js Structure
+# Proposed Astro Structure
 
 A possible target structure is:
 
 ```text
 src/
-├── app/
+├── pages/
 │   └── api/
-│       ├── local/
-│       │   ├── about/
-│       │   │   └── [locale]/
-│       │   │       └── route.ts
-│       │   │
-│       │   └── projects/
-│       │       └── route.ts
+│       ├── health.ts
 │       │
-│       └── health/
-│           └── route.ts
+│       └── local/
+│           ├── about/
+│           │   └── [locale].ts
+│           │
+│           └── projects.ts
 │
-├── lib/
-│   └── content-editor/
-│       ├── about.ts
-│       ├── projects.ts
-│       ├── validation.ts
-│       ├── paths.ts
-│       └── file-system.ts
+├── backend/
+│   └── lib/
+│       └── content-editor/
+│           ├── environment.ts
+│           ├── validation.ts
+│           ├── paths.ts
+│           ├── file-system.ts
+│           ├── errors.ts
+│           ├── about.ts
+│           └── projects.ts
 │
 ├── content/
 │   └── projects/
@@ -166,35 +195,72 @@ src/
     └── locales/
 ```
 
-The exact folder names may change during implementation, but responsibilities should remain separated.
+The exact folder names may change during implementation.
+
+The important requirement is that responsibilities remain separated.
+
+### Endpoint Layer
+
+```text
+src/pages/api/
+```
+
+Responsible for:
+
+* HTTP methods
+* request parsing
+* response generation
+* translating content-editor errors into HTTP responses
+
+### Content Editor Layer
+
+```text
+src/backend/lib/content-editor/
+```
+
+Responsible for:
+
+* validation
+* environment restrictions
+* path safety
+* content serialization
+* Markdown generation
+* JSON generation
+* file writing
+* file deletion
+* content-specific behavior
 
 ---
 
 # API Contract
 
-The existing API behavior will initially be preserved to minimize migration risk.
+The existing API behavior should initially be preserved to minimize migration risk.
 
-The frontend should not need unnecessary changes simply because the implementation moves from ASP.NET Core to Next.js.
+The frontend should not require unnecessary changes simply because the implementation moves from ASP.NET Core into Astro.
+
+The existing routes should therefore remain compatible wherever practical.
 
 ---
 
-## Health Endpoint
+# Health Endpoint
 
-### Request
+## Request
 
 ```http
 GET /api/health
 ```
 
-### Responsibility
+## Responsibility
 
-Confirm that the local content editing API is available.
+Confirm that the local server functionality is available.
 
-### Expected Result
+## Expected Result
 
-Successful requests should return an HTTP `200` response.
+A successful request should return HTTP `200`.
 
-The exact response format should remain compatible with the existing implementation where required.
+The response body should remain compatible with the existing ASP.NET Core implementation where the current application depends on it.
+
+No content file should be read, written, or deleted by this endpoint.
 
 ---
 
@@ -214,29 +280,43 @@ sv
 zh
 ```
 
-### Responsibilities
+The Astro route may internally represent the dynamic parameter as:
 
-The Next.js implementation must:
+```text
+/api/local/about/[locale]
+```
 
+while preserving the externally visible URL behavior.
+
+## Responsibilities
+
+The Astro/TypeScript implementation must:
+
+* verify that local content editing is enabled
 * validate the locale
 * validate the request body
 * reject unsupported locales
-* serialize the content correctly
+* serialize content correctly
 * update the correct localized JSON file
-* prevent writing outside the expected content directory
+* use safe path resolution
+* prevent writes outside the permitted locale directory
+* preserve the existing JSON format
+* use safe file writing
 
 ---
 
-## About Flow
+# About Flow
 
 ```text
 PUT /api/local/about/{locale}
         ↓
 validate environment
         ↓
+parse locale
+        ↓
 validate locale
         ↓
-parse request
+parse request body
         ↓
 validate content
         ↓
@@ -244,10 +324,12 @@ resolve safe file path
         ↓
 serialize JSON
         ↓
-write file
+atomic file write
         ↓
 return response
 ```
+
+No file operation should occur before the environment and input checks have passed.
 
 ---
 
@@ -259,27 +341,32 @@ return response
 PUT /api/local/projects
 ```
 
-The Next.js implementation must preserve the current project editing behavior.
+The Astro implementation must preserve the current project editing behavior.
 
-### Responsibilities
+## Responsibilities
 
+The implementation must:
+
+* verify that local editing is enabled
 * validate request data
 * validate locale
-* validate slug
-* validate project URLs
-* determine project content path
+* validate and normalize the project slug
+* validate GitHub and live URLs
+* determine the project content path
 * prevent unsafe paths
+* prevent path traversal
 * prevent duplicate destination paths
 * generate compatible Markdown
 * generate compatible frontmatter
 * create new project files
 * update existing project files
-* remove the previous file when a slug changes
-* remove the previous file when a locale change changes the path
+* safely replace existing content
+* remove the previous file when the slug changes
+* remove the previous file when a locale change changes the file path
 
 ---
 
-## Project Update Flow
+# Project Update Flow
 
 ```text
 PUT /api/local/projects
@@ -290,20 +377,28 @@ parse request
         ↓
 validate project
         ↓
+normalize slug
+        ↓
 resolve original path
         ↓
 resolve target path
+        ↓
+verify safe paths
         ↓
 check target conflict
         ↓
 generate Markdown
         ↓
-write target file
+atomic write to target file
         ↓
 remove old file if path changed
         ↓
 return response
 ```
+
+The old file should only be removed after the new content has been written successfully.
+
+This reduces the risk of losing project content during an update.
 
 ---
 
@@ -315,18 +410,23 @@ return response
 DELETE /api/local/projects
 ```
 
-### Responsibilities
+## Responsibilities
 
-* validate the request
-* resolve the requested project path
+The implementation must:
+
+* verify that local editing is enabled
+* parse and validate the request
+* validate or normalize the requested project path
+* resolve the requested file path
 * verify that the path belongs to the allowed project directory
 * prevent path traversal
-* delete the project source file
-* return an appropriate result if the file does not exist
+* delete the requested project source file safely
+* handle a missing file predictably
+* return an appropriate HTTP response
 
 ---
 
-## Delete Flow
+# Delete Flow
 
 ```text
 DELETE /api/local/projects
@@ -339,9 +439,9 @@ validate input
         ↓
 resolve safe path
         ↓
-verify allowed directory
+verify allowed project root
         ↓
-delete file
+delete file if it exists
         ↓
 return response
 ```
@@ -350,9 +450,11 @@ return response
 
 # Validation Contract
 
-Existing validation rules should be treated as part of the migration contract.
+Existing validation behavior should be treated as part of the migration contract.
 
-They should not be weakened simply because the implementation language changes.
+Validation must not be weakened simply because the implementation language changes from C# to TypeScript.
+
+---
 
 ## Supported Locales
 
@@ -366,117 +468,247 @@ zh
 
 should be accepted.
 
+Unsupported locale values must be rejected.
+
+The supported locale definitions should be centralized rather than duplicated across endpoints.
+
 ---
 
-## Slugs
+## Project Slugs
 
-Project slugs must continue to follow the existing accepted format.
+Project slugs must continue to follow the behavior of the existing ASP.NET Core implementation.
 
-Examples of invalid values should remain rejected.
+The migration should preserve existing slug normalization behavior, including where applicable:
 
-The implementation must not allow path traversal through values such as:
+* trimming surrounding whitespace
+* normalizing path separators
+* removing unnecessary leading or trailing separators
+* handling an optional `.md` suffix
+* preserving supported nested slug segments
+
+Unsafe path segments must be rejected.
+
+Examples include:
+
+```text
+.
+..
+```
+
+and traversal attempts such as:
 
 ```text
 ../
 ../../
+project/../../../secret
 ```
+
+Slug validation is the first layer of protection.
+
+Final path safety must still be verified independently.
 
 ---
 
-## URLs
+# URLs
 
-Where provided, project URLs should continue to be validated.
+Where provided, project URLs must continue to be validated.
 
 This includes fields such as:
 
 * GitHub URL
 * live project URL
 
-Malformed URLs should be rejected rather than written directly into content files.
+The existing behavior should be preserved:
+
+```text
+empty value
+→ allowed when optional
+
+absolute http:// URL
+→ allowed
+
+absolute https:// URL
+→ allowed
+
+relative URL
+→ rejected
+
+ftp://
+→ rejected
+
+file://
+→ rejected
+
+javascript:
+→ rejected
+```
+
+Malformed or unsupported URLs must not be written directly into project content.
 
 ---
 
 # File-System Safety
 
-The Next.js implementation will interact directly with repository files.
+The Astro content editor will interact directly with repository files.
 
-File-system safety is therefore a required part of the migration.
+File-system safety is therefore a required architectural boundary.
 
 All resolved paths must remain inside explicitly permitted directories.
 
 Conceptually:
 
 ```text
-requested path
-      ↓
-resolve absolute path
-      ↓
-verify allowed root
-      ↓
-perform operation
+requested relative path
+        ↓
+resolve absolute target
+        ↓
+compare target against allowed root
+        ↓
+reject if target escapes root
+        ↓
+perform file operation
 ```
 
-A request must never be able to escape:
+For project content, a request must never escape:
 
 ```text
 src/content/projects/
 ```
 
-or the intended locale content directories.
+For localized content, a request must never escape the intended locale content directory.
+
+Path safety must not depend exclusively on earlier input validation.
+
+The implementation should use defense in depth:
+
+```text
+Input Validation
+        ↓
+Slug / Locale Validation
+        ↓
+Safe Path Resolution
+        ↓
+File-System Operation
+```
 
 ---
 
 # Atomic Writes
 
-Where the existing backend uses safe or atomic file replacement behavior, the Next.js implementation should preserve equivalent protection.
+The existing ASP.NET Core backend uses temporary-file replacement to reduce the risk of leaving partially written content.
 
-A file should not be left partially written if an operation fails during the write process.
+The Astro/TypeScript implementation should preserve equivalent protection.
 
-A possible approach is:
+The expected flow is:
 
 ```text
+target content
+      ↓
 write temporary file
-        ↓
-successful write
-        ↓
+      ↓
+verify write succeeds
+      ↓
 replace target file
+      ↓
+remove temporary file
 ```
 
-The exact implementation will be decided during the migration phase.
+If an operation fails, temporary files should be cleaned up where possible.
+
+Both new-file creation and replacement of existing files must be tested.
+
+---
+
+# Safe File Deletion
+
+File deletion should be implemented through a small reusable file-system helper.
+
+Expected behavior:
+
+```text
+existing file
+→ delete
+→ report success
+
+missing file
+→ no destructive side effect
+→ report that the file did not exist
+
+unexpected file-system error
+→ propagate error
+```
+
+Path validation must happen before the delete helper is called.
+
+The deletion helper should not independently accept or interpret untrusted relative paths.
 
 ---
 
 # Development-Only Constraint
 
-The current backend is intentionally a local development tool.
+The existing backend is intentionally a local development tool.
 
-The Next.js replacement must preserve this architectural boundary.
+The Astro replacement must preserve this architectural boundary.
 
-The editing endpoints must not become publicly usable production endpoints.
+Content editing must not become a publicly usable production capability.
 
 Target behavior:
 
 ```text
-Development
-    ↓
+Local development
++
+content editor explicitly enabled
+        ↓
 content editing available
+```
 
+```text
 Production
-    ↓
+        ↓
 content editing disabled
 ```
 
-A production request to these editing operations should fail before any file operation is attempted.
+and ideally:
+
+```text
+Local development
++
+content editor not explicitly enabled
+        ↓
+content editing disabled
+```
+
+The system should fail closed.
+
+A request must be rejected before any write or delete operation is attempted if local editing is not allowed.
+
+---
+
+# Environment Configuration
+
+The local editor should use an explicit configuration switch.
+
+Example:
+
+```env
+LOCAL_CONTENT_EDITOR_ENABLED=true
+```
+
+This variable should only be enabled in the intended local development environment.
+
+Production should not enable it.
+
+Environment restrictions and endpoint behavior should be tested independently from content logic.
 
 ---
 
 # Vercel Consideration
 
-The production Vercel deployment should not be used as persistent storage for these source files.
+The production Vercel deployment must not be treated as persistent storage for repository content files.
 
-The source content belongs to the repository.
+The content belongs to the Git repository.
 
-Therefore:
+The intended lifecycle remains:
 
 ```text
 Local editing
@@ -485,33 +717,38 @@ Repository source files
       ↓
 Git commit
       ↓
-Vercel deployment
+Git push
+      ↓
+Vercel build and deployment
 ```
-
-is the intended content lifecycle.
 
 Not:
 
 ```text
 Vercel runtime
       ↓
-modify deployed source files
+modify deployed repository files
+      ↓
+treat runtime file system as persistent content storage
 ```
+
+The Astro server-side implementation exists to support the local development workflow.
+
+It is not intended to turn the deployed portfolio into a production CMS.
 
 ---
 
 # Error Handling
 
-The migration should use predictable HTTP status codes.
+The migration should use predictable application errors and HTTP status codes.
+
+The content-editor layer should define reusable errors independently from Astro HTTP response handling.
 
 Examples:
 
 ```text
-200 / 204
-successful operation
-
 400
-invalid input
+invalid request or validation failure
 
 404
 requested content does not exist
@@ -523,7 +760,26 @@ target project path already exists
 unexpected internal error
 ```
 
-The exact existing behavior should be preserved where the frontend currently depends on it.
+Conceptually:
+
+```text
+Content Service
+      ↓
+ContentEditorError
+      ↓
+Astro Endpoint
+      ↓
+HTTP Response
+```
+
+Known application errors may safely return their intended message.
+
+Unexpected internal errors should:
+
+* be logged server-side
+* return a generic client-facing message
+* avoid exposing local absolute paths
+* avoid exposing internal implementation details
 
 ---
 
@@ -531,17 +787,76 @@ The exact existing behavior should be preserved where the frontend currently dep
 
 Only lightweight logging is required.
 
-Useful events include:
+Useful events may include:
 
-* content update succeeded
+* About content updated
 * project created
 * project updated
 * project deleted
 * validation failed
 * unsafe path rejected
+* duplicate project path detected
 * file operation failed
 
-Sensitive or unnecessary request data should not be logged.
+Logging should remain proportional to the size and purpose of the project.
+
+Sensitive or unnecessary request information should not be logged.
+
+---
+
+# Testing Strategy
+
+The migration should introduce focused automated tests for the parts of the system where regressions could corrupt content or weaken file-system safety.
+
+Vitest will be used for the TypeScript content-editor utilities.
+
+Priority areas include:
+
+## Validation
+
+* supported locales
+* unsupported locales
+* slug normalization
+* unsafe slug rejection
+* valid HTTP/HTTPS URLs
+* invalid URL rejection
+
+## Path Safety
+
+* valid project paths
+* valid nested paths
+* parent-directory traversal
+* deep traversal attempts
+* traversal after apparently valid path segments
+
+## File Operations
+
+* writing a new file
+* replacing an existing file
+* temporary file cleanup
+* deleting an existing file
+* handling a missing file
+
+## Environment Protection
+
+* explicitly enabled local editing
+* disabled local editing
+* production rejection
+
+## Content Behavior
+
+Later migration phases should add tests for:
+
+* About JSON generation
+* Project Markdown generation
+* frontmatter compatibility
+* project path changes
+* duplicate target handling
+* file cleanup after project moves
+
+Automated file-system tests must use temporary test directories.
+
+They must not modify or delete real portfolio content.
 
 ---
 
@@ -552,52 +867,76 @@ Phase 2 does not introduce:
 * a database
 * authentication
 * cloud content storage
-* a full CMS
+* a production CMS
+* a separate Node.js backend server
+* Next.js
+* another frontend framework
 * new portfolio features
 * UI redesign
 * Blog functionality
 * production content editing
 * major changes to the existing Markdown schema
 
-These can be evaluated separately if they are ever required.
+These can be evaluated independently if future requirements justify them.
 
 ---
 
 # Migration Order
 
-The implementation phase should proceed in the following order:
+The implementation should proceed incrementally.
+
+Recommended order:
 
 ```text
-1. shared environment guard
+1. development-only environment guard
         ↓
-2. path and validation utilities
+2. shared locale validation
         ↓
-3. file-system utilities
+3. project slug validation / normalization
         ↓
-4. health endpoint
+4. URL validation
         ↓
-5. About editing
+5. centralized content root paths
         ↓
-6. Project creation/update
+6. safe path resolution
         ↓
-7. Project deletion
+7. path traversal tests
         ↓
-8. behavior comparison
+8. atomic file writing
         ↓
-9. tests
+9. safe file deletion
+        ↓
+10. shared content-editor errors
+        ↓
+11. Astro health endpoint
+        ↓
+12. About editing
+        ↓
+13. Project create/update
+        ↓
+14. Project deletion
+        ↓
+15. behavior comparison with ASP.NET Core
+        ↓
+16. stabilization
+        ↓
+17. legacy .NET removal
 ```
 
-Low-risk functionality should be migrated before more destructive file operations.
+Low-risk and reusable infrastructure should be implemented before destructive content-editing operations.
+
+The existing ASP.NET Core backend should remain available as the reference implementation until behavioral compatibility has been verified.
 
 ---
 
 # Compatibility Checklist
 
-Before implementation begins, the following contract is considered frozen.
+Before migrating the actual content endpoints, the following contract is considered frozen.
 
 ## Environment
 
 * content editing remains development-only
+* editing must be explicitly enabled
 * production cannot modify repository source files
 
 ## About
@@ -606,6 +945,7 @@ Before implementation begins, the following contract is considered frozen.
 * `sv` remains supported
 * `zh` remains supported
 * existing JSON structure remains compatible
+* existing content location remains compatible
 
 ## Projects
 
@@ -617,14 +957,23 @@ Before implementation begins, the following contract is considered frozen.
 * slug changes remain supported
 * locale changes remain supported
 * old files are removed when paths change
+* duplicate destination paths remain rejected
 
 ## Validation
 
 * invalid locale is rejected
-* invalid slug is rejected
+* invalid slug/path segments are rejected
 * invalid URL is rejected
 * duplicate target path is rejected
 * path traversal is rejected
+
+## File System
+
+* valid writes remain inside allowed content roots
+* file replacement is safe
+* missing files are handled predictably
+* temporary files are cleaned up
+* automated tests never modify production portfolio content
 
 ---
 
@@ -632,13 +981,18 @@ Before implementation begins, the following contract is considered frozen.
 
 Phase 2 is complete when:
 
-* the target Next.js architecture is documented
-* responsibilities between Route Handlers and content services are defined
+* the target Astro/TypeScript architecture is documented
+* the standalone ASP.NET Core boundary has a defined replacement
+* responsibilities between Astro API endpoints and content services are defined
 * existing API contracts are documented
 * validation requirements are frozen
-* source-file behavior is documented
+* safe path requirements are defined
+* file-write behavior is documented
+* file-delete behavior is documented
 * development-only restrictions are defined
-* production file-editing behavior is explicitly prohibited
+* production file editing is explicitly prohibited
+* the intended Vercel content lifecycle is documented
+* the automated testing strategy is defined
 * the migration implementation order is agreed upon
 
-After these conditions are satisfied, implementation can begin in Phase 3.
+After these conditions are satisfied, implementation can proceed through Phase 3.

@@ -1,40 +1,32 @@
 ---
 lang: zh
-
 title: "开发者作品集"
-
-description: "一个使用 Astro、TypeScript、Tailwind CSS 和 ASP.NET Core 构建的多语言开发者作品集，采用静态内容渲染、项目案例展示、公开 Dashboard 试用模式和本地内容管理工作流。"
-
+description: "一个使用 Astro、React、TypeScript 和 Tailwind CSS 构建的多语言开发者作品集，采用静态内容渲染、项目案例展示、公开 Dashboard 试用模式和单进程本地内容管理工作流。"
 status: "Live"
-
 order: 3
-
 technologies:
   - "Astro"
   - "React"
   - "TypeScript"
   - "Tailwind CSS"
-  - "ASP.NET Core"
   - "Astro Content Collections"
   - "Markdown"
   - "Vercel"
-
 links:
   github: "https://github.com/jiantaoshen/portfolio-dev"
   live: "https://www.jiantao.dev"
-
 draft: false
 ---
 
 ## 概述
 
-Developer Portfolio 是一个使用 Astro、TypeScript、Tailwind CSS 和 ASP.NET Core 构建的多语言开发者作品集。
+Developer Portfolio 是一个使用 Astro、React、TypeScript 和 Tailwind CSS 构建的多语言开发者作品集。
 
 公开网站使用 Astro 根据 Markdown 和 JSON 内容生成静态页面。英语、瑞典语和中文版本共享同一套应用结构，同时使用各自独立的语言路由和内容。
 
 项目案例通过 Astro Content Collections 以 Markdown 形式存储，而 About、Skills 和 Education 等结构化个人资料内容则使用多语言 JSON 维护。
 
-该项目还包含两种 Dashboard 模式：一个用于体验编辑器的公开 Trial 界面，以及一个由 ASP.NET Core 后端支持、用于管理作品集源文件的本地 Dashboard。
+该项目还包含两种 Dashboard 模式：一个用于体验编辑器的公开 Trial 界面，以及一个集成到 Astro 开发服务器中、用于管理作品集源文件的本地 Dashboard。
 
 最终形成的是一个静态生产网站，通过轻量级、基于 Git 的内容工作流进行管理，而不需要生产环境数据库或 CMS。
 
@@ -77,12 +69,12 @@ Astro 在构建过程中读取这些源文件，并生成公开作品集。
 
 公开的 `/trial` 路由提供一个沙盒版本的编辑器，其中的修改只存在于浏览器状态中。
 
-本地的 `/dashboard` 路由则连接到 ASP.NET Core 后端，可以直接更新作品集中的 JSON 和 Markdown 文件。
+本地的 `/dashboard` 路由通过 Astro/Vite 开发服务器中的 development-only middleware 直接更新作品集中的 JSON 和 Markdown 文件。
 
 ```text
 Dashboard
    ↓
-ASP.NET Core
+Astro / Vite dev middleware
    ↓
 JSON / Markdown
    ↓
@@ -92,6 +84,8 @@ Vercel rebuild
 ```
 
 这种方式让 Git 继续作为内容的唯一事实来源，同时提供可视化的内容编辑工作流。
+
+它也简化了本地开发环境：作品集、Dashboard 和内容编辑 middleware 都通过同一个 `npm run dev` 进程运行。
 
 ## 功能
 
@@ -183,15 +177,17 @@ Dashboard 支持多语言内容管理和项目编辑。
 
 Project 编辑器提供独立的 `Edit` 和 `Preview` 视图，因此可以在更新源文件之前先检查 Markdown 的最终显示效果。
 
-### ASP.NET Core 内容后端
+### Development-Only 内容编辑 Middleware
 
-本地 Dashboard 与一个轻量级 ASP.NET Core 后端通信。
+本地 Dashboard 与注册在 Astro/Vite 开发服务器中的 development-only middleware 通信。
 
-后端不使用数据库，而是直接编辑 Astro 所使用的 JSON 和 Markdown 文件。
+它不使用数据库，而是直接编辑 Astro 所使用的 JSON 和 Markdown 文件。
 
-该后端只在本地开发环境中使用。
+该 middleware 只在本地开发环境中运行。
 
-因此，生产环境中的作品集不依赖应用服务器来提供内容。
+内容编辑 API 与 Astro 开发服务器运行在同一个进程中，因此不再需要单独的后端服务、端口或代理配置。
+
+生产构建不会暴露能够持久化写入源文件的 API。
 
 ### 响应式界面
 
@@ -217,12 +213,14 @@ Markdown / JSON
 
 部署后的作品集在构建过程中读取内容，并生成完全静态的网站。
 
+公开 Trial 同样包含在静态部署中，但其中的修改只保留在浏览器状态中，不会写回仓库文件。
+
 ### 本地内容管理
 
 ```text
 React Dashboard
        ↓
-ASP.NET Core
+Astro / Vite dev middleware
        ↓
 Markdown / JSON
        ↓
@@ -235,7 +233,7 @@ Markdown / JSON
 
 Dashboard 作为公开网站所使用的相同源文件之上的可视化编辑层。
 
-项目没有独立的生产内容数据库。
+内容编辑 middleware 只在 `astro dev` 期间运行，不属于生产环境的服务器架构。
 
 ## 关键决策
 
@@ -247,13 +245,34 @@ Markdown 和 JSON 继续作为作品集内容的唯一事实来源。
 
 同时，Astro 可以在每次构建时直接根据仓库中的内容生成完整网站。
 
-### 使用本地后端
+### 使用 Astro/Vite Development Middleware
 
-ASP.NET Core 后端只在需要编辑本地源文件时使用。
+内容编辑器只需要在本地开发时拥有文件写入能力。
 
-它不需要作为部署后作品集的一部分运行。
+因此，与其继续维护一个独立的后端应用，编辑器 API 被实现为现有 Astro/Vite 进程中的 development-only middleware。
 
-这样可以保持生产架构简单，同时仍然允许 Dashboard 在开发过程中提供基于文件的内容管理能力。
+这将本地开发环境从两个进程减少为一个：
+
+```text
+迁移前
+
+Astro / Vite
++
+ASP.NET Core
+```
+
+```text
+迁移后
+
+Astro / Vite
+├── Portfolio
+├── Dashboard
+└── Local content editor middleware
+```
+
+这样既保持了生产环境的静态架构，也移除了不再需要的本地运行时、额外端口和代理配置。
+
+新的 middleware 仍然保留了旧实现中的重要内容管理行为，包括内容验证、安全路径处理、原子写入、项目重命名、语言移动、目标文件冲突保护和文件删除。
 
 ### 分离 Trial 和本地 Dashboard 模式
 
@@ -269,9 +288,9 @@ ASP.NET Core 后端只在需要编辑本地源文件时使用。
 /dashboard
 ```
 
-则用于本地开发，并且可以通过 ASP.NET Core 更新真实的源内容。
+则用于本地开发，并且可以通过 development-only content editor middleware 更新真实的源内容。
 
-这样既可以公开展示 Dashboard，又不需要暴露任何能够写入源文件的功能。
+这样既可以公开展示 Dashboard，又不需要暴露任何能够持久化写入源文件的功能。
 
 ### 为不同内容类型使用 Markdown 和 JSON
 
@@ -323,36 +342,43 @@ LinkedIn
 npm install
 ```
 
-启动 Astro：
+启动作品集和本地内容编辑器：
 
 ```bash
 npm run dev
 ```
 
-启动本地 ASP.NET Core 内容后端：
+开发环境现在只运行一个 Astro/Vite 进程：
 
-```bash
-cd backend/Career.Api
-dotnet run
+```text
+Astro / Vite
+├── Portfolio
+├── Dashboard
+└── Local content editor middleware
 ```
 
 默认本地地址：
 
 ```text
-Astro:   http://localhost:4321
-Backend: http://127.0.0.1:5080
+http://localhost:4321
 ```
+
+不再需要启动单独的后端进程。
 
 ## 部署
 
 公开作品集部署在 Vercel。
 
-Astro 将 Markdown 和 JSON 内容构建为静态网站，而 ASP.NET Core 服务仍然只属于本地开发工作流。
+Astro 将 Markdown 和 JSON 内容构建为静态网站。
+
+development-only content editor middleware 不属于生产部署，因此部署后的作品集不会暴露能够写入仓库源文件的 API。
+
+公开 Trial 仍然可以在生产环境中使用，但所有修改都只保留在浏览器状态中。
 
 内容更新遵循基于 Git 的流程：
 
 ```text
-Edit content
+本地编辑内容
      ↓
 Git commit
      ↓
