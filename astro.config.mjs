@@ -16,15 +16,6 @@ export default defineConfig({
     build: {
       inlineStylesheets: "always",
     },
-
-    server: {
-      proxy: {
-        "/api/local": {
-          target: "http://localhost:5080",
-          changeOrigin: true,
-        },
-      },
-    },
   },
 
   site: "https://www.jiantao.dev",
