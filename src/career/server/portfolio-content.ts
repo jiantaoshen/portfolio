@@ -11,11 +11,6 @@ function entryIdentity(id: string, fallbackLang: Locale) {
   return { clean, language, slug }
 }
 
-function dateOnly(value: Date | string) {
-  if (value instanceof Date) return value.toISOString().slice(0, 10)
-  return new Date(value).toISOString().slice(0, 10)
-}
-
 export async function getPortfolioContent(): Promise<PortfolioContent> {
   const [projectEntries] = await Promise.all([
     getCollection("projects"),

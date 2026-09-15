@@ -7,7 +7,6 @@
   },
   "skills": {
     "title": "Kompetens",
-    "description": "Taggar med stjärna indikerar de teknologier jag studerar på djupet.",
     "items": [
       {
         "title": "Frontend",
@@ -61,7 +60,6 @@
   },
   "education": {
     "title": "Utbildning och lärande",
-    "description": "Min akademiska bakgrund, yrkesutbildning och kompletterande studier.",
     "items": [
       {
         "period": "Mars 2026 – pågående",

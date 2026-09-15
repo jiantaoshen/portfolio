@@ -7,7 +7,6 @@
   },
   "skills": {
     "title": "技术能力",
-    "description": "带星号的标签表示我正在深入学习的技术。",
     "items": [
       {
         "title": "前端",
@@ -62,7 +61,6 @@
   },
   "education": {
     "title": "教育与学习经历",
-    "description": "我的学术背景、职业培训以及持续学习经历。",
     "items": [
       {
         "period": "2026年3月 – 至今",

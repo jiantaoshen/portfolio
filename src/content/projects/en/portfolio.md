@@ -1,40 +1,32 @@
 ---
 lang: en
-
 title: "Developer Portfolio"
-
-description: "A multilingual developer portfolio built with Astro, TypeScript, Tailwind CSS and ASP.NET Core, with static content rendering, project case studies, a public dashboard trial and a local content management workflow."
-
+description: "A multilingual developer portfolio built with Astro, React, TypeScript and Tailwind CSS, with static content rendering, project case studies, a public dashboard trial and a single-process local content management workflow."
 status: "Live"
-
 order: 3
-
 technologies:
   - "Astro"
   - "React"
   - "TypeScript"
   - "Tailwind CSS"
-  - "ASP.NET Core"
   - "Astro Content Collections"
   - "Markdown"
   - "Vercel"
-
 links:
   github: "https://github.com/jiantaoshen/portfolio-dev"
   live: "https://www.jiantao.dev"
-
 draft: false
 ---
 
 ## Overview
 
-Developer Portfolio is a multilingual portfolio built with Astro, TypeScript, Tailwind CSS and ASP.NET Core.
+Developer Portfolio is a multilingual portfolio built with Astro, React, TypeScript and Tailwind CSS.
 
 The public site uses Astro to generate static pages from Markdown and JSON content. English, Swedish and Chinese versions share the same application structure while using language-specific routes and content.
 
 Project case studies are stored as Markdown through Astro Content Collections, while structured profile content such as About, Skills and Education is maintained as multilingual JSON.
 
-The project also includes two dashboard modes: a public Trial interface for exploring the editor and a local dashboard backed by ASP.NET Core for managing portfolio source files.
+The project also includes two dashboard modes: a public Trial interface for exploring the editor and a local dashboard integrated into the Astro development server for managing portfolio source files.
 
 The result is a static production site with a lightweight Git-based content workflow instead of a production database or CMS.
 
@@ -77,12 +69,12 @@ For content management, the project adds a React-based dashboard on top of the s
 
 The public `/trial` route provides a sandbox version of the editor where changes only exist in browser state.
 
-The local `/dashboard` route connects to an ASP.NET Core backend that can directly update the portfolio's JSON and Markdown files.
+The local `/dashboard` route uses development-only middleware inside the Astro/Vite development server to update the portfolio's JSON and Markdown files.
 
 ```text
 Dashboard
    ↓
-ASP.NET Core
+Astro / Vite dev middleware
    ↓
 JSON / Markdown
    ↓
@@ -92,6 +84,8 @@ Vercel rebuild
 ```
 
 This keeps Git as the source of truth while still providing a visual content editing workflow.
+
+It also keeps the local development environment simple: the portfolio, dashboard and content editor middleware all run through the same `npm run dev` process.
 
 ## Features
 
@@ -183,15 +177,17 @@ The dashboard supports multilingual content management and project editing.
 
 The Project editor includes separate `Edit` and `Preview` views, making it possible to review Markdown content before updating the source files.
 
-### ASP.NET Core Content Backend
+### Development-Only Content Editor Middleware
 
-The local dashboard communicates with a small ASP.NET Core backend.
+The local dashboard communicates with development-only middleware registered inside the Astro/Vite development server.
 
-Instead of storing content in a database, the backend directly edits the JSON and Markdown files used by Astro.
+Instead of storing content in a database, the middleware directly edits the JSON and Markdown files used by Astro.
 
-The backend is used only during local development.
+The middleware is only available during local development.
 
-This means the production portfolio does not depend on an application server for serving its content.
+It handles the local content editor API inside the same process as the Astro development server, so no separate backend service or port is required.
+
+The production build does not expose persistent file-writing APIs.
 
 ### Responsive Interface
 
@@ -217,12 +213,14 @@ Markdown / JSON
 
 The deployed portfolio reads its content during the build process and produces a static site.
 
+The public Trial is included in the static deployment, but its changes remain browser-only and are not written back to repository files.
+
 ### Local Content Management
 
 ```text
 React Dashboard
        ↓
-ASP.NET Core
+Astro / Vite dev middleware
        ↓
 Markdown / JSON
        ↓
@@ -235,6 +233,8 @@ Markdown / JSON
 
 The dashboard acts as a visual editing layer over the same source files used by the public portfolio.
 
+The content editor middleware runs only during `astro dev` and is not part of the production server architecture.
+
 ## Key Decisions
 
 ### Keeping Content in Git
@@ -245,13 +245,34 @@ This keeps content together with the application code and allows changes to foll
 
 It also means Astro can generate the entire site directly from repository content during each build.
 
-### Using a Local Backend
+### Using Astro/Vite Development Middleware
 
-The ASP.NET Core backend is only needed when editing local source files.
+The content editor only needs file-writing capability during local development.
 
-It does not need to run as part of the deployed portfolio.
+Instead of maintaining a separate backend application, the editor API is implemented as development-only middleware inside the existing Astro/Vite process.
 
-This keeps the production architecture simpler while still allowing the dashboard to provide file-based content management during development.
+This reduces the local development environment from two processes to one:
+
+```text
+Before
+
+Astro / Vite
++
+ASP.NET Core
+```
+
+```text
+After
+
+Astro / Vite
+├── Portfolio
+├── Dashboard
+└── Local content editor middleware
+```
+
+This keeps the production architecture static while removing an unnecessary local runtime, port and proxy configuration.
+
+The middleware still preserves the important content-management behavior from the previous implementation, including validation, safe path handling, atomic writes, project renaming, locale moves, collision protection and file deletion.
 
 ### Separating Trial and Local Dashboard Modes
 
@@ -267,7 +288,7 @@ is public and non-persistent.
 /dashboard
 ```
 
-is intended for local development and can update the actual source content through ASP.NET Core.
+is intended for local development and can update the actual source content through the development-only content editor middleware.
 
 This makes it possible to demonstrate the dashboard publicly without exposing file-writing functionality.
 
@@ -321,36 +342,43 @@ Install the frontend dependencies:
 npm install
 ```
 
-Start Astro:
+Start the portfolio and local content editor:
 
 ```bash
 npm run dev
 ```
 
-Start the local ASP.NET Core content backend:
-
-```bash
-cd backend/Career.Api
-dotnet run
-```
-
-The default local addresses are:
+The development environment runs as a single Astro/Vite process:
 
 ```text
-Astro:   http://localhost:4321
-Backend: http://127.0.0.1:5080
+Astro / Vite
+├── Portfolio
+├── Dashboard
+└── Local content editor middleware
 ```
+
+The default local address is:
+
+```text
+http://localhost:4321
+```
+
+No separate backend process is required.
 
 ## Deployment
 
 The public portfolio is deployed to Vercel.
 
-Astro builds the Markdown and JSON content into the static site, while the ASP.NET Core service remains part of the local development workflow.
+Astro builds the Markdown and JSON content into a static site.
+
+The development-only content editor middleware is not part of the production deployment, so the deployed portfolio does not expose repository file-writing APIs.
+
+The public Trial remains available in production, but its changes are kept in browser state only.
 
 Content updates follow a Git-based process:
 
 ```text
-Edit content
+Edit content locally
      ↓
 Git commit
      ↓
