@@ -9,17 +9,17 @@ import type {AstroIntegration} from "astro";
 
 import type {IncomingMessage,ServerResponse} from "node:http";
 
-import {parseAboutContent,saveAboutContent} from "../../src/backend/content-editor/about";
+import {parseAboutContent,saveAboutContent} from "@/backend/content-editor/about";
 
-import {ContentEditorError} from "../../src/backend/content-editor/errors";
+import {ContentEditorError} from "@/backend/content-editor/errors";
 
 import {
   deleteProjectContent,
   parseProjectContent,
   saveProjectContent,
-} from "../../src/backend/content-editor/projects";
+} from "@/backend/content-editor/projects";
 
-import {isSupportedLocale} from "../../src/backend/content-editor/validation";
+import {isSupportedLocale} from "@/backend/content-editor/validation";
 
 function sendJson(res: ServerResponse,status: number,body: unknown): void {
   res.statusCode = status;
