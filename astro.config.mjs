@@ -5,11 +5,17 @@ import sitemap from "@astrojs/sitemap";
 
 import react from "@astrojs/react";
 
-import vercel from "@astrojs/vercel";
+import contentEditorIntegration from "./tools/content-editor/integration";
 
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
+
+    output: "static",
+
+    build: {
+      inlineStylesheets: "always",
+    },
 
     server: {
       proxy: {
@@ -21,7 +27,7 @@ export default defineConfig({
     },
   },
 
-  site: "https://jiantao-dev.vercel.app",
-  integrations: [sitemap(), react()],
-  adapter: vercel(),
+  site: "https://www.jiantao.dev",
+
+  integrations: [sitemap(), react(), contentEditorIntegration()],
 });

@@ -29,7 +29,6 @@ export interface AboutStory {
 
 export interface AboutSkills {
   title: string;
-  description: string;
   items: AboutSkillGroup[];
 }
 
@@ -40,7 +39,6 @@ export interface AboutSkillGroup {
 
 export interface AboutEducation {
   title: string;
-  description: string;
   items: AboutEducationItem[];
 }
 
@@ -160,10 +158,6 @@ export function parseAboutContent(value: unknown,): AboutContent {
       skillsValue,
       "title",
     ),
-    description: readString(
-      skillsValue,
-      "description",
-    ),
     items: (
       (skillsItemsValue ?? []) as unknown[]
     ).map(parseSkillGroup),
@@ -185,10 +179,6 @@ export function parseAboutContent(value: unknown,): AboutContent {
     title: readString(
       educationValue,
       "title",
-    ),
-    description: readString(
-      educationValue,
-      "description",
     ),
     items: (
       (educationItemsValue ?? []) as unknown[]

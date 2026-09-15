@@ -18,7 +18,6 @@ const validAbout = {
   },
   skills: {
     title: "Skills",
-    description: "My skills",
     items: [
       {
         title: "Frontend",
@@ -31,7 +30,6 @@ const validAbout = {
   },
   education: {
     title: "Education",
-    description: "",
     items: [
       {
         period: "2020–2023",
