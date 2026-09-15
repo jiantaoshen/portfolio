@@ -1,7 +1,7 @@
 /*
   Feat: API Error Handling
   Export Class: ContentEditorError
-  Export Function: badRequest, notFound, conflict
+  Export Function: badRequest, notFound
 
 */
 
@@ -23,12 +23,5 @@ export function notFound(message: string): ContentEditorError {
   return new ContentEditorError(
     message,
     404,
-  );
-}
-
-export function conflict(message: string): ContentEditorError {
-  return new ContentEditorError(
-    message,
-    409,
   );
 }

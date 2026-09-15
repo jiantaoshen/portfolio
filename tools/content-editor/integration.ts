@@ -148,13 +148,6 @@ export default function contentEditorIntegration(): AstroIntegration {
                   content,
                 );
 
-                // Temporary proof that middleware
-                // handled the request.
-                res.setHeader(
-                  "X-Content-Editor",
-                  "dev-middleware",
-                );
-
                 sendJson(
                   res,
                   200,
@@ -213,11 +206,6 @@ export default function contentEditorIntegration(): AstroIntegration {
 
                 const saved = await saveProjectContent(
                   project,
-                );
-
-                res.setHeader(
-                  "X-Content-Editor",
-                  "dev-middleware",
                 );
 
                 sendJson(

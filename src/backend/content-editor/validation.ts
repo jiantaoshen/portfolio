@@ -1,12 +1,11 @@
 /*
   Feat: Validate slugs and url from content editor
-  Export Const: SUPPORTED_LOCALES
   Export Type: SupportedLocale
   Export Function: isSupportedLocale; normalizeProjectSlug; isValidOptionalHttpUrl
 
 */
 
-export const SUPPORTED_LOCALES = [
+const SUPPORTED_LOCALES = [
   "en",
   "sv",
   "zh",
