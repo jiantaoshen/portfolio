@@ -1,0 +1,20 @@
+{
+  "hero": {
+
+    "titleBefore": "Hello， I'm ",
+    
+    "titleHighlight": "Jiantao Shen",
+
+    "description": "I'm a Backend-focused software developer working with C#/.NET and Python to build APIs and applications that turn AI capabilities into practical software products."
+  },
+
+  "featuredProjects": {
+    "title": "Projects"
+  },
+
+  "contact": {
+    "title": "Have a project, role or software opportunity in mind? ",
+
+    "description": "Feel free to contact me by LinkedIn."
+  }
+}

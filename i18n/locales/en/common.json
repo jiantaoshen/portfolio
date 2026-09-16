@@ -1,0 +1,30 @@
+{
+  "nav": {
+    "services": "Services",
+    "projects": "Projects",
+    "about": "About",
+    "contact": "Linkedin"
+  },
+
+  "buttons": {
+    "discussProject": "Discuss a Project",
+    "viewWork": "View My Work",
+    "github": "GitHub",
+    "liveDemo": "Live Demo",
+    "caseStudy": "View Case Study"
+  },
+
+  "language": {
+    "english": "English",
+    "swedish": "Svenska",
+    "chinese": "中文"
+  },
+  
+  "readArticle": "Read Article",
+
+  "notFound": {
+  "title": "This page doesn't exist.",
+  "description": "The page may have been moved, removed or the address may be incorrect.",
+  "home": "Back to Home"
+}
+}

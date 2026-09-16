@@ -1,0 +1,23 @@
+{
+  "page": {
+    "title": "项目"
+  },
+
+  "detail": {
+    "notFound": "未找到该项目",
+    "back": "返回项目列表",
+
+    "overview": "项目概览",
+    "problem": "问题与目标",
+    "solution": "解决方案",
+    "features": "核心功能",
+    "challenges": "挑战与技术决策",
+    "deployment": "部署与运行",
+
+    "technologies": "技术栈",
+    "status": "状态",
+    "type": "项目类型"
+  }
+}
+  
+

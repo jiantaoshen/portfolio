@@ -1,0 +1,80 @@
+{
+  "story": {
+    "title": "Bakgrund",
+    "paragraphs": [
+      "Civilingenjör inom robotik med erfarenhet av maskininlärning, systemutveckling och full-stackutveckling. Har praktisk erfarenhet av C#/.NET, ASP.NET Core Web API, PostgreSQL, React och TypeScript samt av att utveckla REST-baserade applikationer med autentisering och behörighetsstyrning. Har även erfarenhet av driftsättning och molntjänster i Microsoft Azure."
+    ]
+  },
+  "skills": {
+    "title": "Kompetens",
+    "items": [
+      {
+        "title": "Frontend",
+        "items": [
+          "React",
+          "HTML/CSS",
+          "TypeScript/JavaScript",
+          "Tailwind CSS",
+          "Astro"
+        ]
+      },
+      {
+        "title": "Backend",
+        "items": [
+          "C#",
+          ".NET",
+          "ASP.NET Core"
+        ]
+      },
+      {
+        "title": "Databas",
+        "items": [
+          "PostgreSQL",
+          "Entity Framework Core"
+        ]
+      },
+      {
+        "title": "AI",
+        "items": [
+          "Python",
+          "Ollama"
+        ]
+      },
+      {
+        "title": "Moln & Driftsättning",
+        "items": [
+          "Azure",
+          "Vercel",
+          "Git/GitHub"
+        ]
+      },
+      {
+        "title": "Språk",
+        "items": [
+          "Kinesiska",
+          "Engelska",
+          "Svenska"
+        ]
+      }
+    ]
+  },
+  "education": {
+    "title": "Utbildning",
+    "items": [
+      {
+        "period": "Mars 2026 – pågående",
+        "degree": "Programmerare AI (yrkesutbildning)",
+        "school": "Lexicon AB, Malmö · Distans",
+        "description": "Studerar utveckling av webbapplikationer och molntjänster."
+      },
+      {
+        "period": "September 2019 – juli 2024",
+        "degree": "Civilingenjör inom robotik",
+        "school": "Mälardalens universitet, Västerås",
+        "description": "Studerade robotik, inbyggda system, artificiell intelligens och elektronik. Examensarbetet fokuserade på utveckling av ett radarbaserat system för handgestigenkänning med Python, TensorFlow och CNN. Systemet uppnådde 95 % klassificeringsnoggrannhet och cirka 25 ms prediktionstid.",
+        "thesis": "Implementation of Machine Learning Algorithm for Radar-Based Hand Gesture Recognition",
+        "thesisUrl": "https://mdu.diva-portal.org/smash/record.jsf?pid=diva2%3A1870908&dswid=-2606"
+      }
+    ]
+  }
+}

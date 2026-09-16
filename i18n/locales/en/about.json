@@ -1,0 +1,81 @@
+{
+  "story": {
+    "title": "Background",
+    "description": "M.Sc. in Robotics with experience in machine learning, systems development, and full-stack development. Hands-on experience with C#/.NET, ASP.NET Core Web API, PostgreSQL, React, and TypeScript, as well as building REST-based applications with authentication and role-based access control. Also experienced in deploying applications to Microsoft Azure.",
+    "paragraphs": [
+      "M.Sc. in Robotics with experience in machine learning, systems development, and full-stack development. Hands-on experience with C#/.NET, ASP.NET Core Web API, PostgreSQL, React, and TypeScript, as well as building REST-based applications with authentication and role-based access control. Also experienced in deploying applications to Microsoft Azure."
+    ]
+  },
+  "skills": {
+    "title": "Skills",
+    "items": [
+      {
+        "title": "Frontend",
+        "items": [
+          "React",
+          "HTML/CSS",
+          "TypeScript/JavaScript",
+          "Tailwind CSS",
+          "Astro"
+        ]
+      },
+      {
+        "title": "Backend",
+        "items": [
+          "C#",
+          ".NET",
+          "ASP.NET Core"
+        ]
+      },
+      {
+        "title": "Databases",
+        "items": [
+          "PostgreSQL",
+          "Entity Framework Core"
+        ]
+      },
+      {
+        "title": "AI",
+        "items": [
+          "Python",
+          "Ollama"
+        ]
+      },
+      {
+        "title": "Cloud & Deployment",
+        "items": [
+          "Azure",
+          "Vercel",
+          "Git/Github"
+        ]
+      },
+      {
+        "title": "Languages",
+        "items": [
+          "Chinese",
+          "English",
+          "Swedish"
+        ]
+      }
+    ]
+  },
+  "education": {
+    "title": "Education",
+    "items": [
+      {
+        "period": "March 2026 – Present",
+        "degree": "AI Programmer (Vocational Training)",
+        "school": "Lexicon AB, Malmö · Remote",
+        "description": "Currently studying the development of web applications and cloud services."
+      },
+      {
+        "period": "September 2019 – July 2024",
+        "degree": "M.Sc. in Engineering, Robotics",
+        "school": "Mälardalen University, Västerås",
+        "description": "Studied robotics, embedded systems, artificial intelligence, and electronics. For my master's thesis, I developed a radar-based hand gesture recognition system using Python, TensorFlow, and convolutional neural networks (CNNs). The system achieved 95% classification accuracy with a prediction time of approximately 25 ms.",
+        "thesis": "Implementation of Machine Learning Algorithm for Radar-Based Hand Gesture Recognition",
+        "thesisUrl": "https://mdu.diva-portal.org/smash/record.jsf?pid=diva2%3A1870908&dswid=-2606"
+      }
+    ]
+  }
+}

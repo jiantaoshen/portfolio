@@ -1,0 +1,21 @@
+{
+  "page": {
+    "title": "Projects",
+    "description":  "Explore web development projects by Jiantao, including full-stack applications, tools, and frontend experiences."
+  },
+
+    "detail": {
+    "back": "Back to projects",
+
+    "overview": "Overview",
+    "problem": "The Problem",
+    "solution": "Solution",
+    "features": "Key Features",
+    "challenges": "Challenges & Decisions",
+    "deployment": "Deployment",
+
+    "technologies": "Technologies",
+    "status": "Status",
+    "type": "Project Type"
+  }
+}

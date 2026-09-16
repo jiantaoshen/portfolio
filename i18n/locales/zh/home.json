@@ -1,0 +1,15 @@
+{
+  "hero": {
+    "titleBefore": "您好，我是 ",
+    "titleHighlight": "沈键涛",
+    "description": "本人专注于后端开发，主要使用 C#/.NET 和 Python 构建 API 和应用系统，并将 AI 能力融入实际的软件产品。"
+  },
+
+  "featuredProjects": {
+    "title": "项目"
+  },
+  "contact": {
+    "title": "有项目、职位机会或其他软件开发相关的合作想法？",
+    "description": "欢迎通过 LinkedIn 联系我！"
+  }
+}

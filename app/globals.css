@@ -2,129 +2,943 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+
+/* =========================================
+   Brand tokens
+   ========================================= */
+
+:root {
+  --brand-dark: #182033;
+  --brand-dark-muted: #28344f;
+
+  --brand-role: #7196c9;
+  --brand-ui: #7fa7d8;
+  --brand-soft: #dce8f5;
+
+  --brand-light: #fafbfd;
+  --brand-white: #ffffff;
+
+  --brand-slate: #5f6c84;
+  --brand-slate-muted: #cbd5e1;
+
+
+  /* =========================================
+     Semantic tokens
+     ========================================= */
+
+  --background: var(--brand-white);
+  --foreground: var(--brand-dark);
+
+  --card: var(--brand-white);
+  --card-foreground: var(--brand-dark);
+
+  --popover: var(--brand-white);
+  --popover-foreground: var(--brand-dark);
+
+  --primary: var(--brand-ui);
+  --primary-foreground: var(--brand-white);
+
+  --secondary: var(--brand-soft);
+  --secondary-foreground: var(--brand-dark);
+
+  --muted: var(--brand-light);
+  --muted-foreground: var(--brand-slate);
+
+  --accent: var(--brand-soft);
+  --accent-foreground: var(--brand-dark);
+
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+
+  --border: var(--brand-soft);
+  --input: var(--brand-soft);
+  --ring: var(--brand-role);
+}
+
+
+/* =========================================
+   Tailwind semantic color mapping
+   ========================================= */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
+
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 }
 
-:root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+
+/* ============================================================
+   Base
+   ============================================================ */
+
+html {
+  @apply scroll-smooth bg-background;
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+body {
+  @apply min-h-screen
+    bg-background
+    font-sans
+    text-foreground
+    antialiased;
+
+  text-rendering: optimizeLegibility;
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
-  }
+button,
+select {
+  @apply cursor-pointer;
+}
+
+::selection {
+  @apply bg-primary
+    text-primary-foreground;
+}
+
+
+/* ============================================================
+   Layout
+   ============================================================ */
+
+.container {
+  @apply mx-auto
+    w-full
+    max-w-6xl
+    px-5;
+}
+
+.section {
+  @apply py-20
+    sm:py-24
+    lg:py-28;
+}
+
+
+/* ============================================================
+   Typography
+   ============================================================ */
+
+.text-title {
+  @apply mt-5
+    mb-5
+    text-3xl
+    font-bold
+    tracking-tight
+    sm:text-4xl;
+}
+
+.text-card-title {
+  @apply mt-3
+    mb-3
+    text-xl
+    font-bold
+    tracking-tight;
+}
+
+.text-large {
+  @apply mb-5
+    text-base
+    leading-7
+    sm:text-lg
+    sm:leading-8;
+}
+
+.text-body {
+  @apply mb-5
+    text-sm
+    leading-6;
+}
+
+.text-label {
+  @apply text-xs
+    font-semibold
+    uppercase
+    tracking-widest;
+}
+
+.text-link {
+  @apply inline-flex
+    items-center
+    gap-2
+    text-sm
+    font-semibold
+    text-primary
+    transition-colors
+    hover:text-foreground;
+}
+
+
+/* ============================================================
+   Navigation
+   ============================================================ */
+
+.site-header {
+  @apply sticky
+    top-0
+    z-50
+    border-b
+    border-border
+    bg-muted;
+}
+
+.nav-shell {
+  @apply flex
+    min-h-20
+    items-center
+    justify-between
+    gap-6;
+}
+
+.site-logo {
+  @apply inline-flex
+    items-baseline
+    text-base
+    font-extrabold
+    tracking-tight
+    text-foreground
+    transition-colors
+    hover:text-primary;
+}
+
+.site-logo span:last-child {
+  @apply text-primary;
+}
+
+
+/* Desktop navigation */
+
+.desktop-nav {
+  @apply hidden
+    items-center
+    gap-1
+    md:flex;
+}
+
+.nav-link {
+  @apply relative
+    inline-flex
+    items-center
+    justify-center
+    px-2
+    py-2
+    text-sm
+    font-medium
+    text-muted-foreground
+    transition-colors
+    hover:text-foreground;
+}
+
+.nav-active,
+.nav-link[aria-current="page"],
+.nav-link[aria-current="location"] {
+  @apply text-foreground;
+}
+
+.nav-active::after,
+.nav-link[aria-current="page"]::after,
+.nav-link[aria-current="location"]::after {
+  content: "";
+
+  @apply absolute
+    right-2
+    bottom-0
+    left-2
+    h-0.5
+    rounded-full
+    bg-primary;
+}
+
+
+/* ============================================================
+   Hero
+   ============================================================ */
+
+.hero-shell {
+  @apply flex
+    items-center
+    bg-muted
+    py-14
+    sm:py-16
+    md:py-20
+    lg:py-24;
+}
+
+.hero-grid {
+  @apply grid
+    grid-cols-1
+    items-center
+    gap-10
+    lg:grid-cols-3
+    lg:gap-16;
+}
+
+.hero-copy {
+  @apply max-w-3xl
+    lg:col-span-2
+    xl:max-w-4xl;
+}
+
+.hero-title {
+  @apply m-0
+    max-w-4xl
+    text-5xl
+    leading-none
+    font-extrabold
+    tracking-tighter
+    text-foreground
+    sm:text-6xl
+    lg:text-7xl
+    xl:text-8xl;
+}
+
+.hero-description {
+  @apply mt-6
+    mb-0
+    max-w-2xl
+    text-base
+    leading-relaxed
+    text-muted-foreground
+    sm:text-lg
+    md:mt-8
+    md:text-xl
+    lg:text-2xl;
+}
+
+.hero-actions {
+  @apply mt-8
+    flex
+    flex-col
+    gap-3
+    sm:flex-row
+    sm:flex-wrap;
+}
+
+.hero-skills {
+  @apply flex
+    flex-col
+    justify-center
+    border-t
+    border-border
+    pt-8
+    lg:col-span-1
+    lg:border-t-0
+    lg:border-l
+    lg:pt-0
+    lg:pl-11;
+}
+
+
+/* ============================================================
+   Skills
+   ============================================================ */
+
+.skills-heading {
+  @apply mt-0
+    mb-5
+    font-mono
+    text-xs
+    font-bold
+    uppercase
+    tracking-widest
+    text-primary
+    sm:mb-6;
+}
+
+.skill-groups {
+  @apply grid
+    gap-5
+    sm:gap-6;
+}
+
+.skill-group {
+  @apply grid gap-3;
+}
+
+.skill-group h3 {
+  @apply m-0
+    text-sm
+    font-bold
+    text-foreground;
+}
+
+.skill-tags {
+  @apply flex
+    flex-wrap
+    gap-2;
+}
+
+
+/* ============================================================
+   Projects / Education shared
+   ============================================================ */
+
+.projects-section,
+.education-section {
+  @apply bg-muted;
+}
+
+.projects-title,
+.education-title {
+  @apply m-0
+    text-3xl
+    font-bold
+    tracking-tight
+    text-foreground
+    sm:text-4xl;
+}
+
+.projects-list,
+.education-list {
+  @apply border-b
+    border-border;
+}
+
+.project-row,
+.education-row {
+  @apply grid
+    grid-cols-1
+    border-t
+    border-border
+    py-7
+    sm:py-8;
+}
+
+
+/* ============================================================
+   Projects
+   ============================================================ */
+
+.projects-header {
+  @apply mb-10
+    lg:mb-12;
+}
+
+.project-row {
+  @apply gap-4
+    lg:grid-cols-12
+    lg:items-center
+    lg:gap-6;
+}
+
+.project-index {
+  @apply font-mono
+    text-xs
+    font-bold
+    text-primary
+    lg:col-span-1;
+}
+
+.project-main {
+  @apply grid
+    gap-3
+    lg:col-span-4;
+}
+
+.project-heading {
+  @apply flex
+    flex-wrap
+    items-center
+    gap-3;
+}
+
+.project-heading h3 {
+  @apply m-0
+    text-lg
+    font-bold
+    text-foreground
+    sm:text-xl;
+}
+
+.project-description {
+  @apply m-0
+    text-sm
+    leading-relaxed
+    text-muted-foreground
+    lg:col-span-5;
+}
+
+
+/* ============================================================
+   Education
+   ============================================================ */
+
+.education-header {
+  @apply mb-10
+    sm:mb-12;
+}
+
+.education-row {
+  @apply gap-3
+    md:grid-cols-4
+    md:gap-8
+    lg:gap-12;
+}
+
+.education-period {
+  @apply m-0
+    font-mono
+    text-sm
+    font-semibold
+    text-primary;
+}
+
+.education-content {
+  @apply grid
+    gap-2
+    md:col-span-3;
+}
+
+.education-content h3 {
+  @apply m-0
+    text-lg
+    font-bold
+    text-foreground
+    sm:text-xl;
+}
+
+.education-school {
+  @apply m-0
+    text-sm
+    font-medium
+    text-muted-foreground;
+}
+
+.education-description {
+  @apply m-0
+    max-w-3xl
+    text-sm
+    leading-relaxed
+    text-muted-foreground
+    sm:text-base;
+}
+
+.education-thesis {
+  @apply m-0
+    pt-1
+    text-sm
+    leading-relaxed
+    text-muted-foreground;
+}
+
+.education-thesis > span:first-child {
+  @apply font-semibold
+    text-foreground;
+}
+
+.education-thesis a {
+  @apply font-semibold
+    text-primary
+    transition-colors
+    hover:text-foreground;
+}
+
+
+/* ============================================================
+   Footer
+   ============================================================ */
+
+.site-footer {
+  @apply border-t
+    border-border
+    bg-background;
+}
+
+.footer-inner {
+  @apply flex
+    flex-col
+    gap-5
+    py-8
+    sm:py-10
+    md:flex-row
+    md:items-center
+    md:justify-between;
+}
+
+.footer-brand {
+  @apply w-fit
+    text-sm
+    font-bold
+    tracking-tight
+    text-foreground
+    transition-colors
+    hover:text-primary;
+}
+
+.footer-brand span {
+  @apply text-primary;
+}
+
+.footer-links {
+  @apply flex
+    flex-wrap
+    items-center
+    gap-5;
+}
+
+.footer-link {
+  @apply inline-flex
+    items-center
+    gap-1
+    text-sm
+    font-medium
+    text-muted-foreground
+    transition-colors
+    hover:text-foreground;
+}
+
+.footer-copyright {
+  @apply m-0
+    text-xs
+    leading-relaxed
+    text-muted-foreground;
+}
+
+
+/* ============================================================
+   Project Detail
+   ============================================================ */
+
+.project-detail-header {
+  @apply border-b
+    border-border
+    bg-muted
+    py-14
+    sm:py-16
+    md:py-20;
+}
+
+.project-detail-back {
+  @apply mb-8
+    inline-flex
+    items-center
+    gap-2
+    text-sm
+    font-semibold
+    text-primary
+    transition-colors
+    hover:text-foreground;
+}
+
+.project-detail-meta {
+  @apply mb-4
+    flex
+    flex-wrap
+    items-center
+    gap-3;
+}
+
+.project-detail-title {
+  @apply m-0
+    max-w-4xl
+    text-4xl
+    font-extrabold
+    tracking-tight
+    text-foreground
+    sm:text-5xl
+    lg:text-6xl;
+}
+
+.project-detail-description {
+  @apply mt-6
+    mb-0
+    max-w-3xl
+    text-base
+    leading-relaxed
+    text-muted-foreground
+    sm:text-lg;
+}
+
+.project-detail-technologies {
+  @apply mt-8;
+}
+
+.project-detail-label {
+  @apply mb-3
+    text-primary;
+}
+
+.project-detail-actions {
+  @apply mt-8
+    flex
+    flex-col
+    gap-3
+    sm:flex-row
+    sm:flex-wrap;
+}
+
+
+/* Project content */
+
+.project-detail-body {
+  @apply bg-background
+    py-14
+    sm:py-16
+    lg:py-20;
+}
+
+.project-detail-grid {
+  @apply grid
+    grid-cols-1
+    gap-12
+    lg:grid-cols-4
+    lg:gap-16;
+}
+
+.project-detail-article {
+  @apply min-w-0
+    lg:col-span-3;
+}
+
+.project-detail-sidebar {
+  @apply hidden
+    lg:col-span-1
+    lg:block;
+}
+
+.project-detail-toc {
+  @apply sticky
+    top-28;
+}
+
+.project-detail-toc-links {
+  @apply mt-4
+    flex
+    flex-col
+    gap-3;
+}
+
+.project-detail-toc-link {
+  @apply text-sm
+    text-muted-foreground
+    transition-colors
+    hover:text-primary;
+}
+
+.project-detail-toc-child {
+  @apply pl-4
+    text-xs;
+}
+
+
+/* ============================================================
+   Article Content
+   ============================================================ */
+
+.article-content {
+  @apply mx-auto
+    max-w-3xl
+    text-base
+    leading-8
+    text-muted-foreground;
+}
+
+.article-content h1 {
+  @apply mt-12
+    mb-6
+    text-3xl
+    font-bold
+    tracking-tight
+    text-foreground;
+}
+
+.article-content h2 {
+  @apply mt-12
+    mb-4
+    scroll-mt-28
+    text-2xl
+    font-bold
+    tracking-tight
+    text-foreground;
+}
+
+.article-content h3 {
+  @apply mt-9
+    mb-3
+    scroll-mt-28
+    text-xl
+    font-bold
+    text-foreground;
+}
+
+.article-content p {
+  @apply my-5;
+}
+
+.article-content ul {
+  @apply my-5
+    list-disc
+    space-y-2
+    pl-6;
+}
+
+.article-content ol {
+  @apply my-5
+    list-decimal
+    space-y-2
+    pl-6;
+}
+
+.article-content li {
+  @apply pl-1;
+}
+
+.article-content blockquote {
+  @apply my-6
+    border-l-4
+    border-primary
+    bg-muted
+    px-5
+    py-3
+    italic;
+}
+
+.article-content code {
+  @apply rounded
+    bg-muted
+    px-1.5
+    py-0.5
+    font-mono
+    text-sm
+    text-foreground;
+}
+
+.article-content pre {
+  @apply my-7
+    overflow-x-auto
+    rounded-2xl
+    bg-foreground
+    p-5
+    text-sm
+    text-border;
+}
+
+.article-content pre code {
+  @apply bg-transparent
+    p-0
+    text-inherit;
+}
+
+.article-content hr {
+  @apply my-10
+    border-border;
+}
+
+.article-content img {
+  @apply my-8
+    rounded-2xl
+    border
+    border-border;
+}
+
+
+/* ============================================================
+   Markdown shared
+   ============================================================ */
+
+.article-content a,
+.prose-lite a {
+  @apply font-medium
+    text-primary
+    underline
+    underline-offset-4
+    transition-colors
+    hover:text-foreground;
+}
+
+.article-content a {
+  @apply decoration-primary/30;
+}
+
+.article-content strong,
+.prose-lite strong {
+  @apply font-semibold
+    text-foreground;
+}
+
+
+/* ============================================================
+   Markdown Preview
+   ============================================================ */
+
+.prose-lite {
+  @apply text-sm
+    leading-relaxed
+    text-muted-foreground;
+}
+
+.prose-lite h1 {
+  @apply mt-8
+    mb-4
+    text-2xl
+    font-bold
+    tracking-tight
+    text-foreground;
+}
+
+.prose-lite h2 {
+  @apply mt-7
+    mb-3
+    text-xl
+    font-bold
+    text-foreground;
+}
+
+.prose-lite h3 {
+  @apply mt-6
+    mb-2
+    text-lg
+    font-semibold
+    text-foreground;
+}
+
+.prose-lite p {
+  @apply my-4;
+}
+
+.prose-lite ul {
+  @apply my-4
+    list-disc
+    space-y-2
+    pl-5;
+}
+
+.prose-lite ol {
+  @apply my-4
+    list-decimal
+    space-y-2
+    pl-5;
+}
+
+.prose-lite code {
+  @apply rounded
+    bg-accent
+    px-1
+    py-0.5
+    font-mono
+    text-xs
+    text-accent-foreground;
 }

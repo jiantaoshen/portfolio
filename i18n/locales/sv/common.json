@@ -1,0 +1,29 @@
+{
+  "nav": {
+    "projects": "Projekt",
+    "about": "Om mig",
+    "contact": "Linkedin"
+  },
+
+  "buttons": {
+    "discussProject": "Diskutera ett projekt",
+    "viewWork": "Se mina projekt",
+    "github": "GitHub",
+    "liveDemo": "Live-demo",
+    "caseStudy": "Se projektet"
+  },
+
+  "language": {
+    "english": "English",
+    "swedish": "Svenska",
+    "chinese": "中文"
+  },
+
+  "readArticle": "Läs artikel",
+
+  "notFound": {
+  "title": "Sidan kunde inte hittas.",
+  "description": "Sidan kan ha flyttats, tagits bort eller så är adressen felaktig.",
+  "home": "Tillbaka till startsidan"
+}
+}

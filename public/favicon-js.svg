@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="JS favicon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#07111f"/>
+      <stop offset="100%" stop-color="#0b1830"/>
+    </linearGradient>
+
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#93c5fd"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+
+  <!-- J -->
+  <path
+    d="M155 155H260V305C260 358 232 391 183 391C146 391 121 373 108 347"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="58"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- S -->
+  <path
+    d="M388 183H309C271 183 248 203 248 232C248 263 273 280 312 280H335C373 280 395 299 395 330C395 365 368 386 326 386H244"
+    fill="none"
+    stroke="url(#blue)"
+    stroke-width="54"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
