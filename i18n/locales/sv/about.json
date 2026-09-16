@@ -3,17 +3,13 @@
     "titleBefore": "Hej, jag är ",
     "titleHighlight": "Jiantao Shen"
   },
-
-  "about":{
+  "about": {
     "introduction": "Introduktion",
     "description": "Backendfokuserad mjukvaruutvecklare med en masterexamen i robotik, med fokus på att bygga pålitliga produkter som omvandlar komplexa system och AI-funktioner till praktisk mjukvara."
   },
-
-
   "projects": {
     "title": "Projekt"
   },
-  
   "skills": {
     "title": "Kompetens",
     "items": [
@@ -23,8 +19,7 @@
           "React",
           "HTML/CSS",
           "TypeScript/JavaScript",
-          "Tailwind CSS",
-          "Astro"
+          "Tailwind CSS"
         ]
       },
       {
@@ -67,7 +62,6 @@
       }
     ]
   },
-
   "education": {
     "title": "Utbildning",
     "items": [

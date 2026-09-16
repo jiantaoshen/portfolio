@@ -1,28 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import {
-  usePathname,
-} from "next/navigation";
 
-import type {
-  Locale,
-} from "@/i18n";
+import {usePathname} from "next/navigation";
 
-import {
-  cn,
-} from "@/lib/utils";
+import {useLocale} from "next-intl";
+
+import type {Locale} from "@/i18n/routing";
+
+import {cn} from "@/lib/utils";
 
 
-interface LanguageSwitcherProps {
-  lang: Locale;
-}
-
-
-const languages: {
-  code: Locale;
-  label: string;
-}[] = [
+const languages: {code: Locale; label: string;}[] = [
   {
     code: "en",
     label: "EN",
@@ -38,11 +27,11 @@ const languages: {
 ];
 
 
-export default function LanguageSwitcher({
-  lang,
-}: LanguageSwitcherProps) {
+export default function LanguageSwitcher() {
   const pathname =
     usePathname();
+
+  const currentLocale = useLocale() as Locale;
 
   const pathWithoutLanguage =
     pathname.replace(
@@ -55,7 +44,8 @@ export default function LanguageSwitcher({
     locale: Locale,
   ) {
     return `/${locale}${
-      pathWithoutLanguage || "/"
+      pathWithoutLanguage ||
+      "/"
     }`;
   }
 
@@ -67,33 +57,16 @@ export default function LanguageSwitcher({
     >
       {languages.map(
         (language) => {
-          const isActive =
-            language.code === lang;
+          const isActive = language.code === currentLocale;
 
           return (
-            <Link
-              key={
-                language.code
-              }
-              href={languageHref(
-                language.code,
-              )}
-              lang={
-                language.code
-              }
-              hrefLang={
-                language.code
-              }
-              aria-current={
-                isActive
-                  ? "page"
-                  : undefined
-              }
-              className={cn(
-                "nav-link",
-                isActive &&
-                  "nav-active",
-              )}
+            <Link 
+              key={language.code}
+              href={languageHref(language.code,)}
+              lang={language.code}
+              hrefLang={language.code}
+              aria-current={isActive ? "page": undefined }
+              className={cn("nav-link", isActive && "nav-active")}
             >
               {language.label}
             </Link>

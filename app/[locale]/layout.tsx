@@ -1,7 +1,9 @@
 import "@/app/globals.css";
 
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import {NextIntlClientProvider, hasLocale} from "next-intl";
+import {routing} from "@/i18n/routing";
+import {notFound} from "next/navigation";
 
 // import { Analytics } from "@vercel/analytics/next";
 // import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -9,18 +11,20 @@ import { notFound } from "next/navigation";
 import Navbar from "@/components/page/Navbar";
 import Footer from "@/components/page/Footer";
 
-import {
-  getTranslations,
-  isLocale,
-  locales,
-} from "@/i18n";
-
-interface LangLayoutProps {
+interface LocaleLayoutProps {
   children: React.ReactNode;
 
   params: Promise<{
-    lang: string;
+    locale: string;
   }>;
+}
+
+export function generateStaticParams() {
+  return routing.locales.map(
+    (locale) => ({
+      locale,
+    }),
+  );
 }
 
 export const metadata: Metadata = {
@@ -31,57 +35,32 @@ export const metadata: Metadata = {
   },
 };
 
-export function generateStaticParams() {
-  return locales.map((lang) => ({
-    lang,
-  }));
-}
+export default async function localeLayout({children, params}: LocaleLayoutProps) {
+  const { locale } = await params;
 
-export default async function LangLayout({
-  children,
-  params,
-}: LangLayoutProps) {
-  const { lang } = await params;
-
-  if (!isLocale(lang)) {
+  if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
 
-  const common =
-    getTranslations(
-      lang,
-      "common",
-    );
-
-  const about =
-    getTranslations(
-      lang,
-      "about",
-    );
-
   return (
-    <html lang={lang}>
+    <html lang={locale}>
       <body>
+        <NextIntlClientProvider>
         <div className="flex min-h-screen w-full flex-col">
-          <Navbar
-            lang={lang}
-            about={about}
-          />
+          <Navbar locale={locale}/>
 
           <main className="flex-1">
             {children}
           </main>
 
-          <Footer
-            lang={lang}
-            common={common}
-          />
+          <Footer locale={locale}/>
         </div>
 
         {/*
         <Analytics />
         <SpeedInsights />
         */}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

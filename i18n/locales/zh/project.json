@@ -3,7 +3,8 @@
     "back": "返回项目列表",
     "technologies": "技术栈",
     "status": "状态",
-    "type": "项目类型"
+    "type": "项目类型",
+    "contents": "目录"
   }
 }
   

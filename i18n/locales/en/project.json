@@ -3,6 +3,7 @@
     "back": "Back to projects",
     "technologies": "Tech stack",
     "status": "Status",
-    "type": "Project Type"
+    "type": "Project Type",
+    "contents": "Contents"
   }
 }

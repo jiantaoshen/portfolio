@@ -2,47 +2,29 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 import matter from "gray-matter";
+import { hasLocale } from "next-intl";
+import { NextResponse } from "next/server";
 
-import {
-  NextResponse,
-} from "next/server";
+import type { Project } from "@/career/lib/types";
+import { routing } from "@/i18n/routing";
+import type { Locale } from "@/i18n/routing";
 
-import type {
-  Locale,
-  Project,
-} from "@/career/lib/types";
+export const runtime = "nodejs";
 
-
-export const runtime =
-  "nodejs";
-
-
-const locales: Locale[] = [
-  "en",
-  "sv",
-  "zh",
-];
-
-const projectsRoot =
-  path.resolve(
-    process.cwd(),
-    "content",
-    "projects",
-  );
-
+const projectsRoot = path.resolve(
+  process.cwd(),
+  "content",
+  "projects",
+);
 
 function developmentOnly() {
-  if (
-    process.env.NODE_ENV ===
-    "development"
-  ) {
+  if (process.env.NODE_ENV === "development") {
     return null;
   }
 
   return NextResponse.json(
     {
-      error:
-        "Local content editing is disabled in production.",
+      error: "Local content editing is disabled in production.",
     },
     {
       status: 403,
@@ -50,53 +32,33 @@ function developmentOnly() {
   );
 }
 
-
-function isLocale(
-  value: string,
-): value is Locale {
-  return locales.includes(
-    value as Locale,
-  );
-}
-
-
-function normalizeSlug(
-  slug: string,
-) {
+function normalizeSlug(slug: string) {
   return slug
     .trim()
     .replaceAll("\\", "/")
     .replace(/^\/+|\/+$/g, "");
 }
 
+function resolveInsideProjects(relativePath: string) {
+  const resolved = path.resolve(
+    projectsRoot,
+    relativePath,
+  );
 
-function resolveInsideProjects(
-  relativePath: string,
-) {
-  const resolved =
-    path.resolve(
-      projectsRoot,
-      relativePath,
-    );
-
-  const relative =
-    path.relative(
-      projectsRoot,
-      resolved,
-    );
+  const relative = path.relative(
+    projectsRoot,
+    resolved,
+  );
 
   if (
     relative.startsWith("..") ||
     path.isAbsolute(relative)
   ) {
-    throw new Error(
-      "Invalid project path.",
-    );
+    throw new Error("Invalid project path.");
   }
 
   return resolved;
 }
-
 
 function projectSourceId(
   language: Locale,
@@ -104,7 +66,6 @@ function projectSourceId(
 ) {
   return `${language}/${slug}`;
 }
-
 
 function projectFilePath(
   language: Locale,
@@ -118,96 +79,62 @@ function projectFilePath(
   );
 }
 
-
-async function fileExists(
-  filePath: string,
-) {
+async function fileExists(filePath: string) {
   try {
-    await fs.access(
-      filePath,
-    );
-
+    await fs.access(filePath);
     return true;
   } catch {
     return false;
   }
 }
 
-
-async function findSourceFile(
-  sourceId: string,
-) {
+async function findSourceFile(sourceId: string) {
   if (
     !sourceId ||
-    sourceId.startsWith(
-      "new/",
-    )
+    sourceId.startsWith("new/")
   ) {
     return null;
   }
 
-  const normalized =
-    sourceId
-      .replaceAll(
-        "\\",
-        "/",
-      )
-      .replace(
-        /^\/+|\/+$/g,
-        "",
-      );
+  const normalized = sourceId
+    .replaceAll("\\", "/")
+    .replace(/^\/+|\/+$/g, "");
 
-  const markdownPath =
-    resolveInsideProjects(
-      `${normalized}.md`,
-    );
+  const markdownPath = resolveInsideProjects(
+    `${normalized}.md`,
+  );
 
-  if (
-    await fileExists(
-      markdownPath,
-    )
-  ) {
+  if (await fileExists(markdownPath)) {
     return markdownPath;
   }
 
+  const mdxPath = resolveInsideProjects(
+    `${normalized}.mdx`,
+  );
 
-  const mdxPath =
-    resolveInsideProjects(
-      `${normalized}.mdx`,
-    );
-
-  if (
-    await fileExists(
-      mdxPath,
-    )
-  ) {
+  if (await fileExists(mdxPath)) {
     return mdxPath;
   }
 
-
   return null;
 }
-
 
 function validateProject(
   value: unknown,
 ): asserts value is Project {
   if (
     !value ||
-    typeof value !==
-      "object"
+    typeof value !== "object"
   ) {
     throw new Error(
       "Invalid project payload.",
     );
   }
 
-  const project =
-    value as Partial<Project>;
+  const project = value as Partial<Project>;
 
   if (
-    typeof project.title !==
-      "string" ||
+    typeof project.title !== "string" ||
     !project.title.trim()
   ) {
     throw new Error(
@@ -216,8 +143,7 @@ function validateProject(
   }
 
   if (
-    typeof project.slug !==
-      "string" ||
+    typeof project.slug !== "string" ||
     !project.slug.trim()
   ) {
     throw new Error(
@@ -226,9 +152,9 @@ function validateProject(
   }
 
   if (
-    typeof project.language !==
-      "string" ||
-    !isLocale(
+    typeof project.language !== "string" ||
+    !hasLocale(
+      routing.locales,
       project.language,
     )
   ) {
@@ -238,8 +164,7 @@ function validateProject(
   }
 
   if (
-    typeof project.summary !==
-      "string"
+    typeof project.summary !== "string"
   ) {
     throw new Error(
       "Project summary is invalid.",
@@ -248,7 +173,7 @@ function validateProject(
 
   if (
     typeof project.contentMarkdown !==
-      "string"
+    "string"
   ) {
     throw new Error(
       "Project Markdown content is invalid.",
@@ -256,8 +181,7 @@ function validateProject(
   }
 
   if (
-    typeof project.status !==
-      "string"
+    typeof project.status !== "string"
   ) {
     throw new Error(
       "Project status is invalid.",
@@ -287,28 +211,23 @@ function validateProject(
   }
 }
 
-
 export async function PUT(
   request: Request,
 ) {
-  const blocked =
-    developmentOnly();
+  const blocked = developmentOnly();
 
   if (blocked) {
     return blocked;
   }
 
-
   let payload: unknown;
 
   try {
-    payload =
-      await request.json();
+    payload = await request.json();
   } catch {
     return NextResponse.json(
       {
-        error:
-          "Invalid JSON body.",
+        error: "Invalid JSON body.",
       },
       {
         status: 400,
@@ -316,19 +235,14 @@ export async function PUT(
     );
   }
 
-
   try {
-    validateProject(
-      payload,
+    validateProject(payload);
+
+    const project = payload;
+
+    const slug = normalizeSlug(
+      project.slug,
     );
-
-    const project =
-      payload;
-
-    const slug =
-      normalizeSlug(
-        project.slug,
-      );
 
     if (!slug) {
       throw new Error(
@@ -336,111 +250,75 @@ export async function PUT(
       );
     }
 
+    const sourceId = projectSourceId(
+      project.language,
+      slug,
+    );
 
-    const sourceId =
-      projectSourceId(
-        project.language,
-        slug,
-      );
-
-    const targetPath =
-      projectFilePath(
-        project.language,
-        slug,
-      );
-
+    const targetPath = projectFilePath(
+      project.language,
+      slug,
+    );
 
     const links: {
       github?: string;
       live?: string;
     } = {};
 
-    if (
-      project.githubUrl.trim()
-    ) {
+    if (project.githubUrl.trim()) {
       links.github =
         project.githubUrl.trim();
     }
 
-    if (
-      project.demoUrl.trim()
-    ) {
+    if (project.demoUrl.trim()) {
       links.live =
         project.demoUrl.trim();
     }
 
-
     const frontmatter = {
-      lang:
-        project.language,
-
-      title:
-        project.title.trim(),
-
+      lang: project.language,
+      title: project.title.trim(),
       description:
         project.summary.trim(),
-
-      status:
-        project.status.trim(),
-
-      order:
-        Math.trunc(
-          project.sortOrder,
-        ),
-
+      status: project.status.trim(),
+      order: Math.trunc(
+        project.sortOrder,
+      ),
       technologies:
         project.technologies
-          .map(
-            (item) =>
-              item.trim(),
-          )
+          .map((item) => item.trim())
           .filter(Boolean),
-
-      ...(Object.keys(
-        links,
-      ).length >
+      ...(Object.keys(links).length >
       0
         ? {
             links,
           }
         : {}),
-
-      draft:
-        !project.published,
+      draft: !project.published,
     };
 
-
     const body =
-      project.contentMarkdown
-        .replace(
-          /\s+$/,
-          "",
-        );
-
-    const markdown =
-      matter.stringify(
-        body
-          ? `${body}\n`
-          : "",
-        frontmatter,
+      project.contentMarkdown.replace(
+        /\s+$/,
+        "",
       );
 
+    const markdown = matter.stringify(
+      body ? `${body}\n` : "",
+      frontmatter,
+    );
 
     await fs.mkdir(
-      path.dirname(
-        targetPath,
-      ),
+      path.dirname(targetPath),
       {
         recursive: true,
       },
     );
 
-
     const previousPath =
       await findSourceFile(
         project.sourceId,
       );
-
 
     await fs.writeFile(
       targetPath,
@@ -448,65 +326,30 @@ export async function PUT(
       "utf8",
     );
 
-
-    /*
-     * If the project language or
-     * slug changed, remove the old
-     * source file after the new one
-     * was successfully written.
-     */
     if (
       previousPath &&
-      path.resolve(
-        previousPath,
-      ) !==
-        path.resolve(
-          targetPath,
-        )
+      path.resolve(previousPath) !==
+        path.resolve(targetPath)
     ) {
-      await fs.unlink(
-        previousPath,
-      );
+      await fs.unlink(previousPath);
     }
-
 
     const saved: Project = {
       ...project,
-
-      id:
-        `project:${sourceId}`,
-
+      id: `project:${sourceId}`,
       sourceId,
-
       slug,
-
-      title:
-        project.title.trim(),
-
-      summary:
-        project.summary.trim(),
-
-      status:
-        project.status.trim(),
-
+      title: project.title.trim(),
+      summary: project.summary.trim(),
+      status: project.status.trim(),
       technologies:
-        frontmatter
-          .technologies,
-
-      githubUrl:
-        links.github ?? "",
-
-      demoUrl:
-        links.live ?? "",
-
-      sortOrder:
-        frontmatter.order,
+        frontmatter.technologies,
+      githubUrl: links.github ?? "",
+      demoUrl: links.live ?? "",
+      sortOrder: frontmatter.order,
     };
 
-
-    return NextResponse.json(
-      saved,
-    );
+    return NextResponse.json(saved);
   } catch (error) {
     console.error(
       "Failed to save project:",
@@ -527,30 +370,21 @@ export async function PUT(
   }
 }
 
-
 export async function DELETE(
   request: Request,
 ) {
-  const blocked =
-    developmentOnly();
+  const blocked = developmentOnly();
 
   if (blocked) {
     return blocked;
   }
 
-
-  const {
-    searchParams,
-  } =
-    new URL(
-      request.url,
-    );
+  const { searchParams } = new URL(
+    request.url,
+  );
 
   const sourceId =
-    searchParams.get(
-      "sourceId",
-    );
-
+    searchParams.get("sourceId");
 
   if (!sourceId) {
     return NextResponse.json(
@@ -564,31 +398,17 @@ export async function DELETE(
     );
   }
 
-
-  /*
-   * A project created in the
-   * current browser session has
-   * no source file yet.
-   */
   if (
-    sourceId.startsWith(
-      "new/",
-    )
+    sourceId.startsWith("new/")
   ) {
-    return new Response(
-      null,
-      {
-        status: 204,
-      },
-    );
+    return new Response(null, {
+      status: 204,
+    });
   }
-
 
   try {
     const filePath =
-      await findSourceFile(
-        sourceId,
-      );
+      await findSourceFile(sourceId);
 
     if (!filePath) {
       return NextResponse.json(
@@ -602,17 +422,11 @@ export async function DELETE(
       );
     }
 
+    await fs.unlink(filePath);
 
-    await fs.unlink(
-      filePath,
-    );
-
-    return new Response(
-      null,
-      {
-        status: 204,
-      },
-    );
+    return new Response(null, {
+      status: 204,
+    });
   } catch (error) {
     console.error(
       "Failed to delete project:",
