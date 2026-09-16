@@ -1,36 +1,145 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Developer Portfolio
 
-## Getting Started
+Multilingual developer portfolio with a lightweight Git-based CMS.
 
-First, run the development server:
+**Live:** https://www.jiantao.dev
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Tech Stack
+
+* Next.js 16
+* TypeScript
+* Tailwind CSS v4
+* shadcn/ui
+* next-intl
+* Markdown
+* Vercel
+
+## Features
+
+* English, Swedish, and Chinese
+* Localized routes: `/en`, `/sv`, `/zh`
+* Multilingual About / CV content
+* Markdown-based project pages
+* Responsive UI
+* Public CMS trial mode
+* Local content dashboard
+* Project edit and preview
+* Git-based publishing workflow
+* Development-only file writing
+
+## Routes
+
+```text
+/sv
+/en
+/zh
+
+/trial
+/trial/cv
+/trial/projects
+
+/dashboard
+/dashboard/cv
+/dashboard/projects
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`/` redirects to `/sv`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```text
+content/
+└── projects/
+    ├── en/
+    ├── sv/
+    └── zh/
 
-## Learn More
+i18n/
+└── locales/
+    ├── en/
+    ├── sv/
+    └── zh/
+```
 
-To learn more about Next.js, take a look at the following resources:
+Project content is stored in Markdown.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+About, Skills, and Education content is stored as multilingual JSON.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Dashboard
 
-## Deploy on Vercel
+### Trial
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```text
+/trial
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Public sandbox mode. Changes only exist in browser state and are not written to source files.
+
+### Local Dashboard
+
+```text
+/dashboard
+```
+
+Local CMS for editing About/CV and project content.
+
+```text
+Dashboard
+   ↓
+Next.js Route Handlers
+   ↓
+JSON / Markdown
+   ↓
+Git
+   ↓
+Vercel
+```
+
+File-writing APIs are only enabled during development.
+
+## Internationalization
+
+Public UI and CMS interface translations use `next-intl`.
+
+The CMS separates:
+
+```text
+Interface language
+≠
+Content language
+```
+
+For example, the CMS interface can be Chinese while editing Swedish portfolio content.
+
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+Open:
+
+```text
+http://localhost:3000
+```
+
+Local dashboard:
+
+```text
+http://localhost:3000/dashboard
+```
+
+Trial:
+
+```text
+http://localhost:3000/trial
+```
+
+## Build
+
+```bash
+npm run build
+```
+
+Content is version-controlled in Git and deployed through Vercel.
