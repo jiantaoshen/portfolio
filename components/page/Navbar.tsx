@@ -8,25 +8,25 @@ import LanguageSwitcher from "@/components/page/LanguageSwitcher";
 import {buttonVariants} from "@/components/ui/button";
 import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
 import {cn} from "@/lib/utils";
-import type {Locale} from "@/i18n";
-import type {CommonTranslation} from "@/i18n/types";
-import type {AboutTranslation} from "@/i18n/types";
 
+import {useTranslations} from "next-intl";
+import type {Locale} from "@/i18n/routing";
 
 interface NavbarProps {
-  lang: Locale;
-  about: AboutTranslation;
+  locale: Locale;
 }
 
 const sectionIds = ["skills", "projects", "education"] as const;
 
 type SectionId = (typeof sectionIds)[number];
 
-export default function Navbar({lang, about}: NavbarProps) {
+export default function Navbar({locale}: NavbarProps) {
 
   const [activeSection, setActiveSection] =useState<SectionId>("skills");
 
   const [mobileOpen,setMobileOpen] = useState(false);
+
+  const about = useTranslations("about");
 
 
   useEffect(() => {
@@ -167,7 +167,7 @@ export default function Navbar({lang, about}: NavbarProps) {
         {/* Logo */}
 
         <Link
-          href={`/${lang}/`}
+          href={`/${locale}/`}
           className="site-logo"
           aria-label="JIANTAO.dev home"
         >
@@ -185,7 +185,7 @@ export default function Navbar({lang, about}: NavbarProps) {
 
         <div className="desktop-nav">
           <Link
-            href={`/${lang}/#skills`}
+            href={`/${locale}/#skills`}
             className={cn(
               "nav-link",
 
@@ -200,12 +200,12 @@ export default function Navbar({lang, about}: NavbarProps) {
                 : undefined
             }
           >
-            {about.skills.title}
+            {about("skills.title")}
           </Link>
 
 
           <Link
-            href={`/${lang}/#projects`}
+            href={`/${locale}/#projects`}
             className={cn(
               "nav-link",
 
@@ -220,12 +220,12 @@ export default function Navbar({lang, about}: NavbarProps) {
                 : undefined
             }
           >
-            {about.projects.title}
+            {about("projects.title")}
           </Link>
 
 
           <Link
-            href={`/${lang}/#education`}
+            href={`/${locale}/#education`}
             className={cn(
               "nav-link",
 
@@ -240,13 +240,11 @@ export default function Navbar({lang, about}: NavbarProps) {
                 : undefined
             }
           >
-            {about.education.title}
+            {about("education.title")}
           </Link>
 
 
-          <LanguageSwitcher
-            lang={lang}
-          />
+          <LanguageSwitcher />
         </div>
 
 
@@ -285,7 +283,7 @@ export default function Navbar({lang, about}: NavbarProps) {
 
               <div className="flex flex-col gap-1 px-4">
                 <Link
-                  href={`/${lang}/#skills`}
+                  href={`/${locale}/#skills`}
                   className={
                     mobileLinkClass(
                       "skills",
@@ -301,12 +299,12 @@ export default function Navbar({lang, about}: NavbarProps) {
                     closeMobileMenu
                   }
                 >
-                  {about.skills.title}
+                  {about("skills.title")}
                 </Link>
 
 
                 <Link
-                  href={`/${lang}/#projects`}
+                  href={`/${locale}/#projects`}
                   className={
                     mobileLinkClass(
                       "projects",
@@ -322,12 +320,12 @@ export default function Navbar({lang, about}: NavbarProps) {
                     closeMobileMenu
                   }
                 >
-                  {about.projects.title}
+                  {about("projects.title")}
                 </Link>
 
 
                 <Link
-                  href={`/${lang}/#education`}
+                  href={`/${locale}/#education`}
                   className={
                     mobileLinkClass(
                       "education",
@@ -343,14 +341,12 @@ export default function Navbar({lang, about}: NavbarProps) {
                     closeMobileMenu
                   }
                 >
-                  {about.education.title}
+                  {about("education.title")}
                 </Link>
 
 
                 <div className="mt-4 border-t border-border pt-4">
-                  <LanguageSwitcher
-                    lang={lang}
-                  />
+                  <LanguageSwitcher />
                 </div>
               </div>
             </SheetContent>

@@ -1,45 +1,19 @@
-import type {
-  Metadata,
-} from "next";
-
+import type {Metadata} from "next";
 import Link from "next/link";
-
-import {
-  notFound,
-} from "next/navigation";
+import {notFound} from "next/navigation";
 
 import MarkdownContent from "@/components/content/MarkdownContent";
-
-import {
-  Badge,
-} from "@/components/ui/badge";
-
-import {
-  buttonVariants,
-} from "@/components/ui/button";
-
-import {
-  getTranslations,
-  isLocale,
-} from "@/i18n";
-
-import {
-  getMarkdownHeadings,
-} from "@/lib/content/markdown";
-
-import {
-  getProject,
-  getProjects,
-} from "@/lib/content/projects";
-
-import {
-  cn,
-} from "@/lib/utils";
+import {Badge} from "@/components/ui/badge";
+import {buttonVariants} from "@/components/ui/button";
+import {getTranslations, isLocale} from "@/i18n";
+import {getMarkdownHeadings} from "@/lib/content/markdown";
+import {getProject, getProjects} from "@/lib/content/projects";
+import {cn} from "@/lib/utils";
 
 
 interface ProjectPageProps {
   params: Promise<{
-    lang: string;
+    locale: string;
     slug: string[];
   }>;
 }
@@ -57,13 +31,13 @@ export async function generateStaticParams() {
     .map(
       (project) => {
         const [
-          lang,
+          locale,
           ...slug
         ] =
           project.id.split("/");
 
         return {
-          lang,
+          locale,
           slug,
         };
       },
@@ -75,17 +49,17 @@ export async function generateMetadata({
   params,
 }: ProjectPageProps): Promise<Metadata> {
   const {
-    lang,
+    locale,
     slug,
   } = await params;
 
-  if (!isLocale(lang)) {
+  if (!isLocale(locale)) {
     notFound();
   }
 
   const project =
     await getProject(
-      lang,
+      locale,
       slug,
     );
 
@@ -107,17 +81,17 @@ export default async function ProjectPage({
   params,
 }: ProjectPageProps) {
   const {
-    lang,
+    locale,
     slug,
   } = await params;
 
-  if (!isLocale(lang)) {
+  if (!isLocale(locale)) {
     notFound();
   }
 
   const project =
     await getProject(
-      lang,
+      locale,
       slug,
     );
 
@@ -127,13 +101,13 @@ export default async function ProjectPage({
 
   const projectTranslation =
     getTranslations(
-      lang,
+      locale,
       "project",
     );
 
   const common =
     getTranslations(
-      lang,
+      locale,
       "common",
     );
 
@@ -155,7 +129,7 @@ export default async function ProjectPage({
           {/* Back */}
 
           <Link
-            href={`/${lang}/#projects`}
+            href={`/${locale}/#projects`}
             className="project-detail-back"
           >
             <span
@@ -254,11 +228,7 @@ export default async function ProjectPage({
                     "h-12 w-full px-5 sm:w-auto",
                   )}
                 >
-                  {
-                    common
-                      .buttons
-                      .liveDemo
-                  }
+                  {common.buttons.liveDemo}
 
                   <span
                     aria-hidden="true"

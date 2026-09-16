@@ -215,11 +215,8 @@ export async function getProjects(): Promise<
  * - sorted by order
  * - only first 3
  */
-export async function getFeaturedProjects(
-  lang: Locale,
-): Promise<ProjectEntry[]> {
-  const projects =
-    await getProjects();
+export async function getFeaturedProjects(lang: Locale): Promise<ProjectEntry[]> {
+  const projects = await getProjects();
 
   return projects
     .filter(

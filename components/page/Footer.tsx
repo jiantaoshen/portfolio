@@ -1,30 +1,29 @@
 import Link from "next/link";
-
-import type { Locale } from "@/i18n";
-import type {
-  CommonTranslation,
-} from "@/i18n/types";
+import {getTranslations} from "next-intl/server";
+import type {Locale} from "@/i18n/routing";
 
 interface FooterProps {
-  lang: Locale;
-  common: CommonTranslation;
+  locale: Locale;
 }
 
-export default function Footer({
-  lang,
-  common,
-}: FooterProps) {
-  const year = new Date().getFullYear();
+export default async function Footer({locale}: FooterProps) {
+  const common = await getTranslations({
+      locale,
+      namespace: "common",
+    });
 
+  const year = new Date().getFullYear();
+  
   return (
     <footer className="site-footer">
       <div className="container">
         <div className="footer-inner">
           <Link
-            href={`/${lang}/`}
+            href={`/${locale}/`}
             className="footer-brand"
           >
-            JIANTAO<span>.dev</span>
+            JIANTAO
+            <span>.dev</span>
           </Link>
 
           <nav
@@ -38,7 +37,10 @@ export default function Footer({
               className="footer-link"
             >
               GitHub
-              <span aria-hidden="true">
+
+              <span
+                aria-hidden="true"
+              >
                 ↗
               </span>
             </a>
@@ -50,7 +52,10 @@ export default function Footer({
               className="footer-link"
             >
               LinkedIn
-              <span aria-hidden="true">
+
+              <span
+                aria-hidden="true"
+              >
                 ↗
               </span>
             </a>
@@ -58,7 +63,7 @@ export default function Footer({
 
           <p className="footer-copyright">
             © {year} Jiantao Shen.{" "}
-            {common.rights}
+            {common("rights")}
           </p>
         </div>
       </div>

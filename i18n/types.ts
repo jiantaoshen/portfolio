@@ -22,6 +22,16 @@ export type ProjectItem = {
   links?: ProjectLinks;
 };
 
+export type EducationItem = {
+      period: string;
+      degree: string;
+      school: string;
+      description?: string;
+
+      thesis?: string;
+      thesisUrl?: string;
+};
+
 export type AboutTranslation = {
   hero: {
     titleBefore: string;
@@ -44,15 +54,7 @@ export type AboutTranslation = {
 
   education: {
     title: string;
-    items: {
-      period: string;
-      degree: string;
-      school: string;
-      description?: string;
-
-      thesis?: string;
-      thesisUrl?: string;
-    }[];
+    items: EducationItem[];
   };
 };
 
@@ -70,6 +72,7 @@ export type CommonTranslation = {
     linkedin: string;
     github: string;
     caseStudy: string;
+    liveDemo: string;
   };
 
   language: {

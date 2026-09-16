@@ -1,16 +1,19 @@
-import type {
-  AboutTranslation,
-} from "@/i18n/types";
-
+import type {Locale} from "@/i18n/routing";
+import {getTranslations} from "next-intl/server";
+import {EducationItem} from "@/i18n/types";
 
 interface EducationProps {
-  about: AboutTranslation;
+  locale: Locale;
 }
 
+export default async function Education({locale}: EducationProps) {
+  const about = await getTranslations({
+      locale,
+      namespace: "about",
+  });
 
-export default function Education({
-  about,
-}: EducationProps) {
+  const educationItem = about.raw("education.items") as EducationItem[];
+
   return (
     <section
       id="education"
@@ -21,28 +24,26 @@ export default function Education({
 
         <div className="education-header">
           <h2 className="education-title">
-            {about.education.title}
+            {about("education.title")}
           </h2>
         </div>
 
 
         {/* Education */}
         <div className="education-list">
-          {about.education.items.map(
+          {educationItem.map(
             (item) => (
               <article
                 key={`${item.period}-${item.degree}`}
                 className="education-row"
               >
                 {/* Period */}
-
                 <p className="education-period">
                   {item.period}
                 </p>
 
 
                 {/* Content */}
-
                 <div className="education-content">
                   <h3>
                     {item.degree}

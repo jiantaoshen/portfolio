@@ -1,48 +1,45 @@
-import {
-  Badge,
-} from "@/components/ui/badge";
-
-import {
-  buttonVariants,
-} from "@/components/ui/button";
-
-import {
-  cn,
-} from "@/lib/utils";
-
-import type {
-  CommonTranslation,
-  AboutTranslation,
-} from "@/i18n/types";
-
+import {Badge} from "@/components/ui/badge";
+import {buttonVariants} from "@/components/ui/button";
+import {cn} from "@/lib/utils";
+import {SkillGroup} from "@/i18n/types";
+import {getTranslations} from "next-intl/server";
+import type {Locale} from "@/i18n/routing";
 
 interface HeroProps {
-  common: CommonTranslation;
-  about: AboutTranslation;
+  locale: Locale;
 }
 
+export default async function Hero({locale}: HeroProps) {
 
-export default function Hero({common, about}: HeroProps) {
+  const common = await getTranslations({ 
+    locale,
+    namespace: "common",
+  });
+
+  const about = await getTranslations({
+      locale,
+      namespace: "about",
+  });
+
+  const skillGroups = about.raw("skills.items") as SkillGroup[];
+
   return (
-    <section
-      id="skills"
-      className="hero-shell"
-    >
+    <section id="skills" className="hero-shell">
       <div className="container">
         <div className="hero-grid">
-          {/* Hero copy */}
 
+          {/* Hero copy */}
           <div className="hero-copy">
             <h1 className="hero-title">
-              {about.hero.titleBefore}
+              {about("hero.titleBefore")}
               {" "}
               <span className="text-primary">
-                {about.hero.titleHighlight}
+                {about("hero.titleHighlight")}
               </span>
             </h1>
 
             <p className="hero-description">
-              {about.about.description}
+              {about("about.description")}
             </p>
 
             {/* Actions */}
@@ -56,10 +53,10 @@ export default function Hero({common, about}: HeroProps) {
                   "h-12 w-full px-5 sm:w-auto",
                 )}
               >
-                {common.buttons.caseStudy}
+                {common("buttons.caseStudy")}
 
                 <span aria-hidden="true">
-                  →
+                  ↓
                 </span>
               </a>
 
@@ -74,7 +71,7 @@ export default function Hero({common, about}: HeroProps) {
                   "h-12 w-full px-5 sm:w-auto",
                 )}
               >
-                GitHub
+                {common("buttons.github")}
 
                 <span aria-hidden="true">
                   ↗
@@ -85,15 +82,9 @@ export default function Hero({common, about}: HeroProps) {
                 href="https://www.linkedin.com/in/jiantaoshen"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={cn(
-                  buttonVariants({
-                    variant: "outline",
-                  }),
-                  "h-12 w-full px-5 sm:w-auto",
-                )}
+                className={cn(buttonVariants({variant: "outline"}), "h-12 w-full px-5 sm:w-auto")}
               >
-                LinkedIn
-
+                {common("buttons.linkedin")}
                 <span aria-hidden="true">
                   ↗
                 </span>
@@ -111,16 +102,13 @@ export default function Hero({common, about}: HeroProps) {
               id="hero-skills-title"
               className="skills-heading"
             >
-              {about.skills.title}
+              {about("skills.title")}
             </h2>
 
             <div className="skill-groups">
-              {about.skills.items.map(
+              {skillGroups.map(
                 (group) => (
-                  <div
-                    key={group.title}
-                    className="skill-group"
-                  >
+                  <div key={group.title} className="skill-group">
                     <h3>
                       {group.title}
                     </h3>
