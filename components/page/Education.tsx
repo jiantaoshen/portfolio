@@ -27,7 +27,6 @@ export default function Education({
 
 
         {/* Education */}
-
         <div className="education-list">
           {about.education.items.map(
             (item) => (

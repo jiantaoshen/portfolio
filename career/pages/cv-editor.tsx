@@ -84,14 +84,9 @@ export function CvEditorPage() {
     mode,
   } = useCareerWorkspace();
 
-  const [
-    locale,
-    setLocale,
-  ] =
-    useState<Locale>("en");
+  const [locale, setLocale] =useState<Locale>("en");
 
-  const draft =
-    data.about[locale];
+  const draft = data.about[locale];
 
   function setDraft(
     updater:
@@ -203,7 +198,6 @@ export function CvEditorPage() {
   return (
     <div className="space-y-6">
       {/* Page header */}
-
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <h1 className="m-0 text-3xl font-bold tracking-tight text-foreground">
@@ -226,134 +220,28 @@ export function CvEditorPage() {
 
 
       {/* Story */}
-
       <Card>
         <CardHeader>
           <CardTitle>
-            Background / Story
+            Introduction
           </CardTitle>
-
-          <CardDescription>
-            Maps to{" "}
-            <code>
-              story.title
-            </code>{" "}
-            and{" "}
-            <code>
-              story.paragraphs
-            </code>
-            .
-          </CardDescription>
         </CardHeader>
 
         <CardContent className="space-y-4">
           <div className="space-y-3">
-            {draft.story.paragraphs.map(
-              (
-                paragraph,
-                index,
-              ) => (
-                <div
-                  key={index}
-                  className="flex gap-2"
-                >
-                  <Textarea
-                    rows={4}
-                    value={
-                      paragraph
-                    }
-                    onChange={(
-                      event,
-                    ) =>
-                      setDraft(
-                        (
-                          current,
-                        ) => ({
-                          ...current,
-
-                          story: {
-                            ...current.story,
-
-                            paragraphs:
-                              current.story.paragraphs.map(
-                                (
-                                  value,
-                                  i,
-                                ) =>
-                                  i ===
-                                  index
-                                    ? event
-                                        .target
-                                        .value
-                                    : value,
-                              ),
-                          },
-                        }),
-                      )
-                    }
-                  />
-
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    aria-label="Remove paragraph"
-                    onClick={() =>
-                      setDraft(
-                        (
-                          current,
-                        ) => ({
-                          ...current,
-
-                          story: {
-                            ...current.story,
-
-                            paragraphs:
-                              current.story.paragraphs.filter(
-                                (
-                                  _,
-                                  i,
-                                ) =>
-                                  i !==
-                                  index,
-                              ),
-                          },
-                        }),
-                      )
-                    }
-                  >
-                    <Trash2 className="size-4" />
-                  </Button>
-                </div>
-              ),
-            )}
-
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() =>
-                setDraft(
-                  (current) => ({
-                    ...current,
-
-                    story: {
-                      ...current.story,
-
-                      paragraphs: [
-                        ...current.story
-                          .paragraphs,
-                        "",
-                      ],
-                    },
-                  }),
-                )
+            <Textarea
+              rows={8}
+              value={draft.about.description}
+              onChange={(event) =>
+                setDraft((current) => ({
+                  ...current,
+                  about: {
+                    ...current.about,
+                    description: event.target.value,
+                  },
+                }))
               }
-            >
-              <Plus className="mr-2 size-4" />
-
-              Add paragraph
-            </Button>
+            />
           </div>
         </CardContent>
       </Card>
@@ -363,20 +251,9 @@ export function CvEditorPage() {
 
       <Card>
         <CardHeader className="gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <CardTitle>
-              Skills
-            </CardTitle>
-
-            <CardDescription>
-              Each card maps directly
-              to one item in{" "}
-              <code>
-                skills.items
-              </code>
-              .
-            </CardDescription>
-          </div>
+          <CardTitle>
+            Skills
+          </CardTitle>
 
           <Button
             type="button"
@@ -442,20 +319,9 @@ export function CvEditorPage() {
 
       <Card>
         <CardHeader className="gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <CardTitle>
-              Education & Learning
-            </CardTitle>
-
-            <CardDescription>
-              Maps directly to{" "}
-              <code>
-                education.items
-              </code>
-              , including optional
-              thesis and thesis URL.
-            </CardDescription>
-          </div>
+          <CardTitle>
+            Education & Learning
+          </CardTitle>
 
           <Button
             type="button"

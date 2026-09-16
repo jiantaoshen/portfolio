@@ -17,8 +17,8 @@ import type {
 } from "@/i18n";
 
 import type {
-  HomeTranslation,
   CommonTranslation,
+  AboutTranslation
 } from "@/i18n/types";
 
 import {
@@ -29,16 +29,12 @@ import {
 
 interface FeaturedProjectsProps {
   lang: Locale;
-  home: HomeTranslation;
+  about: AboutTranslation;
   common: CommonTranslation;
 }
 
 
-export default async function FeaturedProjects({
-  lang,
-  home,
-  common,
-}: FeaturedProjectsProps) {
+export default async function FeaturedProjects({lang, common, about}: FeaturedProjectsProps) {
   const featuredProjects =
     await getFeaturedProjects(
       lang,
@@ -54,10 +50,7 @@ export default async function FeaturedProjects({
 
         <div className="projects-header">
           <h2 className="projects-title">
-            {
-              home.featuredProjects
-                .title
-            }
+            {about.projects.title}
           </h2>
         </div>
 
@@ -169,10 +162,7 @@ export default async function FeaturedProjects({
                     "w-fit justify-self-start text-primary hover:text-foreground lg:justify-self-end",
                   )}
                 >
-                  {
-                    common.buttons
-                      .caseStudy
-                  }
+                  {common.buttons.caseStudy}
 
                   <span
                     aria-hidden="true"

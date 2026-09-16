@@ -11,27 +11,21 @@ import {
 } from "@/lib/utils";
 
 import type {
-  HomeTranslation,
   CommonTranslation,
   AboutTranslation,
 } from "@/i18n/types";
 
 
 interface HeroProps {
-  home: HomeTranslation;
   common: CommonTranslation;
-  skills: AboutTranslation["skills"];
+  about: AboutTranslation;
 }
 
 
-export default function Hero({
-  home,
-  common,
-  skills,
-}: HeroProps) {
+export default function Hero({common, about}: HeroProps) {
   return (
     <section
-      id="about"
+      id="skills"
       className="hero-shell"
     >
       <div className="container">
@@ -40,20 +34,18 @@ export default function Hero({
 
           <div className="hero-copy">
             <h1 className="hero-title">
-              {home.hero.titleBefore}{" "}
-
+              {about.hero.titleBefore}
+              {" "}
               <span className="text-primary">
-                {home.hero.titleHighlight}
+                {about.hero.titleHighlight}
               </span>
             </h1>
 
             <p className="hero-description">
-              {home.hero.description}
+              {about.about.description}
             </p>
 
-
             {/* Actions */}
-
             <div className="hero-actions">
               <a
                 href="#projects"
@@ -64,7 +56,7 @@ export default function Hero({
                   "h-12 w-full px-5 sm:w-auto",
                 )}
               >
-                {common.buttons.viewWork}
+                {common.buttons.caseStudy}
 
                 <span aria-hidden="true">
                   →
@@ -111,7 +103,6 @@ export default function Hero({
 
 
           {/* Skills */}
-
           <aside
             className="hero-skills"
             aria-labelledby="hero-skills-title"
@@ -120,11 +111,11 @@ export default function Hero({
               id="hero-skills-title"
               className="skills-heading"
             >
-              {skills.title}
+              {about.skills.title}
             </h2>
 
             <div className="skill-groups">
-              {skills.items.map(
+              {about.skills.items.map(
                 (group) => (
                   <div
                     key={group.title}

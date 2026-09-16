@@ -1,10 +1,19 @@
 {
-  "story": {
-    "title": "Bakgrund",
-    "paragraphs": [
-      "Civilingenjör inom robotik med erfarenhet av maskininlärning, systemutveckling och full-stackutveckling. Har praktisk erfarenhet av C#/.NET, ASP.NET Core Web API, PostgreSQL, React och TypeScript samt av att utveckla REST-baserade applikationer med autentisering och behörighetsstyrning. Har även erfarenhet av driftsättning och molntjänster i Microsoft Azure."
-    ]
+  "hero": {
+    "titleBefore": "Hej, jag är ",
+    "titleHighlight": "Jiantao Shen"
   },
+
+  "about":{
+    "introduction": "Introduktion",
+    "description": "Backendfokuserad mjukvaruutvecklare med en masterexamen i robotik, med fokus på att bygga pålitliga produkter som omvandlar komplexa system och AI-funktioner till praktisk mjukvara."
+  },
+
+
+  "projects": {
+    "title": "Projekt"
+  },
+  
   "skills": {
     "title": "Kompetens",
     "items": [
@@ -58,17 +67,18 @@
       }
     ]
   },
+
   "education": {
     "title": "Utbildning",
     "items": [
       {
-        "period": "Mars 2026 – pågående",
+        "period": "Mars 2026 - December 2026",
         "degree": "Programmerare AI (yrkesutbildning)",
         "school": "Lexicon AB, Malmö · Distans",
         "description": "Studerar utveckling av webbapplikationer och molntjänster."
       },
       {
-        "period": "September 2019 – juli 2024",
+        "period": "September 2019 - Juli 2024",
         "degree": "Civilingenjör inom robotik",
         "school": "Mälardalens universitet, Västerås",
         "description": "Studerade robotik, inbyggda system, artificiell intelligens och elektronik. Examensarbetet fokuserade på utveckling av ett radarbaserat system för handgestigenkänning med Python, TensorFlow och CNN. Systemet uppnådde 95 % klassificeringsnoggrannhet och cirka 25 ms prediktionstid.",

@@ -1,4 +1,4 @@
-import "../globals.css";
+import "@/app/globals.css";
 
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -65,10 +65,7 @@ export default async function LangLayout({
         <div className="flex min-h-screen w-full flex-col">
           <Navbar
             lang={lang}
-            common={common}
-            educationLabel={
-              about.education.title
-            }
+            about={about}
           />
 
           <main className="flex-1">

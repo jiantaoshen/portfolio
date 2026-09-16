@@ -1,16 +1,9 @@
 {
-  "nav": {
-    "projects": "项目",
-    "about": "生涯",
-    "contact": "Linkedin"
-  },
-
   "buttons": {
-    "discussProject": "讨论项目",
-    "viewWork": "查看项目",
+    "linkedin": "Linkedin",
     "github": "GitHub",
-    "liveDemo": "在线演示",
-    "caseStudy": "查看案例"
+    "caseStudy": "查看案例",
+    "liveDemo": "Live Demo"
   },
 
   "language": {
@@ -22,8 +15,8 @@
   "rights": "保留所有权利。",
 
   "notFound": {
-  "title": "这个页面不存在。",
-  "description": "页面可能已经移动、删除，或者当前地址不正确。",
-  "home": "返回首页"
-}
+    "title": "这个页面不存在。",
+    "description": "页面可能已经移动、删除，或者当前地址不正确。",
+    "home": "返回首页"
+  }
 }

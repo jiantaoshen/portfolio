@@ -1,11 +1,6 @@
 export type DashboardMode = "trial" | "admin"
 export type Locale = "en" | "sv" | "zh"
 
-export type AboutStory = {
-  title: string
-  paragraphs: string[]
-}
-
 export type AboutSkillGroup = {
   title: string
   items: string[]
@@ -15,17 +10,22 @@ export type AboutEducationItem = {
   period: string
   degree: string
   school: string
-  description?: string
+  description: string
   thesis?: string
   thesisUrl?: string
 }
 
 export type AboutContent = {
-  story: AboutStory
+  about: {
+    introduction: string
+    description: string
+  }
+
   skills: {
     title: string
     items: AboutSkillGroup[]
   }
+
   education: {
     title: string
     items: AboutEducationItem[]

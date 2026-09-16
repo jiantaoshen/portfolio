@@ -1,9 +1,14 @@
 {
-  "story": {
-    "title": "背景介绍",
-    "paragraphs": [
-      "机器人方向工程硕士，具备机器学习、系统开发及全栈开发经验。拥有 C#/.NET、ASP.NET Core Web API、PostgreSQL、React 和 TypeScript 的实际开发经验，并熟悉基于 REST API 的应用开发，包括身份认证与权限控制。同时具备将应用部署至 Microsoft Azure 的实践经验。"
-    ]
+  "hero": {
+    "titleBefore": "您好，我是 ",
+    "titleHighlight": "沈键涛"
+  },
+  "about": {
+    "introduction": "个人介绍",
+    "description": "专注于后端的软件开发者，拥有机器人学硕士学位，致力于构建可靠的软件产品，将复杂系统和 AI 能力转化为实用的软件。"
+  },
+  "projects": {
+    "title": "项目"
   },
   "skills": {
     "title": "技术能力",
@@ -59,16 +64,16 @@
     ]
   },
   "education": {
-    "title": "教育",
+    "title": "学历",
     "items": [
       {
-        "period": "2026年3月 – 至今",
+        "period": "2026年3月 - 2026年12月",
         "degree": "AI 程序开发（职业培训）",
-        "school": "Lexicon AB，马尔默 · 远程",
+        "school": "Lexicon AB, 马尔默 · 远程",
         "description": "目前主要学习 Web 应用程序开发与云服务相关技术。"
       },
       {
-        "period": "2019年9月 – 2024年7月",
+        "period": "2019年9月 - 2024年7月",
         "degree": "机器人方向工程硕士",
         "school": "梅拉达伦大学，韦斯特罗斯",
         "description": "主要学习机器人技术、嵌入式系统、人工智能和电子技术。硕士毕业论文中，使用 Python、TensorFlow 和卷积神经网络（CNN）开发了基于雷达的手势识别系统，分类准确率达到 95%，单次预测时间约为 25 毫秒。",

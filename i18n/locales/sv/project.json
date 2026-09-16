@@ -1,20 +1,7 @@
 {
-  "page": {
-    "title": "Projekt"
-  },
-
   "detail": {
-    "notFound": "Projektet kunde inte hittas",
     "back": "Tillbaka till projekt",
-
-    "overview": "Översikt",
-    "problem": "Problemet",
-    "solution": "Lösning",
-    "features": "Viktiga funktioner",
-    "challenges": "Utmaningar & tekniska beslut",
-    "deployment": "Driftsättning & körmiljö",
-
-    "technologies": "Tekniker",
+    "technologies": "Tech stack",
     "status": "Status",
     "type": "Projekttyp"
   }

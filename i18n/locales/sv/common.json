@@ -1,16 +1,9 @@
 {
-  "nav": {
-    "projects": "Projekt",
-    "about": "Om mig",
-    "contact": "Linkedin"
-  },
-
   "buttons": {
-    "discussProject": "Diskutera ett projekt",
-    "viewWork": "Se mina projekt",
+    "linkedin": "Linkedin",
     "github": "GitHub",
-    "liveDemo": "Live-demo",
-    "caseStudy": "Se projektet"
+    "caseStudy": "Se projektet",
+    "liveDemo": "Live Demo"
   },
 
   "language": {
@@ -22,8 +15,8 @@
   "rights": "Alla rättigheter förbehållna.",
 
   "notFound": {
-  "title": "Sidan kunde inte hittas.",
-  "description": "Sidan kan ha flyttats, tagits bort eller så är adressen felaktig.",
-  "home": "Tillbaka till startsidan"
-}
+    "title": "Sidan kunde inte hittas.",
+    "description": "Sidan kan ha flyttats, tagits bort eller så är adressen felaktig.",
+    "home": "Tillbaka till startsidan"
+  }
 }

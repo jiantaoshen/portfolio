@@ -1,78 +1,32 @@
 "use client";
 
 import Link from "next/link";
-
-import {
-  useEffect,
-  useState,
-} from "react";
-
-import {
-  Menu,
-} from "lucide-react";
+import {useEffect, useState} from "react";
+import {Menu} from "lucide-react";
 
 import LanguageSwitcher from "@/components/page/LanguageSwitcher";
-
-import {
-  buttonVariants,
-} from "@/components/ui/button";
-
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-
-import {
-  cn,
-} from "@/lib/utils";
-
-import type {
-  Locale,
-} from "@/i18n";
-
-import type {
-  CommonTranslation,
-} from "@/i18n/types";
+import {buttonVariants} from "@/components/ui/button";
+import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
+import {cn} from "@/lib/utils";
+import type {Locale} from "@/i18n";
+import type {CommonTranslation} from "@/i18n/types";
+import type {AboutTranslation} from "@/i18n/types";
 
 
 interface NavbarProps {
   lang: Locale;
-  common: CommonTranslation;
-  educationLabel: string;
+  about: AboutTranslation;
 }
 
+const sectionIds = ["skills", "projects", "education"] as const;
 
-const sectionIds = [
-  "about",
-  "projects",
-  "education",
-] as const;
+type SectionId = (typeof sectionIds)[number];
 
-type SectionId =
-  (typeof sectionIds)[number];
+export default function Navbar({lang, about}: NavbarProps) {
 
+  const [activeSection, setActiveSection] =useState<SectionId>("skills");
 
-export default function Navbar({
-  lang,
-  common,
-  educationLabel,
-}: NavbarProps) {
-  const [
-    activeSection,
-    setActiveSection,
-  ] =
-    useState<SectionId>(
-      "about",
-    );
-
-  const [
-    mobileOpen,
-    setMobileOpen,
-  ] =
-    useState(false);
+  const [mobileOpen,setMobileOpen] = useState(false);
 
 
   useEffect(() => {
@@ -231,22 +185,22 @@ export default function Navbar({
 
         <div className="desktop-nav">
           <Link
-            href={`/${lang}/#about`}
+            href={`/${lang}/#skills`}
             className={cn(
               "nav-link",
 
               activeSection ===
-                "about" &&
+                "skills" &&
                 "nav-active",
             )}
             aria-current={
               activeSection ===
-              "about"
+              "skills"
                 ? "location"
                 : undefined
             }
           >
-            {common.nav.about}
+            {about.skills.title}
           </Link>
 
 
@@ -266,7 +220,7 @@ export default function Navbar({
                 : undefined
             }
           >
-            {common.nav.projects}
+            {about.projects.title}
           </Link>
 
 
@@ -286,7 +240,7 @@ export default function Navbar({
                 : undefined
             }
           >
-            {educationLabel}
+            {about.education.title}
           </Link>
 
 
@@ -331,15 +285,15 @@ export default function Navbar({
 
               <div className="flex flex-col gap-1 px-4">
                 <Link
-                  href={`/${lang}/#about`}
+                  href={`/${lang}/#skills`}
                   className={
                     mobileLinkClass(
-                      "about",
+                      "skills",
                     )
                   }
                   aria-current={
                     activeSection ===
-                    "about"
+                    "skills"
                       ? "location"
                       : undefined
                   }
@@ -347,7 +301,7 @@ export default function Navbar({
                     closeMobileMenu
                   }
                 >
-                  {common.nav.about}
+                  {about.skills.title}
                 </Link>
 
 
@@ -368,7 +322,7 @@ export default function Navbar({
                     closeMobileMenu
                   }
                 >
-                  {common.nav.projects}
+                  {about.projects.title}
                 </Link>
 
 
@@ -389,7 +343,7 @@ export default function Navbar({
                     closeMobileMenu
                   }
                 >
-                  {educationLabel}
+                  {about.education.title}
                 </Link>
 
 

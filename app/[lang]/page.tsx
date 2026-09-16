@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import Hero from "@/components/page/Hero";
-import FeaturedProjects from "@/components/page/Projects";
+import Projects from "@/components/page/Projects";
 import Education from "@/components/page/Education";
 
 import {
@@ -30,12 +30,6 @@ export default async function HomePage({
     notFound();
   }
 
-  const home =
-    getTranslations(
-      lang,
-      "home",
-    );
-
   const common =
     getTranslations(
       lang,
@@ -51,15 +45,14 @@ export default async function HomePage({
   return (
     <>
       <Hero
-        home={home}
         common={common}
-        skills={about.skills}
+        about={about}
       />
 
-      <FeaturedProjects
+      <Projects
         lang={lang}
-        home={home}
         common={common}
+        about={about}
       />
 
       <Education
