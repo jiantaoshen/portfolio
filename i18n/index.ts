@@ -20,14 +20,17 @@ import type {
   ProjectTranslation,
 } from "./types";
 
+
 export const locales = [
   "en",
   "sv",
   "zh",
 ] as const;
 
+
 export type Locale =
   (typeof locales)[number];
+
 
 export type TranslationMap = {
   about: AboutTranslation;
@@ -36,10 +39,18 @@ export type TranslationMap = {
   project: ProjectTranslation;
 };
 
+
 export type Namespace =
   keyof TranslationMap;
 
-const translations = {
+
+type Translations = Record<
+  Locale,
+  TranslationMap
+>;
+
+
+const translations: Translations = {
   en: {
     about: enAbout,
     common: enCommon,
@@ -60,11 +71,8 @@ const translations = {
     home: zhHome,
     project: zhProject,
   },
-} satisfies {
-  [L in Locale]: {
-    [N in Namespace]: TranslationMap[N];
-  };
 };
+
 
 export function getTranslations<
   N extends Namespace,
@@ -72,10 +80,11 @@ export function getTranslations<
   locale: Locale,
   namespace: N,
 ): TranslationMap[N] {
-  return translations[locale][
-    namespace
-  ] as TranslationMap[N];
+  return translations[
+    locale
+  ][namespace];
 }
+
 
 export function isLocale(
   value: string,

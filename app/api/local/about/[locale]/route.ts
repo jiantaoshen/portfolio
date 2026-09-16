@@ -5,13 +5,17 @@ import {
   NextResponse,
 } from "next/server";
 
+import type {
+  AboutContent,
+} from "@/career/lib/types";
+
 import {
   isLocale,
 } from "@/i18n";
 
-import type {
-  AboutContent,
-} from "@/career/lib/types";
+
+export const runtime =
+  "nodejs";
 
 
 interface RouteContext {
@@ -21,12 +25,40 @@ interface RouteContext {
 }
 
 
+function developmentOnly() {
+  if (
+    process.env.NODE_ENV ===
+    "development"
+  ) {
+    return null;
+  }
+
+  return NextResponse.json(
+    {
+      error:
+        "Local content editing is disabled in production.",
+    },
+    {
+      status: 403,
+    },
+  );
+}
+
+
 export async function PUT(
   request: Request,
   {
     params,
   }: RouteContext,
 ) {
+  const blocked =
+    developmentOnly();
+
+  if (blocked) {
+    return blocked;
+  }
+
+
   const {
     locale,
   } = await params;
@@ -88,7 +120,7 @@ export async function PUT(
     );
   } catch (error) {
     console.error(
-      "Failed to write About content:",
+      "Failed to save About content:",
       error,
     );
 
@@ -97,7 +129,7 @@ export async function PUT(
         error:
           error instanceof Error
             ? error.message
-            : "Failed to write About content.",
+            : "Failed to save About content.",
       },
       {
         status: 500,

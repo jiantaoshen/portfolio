@@ -46,31 +46,29 @@ export type BlogPost = {
   tags: string[];
 };
 
-export type AboutTranslation = {
-  hero: {
-    title: string;
-    description: string;
-  };
 
+export type AboutTranslation = {
   story: {
     title: string;
+    description?: string;
     paragraphs: string[];
   };
 
   skills: {
     title: string;
-    description: string;
+    description?: string;
     items: SkillGroup[];
   };
 
   education: {
     title: string;
-    description: string;
+    description?: string;
 
     items: {
       period: string;
       degree: string;
       school: string;
+
       description?: string;
 
       thesis?: string;
@@ -78,6 +76,7 @@ export type AboutTranslation = {
     }[];
   };
 };
+
 
 export type HomeTranslation = {
   hero: {
@@ -88,14 +87,6 @@ export type HomeTranslation = {
 
   featuredProjects: {
     title: string;
-    description: string;
-    viewAll: string;
-  };
-
-  technicalNotes: {
-    title: string;
-    description: string;
-    viewAll: string;
   };
 
   contact: {
@@ -104,10 +95,10 @@ export type HomeTranslation = {
   };
 };
 
+
 export type ProjectTranslation = {
   page: {
     title: string;
-    description: string;
   };
 
   detail: {
@@ -117,6 +108,7 @@ export type ProjectTranslation = {
     type: string;
   };
 };
+
 
 export type BlogTranslation = {
   hero: {
@@ -136,6 +128,7 @@ export type BlogTranslation = {
   };
 };
 
+
 export type CommonTranslation = {
   nav: {
     about: string;
@@ -146,13 +139,22 @@ export type CommonTranslation = {
   buttons: {
     discussProject: string;
     viewWork: string;
-    downloadCV: string;
     caseStudy: string;
     liveDemo: string;
     github: string;
   };
 
-  readArticle: string;
+  language: {
+    english: string;
+    swedish: string;
+    chinese: string;
+  };
 
   rights: string;
+
+  notFound: {
+    title: string;
+    description: string;
+    home: string;
+  };
 };
