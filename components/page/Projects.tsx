@@ -54,7 +54,7 @@ export default async function FeaturedProjects({locale}: FeaturedProjectsProps) 
         {/* Projects */}
 
         <div className="projects-list">
-          {Projects.map((project, index) => (
+          {Projects.map((project) => (
             <article
               key={project.id}
               className="project-row"

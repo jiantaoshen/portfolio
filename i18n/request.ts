@@ -4,21 +4,20 @@ import {hasLocale} from "next-intl";
 
 import {getRequestConfig} from "next-intl/server";
 
-import {notFound} from "next/navigation";
-
 import {routing} from "./routing";
 
 
 export default getRequestConfig(async ({locale: overrideLocale}) => {
     const paramLocale = await rootParams.locale();
-    const locale = overrideLocale ?? paramLocale;
+    const requestedLocale = overrideLocale ?? paramLocale;
 
-    if (!hasLocale(routing.locales, locale)) {
-      notFound();
-    }
+    const locale =
+      requestedLocale && hasLocale(routing.locales, requestedLocale)
+        ? requestedLocale
+        : routing.defaultLocale;
 
 
-    const [about, common, project] =
+    const [about, common, project, dashboard] =
       await Promise.all([
         import(
           `./locales/${locale}/about.json`
@@ -30,6 +29,10 @@ export default getRequestConfig(async ({locale: overrideLocale}) => {
 
         import(
           `./locales/${locale}/project.json`
+        ),
+        
+        import(
+          `./locales/${locale}/dashboard.json`
         ),
       ]);
 
@@ -43,6 +46,8 @@ export default getRequestConfig(async ({locale: overrideLocale}) => {
         common: common.default,
 
         project: project.default,
+
+        dashboard: dashboard.default,
       },
     };
   },

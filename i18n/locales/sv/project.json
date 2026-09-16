@@ -3,7 +3,8 @@
     "back": "Tillbaka till projekt",
     "technologies": "Tech stack",
     "status": "Status",
-    "type": "Projekttyp"
+    "type": "Projekttyp",
+    "contents": "Innehåll"
   }
 }
 

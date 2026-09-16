@@ -1,10 +1,19 @@
 import type {Locale} from "@/i18n/routing";
 import {getTranslations} from "next-intl/server";
-import {EducationItem} from "@/i18n/types";
 
 interface EducationProps {
   locale: Locale;
 }
+
+type EducationItem = {
+      period: string;
+      degree: string;
+      school: string;
+      description?: string;
+
+      thesis?: string;
+      thesisUrl?: string;
+};
 
 export default async function Education({locale}: EducationProps) {
   const about = await getTranslations({

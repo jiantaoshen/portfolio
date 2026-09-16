@@ -1,14 +1,6 @@
-import {
-  CareerWorkspace,
-} from "@/career/workspace";
-
-import {
-  getAboutContent,
-} from "@/career/server/about-content";
-
-import {
-  getPortfolioContent,
-} from "@/career/server/portfolio-content";
+import { CareerWorkspace } from "@/career/workspace";
+import { getAboutContent } from "@/career/server/about-content";
+import { getPortfolioContent } from "@/career/server/portfolio-content";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -17,25 +9,16 @@ interface DashboardLayoutProps {
 export default async function DashboardLayout({
   children,
 }: DashboardLayoutProps) {
-  const [
-    initialContent,
-    initialAbout,
-  ] = await Promise.all([
+  const [initialContent, initialAbout] = await Promise.all([
     getPortfolioContent(),
-    Promise.resolve(
-      getAboutContent(),
-    ),
+    getAboutContent(),
   ]);
 
   return (
     <CareerWorkspace
       mode="admin"
-      initialContent={
-        initialContent
-      }
-      initialAbout={
-        initialAbout
-      }
+      initialContent={initialContent}
+      initialAbout={initialAbout}
     >
       {children}
     </CareerWorkspace>

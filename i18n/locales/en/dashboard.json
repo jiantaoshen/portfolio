@@ -1,0 +1,105 @@
+{
+  "title": {
+    "trial": "CMS Demo",
+    "local": "Local Content Editor"
+  },
+  "nav": {
+    "cv": "CV / About",
+    "projects": "Projects",
+    "portfolio": "Portfolio home"
+  },
+  "status": {
+    "trial": "Trial",
+    "local": "Local"
+  },
+  "tabs": {
+    "edit": "Edit",
+    "preview": "Preview"
+  },
+  "contentLanguage": {
+    "label": "Content language"
+  },
+  "actions": {
+    "save": "Save",
+    "saving": "Saving...",
+    "delete": "Delete",
+    "newProject": "New project",
+    "resetDemo": "Reset demo",
+    "dismiss": "Dismiss error",
+    "applyLocally": "Apply locally",
+    "saveLanguage": "Save {language}",
+    "applyInDemo": "Apply in demo",
+    "saveMarkdown": "Save Markdown file",
+    "copyMarkdown": "Copy body Markdown",
+    "removeFromDemo": "Remove from demo",
+    "deleteSource": "Delete source file"
+  },
+  "notices": {
+    "trialTitle": "Demo mode.",
+    "trialDescription": "You are editing a temporary browser copy of public portfolio content. No write request is sent to the backend.",
+    "localTitle": "Local editor.",
+    "localDescription": "Saves write directly to portfolio JSON and Markdown source files. Review the Git diff before committing and pushing."
+  },
+  "errors": {
+    "loadFailed": "Failed to load content.",
+    "saveFailed": "Save failed:"
+  },
+  "cv": {
+    "title": "CV / About",
+    "description": "Each language keeps its own editor state, matching the three About JSON files directly.",
+    "introduction": {
+      "title": "Introduction"
+    },
+    "skills": {
+      "title": "Skills",
+      "addCategory": "Add category",
+      "categoryPlaceholder": "Category name",
+      "deleteCategory": "Delete skill category",
+      "technologies": "Other technologies (comma separated)",
+      "technologiesPlaceholder": "ASP.NET Core, REST APIs, JWT"
+    },
+    "education": {
+      "title": "Education & Learning",
+      "add": "Add education",
+      "period": "Period",
+      "degree": "Degree / learning activity",
+      "school": "School / location",
+      "description": "Description",
+      "thesis": "Thesis (optional)",
+      "thesisUrl": "Thesis URL (optional)",
+      "delete": "Delete education item"
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "empty": "No {language} projects yet. Create one from the sidebar.",
+    "opening": "Opening the first project...",
+    "untitled": "Untitled project",
+    "demoCopy": "Browser-only demo copy.",
+    "source": "Source: {sourceId}",
+    "confirmDelete": "Delete source file {sourceId}?",
+    "fields": {
+      "title": "Title",
+      "slug": "Slug",
+      "status": "Project status",
+      "language": "Language",
+      "summary": "Description / summary",
+      "technologies": "Technologies (comma separated)",
+      "githubUrl": "GitHub URL",
+      "liveUrl": "Live URL",
+      "sortOrder": "Display order",
+      "published": "Published (`draft: false`)",
+      "markdown": "Content (Markdown)"
+    },
+    "placeholders": {
+      "status": "Live"
+    },
+    "preview": {
+      "published": "Published"
+    }
+  },
+
+  "interfaceLanguage": {
+  "label": "Interface language"
+}
+}

@@ -1,43 +1,20 @@
 "use client";
 
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
+import { Plus, Save, Trash2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
-import {
-  Plus,
-  Save,
-  Trash2,
-} from "lucide-react";
-
-import {
-  Badge,
-} from "@/components/ui/badge";
-
-import {
-  Button,
-} from "@/components/ui/button";
-
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-import {
-  Input,
-} from "@/components/ui/input";
-
-import {
-  Label,
-} from "@/components/ui/label";
-
-import {
-  Textarea,
-} from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 import {
   LocaleSwitcher,
@@ -51,18 +28,14 @@ import type {
   Locale,
 } from "../lib/types";
 
-import {
-  useCareerWorkspace,
-} from "../workspace";
-
+import { useCareerWorkspace } from "../workspace";
 
 function blankSkillGroup(): AboutSkillGroup {
   return {
-    title: "New category",
+    title: "",
     items: [],
   };
 }
-
 
 function blankEducation(): AboutEducationItem {
   return {
@@ -75,352 +48,202 @@ function blankEducation(): AboutEducationItem {
   };
 }
 
-
 export function CvEditorPage() {
-  const {
-    data,
-    actions,
-    saving,
-    mode,
-  } = useCareerWorkspace();
+  const t = useTranslations("dashboard");
+  const { data, actions, saving, mode } = useCareerWorkspace();
 
-  const [locale, setLocale] =useState<Locale>("en");
-
+  const [locale, setLocale] = useState<Locale>("en");
   const draft = data.about[locale];
 
   function setDraft(
     updater:
       | AboutContent
-      | ((
-          current: AboutContent,
-        ) => AboutContent),
+      | ((current: AboutContent) => AboutContent),
   ) {
-    actions.stageAbout(
-      locale,
-      updater,
-    );
+    actions.stageAbout(locale, updater);
   }
 
-  const sourcePath =
-    `i18n/locales/${locale}/about.json`;
+  const sourcePath = `i18n/locales/${locale}/about.json`;
 
-
-  function updateSkillGroup(
-    index: number,
-    next: AboutSkillGroup,
-  ) {
-    setDraft(
-      (current) => ({
-        ...current,
-
-        skills: {
-          ...current.skills,
-
-          items:
-            current.skills.items.map(
-              (group, i) =>
-                i === index
-                  ? next
-                  : group,
-            ),
-        },
-      }),
-    );
+  function updateSkillGroup(index: number, next: AboutSkillGroup) {
+    setDraft((current) => ({
+      ...current,
+      skills: {
+        ...current.skills,
+        items: current.skills.items.map((group, i) =>
+          i === index ? next : group,
+        ),
+      },
+    }));
   }
 
-
-  function removeSkillGroup(
-    index: number,
-  ) {
-    setDraft(
-      (current) => ({
-        ...current,
-
-        skills: {
-          ...current.skills,
-
-          items:
-            current.skills.items.filter(
-              (_, i) =>
-                i !== index,
-            ),
-        },
-      }),
-    );
+  function removeSkillGroup(index: number) {
+    setDraft((current) => ({
+      ...current,
+      skills: {
+        ...current.skills,
+        items: current.skills.items.filter((_, i) => i !== index),
+      },
+    }));
   }
 
-
-  function updateEducation(
-    index: number,
-    next: AboutEducationItem,
-  ) {
-    setDraft(
-      (current) => ({
-        ...current,
-
-        education: {
-          ...current.education,
-
-          items:
-            current.education.items.map(
-              (item, i) =>
-                i === index
-                  ? next
-                  : item,
-            ),
-        },
-      }),
-    );
+  function updateEducation(index: number, next: AboutEducationItem) {
+    setDraft((current) => ({
+      ...current,
+      education: {
+        ...current.education,
+        items: current.education.items.map((item, i) =>
+          i === index ? next : item,
+        ),
+      },
+    }));
   }
 
-
-  function removeEducation(
-    index: number,
-  ) {
-    setDraft(
-      (current) => ({
-        ...current,
-
-        education: {
-          ...current.education,
-
-          items:
-            current.education.items.filter(
-              (_, i) =>
-                i !== index,
-            ),
-        },
-      }),
-    );
+  function removeEducation(index: number) {
+    setDraft((current) => ({
+      ...current,
+      education: {
+        ...current.education,
+        items: current.education.items.filter((_, i) => i !== index),
+      },
+    }));
   }
-
 
   return (
     <div className="space-y-6">
-      {/* Page header */}
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <h1 className="m-0 text-3xl font-bold tracking-tight text-foreground">
-            CV / About
+            {t("cv.title")}
           </h1>
 
           <p className="mt-2 mb-0 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Each language keeps its own
-            editor state, matching the
-            three About JSON files
-            directly.
+            {t("cv.description")}
           </p>
         </div>
 
-        <LocaleSwitcher
-          value={locale}
-          onChange={setLocale}
-        />
+        <LocaleSwitcher value={locale} onChange={setLocale} />
       </div>
 
-
-      {/* Story */}
       <Card>
         <CardHeader>
-          <CardTitle>
-            Introduction
-          </CardTitle>
+          <CardTitle>{t("cv.introduction.title")}</CardTitle>
         </CardHeader>
 
         <CardContent className="space-y-4">
-          <div className="space-y-3">
-            <Textarea
-              rows={8}
-              value={draft.about.description}
-              onChange={(event) =>
-                setDraft((current) => ({
-                  ...current,
-                  about: {
-                    ...current.about,
-                    description: event.target.value,
-                  },
-                }))
-              }
-            />
-          </div>
+          <Textarea
+            rows={8}
+            value={draft.about.description}
+            onChange={(event) =>
+              setDraft((current) => ({
+                ...current,
+                about: {
+                  ...current.about,
+                  description: event.target.value,
+                },
+              }))
+            }
+          />
         </CardContent>
       </Card>
 
-
-      {/* Skills */}
-
       <Card>
         <CardHeader className="gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <CardTitle>
-            Skills
-          </CardTitle>
+          <CardTitle>{t("cv.skills.title")}</CardTitle>
 
           <Button
             type="button"
             variant="outline"
             size="sm"
             onClick={() =>
-              setDraft(
-                (current) => ({
-                  ...current,
-
-                  skills: {
-                    ...current.skills,
-
-                    items: [
-                      ...current.skills
-                        .items,
-
-                      blankSkillGroup(),
-                    ],
-                  },
-                }),
-              )
+              setDraft((current) => ({
+                ...current,
+                skills: {
+                  ...current.skills,
+                  items: [...current.skills.items, blankSkillGroup()],
+                },
+              }))
             }
           >
             <Plus className="mr-2 size-4" />
-
-            Add category
+            {t("cv.skills.addCategory")}
           </Button>
         </CardHeader>
 
         <CardContent>
           <div className="grid gap-4 xl:grid-cols-2">
-            {draft.skills.items.map(
-              (
-                group,
-                index,
-              ) => (
-                <SkillGroupEditor
-                  key={`${locale}-${index}`}
-                  group={group}
-                  onChange={(
-                    next,
-                  ) =>
-                    updateSkillGroup(
-                      index,
-                      next,
-                    )
-                  }
-                  onDelete={() =>
-                    removeSkillGroup(
-                      index,
-                    )
-                  }
-                />
-              ),
-            )}
+            {draft.skills.items.map((group, index) => (
+              <SkillGroupEditor
+                key={`${locale}-${index}`}
+                group={group}
+                onChange={(next) => updateSkillGroup(index, next)}
+                onDelete={() => removeSkillGroup(index)}
+              />
+            ))}
           </div>
         </CardContent>
       </Card>
 
-
-      {/* Education */}
-
       <Card>
         <CardHeader className="gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <CardTitle>
-            Education & Learning
-          </CardTitle>
+          <CardTitle>{t("cv.education.title")}</CardTitle>
 
           <Button
             type="button"
             variant="outline"
             size="sm"
             onClick={() =>
-              setDraft(
-                (current) => ({
-                  ...current,
-
-                  education: {
-                    ...current.education,
-
-                    items: [
-                      ...current
-                        .education
-                        .items,
-
-                      blankEducation(),
-                    ],
-                  },
-                }),
-              )
+              setDraft((current) => ({
+                ...current,
+                education: {
+                  ...current.education,
+                  items: [...current.education.items, blankEducation()],
+                },
+              }))
             }
           >
             <Plus className="mr-2 size-4" />
-
-            Add education
+            {t("cv.education.add")}
           </Button>
         </CardHeader>
 
         <CardContent>
           <div className="space-y-4">
-            {draft.education.items.map(
-              (
-                item,
-                index,
-              ) => (
-                <EducationEditor
-                  key={`${locale}-${index}`}
-                  item={item}
-                  onChange={(
-                    next,
-                  ) =>
-                    updateEducation(
-                      index,
-                      next,
-                    )
-                  }
-                  onDelete={() =>
-                    removeEducation(
-                      index,
-                    )
-                  }
-                />
-              ),
-            )}
+            {draft.education.items.map((item, index) => (
+              <EducationEditor
+                key={`${locale}-${index}`}
+                item={item}
+                onChange={(next) => updateEducation(index, next)}
+                onDelete={() => removeEducation(index)}
+              />
+            ))}
           </div>
         </CardContent>
       </Card>
 
-
-      {/* Save bar */}
-
       <Card className="sticky bottom-4 z-10 shadow-lg">
         <CardContent className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-            <Badge
-              variant="outline"
-            >
-              {locale}
-            </Badge>
-
-            <span className="font-mono text-xs">
-              {sourcePath}
-            </span>
+            <Badge variant="outline">{locale}</Badge>
+            <span className="font-mono text-xs">{sourcePath}</span>
           </div>
 
           <Button
             type="button"
             disabled={saving}
             onClick={() =>
-              void actions
-                .saveAbout(
-                  locale,
-                  draft,
-                )
-                .catch(
-                  () => {},
-                )
+              void actions.saveAbout(locale, draft).catch(() => {})
             }
           >
             <Save className="mr-2 size-4" />
 
             {saving
-              ? "Saving…"
+              ? t("actions.saving")
               : mode === "trial"
-                ? "Apply locally"
-                : `Save ${localeLabels[locale]}`}
+                ? t("actions.applyLocally")
+                : t("actions.saveLanguage", {
+                    language: localeLabels[locale],
+                  })}
           </Button>
         </CardContent>
       </Card>
@@ -428,67 +251,41 @@ export function CvEditorPage() {
   );
 }
 
-
 function SkillGroupEditor({
   group,
   onChange,
   onDelete,
 }: {
   group: AboutSkillGroup;
-  onChange: (
-    next: AboutSkillGroup,
-  ) => void;
+  onChange: (next: AboutSkillGroup) => void;
   onDelete: () => void;
 }) {
-  const [
-    itemsText,
-    setItemsText,
-  ] =
-    useState(
-      group.items.join(
-        ", ",
-      ),
-    );
+  const t = useTranslations("dashboard");
 
-  const [
-    editingItems,
-    setEditingItems,
-  ] =
-    useState(false);
+  const [itemsText, setItemsText] = useState(
+    group.items.join(", "),
+  );
 
-  const itemsValue =
-    group.items.join(
-      ", ",
-    );
+  const [editingItems, setEditingItems] = useState(false);
+  const itemsValue = group.items.join(", ");
 
   useEffect(() => {
     if (!editingItems) {
-      setItemsText(
-        itemsValue,
-      );
+      setItemsText(itemsValue);
     }
-  }, [
-    itemsValue,
-    editingItems,
-  ]);
+  }, [itemsValue, editingItems]);
 
   return (
     <Card className="bg-background">
       <CardContent className="space-y-3 p-4">
         <div className="flex items-center gap-2">
           <Input
-            value={
-              group.title
-            }
-            onChange={(
-              event,
-            ) =>
+            value={group.title}
+            placeholder={t("cv.skills.categoryPlaceholder")}
+            onChange={(event) =>
               onChange({
                 ...group,
-
-                title:
-                  event.target
-                    .value,
+                title: event.target.value,
               })
             }
           />
@@ -497,57 +294,34 @@ function SkillGroupEditor({
             type="button"
             variant="ghost"
             size="icon"
-            aria-label="Delete skill category"
-            onClick={
-              onDelete
-            }
+            aria-label={t("cv.skills.deleteCategory")}
+            onClick={onDelete}
           >
             <Trash2 className="size-4" />
           </Button>
         </div>
 
-        <Field label="Other technologies (comma separated)">
+        <Field label={t("cv.skills.technologies")}>
           <Textarea
             rows={3}
-            value={
-              itemsText
-            }
-            onFocus={() =>
-              setEditingItems(
-                true,
-              )
-            }
-            onBlur={() =>
-              setEditingItems(
-                false,
-              )
-            }
-            onChange={(
-              event,
-            ) => {
-              setItemsText(
-                event.target
-                  .value,
-              );
+            value={itemsText}
+            onFocus={() => setEditingItems(true)}
+            onBlur={() => setEditingItems(false)}
+            onChange={(event) => {
+              setItemsText(event.target.value);
 
               onChange({
                 ...group,
-
-                items:
-                  splitTags(
-                    event.target
-                      .value,
-                  ),
+                items: splitTags(event.target.value),
               });
             }}
-            placeholder="ASP.NET Core, REST APIs, JWT"
+            placeholder={t("cv.skills.technologiesPlaceholder")}
           />
         </Field>
       </CardContent>
     </Card>
   );
 }
-
 
 function EducationEditor({
   item,
@@ -555,68 +329,45 @@ function EducationEditor({
   onDelete,
 }: {
   item: AboutEducationItem;
-  onChange: (
-    next: AboutEducationItem,
-  ) => void;
+  onChange: (next: AboutEducationItem) => void;
   onDelete: () => void;
 }) {
+  const t = useTranslations("dashboard");
+
   return (
     <Card className="bg-background">
       <CardContent className="grid gap-4 p-4 md:grid-cols-2">
-        <Field label="Period">
+        <Field label={t("cv.education.period")}>
           <Input
-            value={
-              item.period
-            }
-            onChange={(
-              event,
-            ) =>
+            value={item.period}
+            onChange={(event) =>
               onChange({
                 ...item,
-
-                period:
-                  event.target
-                    .value,
+                period: event.target.value,
               })
             }
           />
         </Field>
 
-
-        <Field label="Degree / learning activity">
+        <Field label={t("cv.education.degree")}>
           <Input
-            value={
-              item.degree
-            }
-            onChange={(
-              event,
-            ) =>
+            value={item.degree}
+            onChange={(event) =>
               onChange({
                 ...item,
-
-                degree:
-                  event.target
-                    .value,
+                degree: event.target.value,
               })
             }
           />
         </Field>
 
-
-        <Field label="School / location">
+        <Field label={t("cv.education.school")}>
           <Input
-            value={
-              item.school
-            }
-            onChange={(
-              event,
-            ) =>
+            value={item.school}
+            onChange={(event) =>
               onChange({
                 ...item,
-
-                school:
-                  event.target
-                    .value,
+                school: event.target.value,
               })
             }
           />
@@ -624,72 +375,44 @@ function EducationEditor({
 
         <div />
 
-
         <div className="md:col-span-2">
-          <Field label="Description">
+          <Field label={t("cv.education.description")}>
             <Textarea
               rows={4}
-              value={
-                item.description ??
-                ""
-              }
-              onChange={(
-                event,
-              ) =>
+              value={item.description ?? ""}
+              onChange={(event) =>
                 onChange({
                   ...item,
-
-                  description:
-                    event.target
-                      .value,
+                  description: event.target.value,
                 })
               }
             />
           </Field>
         </div>
 
-
-        <Field label="Thesis (optional)">
+        <Field label={t("cv.education.thesis")}>
           <Input
-            value={
-              item.thesis ??
-              ""
-            }
-            onChange={(
-              event,
-            ) =>
+            value={item.thesis ?? ""}
+            onChange={(event) =>
               onChange({
                 ...item,
-
-                thesis:
-                  event.target
-                    .value,
+                thesis: event.target.value,
               })
             }
           />
         </Field>
 
-
-        <Field label="Thesis URL (optional)">
+        <Field label={t("cv.education.thesisUrl")}>
           <Input
-            value={
-              item.thesisUrl ??
-              ""
-            }
-            onChange={(
-              event,
-            ) =>
+            value={item.thesisUrl ?? ""}
+            onChange={(event) =>
               onChange({
                 ...item,
-
-                thesisUrl:
-                  event.target
-                    .value,
+                thesisUrl: event.target.value,
               })
             }
           />
         </Field>
-
 
         <div className="md:col-span-2">
           <Button
@@ -697,13 +420,10 @@ function EducationEditor({
             variant="ghost"
             size="sm"
             className="text-destructive hover:bg-destructive/10 hover:text-destructive"
-            onClick={
-              onDelete
-            }
+            onClick={onDelete}
           >
             <Trash2 className="mr-2 size-4" />
-
-            Delete education item
+            {t("cv.education.delete")}
           </Button>
         </div>
       </CardContent>
@@ -711,19 +431,12 @@ function EducationEditor({
   );
 }
 
-
-function splitTags(
-  value: string,
-) {
+function splitTags(value: string) {
   return value
     .split(",")
-    .map(
-      (item) =>
-        item.trim(),
-    )
+    .map((item) => item.trim())
     .filter(Boolean);
 }
-
 
 function Field({
   label,
@@ -734,10 +447,7 @@ function Field({
 }) {
   return (
     <div className="space-y-2">
-      <Label>
-        {label}
-      </Label>
-
+      <Label>{label}</Label>
       {children}
     </div>
   );

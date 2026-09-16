@@ -1,13 +1,17 @@
 import {Badge} from "@/components/ui/badge";
 import {buttonVariants} from "@/components/ui/button";
 import {cn} from "@/lib/utils";
-import {SkillGroup} from "@/i18n/types";
 import {getTranslations} from "next-intl/server";
 import type {Locale} from "@/i18n/routing";
 
 interface HeroProps {
   locale: Locale;
 }
+
+type SkillGroup = {
+  title: string;
+  items: string[];
+};
 
 export default async function Hero({locale}: HeroProps) {
 
