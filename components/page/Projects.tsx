@@ -102,7 +102,7 @@ export default async function FeaturedProjects({locale}: FeaturedProjectsProps) 
               <Link
                 href={`/${locale}/projects/${getProjectSlug(project.id)}/`}
                 className={cn(buttonVariants({variant:"ghost"}),
-                  "w-fit justify-self-start text-primary hover:text-foreground lg:justify-self-end"
+                  "font-semibold w-fit justify-self-start text-primary hover:text-foreground lg:col-span-2 lg:justify-self-end"
                 )}
               >
                 {common("buttons.caseStudy")}

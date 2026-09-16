@@ -9,10 +9,8 @@
 
 :root {
   --brand-dark: #182033;
-  --brand-dark-muted: #28344f;
 
   --brand-role: #7196c9;
-  --brand-ui: #7fa7d8;
   --brand-soft: #dce8f5;
 
   --brand-light: #fafbfd;
@@ -35,7 +33,7 @@
   --popover: var(--brand-white);
   --popover-foreground: var(--brand-dark);
 
-  --primary: var(--brand-ui);
+  --primary: var(--brand-role);
   --primary-foreground: var(--brand-white);
 
   --secondary: var(--brand-soft);
@@ -440,16 +438,8 @@ select {
 .project-row {
   @apply gap-4
     lg:grid-cols-12
-    lg:items-center
+    lg:items-start
     lg:gap-6;
-}
-
-.project-index {
-  @apply font-mono
-    text-xs
-    font-bold
-    text-primary
-    lg:col-span-1;
 }
 
 .project-main {
@@ -478,7 +468,7 @@ select {
     text-sm
     leading-relaxed
     text-muted-foreground
-    lg:col-span-5;
+    lg:col-span-6;
 }
 
 
