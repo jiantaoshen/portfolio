@@ -19,12 +19,11 @@ export function UiLanguageSwitcher() {
   const currentLocale = useLocale() as Locale;
 
   function changeLocale(locale: Locale) {
-    // eslint-disable-next-line react-hooks/globals
+    // eslint-disable-next-line react-hooks/immutability
     document.cookie = `career-ui-locale=${locale}; path=/; max-age=31536000; samesite=lax`;
 
     router.refresh();
   }
-
   return (
     <div
       className="flex items-center gap-1"
