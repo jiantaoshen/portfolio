@@ -6,7 +6,6 @@ import Projects from "@/components/page/Projects";
 import Education from "@/components/page/Education";
 
 import {hasLocale} from "next-intl";
-import {getTranslations,} from "next-intl/server";
 import {routing} from "@/i18n/routing";
 
 export const metadata: Metadata = {
@@ -24,16 +23,6 @@ export default async function HomePage({params}: HomePageProps) {
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
-
-  const common = await getTranslations({    
-    locale,
-    namespace: "common"
-  });
-
-  const about =await getTranslations({    
-    locale,
-    namespace: "about"
-  });
 
   return (
     <>
