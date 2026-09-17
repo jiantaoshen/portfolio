@@ -1,85 +1,74 @@
 ---
-
 lang: zh
+
 title: "开发者作品集"
-description: "一个多语言开发者作品集和轻量级 Git 内容管理系统（CMS），包含公开 CMS 体验模式以及仅限本地开发环境的源内容编辑功能。"
-status: "已上线"
+
+description: "一个多语言作品集和轻量级、基于 Git 的内容管理系统（CMS），包含公开的 CMS 试用模式以及仅限本地使用的源内容编辑功能。"
+
+status: "Live"
+
 order: 3
+
 technologies:
-   - "Next.js 16"
-   - "TypeScript"
-   - "Tailwind CSS v4"
-   - "shadcn/ui"
-   - "next-intl"
-   - "GitHub"
-   - "Vercel"
+
+  - "Next.js 16"
+  - "TypeScript"
+  - "Tailwind CSS v4"
+  - "shadcn/ui"
+  - "next-intl"
+  - "GitHub"
+  - "Vercel"
+
 links:
+
   github: "https://github.com/jiantaoshen/portfolio-dev"
   live: "https://www.jiantao.dev"
-  draft: false
 
+draft: false
 ---
 
 ## 概述
 
-这是一个使用 Next.js 16、TypeScript、Tailwind CSS v4、shadcn/ui 和 next-intl 构建的多语言开发者作品集，同时也是一个轻量级的 Git 内容管理系统。
+这是一个多语言作品集和轻量级、基于 Git 的内容管理系统，使用 Next.js 16、TypeScript、Tailwind CSS v4、shadcn/ui 和 next-intl 构建。公开网站通过不同语言的路由和内容支持英语、瑞典语和中文。项目案例使用 Markdown 保存，而“关于我”“技能”和“教育经历”等结构化个人资料内容则使用多语言 JSON 维护。
 
-公开网站支持英语、瑞典语和中文，并通过不同的语言路由和本地化内容提供对应版本。项目案例使用 Markdown 保存，而“关于我”、技能和教育经历等结构化资料则以多语言 JSON 的形式维护。
+项目还提供两种内容编辑方式：
 
-项目还包含两种内容编辑体验：
+- 一个公开的 Trial 模式，用于体验 CMS 界面，但不会永久保存修改
+- 一个本地 Dashboard，用于在开发过程中直接编辑仓库中的实际 JSON 和 Markdown 源文件
 
-- 一个公开的 Trial 体验模式，可以探索 CMS 界面，但修改不会持久化
-- 一个本地 Dashboard，可在开发环境中直接编辑仓库中的 JSON 和 Markdown 源文件
-
-当前架构继续以 Git 作为唯一内容来源，不引入生产环境内容数据库，同时使用同一个 Next.js 应用处理公开页面渲染、CMS 界面、国际化以及仅限开发环境的内容 API。
-
----
+当前架构继续以 Git 作为唯一事实来源，不使用生产环境内容数据库，并由同一个 Next.js 应用负责公开页面渲染、CMS 界面、本地化以及仅用于开发环境的内容 API。
 
 ## 问题
 
-一个多语言作品集包含多种不同类型的内容，需要保持清晰的组织结构并易于维护。
+一个多语言作品集包含多种类型的内容，需要保持良好的组织结构并且易于维护。
 
-项目包括：
+这个项目包含：
 
-- About 和 CV 信息
+- 关于我和简历信息
 - 技能和教育经历
 - 项目元数据
 - 长篇项目案例
 - 英语、瑞典语和中文内容
-- 公开网站 UI 翻译
-- CMS 界面翻译
+- 公开 UI 的翻译
+- CMS 界面的翻译
 
-在内容规模较小时，直接编辑 JSON 和 Markdown 文件是可行的，但随着内容越来越多，这种方式会逐渐变得不方便。
+在内容规模较小时，直接编辑 JSON 和 Markdown 文件是可以接受的，但随着内容不断增加，这种方式会越来越不方便。与此同时，这个作品集并不需要传统的生产环境 CMS。内容更新频率相对较低，而且这些内容本来就适合与应用代码放在一起。引入数据库、身份验证系统、托管 CMS 和永久写入 API 会增加额外的基础设施，而带来的价值有限，成本却较高。因此，我的目标是在保留将内容存储在 GitHub 中这些优点的同时，提供一个更方便的编辑流程。
 
-与此同时，这个作品集并不需要传统的生产环境 CMS。
+## 结果
 
-内容更新频率相对较低，而且这些内容天然适合与应用代码一起保存在仓库中。如果为了这些内容引入数据库、身份验证系统、托管 CMS 和永久写入 API，会增加大量基础设施和维护成本，但实际收益有限。
-
-因此，我的目标是继续保留 GitHub 存储内容所带来的优势，同时提供一个更加方便的可视化编辑流程。
-
----
-
-## 解决方案
-
-作品集现在统一使用一个 Next.js App Router 应用。
-
-核心内容流程刻意保持简单：
+现在，作品集使用一个统一的 Next.js App Router 应用。核心内容流程有意保持简单：
 
 ```text
 JSON / Markdown
       ↓
    Next.js
       ↓
-  公开作品集
+公开作品集
       ↓
     Vercel
 ```
 
-项目案例存储在 Markdown 中。
-
-About、技能和教育经历则以多语言 JSON 存储。
-
-在本地开发环境中，CMS 直接操作这些相同的源文件。
+项目案例保存在 Markdown 中。“关于我”“技能”和“教育经历”的内容则保存为多语言 JSON。在本地开发时，CMS 会直接操作这些相同的源文件。
 
 ```text
 本地 Dashboard
@@ -88,830 +77,126 @@ Next.js Route Handlers
       ↓
 JSON / Markdown
       ↓
-    Git diff
+   Git diff
       ↓
-   Git commit
+ Git commit
       ↓
-     Vercel
+   Vercel
 ```
 
-公开的 `/trial` 路由使用相同的编辑界面，但所有修改都只保存在浏览器或应用状态中。
+公开的 `/trial` 路由使用相同的编辑界面，但所有修改只保存在浏览器或应用的 state 中。Trial 模式不会执行任何永久写入操作。这样既能保持 Git 作为唯一事实来源，也能提供可视化的内容管理流程。
 
-Trial 模式不会执行任何持久化写入操作。
+## 权衡与取舍
 
-这样既可以继续让 Git 作为唯一内容来源，又可以提供一个可视化的内容编辑流程。
-
----
-
-## 功能
+这里我会说明我在项目中做出这些选择的原因。
 
 ### 多语言作品集
 
-作品集支持：
+我创建多语言作品集的原因，是希望同时提高自己的语言能力和文档编写能力。缺点是我需要维护大量文档，这意味着我无法同时进行太多项目。
 
-```text
-英语
-瑞典语
-中文
-```
+目前我需要管理的项目并不多，所以这种方式对我来说没有问题。如果未来项目数量增加，我可能会把多语言作品集改成单语言作品集，让项目保持简单，也更容易维护。
 
-公开路由使用语言前缀：
+### 为什么我选择 Next.js
 
-```text
-/en
-/sv
-/zh
-```
+> HTML/CSS -> React -> Astro -> Astro + C# -> Astro + React -> Next.js（现在）
 
-根路由默认重定向到瑞典语：
+我的作品集项目最初只使用 HTML 和 CSS。在学习期间接触 React 之后，我把网站迁移到了 React。后来我遇到了一个与 JavaScript 有关的问题：当浏览器禁用 JavaScript 时，网站无法正常显示。因此，我最终把项目迁移到了 Astro。
 
-```text
-/
-↓
-/sv
-```
+大约在同一时期，我还加入了博客功能，用来发布和分享自己的文章。不过，随着博客内容增加，我发现手动管理这些内容越来越困难。为了解决这个问题，我使用 C# 开发了自己的 CMS。随着项目继续发展，我希望简化整体架构，因此用基于 React 的方案替换了 C# CMS，并移除了博客功能。我还发现了另一个性能问题：网站有时会先渲染 HTML，然后再加载 CSS。在较慢的网络连接下尤其明显，因为用户会短暂看到没有样式的页面。我尝试把 CSS 直接放进 HTML 中，让两者可以一起发送，但这并没有解决问题。
 
-本地化项目页面采用相同结构：
+后来我了解到，Next.js 支持服务端渲染，即使浏览器禁用了 JavaScript，也仍然可以发送已经渲染好的 HTML。因此，我决定把网站从 Astro 迁移到 Next.js。Lighthouse 测试结果比 Astro 差一些，而且使用 `.vercelignore` 也无法减少部署中使用的 JavaScript 代码。不过，用户体验更好。对我来说，更好的用户体验比单纯追求速度更重要。
 
-```text
-/en/projects/...
-/sv/projects/...
-/zh/projects/...
-```
+#### Lighthouse 结果 — Astro（移动端）
 
-每种语言都可以维护同一项目的独立内容版本。
+**First Contentful Paint:** 0.8 s
 
----
+**Largest Contentful Paint:** 0.8 s
 
-### Next.js App Router
+**Total Blocking Time:** 0 ms
 
-应用使用 Next.js App Router。
+**Cumulative Layout Shift:** 0
 
-公开作品集位于：
+**Speed Index:** 0.8 s
 
-```text
-app/[locale]/
-```
+**Performance:** 100
 
-项目页面使用 catch-all 路由：
+**Accessibility:** 94
 
-```text
-app/[locale]/projects/[...slug]/
-```
+- 背景色与前景色之间的对比度不足。
 
-这样既支持普通项目路径，也支持多层嵌套路径。
+**Best Practices:** 100
 
-例如：
+**SEO:** 100
 
-```text
-/en/projects/light-manager
-/sv/projects/light-manager
-/zh/projects/light-manager
-```
+**Agentic Browsing:** 2/2
 
-以及：
+我没有列出桌面端结果，因为桌面端的性能本来就优于移动端。
 
-```text
-/en/projects/backend/example-project
-```
+#### Lighthouse 结果 — Next.js（移动端）
 
----
+**First Contentful Paint:** 1.2 s
 
-### 多个 Root Layout
+**Largest Contentful Paint:** 2.1 s
 
-公开网站和 CMS 使用独立的 root layout。
+**Total Blocking Time:** 40 ms
 
-```text
-app/[locale]/layout.tsx
-```
+**Cumulative Layout Shift:** 0
 
-负责本地化公开作品集。
+**Speed Index:** 3.9 s
 
-```text
-app/(career)/layout.tsx
-```
+**Performance:** 97
 
-负责 Trial 和 Dashboard。
+- 有一部分 JavaScript 没有被使用。
 
-`(career)` 是 Next.js Route Group，因此不会出现在 URL 中。
+**Accessibility:** 96
 
-所以可以直接提供：
+- 背景色与前景色之间的对比度不足。
 
-```text
-/dashboard
-/trial
-```
+**Best Practices:** 100
 
-而不需要让 URL 变成 `/career/dashboard`。
+**SEO:** 100
 
-这种分离方式还使公开作品集和 CMS 可以采用不同的请求级国际化策略，同时继续共享全局样式和 UI 基础组件。
+**Agentic Browsing:** 2/2
 
----
+### JSON 和 Markdown
 
-### next-intl 国际化
+我的大部分数据都是类似文档的内容，而且数据之间没有复杂的关系。在这个项目中，我们通常只需要读取一次数据，然后直接使用。我们不需要执行复杂查询，也不需要管理不同数据之间的关系。当 JSON 文件只包含少量类似文档的内容时，设置起来非常简单，因此它很适合用于多语言内容，例如 Landing Page 上的文字。不过，随着文档越来越长，JSON 文件会变得越来越难阅读和维护。
 
-国际化由 `next-intl` 负责。
-
-核心配置位于：
-
-```text
-i18n/
-├── request.ts
-├── routing.ts
-└── locales/
-```
-
-翻译消息按语言组织：
-
-```text
-i18n/locales/
-├── en/
-├── sv/
-└── zh/
-```
-
-每种语言目前包含：
-
-```text
-about.json
-common.json
-dashboard.json
-home.json
-project.json
-```
-
-Server Components 使用服务端翻译 API。
-
-Client Components 使用翻译 hooks。
-
-这套方案替代了项目之前自定义的翻译加载器，减少了大量国际化相关的胶水代码。
-
----
-
-### 界面语言与内容语言分离
-
-CMS 明确区分两种不同的语言概念：
-
-```text
-CMS 界面语言
-≠
-作品集内容语言
-```
-
-界面语言控制：
-
-```text
-保存
-删除
-预览
-项目
-教育经历
-技能
-```
-
-等编辑器 UI。
-
-内容语言则决定当前正在编辑哪一种语言的作品集内容。
-
-例如：
-
-```text
-CMS 界面
-→ 中文
-
-正在编辑的内容
-→ Svenska
-```
-
-CMS 界面 locale 与当前内容 locale 独立保存。
-
-这样就不会把编辑器本身的语言和正在编辑的内容语言强制绑定在一起。
-
----
-
-### Markdown 项目内容
-
-项目案例保存在：
-
-```text
-content/
-└── projects/
-    ├── en/
-    ├── sv/
-    └── zh/
-```
-
-每个项目都是带有结构化 frontmatter 的 Markdown 文件。
-
-例如：
-
-```yaml
----
-lang: en
-title: Example Project
-description: Example project description
-status: Live
-order: 1
-technologies:
-  - Next.js
-  - TypeScript
-links:
-  github: https://github.com/example/project
-  live: https://example.com
-draft: false
----
-```
-
-Markdown 正文保存完整项目案例。
-
-```markdown
-## 概述
-
-项目介绍……
-
-## 架构
-
-技术细节……
-```
-
-公开项目页面还会从 Markdown 中提取标题，并自动生成目录。
-
----
-
-### 多语言 JSON 内容
-
-About、技能和教育经历等结构化资料以 JSON 保存。
-
-```text
-i18n/locales/
-├── en/
-│   └── about.json
-├── sv/
-│   └── about.json
-└── zh/
-    └── about.json
-```
-
-每种语言都有独立内容。
-
-这样可以把结构化个人资料与较长的项目案例分开，同时让两种内容格式都保存在同一个 Git 仓库中。
-
----
+对于较长的文档，Markdown 文件是更好的选择。它在初期可能需要更多设置，但我认为这些额外的投入是值得的。我从开始使用 Astro 开发项目时，就开始使用 Markdown 编写项目文档。从那以后，我一直继续使用 Markdown，因为它让文档更容易编写、阅读和维护。
 
 ### 公开 Trial 模式
 
-作品集包含一个公开 CMS 沙盒：
+Trial 模式用于展示我开发的 CMS。在 Astro 版本中，这个功能相对容易创建和维护。不过，当前端和后端使用相同的编程语言和框架时，实现方式会变得更加复杂。
 
-```text
-/trial
-```
-
-其他路由包括：
-
-```text
-/trial/cv
-/trial/projects
-```
-
-访问者可以体验编辑器并修改内容，但不会影响仓库文件。
-
-修改仅存在于临时应用状态中。
-
-```text
-访问者
-   ↓
-Trial CMS
-   ↓
-临时浏览器状态
-```
-
-不会向本地写入 API 发送持久化内容请求。
-
-因此 CMS 本身也可以作为作品集的一部分公开展示，而无需暴露仓库写入权限。
-
----
+这个功能未来可能会根据项目的发展进行调整或移除。
 
 ### 本地内容 Dashboard
 
-本地 Dashboard 位于：
+本地内容 Dashboard 可以让我更方便地编辑 JSON 和 Markdown 文档，而不需要直接打开和修改原始的 `.json` 和 `.md` 文件。
 
-```text
-/dashboard
-```
+### 仅用于开发环境的内容 API
 
-包括：
-
-```text
-/dashboard/cv
-/dashboard/projects
-```
-
-Dashboard 是公开作品集所使用 JSON 和 Markdown 文件之上的可视化编辑层。
-
-CV 编辑器支持：
-
-- 个人简介
-- 技能
-- 技能分类
-- 技术
-- 教育经历
-- 学习经历
-- 教育描述
-- 论文信息
-- 论文链接
-
-项目编辑器支持：
-
-- 标题
-- Slug
-- 项目状态
-- 语言
-- 描述
-- 技术栈
-- GitHub URL
-- Live URL
-- 显示顺序
-- 发布状态
-- Markdown 内容
-
-项目编辑器还包含独立的：
-
-```text
-编辑
-预览
-```
-
-视图。
-
-因此可以在真正写入文件之前先预览 Markdown 的效果。
-
----
-
-### 仅限开发环境的内容 API
-
-持久化的本地编辑通过 Next.js Route Handlers 实现。
-
-目前包括：
-
-```text
-PUT /api/local/about/[locale]
-
-PUT /api/local/projects
-DELETE /api/local/projects
-```
-
-About endpoint 写入：
-
-```text
-i18n/locales/{locale}/about.json
-```
-
-Project endpoint 管理：
-
-```text
-content/projects/{locale}/
-```
-
-项目编辑支持：
-
-- 创建项目
-- 更新现有项目
-- 修改 slug
-- 修改内容语言
-- 在不同语言目录之间移动项目
-- Markdown 源文件
-- 查找已有 MDX 源文件
-- 删除项目
-
-当 slug 或语言发生变化时，会先成功写入新文件，再删除旧源文件。
-
----
-
-### 仅开发环境允许写入
-
-本地内容 API 被刻意限制为无法在生产环境使用。
-
-所有写入 handler 在执行文件操作前都会检查环境。
-
-```text
-NODE_ENV === "development"
-```
-
-非开发环境请求会得到：
-
-```text
-403 Forbidden
-```
-
-因此整体安全模型是：
-
-```text
-公开作品集
-→ 只读
-
-公开 Trial
-→ 临时浏览器状态
-
-本地 Dashboard
-→ 仅开发环境允许写入文件
-```
-
-生产环境不会主动暴露可持久化修改仓库内容的 API。
-
----
+当前端和后端使用不同的编程语言时，仅用于开发环境的内容 API 很实用，因为两个部分可以更清晰地分离。现在所有内容都放在 Next.js 中，这种方式让我觉得更加复杂，而且维护成本更高。因此，这些 API 未来可能会进行调整或移除。
 
 ### 共享 UI 系统
 
-项目使用：
+共享 UI 系统让项目中的主题、CSS 样式和可复用 UI 元素更容易统一维护。
 
-```text
-Tailwind CSS v4
-+
-shadcn/ui
-+
-语义化 design tokens
-```
+### 将内容保存在 Git 中
 
-可复用 UI 基础组件位于：
+Markdown 和 JSON 仍然是唯一事实来源。
 
-```text
-components/ui/
-```
+这样可以让作品集内容与应用代码一起进行版本控制。
 
-例如：
-
-```text
-Button
-Badge
-Card
-Input
-Label
-Textarea
-Sheet
-Alert
-```
-
-公开作品集与 CMS 共用同一套组件系统。
-
-这样减少了重复 UI，并让 Dashboard 更像整个产品的一部分，而不是一个完全独立的内部工具。
-
----
-
-### 语义化样式
-
-设计系统使用语义化 Tailwind class，而不是在各个组件中散落硬编码颜色。
-
-例如：
-
-```text
-bg-background
-bg-muted
-bg-primary
-
-text-foreground
-text-muted-foreground
-text-primary
-
-border-border
-```
-
-底层配色统一通过 CSS variables 定义。
-
-这样可以更容易地维护视觉风格，同时让公开作品集和 CMS 保持一致。
-
----
-
-## 架构
-
-### 公开网站
-
-```text
-本地化 JSON
-      +
-本地化 Markdown
-      ↓
-   Next.js
-      ↓
-Server Components
-      ↓
-生成页面
-      ↓
-    Vercel
-```
-
-本地化路由和项目页面都根据仓库内容生成。
-
-Git 始终是唯一内容来源。
-
----
-
-### 本地内容管理
-
-```text
-Dashboard
-   ↓
-Career Workspace
-   ↓
-Next.js Route Handlers
-   ↓
-Markdown / JSON
-   ↓
-Git
-   ↓
-Vercel
-```
-
-不需要运行单独的后端服务。
-
-Next.js 开发服务器同时提供：
-
-```text
-Next.js
-├── 公开作品集
-├── Trial CMS
-├── 本地 Dashboard
-└── 仅开发环境 Route Handlers
-```
-
----
-
-## 从 Astro 迁移到 Next.js
-
-之前的作品集版本使用 Astro 构建。
-
-当项目主要还是一个静态生成的作品集时，这种架构非常合适。
-
-原始结构大致为：
-
-```text
-Markdown / JSON
-      ↓
-    Astro
-      ↓
-   静态 HTML
-      ↓
-    Vercel
-```
-
-后来 CMS 作为 React 界面加入项目。
-
-持久化的本地内容编辑则通过注册在 Astro/Vite 开发服务器中的开发环境 middleware 实现。
-
-```text
-React Dashboard
-      ↓
-Astro / Vite middleware
-      ↓
-Markdown / JSON
-```
-
-这样成功避免了额外引入一个独立后端服务。
-
----
-
-### 迁移前
-
-```text
-Astro
-├── 公开作品集
-├── 静态路由
-├── Markdown Content Collections
-│
-├── React CMS
-│   ├── Trial 模式
-│   └── 本地 Dashboard
-│
-└── Astro / Vite middleware
-    └── 仅开发环境写入
-```
-
----
-
-### 迁移后
-
-```text
-Next.js
-├── 多语言作品集
-├── 项目页面
-├── Trial CMS
-├── 本地 Dashboard
-├── Server Components
-├── Client Components
-├── next-intl
-└── Route Handlers
-    └── 仅开发环境写入
-```
-
-这次迁移把公开页面渲染、CMS routing、国际化和服务端功能统一到了同一个框架中。
-
----
-
-### Routing 迁移
-
-Astro 中按语言组织的路由被替换为 App Router 的动态 locale segment：
-
-```text
-app/[locale]/
-```
-
-作品集仍然提供：
-
-```text
-/en
-/sv
-/zh
-```
-
-但路由逻辑现在统一围绕 locale segment 管理。
-
-项目页面迁移到：
-
-```text
-app/[locale]/projects/[...slug]/
-```
-
-CMS routes 则放在：
-
-```text
-app/(career)/
-```
-
-这样既保持了简洁 URL，也允许 CMS 使用独立 layout。
-
----
-
-### 国际化迁移
-
-原始项目使用自定义翻译加载器。
-
-Next.js 版本使用 `next-intl` 替代了这一层。
-
-Server Components 和 Client Components 分别使用适合各自运行环境的翻译方式，也不再需要手动向大量组件传递大型翻译对象。
-
-迁移过程中，国际化还扩展到了 CMS 本身。
-
-最终形成了明确的：
-
-```text
-interface locale
-```
-
-与：
-
-```text
-content locale
-```
-
-分离。
-
-这现在已经成为 CMS 架构中的明确设计。
-
----
-
-### 项目内容迁移
-
-Astro Content Collections 被移除。
-
-Markdown 文件本身则继续保留。
-
-项目现在直接从：
-
-```text
-content/projects/
-```
-
-加载。
-
-Frontmatter 继续保存结构化项目元数据，而 Markdown 保存项目案例正文。
-
-最重要的架构原则没有变化：
-
-```text
-内容继续保存在 Git 中。
-```
-
-变化的只是与框架绑定的内容加载方式。
-
----
-
-### 本地编辑 API 迁移
-
-Astro 版本使用自定义 Vite middleware 来处理内容写入。
-
-Next.js 版本则使用标准 Route Handlers 替代。
-
-```text
-迁移前
-
-Dashboard
-   ↓
-Astro / Vite middleware
-   ↓
-文件
-```
-
-```text
-迁移后
-
-Dashboard
-   ↓
-Next.js Route Handlers
-   ↓
-文件
-```
-
-这样去掉了框架特定的服务器 middleware，同时保留了原有仅限开发环境的安全边界。
-
----
-
-### UI 层迁移
-
-迁移过程中也重新整理了 UI 层。
-
-旧的自定义组件和样式模式逐步替换为：
-
-```text
-shadcn/ui
-+
-Tailwind CSS v4
-+
-语义化 design tokens
-```
-
-公开作品集和 CMS 现在共用组件。
-
-这减少了重复样式，也让以后调整设计更加简单。
-
----
-
-### 迁移结果
-
-迁移改变了应用的框架架构，但没有改变项目最核心的内容理念。
-
-最初的设计原则是：
-
-```text
-内容
-→ Git
-→ 静态 / 公开网站
-```
-
-当前仍然是：
-
-```text
-内容
-→ Git
-→ Next.js
-→ Vercel
-```
-
-最大的变化是统一。
-
-以前需要同时维护：
-
-```text
-Astro
-+
-React
-+
-自定义开发 middleware
-+
-自定义 i18n
-```
-
-现在主要依赖：
-
-```text
-Next.js
-+
-next-intl
-+
-Route Handlers
-+
-共享 React 组件
-```
-
-因此应用边界更简单，同时继续保留原本轻量的 Git 工作流。
-
----
-
-## 关键设计决策
-
-### 内容继续保存在 Git
-
-Markdown 和 JSON 始终是唯一内容来源。
-
-这样作品集内容和应用代码可以一起进行版本控制。
-
-每一次持久化内容修改都可以先通过：
+因此，每一次永久性的内容修改都可以通过以下命令进行检查：
 
 ```text
 git diff
 ```
 
-检查，再提交。
+确认后再提交。
 
-整体工作流为：
+整个流程保持为：
 
 ```text
 编辑
@@ -925,427 +210,95 @@ Push
 Vercel 部署
 ```
 
-这样可以获得：
+这种方式可以提供：
 
 - 完整历史记录
-- 简单回滚
+- 方便回滚
 - 可审查的内容修改
 - 不需要 CMS 数据库
-- 不需要独立内容备份方案
+- 不需要单独的内容备份方案
 - 可移植的 Markdown 和 JSON
 
----
+### 避免使用生产环境 CMS 数据库
 
-### 避免生产环境 CMS 数据库
+这个作品集不需要频繁的多人协作发布，也不需要在生产环境中进行实时编辑。
 
-作品集不需要频繁的多人协作发布，也不需要生产环境实时编辑。
+因此，如果加入生产环境 CMS 数据库，就会增加：
 
-因此加入 CMS 数据库会额外引入：
-
-- 更多基础设施
+- 额外的基础设施
 - 身份验证需求
 - API 管理
 - 数据库托管
 - 内容同步问题
-- 更高的运维复杂度
+- 更多运维复杂度
 
-但对于当前使用场景并不能带来足够收益。
+但对于目前的使用场景来说，这些额外投入并不能带来足够的价值。
 
-基于仓库的内容方案更加简单，也更符合项目的更新频率。
+直接把内容保存在仓库中更加简单，也更符合这个项目的更新频率。
 
----
+### 移除博客
 
-### 仅开发环境编辑
+作品集的早期版本曾经包含一个多语言技术博客。
 
-持久化编辑被刻意设计为本地开发功能。
+维护多种语言的长篇文章会带来大量翻译和维护工作，但对作品集主要目的的帮助相对有限。
 
-这样生产应用可以专注于展示作品集内容，而不是管理内容。
+因此，我选择移除博客，而不是继续把它扩展成一个更大的发布平台。
 
-Dashboard 提供了编辑便利，但不会让作品集变成一个永久可写的生产 CMS。
+如果技术文章的目标是提高职业曝光度，那么 LinkedIn 这类平台更加合适，因为它本身已经具备内容分发能力和职业场景。
 
----
+与具体项目有关的技术决策仍然保留在项目案例中，因为这些内容可以直接说明项目中展示的系统是如何设计和演进的。
 
-### 分离 Trial 与本地模式
-
-同一个核心编辑器支持两个不同用途。
+因此，作品集主要围绕以下内容展开：
 
 ```text
-/trial
-```
-
-是公开且不持久化的。
-
-```text
-/dashboard
-```
-
-则用于本地开发，可以修改源文件。
-
-因此 CMS 本身可以作为作品集项目的一部分公开展示，同时不暴露写入权限。
-
----
-
-### Markdown 与 JSON 用于不同内容类型
-
-不同类型的内容使用不同存储格式。
-
-项目案例采用 Markdown，因为它们主要是长篇技术内容。
-
-结构化个人资料使用 JSON，因为它们由固定字段和重复结构对象构成。
-
-```text
-Markdown
-→ 项目案例
-
-JSON
-→ About
-→ 技能
-→ 教育经历
-```
-
-这样不需要强迫所有内容使用同一种数据模型。
-
----
-
-### UI 翻译与可编辑内容分离
-
-不同的本地化内容承担不同责任。
-
-例如：
-
-```text
-保存
-删除
-项目
-预览
-返回项目
-```
-
-属于 UI 翻译层。
-
-而：
-
-```text
-About 描述
-教育经历
-技能
-项目摘要
-项目案例
-```
-
-属于真正可编辑的作品集内容。
-
-项目正在逐步让两者的职责更加清晰，避免国际化基础设施本身变成内容模型。
-
----
-
-### 移除 Blog
-
-早期版本的作品集包含一个多语言技术 Blog。
-
-维护多种语言的长篇文章需要大量翻译和长期维护工作，但对于作品集的核心目标贡献相对有限。
-
-因此我最终选择移除 Blog，而不是继续把它扩展成更大型的发布系统。
-
-面向职业曝光的技术写作更适合 LinkedIn 等已经拥有传播渠道和职业社交环境的平台。
-
-与具体项目相关的技术决策则继续保留在项目案例中，因为这些内容能够直接支持所展示的项目。
-
-现在作品集主要聚焦于：
-
-```text
-About
+关于我
 → 我是谁
 
-Skills
-→ 我使用什么技术
+技能
+→ 我使用和学习什么技术
 
-Projects
-→ 我构建过什么
+项目
+→ 我构建了什么
 
-Project case studies
-→ 这些系统是如何设计和演进的
+项目案例
+→ 系统是如何设计和演进的
 
 GitHub
 → 源代码和开发历史
 
 LinkedIn
-→ 专业写作和公开交流
+→ 职业写作和沟通
 ```
 
-这样既减少了重复内容和翻译工作，也保留了对开发者作品集最重要的工程证据。
-
----
-
-## 项目结构
-
-当前仓库的简化结构：
-
-```text
-.
-├── app/
-│   ├── [locale]/
-│   │   ├── layout.tsx
-│   │   ├── page.tsx
-│   │   └── projects/
-│   │       └── [...slug]/
-│   │
-│   ├── (career)/
-│   │   ├── layout.tsx
-│   │   ├── dashboard/
-│   │   └── trial/
-│   │
-│   ├── api/
-│   │   └── local/
-│   │
-│   └── globals.css
-│
-├── career/
-│   ├── components/
-│   ├── hooks/
-│   ├── lib/
-│   ├── pages/
-│   ├── server/
-│   └── workspace.tsx
-│
-├── components/
-│   ├── content/
-│   ├── page/
-│   └── ui/
-│
-├── content/
-│   └── projects/
-│       ├── en/
-│       ├── sv/
-│       └── zh/
-│
-├── i18n/
-│   ├── request.ts
-│   ├── routing.ts
-│   └── locales/
-│       ├── en/
-│       ├── sv/
-│       └── zh/
-│
-├── lib/
-│   └── content/
-│
-├── next.config.ts
-└── package.json
-```
-
----
-
-## 开发
-
-安装依赖：
-
-```bash
-npm install
-```
-
-启动开发服务器：
-
-```bash
-npm run dev
-```
-
-默认本地地址：
-
-```text
-http://localhost:3000
-```
-
-公开作品集：
-
-```text
-http://localhost:3000/sv
-http://localhost:3000/en
-http://localhost:3000/zh
-```
-
-本地 Dashboard：
-
-```text
-http://localhost:3000/dashboard
-```
-
-Trial：
-
-```text
-http://localhost:3000/trial
-```
-
-不需要单独启动后端服务。
-
-开发环境统一运行在 Next.js 中：
-
-```text
-Next.js
-├── 公开作品集
-├── Trial CMS
-├── 本地 Dashboard
-└── 仅开发环境 Route Handlers
-```
-
----
-
-## Build
-
-创建 production build：
-
-```bash
-npm run build
-```
-
-Build 会验证 Next.js 应用、本地化 routes、TypeScript 代码以及 Server / Client Component 边界。
-
----
-
-## 部署
-
-作品集通过 Vercel 部署。
-
-内容更新使用 Git 工作流：
-
-```text
-本地编辑
-     ↓
-检查 Git diff
-     ↓
-Git commit
-     ↓
-Git push
-     ↓
-Vercel rebuild
-```
-
-持久化内容写入仅限本地开发环境。
-
-公开 Trial 在生产环境仍然可用，但不会保存修改。
-
----
+这样可以减少重复内容和翻译工作，同时保留对作品集最有价值的工程实践证明。
 
 ## 当前架构
 
 ```text
-                  Git Repository
-                        │
-             ┌──────────┴──────────┐
-             │                     │
+                    Git 仓库
+                       │
+            ┌──────────┴──────────┐
+            │                     │
         JSON 内容             Markdown 内容
-             │                     │
-             └──────────┬──────────┘
+            │                     │
+            └──────────┬──────────┘
+                       ↓
+                    Next.js
+                       │
+       ┌───────────────┼────────────────┐
+       │               │                │
+   公开作品集        Trial CMS       本地 Dashboard
+       │               │                │
+       │          Browser state         ↓
+       │                          Route Handlers
+       │                                │
+       │                          JSON / Markdown
+       │                                │
+       └────────────────┬───────────────┘
                         ↓
-                     Next.js
-                        │
-        ┌───────────────┼────────────────┐
-        │               │                │
-    公开作品集        Trial CMS       本地 Dashboard
-        │               │                │
-        │          浏览器状态             ↓
-        │                         Route Handlers
-        │                                │
-        │                         JSON / Markdown
-        │                                │
-        └────────────────┬───────────────┘
-                         ↓
-                        Git
-                         ↓
-                       Vercel
+                       Git
+                        ↓
+                      Vercel
 ```
 
-整个工作流程中，仓库始终是唯一内容来源。
-
-## 作品集的发展历史
-
-我的作品集项目最开始只有 HTML 和 CSS。
-
-在学习期间掌握 React 后，我把网站迁移到了 React。
-
-后来我遇到了一个与 JavaScript 有关的问题：当浏览器禁用 JavaScript 时，网站无法正常显示。
-
-因此，我后来又把项目迁移到了 Astro。
-
-差不多在同一时期，我加入了 Blog 功能，用于发布和分享文章。
-
-但随着 Blog 内容越来越多，我发现手动管理这些内容非常麻烦。
-
-为了解决这个问题，我使用 C# 开发了自己的 CMS。
-
-随着项目继续演进，我希望进一步简化整体架构，因此后来用基于 React 的方案替代了 C# CMS，并移除了 Blog 功能。
-
-与此同时，我还发现了另一个性能方面的问题。
-
-网站有时会先渲染 HTML，然后才加载 CSS。
-
-在较慢的网络环境中这一点尤其明显，因为用户可能会短暂看到一个没有样式的页面。
-
-我尝试过把 CSS 直接放入 HTML，让两者一起传输，但这并没有解决问题。
-
-后来我了解到 Next.js 支持 server-side rendering，并且即使浏览器禁用了 JavaScript，也仍然可以向用户返回已经渲染好的 HTML。
-
-因此，我最终决定把网站从 Astro 迁移到 Next.js。
-
-## Lighthouse 结果 — Astro（移动端）
-
-**First Contentful Paint:*- 0.8 s
-
-**Largest Contentful Paint:*- 0.8 s
-
-**Total Blocking Time:*- 0 ms
-
-**Cumulative Layout Shift:*- 0
-
-**Speed Index:*- 0.8 s
-
-**Performance:*- 100
-
-**Accessibility:*- 94
-
-- 背景色和前景色的对比度不足。
-
-**Best Practices:*- 100
-
-**SEO:*- 100
-
-**Agentic Browsing:*- 2/2
-
-这里没有列出桌面端结果，因为桌面端性能本身已经优于移动端。
-
-## Lighthouse 结果 — Next.js（移动端）
-
-**First Contentful Paint:*- 1.2 s
-
-**Largest Contentful Paint:*- 2.1 s
-
-**Total Blocking Time:*- 40 ms
-
-**Cumulative Layout Shift:*- 0
-
-**Speed Index:*- 3.9 s
-
-**Performance:*- 97
-
-- 存在部分未使用的 JavaScript。
-
-**Accessibility:*- 96
-
-- 背景色和前景色的对比度不足。
-
-**Best Practices:*- 100
-
-**SEO:*- 100
-
-**Agentic Browsing:*- 2/2
-
-## 后续改进
-
-我的下一个目标是在继续保留新架构优势的同时，尽可能将 Next.js 版本的性能优化到接近 Astro 版本。
-
----
-
-## 后续改进
-
-- 提升性能
-- 改进 SEO
+在整个工作流程中，仓库始终是唯一事实来源。
