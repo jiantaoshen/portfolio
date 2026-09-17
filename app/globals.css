@@ -140,36 +140,6 @@ select {
    Typography
    ============================================================ */
 
-.text-title {
-  @apply mt-5
-    mb-5
-    text-3xl
-    font-bold
-    tracking-tight
-    sm:text-4xl;
-}
-
-.text-card-title {
-  @apply mt-3
-    mb-3
-    text-xl
-    font-bold
-    tracking-tight;
-}
-
-.text-large {
-  @apply mb-5
-    text-base
-    leading-7
-    sm:text-lg
-    sm:leading-8;
-}
-
-.text-body {
-  @apply mb-5
-    text-sm
-    leading-6;
-}
 
 .text-label {
   @apply text-xs
@@ -177,18 +147,6 @@ select {
     uppercase
     tracking-widest;
 }
-
-.text-link {
-  @apply inline-flex
-    items-center
-    gap-2
-    text-sm
-    font-semibold
-    text-primary
-    transition-colors
-    hover:text-foreground;
-}
-
 
 /* ============================================================
    Navigation
