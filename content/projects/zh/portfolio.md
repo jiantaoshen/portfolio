@@ -1,398 +1,304 @@
 ---
 lang: zh
+
 title: "开发者作品集"
-description: "一个使用 Astro、React、TypeScript 和 Tailwind CSS 构建的多语言开发者作品集，采用静态内容渲染、项目案例展示、公开 Dashboard 试用模式和单进程本地内容管理工作流。"
+
+description: "一个多语言作品集和轻量级、基于 Git 的内容管理系统（CMS），包含公开的 CMS 试用模式以及仅限本地使用的源内容编辑功能。"
+
 status: "Live"
+
 order: 3
+
 technologies:
-  - "Astro"
-  - "React"
+
+  - "Next.js 16"
   - "TypeScript"
-  - "Tailwind CSS"
-  - "Astro Content Collections"
-  - "Markdown"
+  - "Tailwind CSS v4"
+  - "shadcn/ui"
+  - "next-intl"
+  - "GitHub"
   - "Vercel"
+
 links:
+
   github: "https://github.com/jiantaoshen/portfolio-dev"
   live: "https://www.jiantao.dev"
+
 draft: false
 ---
 
 ## 概述
 
-Developer Portfolio 是一个使用 Astro、React、TypeScript 和 Tailwind CSS 构建的多语言开发者作品集。
+这是一个多语言作品集和轻量级、基于 Git 的内容管理系统，使用 Next.js 16、TypeScript、Tailwind CSS v4、shadcn/ui 和 next-intl 构建。公开网站通过不同语言的路由和内容支持英语、瑞典语和中文。项目案例使用 Markdown 保存，而“关于我”“技能”和“教育经历”等结构化个人资料内容则使用多语言 JSON 维护。
 
-公开网站使用 Astro 根据 Markdown 和 JSON 内容生成静态页面。英语、瑞典语和中文版本共享同一套应用结构，同时使用各自独立的语言路由和内容。
+项目还提供两种内容编辑方式：
 
-项目案例通过 Astro Content Collections 以 Markdown 形式存储，而 About、Skills 和 Education 等结构化个人资料内容则使用多语言 JSON 维护。
+- 一个公开的 Trial 模式，用于体验 CMS 界面，但不会永久保存修改
+- 一个本地 Dashboard，用于在开发过程中直接编辑仓库中的实际 JSON 和 Markdown 源文件
 
-该项目还包含两种 Dashboard 模式：一个用于体验编辑器的公开 Trial 界面，以及一个集成到 Astro 开发服务器中、用于管理作品集源文件的本地 Dashboard。
-
-最终形成的是一个静态生产网站，通过轻量级、基于 Git 的内容工作流进行管理，而不需要生产环境数据库或 CMS。
+当前架构继续以 Git 作为唯一事实来源，不使用生产环境内容数据库，并由同一个 Next.js 应用负责公开页面渲染、CMS 界面、本地化以及仅用于开发环境的内容 API。
 
 ## 问题
 
-一个多语言作品集包含多种需要保持有序并易于更新的内容。
+一个多语言作品集包含多种类型的内容，需要保持良好的组织结构并且易于维护。
 
-项目包括：
+这个项目包含：
 
-- About 和 CV 信息
-- Skills 和 Education
-- 项目案例
+- 关于我和简历信息
+- 技能和教育经历
+- 项目元数据
+- 长篇项目案例
 - 英语、瑞典语和中文内容
+- 公开 UI 的翻译
+- CMS 界面的翻译
 
-当内容规模较小时，直接编辑源文件是可行的。但随着结构化内容和较长的项目案例不断增加，直接维护这些文件会逐渐变得不够方便。
+在内容规模较小时，直接编辑 JSON 和 Markdown 文件是可以接受的，但随着内容不断增加，这种方式会越来越不方便。与此同时，这个作品集并不需要传统的生产环境 CMS。内容更新频率相对较低，而且这些内容本来就适合与应用代码放在一起。引入数据库、身份验证系统、托管 CMS 和永久写入 API 会增加额外的基础设施，而带来的价值有限，成本却较高。因此，我的目标是在保留将内容存储在 GitHub 中这些优点的同时，提供一个更方便的编辑流程。
 
-与此同时，公开作品集本质上是一个静态网站。为了只在网站重新构建时才发生变化的内容，引入生产数据库和长期运行的后端服务会增加没有必要的基础设施复杂度。
+## 结果
 
-因此，该项目的目标是在保持公开网站静态化的同时，提供一种更方便的方式来管理 Markdown 和 JSON 内容。
-
-## 解决方案
-
-作品集采用 content-to-code 架构。
-
-项目案例以 Markdown 形式存储，并通过 Astro Content Collections 进行验证。About、Skills 和 Education 内容则存储为多语言 JSON。
+现在，作品集使用一个统一的 Next.js App Router 应用。核心内容流程有意保持简单：
 
 ```text
 JSON / Markdown
-       ↓
-     Astro
-       ↓
- Static Build
-       ↓
+      ↓
+   Next.js
+      ↓
+公开作品集
+      ↓
     Vercel
 ```
 
-Astro 在构建过程中读取这些源文件，并生成公开作品集。
-
-为了进行内容管理，项目在这些相同的源文件之上增加了一个基于 React 的 Dashboard。
-
-公开的 `/trial` 路由提供一个沙盒版本的编辑器，其中的修改只存在于浏览器状态中。
-
-本地的 `/dashboard` 路由通过 Astro/Vite 开发服务器中的 development-only middleware 直接更新作品集中的 JSON 和 Markdown 文件。
+项目案例保存在 Markdown 中。“关于我”“技能”和“教育经历”的内容则保存为多语言 JSON。在本地开发时，CMS 会直接操作这些相同的源文件。
 
 ```text
-Dashboard
-   ↓
-Astro / Vite dev middleware
-   ↓
+本地 Dashboard
+      ↓
+Next.js Route Handlers
+      ↓
 JSON / Markdown
-   ↓
-Git commit
-   ↓
-Vercel rebuild
-```
-
-这种方式让 Git 继续作为内容的唯一事实来源，同时提供可视化的内容编辑工作流。
-
-它也简化了本地开发环境：作品集、Dashboard 和内容编辑 middleware 都通过同一个 `npm run dev` 进程运行。
-
-## 功能
-
-### 静态 HTML 优先的作品集
-
-公开作品集使用 Astro 构建，并以静态内容形式生成。
-
-Markdown 和 JSON 在构建过程中被转换为页面，使部署后的网站保持轻量，同时非常适合作为展示开发者信息和工程项目案例的平台。
-
-### 多语言支持
-
-作品集支持英语、瑞典语和中文。
-
-每种语言使用独立的静态路由：
-
-```text
-/en/
-/sv/
-/zh/
-```
-
-项目内容也使用相同的语言路由结构：
-
-```text
-/en/projects/
-/sv/projects/
-/zh/projects/
-```
-
-这样可以让网站共享模板和组件，同时保持不同语言内容彼此独立。
-
-### Project Content Collections
-
-项目案例存储在按语言划分的 Markdown 目录中。
-
-```text
-src/
-└── content/
-    └── projects/
-        ├── en/
-        ├── sv/
-        └── zh/
-```
-
-Astro Content Collections 用于验证和管理这些 Markdown 内容。
-
-Frontmatter 保存项目状态、技术栈和链接等结构化元数据，而 Markdown 正文则包含完整的项目案例内容。
-
-### 多语言 JSON 内容
-
-About、Skills 和 Education 内容使用多语言 JSON 存储。
-
-语言文件组织在：
-
-```text
-src/i18n/locales/
-├── en/
-├── sv/
-└── zh/
-```
-
-这种方式将结构化个人资料信息与较长的项目内容分开，同时让两种内容形式都保留在同一个代码仓库中。
-
-### Public Trial 模式
-
-作品集提供一个公开的 Dashboard 沙盒：
-
-```text
-/trial
-```
-
-访问者可以体验编辑界面，并直接在浏览器中修改内容。
-
-这些修改只存在于浏览器状态中，不会写入任何源文件。
-
-刷新页面后，Trial 内容会恢复到初始状态。
-
-### 本地 Content Dashboard
-
-本地开发环境还提供一个独立的 Dashboard：
-
-```text
-/dashboard
-```
-
-它提供一个基于 React 的界面，用于在开发过程中管理作品集内容。
-
-Dashboard 支持多语言内容管理和项目编辑。
-
-Project 编辑器提供独立的 `Edit` 和 `Preview` 视图，因此可以在更新源文件之前先检查 Markdown 的最终显示效果。
-
-### Development-Only 内容编辑 Middleware
-
-本地 Dashboard 与注册在 Astro/Vite 开发服务器中的 development-only middleware 通信。
-
-它不使用数据库，而是直接编辑 Astro 所使用的 JSON 和 Markdown 文件。
-
-该 middleware 只在本地开发环境中运行。
-
-内容编辑 API 与 Astro 开发服务器运行在同一个进程中，因此不再需要单独的后端服务、端口或代理配置。
-
-生产构建不会暴露能够持久化写入源文件的 API。
-
-### 响应式界面
-
-作品集和 Dashboard 布局使用 Tailwind CSS 构建。
-
-界面针对桌面设备和较小屏幕进行了适配，同时在页面和组件之间复用统一的样式模式。
-
-## 架构
-
-该项目将公开网站渲染与本地内容管理分离。
-
-### 公开网站
-
-```text
-Markdown / JSON
       ↓
-    Astro
+   Git diff
       ↓
- Static HTML
+ Git commit
       ↓
    Vercel
 ```
 
-部署后的作品集在构建过程中读取内容，并生成完全静态的网站。
+公开的 `/trial` 路由使用相同的编辑界面，但所有修改只保存在浏览器或应用的 state 中。Trial 模式不会执行任何永久写入操作。这样既能保持 Git 作为唯一事实来源，也能提供可视化的内容管理流程。
 
-公开 Trial 同样包含在静态部署中，但其中的修改只保留在浏览器状态中，不会写回仓库文件。
+## 权衡与取舍
 
-### 本地内容管理
+这里我会说明我在项目中做出这些选择的原因。
+
+### 多语言作品集
+
+我创建多语言作品集的原因，是希望同时提高自己的语言能力和文档编写能力。缺点是我需要维护大量文档，这意味着我无法同时进行太多项目。
+
+目前我需要管理的项目并不多，所以这种方式对我来说没有问题。如果未来项目数量增加，我可能会把多语言作品集改成单语言作品集，让项目保持简单，也更容易维护。
+
+### 为什么我选择 Next.js
+
+> HTML/CSS -> React -> Astro -> Astro + C# -> Astro + React -> Next.js（现在）
+
+我的作品集项目最初只使用 HTML 和 CSS。在学习期间接触 React 之后，我把网站迁移到了 React。后来我遇到了一个与 JavaScript 有关的问题：当浏览器禁用 JavaScript 时，网站无法正常显示。因此，我最终把项目迁移到了 Astro。
+
+大约在同一时期，我还加入了博客功能，用来发布和分享自己的文章。不过，随着博客内容增加，我发现手动管理这些内容越来越困难。为了解决这个问题，我使用 C# 开发了自己的 CMS。随着项目继续发展，我希望简化整体架构，因此用基于 React 的方案替换了 C# CMS，并移除了博客功能。我还发现了另一个性能问题：网站有时会先渲染 HTML，然后再加载 CSS。在较慢的网络连接下尤其明显，因为用户会短暂看到没有样式的页面。我尝试把 CSS 直接放进 HTML 中，让两者可以一起发送，但这并没有解决问题。
+
+后来我了解到，Next.js 支持服务端渲染，即使浏览器禁用了 JavaScript，也仍然可以发送已经渲染好的 HTML。因此，我决定把网站从 Astro 迁移到 Next.js。Lighthouse 测试结果比 Astro 差一些，而且使用 `.vercelignore` 也无法减少部署中使用的 JavaScript 代码。不过，用户体验更好。对我来说，更好的用户体验比单纯追求速度更重要。
+
+#### Lighthouse 结果 — Astro（移动端）
+
+**First Contentful Paint:** 0.8 s
+
+**Largest Contentful Paint:** 0.8 s
+
+**Total Blocking Time:** 0 ms
+
+**Cumulative Layout Shift:** 0
+
+**Speed Index:** 0.8 s
+
+**Performance:** 100
+
+**Accessibility:** 94
+
+- 背景色与前景色之间的对比度不足。
+
+**Best Practices:** 100
+
+**SEO:** 100
+
+**Agentic Browsing:** 2/2
+
+我没有列出桌面端结果，因为桌面端的性能本来就优于移动端。
+
+#### Lighthouse 结果 — Next.js（移动端）
+
+**First Contentful Paint:** 1.2 s
+
+**Largest Contentful Paint:** 2.1 s
+
+**Total Blocking Time:** 40 ms
+
+**Cumulative Layout Shift:** 0
+
+**Speed Index:** 3.9 s
+
+**Performance:** 97
+
+- 有一部分 JavaScript 没有被使用。
+
+**Accessibility:** 96
+
+- 背景色与前景色之间的对比度不足。
+
+**Best Practices:** 100
+
+**SEO:** 100
+
+**Agentic Browsing:** 2/2
+
+### JSON 和 Markdown
+
+我的大部分数据都是类似文档的内容，而且数据之间没有复杂的关系。在这个项目中，我们通常只需要读取一次数据，然后直接使用。我们不需要执行复杂查询，也不需要管理不同数据之间的关系。当 JSON 文件只包含少量类似文档的内容时，设置起来非常简单，因此它很适合用于多语言内容，例如 Landing Page 上的文字。不过，随着文档越来越长，JSON 文件会变得越来越难阅读和维护。
+
+对于较长的文档，Markdown 文件是更好的选择。它在初期可能需要更多设置，但我认为这些额外的投入是值得的。我从开始使用 Astro 开发项目时，就开始使用 Markdown 编写项目文档。从那以后，我一直继续使用 Markdown，因为它让文档更容易编写、阅读和维护。
+
+### 公开 Trial 模式
+
+Trial 模式用于展示我开发的 CMS。在 Astro 版本中，这个功能相对容易创建和维护。不过，当前端和后端使用相同的编程语言和框架时，实现方式会变得更加复杂。
+
+这个功能未来可能会根据项目的发展进行调整或移除。
+
+### 本地内容 Dashboard
+
+本地内容 Dashboard 可以让我更方便地编辑 JSON 和 Markdown 文档，而不需要直接打开和修改原始的 `.json` 和 `.md` 文件。
+
+### 仅用于开发环境的内容 API
+
+当前端和后端使用不同的编程语言时，仅用于开发环境的内容 API 很实用，因为两个部分可以更清晰地分离。现在所有内容都放在 Next.js 中，这种方式让我觉得更加复杂，而且维护成本更高。因此，这些 API 未来可能会进行调整或移除。
+
+### 共享 UI 系统
+
+共享 UI 系统让项目中的主题、CSS 样式和可复用 UI 元素更容易统一维护。
+
+### 将内容保存在 Git 中
+
+Markdown 和 JSON 仍然是唯一事实来源。
+
+这样可以让作品集内容与应用代码一起进行版本控制。
+
+因此，每一次永久性的内容修改都可以通过以下命令进行检查：
 
 ```text
-React Dashboard
-       ↓
-Astro / Vite dev middleware
-       ↓
-Markdown / JSON
-       ↓
-      Git
-       ↓
- Astro Build
-       ↓
-    Vercel
+git diff
 ```
 
-Dashboard 作为公开网站所使用的相同源文件之上的可视化编辑层。
+确认后再提交。
 
-内容编辑 middleware 只在 `astro dev` 期间运行，不属于生产环境的服务器架构。
-
-## 关键决策
-
-### 将内容保留在 Git 中
-
-Markdown 和 JSON 继续作为作品集内容的唯一事实来源。
-
-这样可以让内容与应用代码保存在同一个仓库中，并让内容变更遵循与项目其他部分相同的 Git 工作流。
-
-同时，Astro 可以在每次构建时直接根据仓库中的内容生成完整网站。
-
-### 使用 Astro/Vite Development Middleware
-
-内容编辑器只需要在本地开发时拥有文件写入能力。
-
-因此，与其继续维护一个独立的后端应用，编辑器 API 被实现为现有 Astro/Vite 进程中的 development-only middleware。
-
-这将本地开发环境从两个进程减少为一个：
+整个流程保持为：
 
 ```text
-迁移前
-
-Astro / Vite
-+
-ASP.NET Core
+编辑
+  ↓
+检查 diff
+  ↓
+Commit
+  ↓
+Push
+  ↓
+Vercel 部署
 ```
 
-```text
-迁移后
+这种方式可以提供：
 
-Astro / Vite
-├── Portfolio
-├── Dashboard
-└── Local content editor middleware
-```
+- 完整历史记录
+- 方便回滚
+- 可审查的内容修改
+- 不需要 CMS 数据库
+- 不需要单独的内容备份方案
+- 可移植的 Markdown 和 JSON
 
-这样既保持了生产环境的静态架构，也移除了不再需要的本地运行时、额外端口和代理配置。
+### 避免使用生产环境 CMS 数据库
 
-新的 middleware 仍然保留了旧实现中的重要内容管理行为，包括内容验证、安全路径处理、原子写入、项目重命名、语言移动、目标文件冲突保护和文件删除。
+这个作品集不需要频繁的多人协作发布，也不需要在生产环境中进行实时编辑。
 
-### 分离 Trial 和本地 Dashboard 模式
+因此，如果加入生产环境 CMS 数据库，就会增加：
 
-项目针对不同用途提供了两个版本的编辑体验。
+- 额外的基础设施
+- 身份验证需求
+- API 管理
+- 数据库托管
+- 内容同步问题
+- 更多运维复杂度
 
-```text
-/trial
-```
+但对于目前的使用场景来说，这些额外投入并不能带来足够的价值。
 
-是公开且非持久化的。
+直接把内容保存在仓库中更加简单，也更符合这个项目的更新频率。
 
-```text
-/dashboard
-```
+### 移除博客
 
-则用于本地开发，并且可以通过 development-only content editor middleware 更新真实的源内容。
+作品集的早期版本曾经包含一个多语言技术博客。
 
-这样既可以公开展示 Dashboard，又不需要暴露任何能够持久化写入源文件的功能。
+维护多种语言的长篇文章会带来大量翻译和维护工作，但对作品集主要目的的帮助相对有限。
 
-### 为不同内容类型使用 Markdown 和 JSON
+因此，我选择移除博客，而不是继续把它扩展成一个更大的发布平台。
 
-项目案例使用 Markdown，而 About、Skills 和 Education 等结构化个人资料内容使用 JSON。
+如果技术文章的目标是提高职业曝光度，那么 LinkedIn 这类平台更加合适，因为它本身已经具备内容分发能力和职业场景。
 
-这样可以让每种内容使用更符合其编辑和渲染方式的数据格式。
+与具体项目有关的技术决策仍然保留在项目案例中，因为这些内容可以直接说明项目中展示的系统是如何设计和演进的。
 
-### 删除 Blog
-
-作品集的早期版本包含一个多语言技术 Blog。
-
-长期维护多语言文章带来了较高的内容维护成本，但对作品集最核心的目标——展示软件项目和工程能力——实际贡献有限。
-
-因此，与其继续扩展 Blog 并将其发展成一个更复杂的发布系统，我选择将其删除。
-
-如果技术写作的目的是获得职业曝光，那么 LinkedIn 等已经拥有专业网络和内容分发机制的平台更加合适。
-
-与具体项目相关的工程决策、架构变化和技术取舍则继续保留在 Project Case Studies 中，因为这些内容能够直接支持和解释所展示的项目。
-
-因此，作品集可以更加专注于它最重要的职责：
+因此，作品集主要围绕以下内容展开：
 
 ```text
-About
+关于我
 → 我是谁
 
-Skills
-→ 我使用什么技术
+技能
+→ 我使用和学习什么技术
 
-Projects
-→ 我构建过什么
+项目
+→ 我构建了什么
 
-Project case studies
+项目案例
 → 系统是如何设计和演进的
 
 GitHub
 → 源代码和开发历史
 
 LinkedIn
-→ 专业技术写作和公开交流
+→ 职业写作和沟通
 ```
 
-删除 Blog 同时减少了重复内容、翻译工作和长期维护成本，而不会失去作品集中真正重要的工程能力证据。
+这样可以减少重复内容和翻译工作，同时保留对作品集最有价值的工程实践证明。
 
-## 开发
-
-安装前端依赖：
-
-```bash
-npm install
-```
-
-启动作品集和本地内容编辑器：
-
-```bash
-npm run dev
-```
-
-开发环境现在只运行一个 Astro/Vite 进程：
+## 当前架构
 
 ```text
-Astro / Vite
-├── Portfolio
-├── Dashboard
-└── Local content editor middleware
+                    Git 仓库
+                       │
+            ┌──────────┴──────────┐
+            │                     │
+        JSON 内容             Markdown 内容
+            │                     │
+            └──────────┬──────────┘
+                       ↓
+                    Next.js
+                       │
+       ┌───────────────┼────────────────┐
+       │               │                │
+   公开作品集        Trial CMS       本地 Dashboard
+       │               │                │
+       │          Browser state         ↓
+       │                          Route Handlers
+       │                                │
+       │                          JSON / Markdown
+       │                                │
+       └────────────────┬───────────────┘
+                        ↓
+                       Git
+                        ↓
+                      Vercel
 ```
 
-默认本地地址：
-
-```text
-http://localhost:4321
-```
-
-不再需要启动单独的后端进程。
-
-## 部署
-
-公开作品集部署在 Vercel。
-
-Astro 将 Markdown 和 JSON 内容构建为静态网站。
-
-development-only content editor middleware 不属于生产部署，因此部署后的作品集不会暴露能够写入仓库源文件的 API。
-
-公开 Trial 仍然可以在生产环境中使用，但所有修改都只保留在浏览器状态中。
-
-内容更新遵循基于 Git 的流程：
-
-```text
-本地编辑内容
-     ↓
-Git commit
-     ↓
-Vercel rebuild
-```
-
-这样可以让部署后的网站保持完全静态，同时让所有作品集内容继续通过 Git 进行版本管理。
-
-## 未来改进
-
-- 改进 Dashboard 的编辑体验和内容验证
-- 随着项目持续演进，继续完善 Project Case Studies
-- 改进架构图和项目可视化
-- 增加更丰富的结构化 SEO 元数据
-- 持续改善无障碍访问
-- 持续改善性能
-- 在维护成本超过实际价值时，继续简化内容工作流
+在整个工作流程中，仓库始终是唯一事实来源。

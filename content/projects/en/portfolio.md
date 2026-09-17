@@ -1,16 +1,16 @@
 ---
 lang: en
 title: "Developer Portfolio"
-description: "A multilingual developer portfolio built with Astro, React, TypeScript and Tailwind CSS, with static content rendering, project case studies, a public dashboard trial and a single-process local content management workflow."
+description: "A multilingual portfolio and lightweight Git-based content management system (CMS) with a public CMS trial and local-only source content editing."
 status: "Live"
 order: 3
 technologies:
-  - "Astro"
-  - "React"
+  - "Next.js 16"
   - "TypeScript"
-  - "Tailwind CSS"
-  - "Astro Content Collections"
-  - "Markdown"
+  - "Tailwind CSS v4"
+  - "shadcn/ui"
+  - "next-intl"
+  - "GitHub"
   - "Vercel"
 links:
   github: "https://github.com/jiantaoshen/portfolio-dev"
@@ -20,297 +20,213 @@ draft: false
 
 ## Overview
 
-Developer Portfolio is a multilingual portfolio built with Astro, React, TypeScript and Tailwind CSS.
+This is a multilingual portfolio and lightweight Git-based content management system built with Next.js 16, TypeScript, Tailwind CSS v4, shadcn/ui and next-intl. The public site supports English, Swedish and Chinese through locale-specific routes and content. Project case studies are stored as Markdown, while structured profile content such as About, Skills and Education is maintained as multilingual JSON.
 
-The public site uses Astro to generate static pages from Markdown and JSON content. English, Swedish and Chinese versions share the same application structure while using language-specific routes and content.
+The project also includes two content editing experiences:
 
-Project case studies are stored as Markdown through Astro Content Collections, while structured profile content such as About, Skills and Education is maintained as multilingual JSON.
+- A public Trial mode for exploring the CMS interface without persistent changes
+- A local Dashboard for editing the repository's actual JSON and Markdown source files during development
 
-The project also includes two dashboard modes: a public Trial interface for exploring the editor and a local dashboard integrated into the Astro development server for managing portfolio source files.
-
-The result is a static production site with a lightweight Git-based content workflow instead of a production database or CMS.
+The current architecture keeps Git as the source of truth, avoids a production content database and uses the same Next.js application for public rendering, CMS interfaces, localization and development-only content APIs.
 
 ## The Problem
 
-A multilingual portfolio contains several types of content that need to stay organized and easy to update.
+A multilingual portfolio contains several types of content that need to stay organized and easy to maintain.
 
-The project includes:
+This project includes:
 
 - About and CV information
 - Skills and education
-- Project case studies
+- Project metadata
+- Long-form project case studies
 - Content in English, Swedish and Chinese
+- Public UI translations
+- CMS interface translations
 
-Editing all of this content directly in source files is manageable at a small scale, but becomes less convenient as the amount of structured and long-form project content grows.
+Editing all of this directly in JSON and Markdown files is manageable at a small scale, but becomes increasingly inconvenient as the content grows. At the same time, the portfolio does not need a conventional production CMS. The content changes relatively infrequently and naturally belongs alongside the application code. Introducing a database, authentication system, hosted CMS and permanent write API would add infrastructure that provides limited value wihile the costs are high. The goal was therefore to keep the advantages of content stored in GitHub while providing a more convenient editing workflow.
 
-At the same time, the public portfolio is primarily static. Introducing a production database and a permanent backend would add infrastructure that is unnecessary for content that only changes when the site is rebuilt.
+## Result
 
-The goal was therefore to keep the public site static while creating a more convenient way to manage its Markdown and JSON content.
-
-## Solution
-
-The portfolio follows a content-to-code architecture.
-
-Project case studies are stored as Markdown and validated with Astro Content Collections. About, Skills and Education content is stored as multilingual JSON.
+The portfolio now uses a single Next.js App Router application. The core content flow remains intentionally simple:
 
 ```text
 JSON / Markdown
-       ↓
-     Astro
-       ↓
- Static Build
-       ↓
+      ↓
+   Next.js
+      ↓
+Public Portfolio
+      ↓
     Vercel
 ```
 
-Astro uses these source files during the build process to generate the public portfolio.
-
-For content management, the project adds a React-based dashboard on top of the same files.
-
-The public `/trial` route provides a sandbox version of the editor where changes only exist in browser state.
-
-The local `/dashboard` route uses development-only middleware inside the Astro/Vite development server to update the portfolio's JSON and Markdown files.
+Project case studies are stored in Markdown. About, Skills and Education content is stored as multilingual JSON. The CMS operates directly on those same source files during local development.
 
 ```text
-Dashboard
-   ↓
-Astro / Vite dev middleware
-   ↓
+Local Dashboard
+      ↓
+Next.js Route Handlers
+      ↓
 JSON / Markdown
-   ↓
-Git commit
-   ↓
-Vercel rebuild
-```
-
-This keeps Git as the source of truth while still providing a visual content editing workflow.
-
-It also keeps the local development environment simple: the portfolio, dashboard and content editor middleware all run through the same `npm run dev` process.
-
-## Features
-
-### Static HTML-First Portfolio
-
-The public portfolio is built with Astro and generated as static content.
-
-Markdown and JSON are transformed into pages during the build process, keeping the deployed site lightweight and well suited to a portfolio focused on developer information and engineering case studies.
-
-### Multilingual Support
-
-The portfolio supports English, Swedish and Chinese.
-
-Each language uses static routes under:
-
-```text
-/en/
-/sv/
-/zh/
-```
-
-The same structure is used for language-specific Project content.
-
-```text
-/en/projects/
-/sv/projects/
-/zh/projects/
-```
-
-This allows the site to share templates and components while keeping content separated by language.
-
-### Project Content Collections
-
-Project case studies are stored in language-specific Markdown directories.
-
-```text
-src/
-└── content/
-    └── projects/
-        ├── en/
-        ├── sv/
-        └── zh/
-```
-
-Astro Content Collections are used to validate and manage the Markdown content.
-
-Frontmatter stores structured metadata such as project status, technologies and links, while Markdown contains the main project case study.
-
-### Multilingual JSON Content
-
-About, Skills and Education content is stored as multilingual JSON.
-
-The language files are organized under:
-
-```text
-src/i18n/locales/
-├── en/
-├── sv/
-└── zh/
-```
-
-This separates structured profile information from longer project content while keeping both approaches inside the repository.
-
-### Public Trial Mode
-
-The portfolio includes a public dashboard sandbox at:
-
-```text
-/trial
-```
-
-Visitors can explore the editing interface and modify content inside the browser.
-
-The changes only exist in browser state and are never written to the source files.
-
-Refreshing the page resets the Trial content.
-
-### Local Content Dashboard
-
-A separate local dashboard is available at:
-
-```text
-/dashboard
-```
-
-It provides a React-based interface for managing portfolio content during development.
-
-The dashboard supports multilingual content management and project editing.
-
-The Project editor includes separate `Edit` and `Preview` views, making it possible to review Markdown content before updating the source files.
-
-### Development-Only Content Editor Middleware
-
-The local dashboard communicates with development-only middleware registered inside the Astro/Vite development server.
-
-Instead of storing content in a database, the middleware directly edits the JSON and Markdown files used by Astro.
-
-The middleware is only available during local development.
-
-It handles the local content editor API inside the same process as the Astro development server, so no separate backend service or port is required.
-
-The production build does not expose persistent file-writing APIs.
-
-### Responsive Interface
-
-Tailwind CSS is used for the portfolio and dashboard layouts.
-
-The interface is designed to work across desktop and smaller screen sizes while sharing reusable styling patterns across pages and components.
-
-## Architecture
-
-The project separates public rendering from local content management.
-
-### Public Site
-
-```text
-Markdown / JSON
       ↓
-    Astro
+   Git diff
       ↓
- Static HTML
+ Git commit
       ↓
    Vercel
 ```
 
-The deployed portfolio reads its content during the build process and produces a static site.
+The public `/trial` route uses the same editing interface but keeps all changes in browser/application state. No persistent write operation is performed in Trial mode. This preserves Git as the source of truth while still providing a visual content management workflow.
 
-The public Trial is included in the static deployment, but its changes remain browser-only and are not written back to repository files.
+## Trade-offs
+Here I'll talk about my decision.
 
-### Local Content Management
+### Multilingual Portfolio
 
-```text
-React Dashboard
-       ↓
-Astro / Vite dev middleware
-       ↓
-Markdown / JSON
-       ↓
-      Git
-       ↓
- Astro Build
-       ↓
-    Vercel
-```
+The reason I created a multilingual portfolio is that I want to improve both my language and documentation skills. The downside is that I have to manage a lot of documentation, which means I can't work on too many projects at the same time.
 
-The dashboard acts as a visual editing layer over the same source files used by the public portfolio.
+Right now, I don't have many projects to manage, so I'm fine with it. If the number of projects increases in the future, I may switch from a multilingual portfolio to a single-language portfolio to keep things simple and easier to maintain.
 
-The content editor middleware runs only during `astro dev` and is not part of the production server architecture.
+### Why I choose Next.js
 
-## Key Decisions
+> HTML/CSS -> React -> Astro -> Astro + C# -> Astro + React -> Next.js (now)
+
+My portfolio project originally started with only HTML and CSS. After I learned React during my studies, I migrated the website to React. Later, I encountered a problem related to JavaScript. When JavaScript was disabled in the browser, the website would not display properly. Because of this, I eventually migrated the project to Astro.
+
+Around the same time, I also added a blog feature so I could publish and share my writing. However, as the blog grew, I found it difficult to manage the content manually. To solve this problem, I created my own CMS using C#. As the project continued to evolve, I wanted to simplify the overall architecture. I therefore replaced the C# CMS with a React-based solution and remove the blog feat. I also noticed another performance issue. My website would sometimes render the HTML first and load the CSS afterward. This was especially noticeable on slower internet connections, because users could briefly see an unstyled version of the page. I tried placing the CSS directly inside the HTML so that both could be delivered together, but this did not solve the problem.
+
+Later, I learned that Next.js supports server-side rendering and can still deliver rendered HTML even when JavaScript is disabled in the browser. Because of this, I decided to migrate the website from Astro to Next.js. The result is worse than Astro in Lighthouse test. Also, it could not reduce the JavaScript code that used in depolyment by using .vercelignore. But, user experience is better. I think better user experience is better than speed. 
+
+#### Lighthouse Results — Astro (Mobile)
+
+**First Contentful Paint:** 0.8 s
+**Largest Contentful Paint:** 0.8 s
+**Total Blocking Time:** 0 ms
+**Cumulative Layout Shift:** 0
+**Speed Index:** 0.8 s
+
+**Performance:** 100
+**Accessibility:** 94
+
+* Background and foreground colors do not have a sufficient contrast ratio.
+
+**Best Practices:** 100
+**SEO:** 100
+**Agentic Browsing:** 2/2
+
+I do not include the desktop results because the desktop performance is already better than the mobile performance.
+
+#### Lighthouse Results — Next.js (Mobile)
+
+**First Contentful Paint:** 1.2 s
+**Largest Contentful Paint:** 2.1 s
+**Total Blocking Time:** 40 ms
+**Cumulative Layout Shift:** 0
+**Speed Index:** 3.9 s
+
+**Performance:** 97
+
+* Some JavaScript is unused.
+
+**Accessibility:** 96
+
+* Background and foreground colors do not have a sufficient contrast ratio.
+
+**Best Practices:** 100
+**SEO:** 100
+**Agentic Browsing:** 2/2
+
+### JSON and Markdown
+
+Most of my data is documentation-like content, and there are no complex relationships between the data. In this project, we often read the data once and use it directly. We do not need to perform complex queries or manage relationships between different pieces of data. JSON files are easy to set up when they contain a small amount of documentation-like content, so they work well for multilingual content such as the text on a landing page. However, as the documentation grows, JSON files become harder to read and maintain.
+
+For longer documentation, Markdown files are a better choice. They may require more setup at the beginning, but I think the extra effort is worth it. I started using Markdown for project documentation when I began working with Astro. Since then, I have continued using it because Markdown makes documentation easier to write, read, and maintain.
+
+### Public Trial Mode
+
+Trial Mode is used to demonstrate the CMS I built. In the Astro version, it is relatively easy to create and maintain. However, it becomes more complex when the frontend and backend use the same programming language and framework.
+
+This feature may be changed or removed in the future depending on how the project develops.
+
+### Local Content Dashboard
+
+The Local Content Dashboard makes it easier to edit JSON and Markdown documentation without having to open and modify the raw `.json` and `.md` files directly.
+
+### Development-Only Content APIs
+
+Development-only content APIs work well when the frontend and backend use different programming languages because the two parts can be separated more clearly. Now that everything is handled inside Next.js, this approach feels more complex and costly to maintain. Because of that, these APIs may be changed or removed in the future.
+
+### Shared UI System
+
+The Shared UI System makes it easier to maintain themes, CSS styles, and reusable UI elements across the project.
+
 
 ### Keeping Content in Git
 
-Markdown and JSON remain the source of truth for the portfolio.
+Markdown and JSON remain the source of truth.
 
-This keeps content together with the application code and allows changes to follow the same Git workflow as the rest of the project.
+This keeps portfolio content version-controlled alongside the application code.
 
-It also means Astro can generate the entire site directly from repository content during each build.
-
-### Using Astro/Vite Development Middleware
-
-The content editor only needs file-writing capability during local development.
-
-Instead of maintaining a separate backend application, the editor API is implemented as development-only middleware inside the existing Astro/Vite process.
-
-This reduces the local development environment from two processes to one:
+Every persistent content change can therefore be reviewed through:
 
 ```text
-Before
-
-Astro / Vite
-+
-ASP.NET Core
+git diff
 ```
+
+before being committed.
+
+The workflow remains:
 
 ```text
-After
-
-Astro / Vite
-├── Portfolio
-├── Dashboard
-└── Local content editor middleware
+Edit
+  ↓
+Review diff
+  ↓
+Commit
+  ↓
+Push
+  ↓
+Vercel deploy
 ```
 
-This keeps the production architecture static while removing an unnecessary local runtime, port and proxy configuration.
+This provides:
 
-The middleware still preserves the important content-management behavior from the previous implementation, including validation, safe path handling, atomic writes, project renaming, locale moves, collision protection and file deletion.
+- Full history
+- Easy rollback
+- Reviewable content changes
+- No CMS database
+- No separate content backup strategy
+- Portable Markdown and JSON
 
-### Separating Trial and Local Dashboard Modes
+### Avoiding a Production CMS Database
 
-The project provides two versions of the editing experience for different purposes.
+The portfolio does not require frequent collaborative publishing or real-time production editing.
 
-```text
-/trial
-```
+A production CMS database would therefore introduce:
 
-is public and non-persistent.
+- Additional infrastructure
+- Authentication requirements
+- API management
+- Database hosting
+- Content synchronization concerns
+- More operational complexity
 
-```text
-/dashboard
-```
+without providing enough value for the current use case.
 
-is intended for local development and can update the actual source content through the development-only content editor middleware.
-
-This makes it possible to demonstrate the dashboard publicly without exposing file-writing functionality.
-
-### Using Markdown and JSON for Different Content Types
-
-Project case studies are stored in Markdown, while structured profile information such as About, Skills and Education is stored in JSON.
-
-This allows each content type to use a format that matches how it is edited and rendered.
+Repository content is simpler and fits the project's update frequency.
 
 ### Removing the Blog
 
 An earlier version of the portfolio included a multilingual technical Blog.
 
-Maintaining long-form articles in several languages introduced significant content overhead while contributing relatively little to the portfolio's primary purpose: presenting software projects and engineering capability.
+Maintaining long-form articles in several languages introduced significant translation and maintenance overhead while contributing relatively little to the portfolio's main purpose.
 
-The Blog was therefore removed rather than expanded into a larger publishing system.
+The Blog was therefore removed rather than expanded into a larger publishing platform.
 
-Technical writing intended for professional visibility is better suited to platforms such as LinkedIn, where an existing professional network and content distribution system already exist.
+Technical writing intended for professional visibility is better suited to platforms such as LinkedIn, where distribution and professional context already exist.
 
-Project-specific engineering decisions, architecture changes and technical trade-offs remain part of the Project case studies, where they directly support the work being presented.
+Project-specific technical decisions remain inside project case studies, where they directly support the systems being presented.
 
-This keeps the portfolio focused on its strongest responsibilities:
+The portfolio is therefore focused around:
 
 ```text
 About
@@ -329,70 +245,40 @@ GitHub
 → Source code and development history
 
 LinkedIn
-→ Professional writing and public communication
+→ Professional writing and communication
 ```
 
-Removing the Blog also reduces duplicated content, translation work and long-term maintenance without removing the engineering evidence that matters most to the portfolio.
+This reduces duplicated content and translation work while keeping the engineering evidence most relevant to the portfolio.
 
-## Development
-
-Install the frontend dependencies:
-
-```bash
-npm install
-```
-
-Start the portfolio and local content editor:
-
-```bash
-npm run dev
-```
-
-The development environment runs as a single Astro/Vite process:
+## Current Architecture
 
 ```text
-Astro / Vite
-├── Portfolio
-├── Dashboard
-└── Local content editor middleware
+                 Git Repository
+                       │
+            ┌──────────┴──────────┐
+            │                     │
+      JSON Content          Markdown Content
+            │                     │
+            └──────────┬──────────┘
+                       ↓
+                    Next.js
+                       │
+       ┌───────────────┼────────────────┐
+       │               │                │
+Public Portfolio    Trial CMS     Local Dashboard
+       │               │                │
+       │          Browser state         ↓
+       │                         Route Handlers
+       │                                │
+       │                         JSON / Markdown
+       │                                │
+       └────────────────┬───────────────┘
+                        ↓
+                       Git
+                        ↓
+                      Vercel
 ```
 
-The default local address is:
+The repository remains the source of truth throughout the entire workflow.
 
-```text
-http://localhost:4321
-```
 
-No separate backend process is required.
-
-## Deployment
-
-The public portfolio is deployed to Vercel.
-
-Astro builds the Markdown and JSON content into a static site.
-
-The development-only content editor middleware is not part of the production deployment, so the deployed portfolio does not expose repository file-writing APIs.
-
-The public Trial remains available in production, but its changes are kept in browser state only.
-
-Content updates follow a Git-based process:
-
-```text
-Edit content locally
-     ↓
-Git commit
-     ↓
-Vercel rebuild
-```
-
-This allows the deployed site to remain static while keeping portfolio content version-controlled in the repository.
-
-## Future Improvements
-
-- Improve dashboard editing and validation
-- Continue expanding Project case studies as the systems evolve
-- Improve architecture diagrams and project visualizations
-- Add richer structured SEO metadata
-- Continue improving accessibility
-- Continue improving performance
-- Simplify the content workflow where maintenance cost exceeds practical value

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Plus, Save, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -262,18 +262,10 @@ function SkillGroupEditor({
 }) {
   const t = useTranslations("dashboard");
 
-  const [itemsText, setItemsText] = useState(
-    group.items.join(", "),
-  );
-
+  const [itemsText, setItemsText] = useState(group.items.join(", "));
   const [editingItems, setEditingItems] = useState(false);
-  const itemsValue = group.items.join(", ");
 
-  useEffect(() => {
-    if (!editingItems) {
-      setItemsText(itemsValue);
-    }
-  }, [itemsValue, editingItems]);
+  const itemsValue = group.items.join(", ");
 
   return (
     <Card className="bg-background">
@@ -304,15 +296,20 @@ function SkillGroupEditor({
         <Field label={t("cv.skills.technologies")}>
           <Textarea
             rows={3}
-            value={itemsText}
-            onFocus={() => setEditingItems(true)}
+            value={editingItems ? itemsText : itemsValue}
+            onFocus={() => {
+              setItemsText(itemsValue);
+              setEditingItems(true);
+            }}
             onBlur={() => setEditingItems(false)}
             onChange={(event) => {
-              setItemsText(event.target.value);
+              const value = event.target.value;
+
+              setItemsText(value);
 
               onChange({
                 ...group,
-                items: splitTags(event.target.value),
+                items: splitTags(value),
               });
             }}
             placeholder={t("cv.skills.technologiesPlaceholder")}

@@ -1,398 +1,304 @@
 ---
 lang: sv
-title: "Utvecklarportfolio"
-description: "En flerspråkig utvecklarportfolio byggd med Astro, React, TypeScript och Tailwind CSS, med statisk innehållsrendering, projektstudier, ett publikt Dashboard i Trial-läge och ett lokalt Content Editor-arbetsflöde som körs i en enda utvecklingsprocess."
+
+title: "Utvecklarportfölj"
+
+description: "En flerspråkig portfölj och ett lättviktigt Git-baserat innehållshanteringssystem (CMS) med ett offentligt CMS-testläge och lokal redigering av källinnehåll."
+
 status: "Live"
+
 order: 3
+
 technologies:
-  - "Astro"
-  - "React"
+
+  - "Next.js 16"
   - "TypeScript"
-  - "Tailwind CSS"
-  - "Astro Content Collections"
-  - "Markdown"
+  - "Tailwind CSS v4"
+  - "shadcn/ui"
+  - "next-intl"
+  - "GitHub"
   - "Vercel"
+
 links:
+
   github: "https://github.com/jiantaoshen/portfolio-dev"
   live: "https://www.jiantao.dev"
+
 draft: false
 ---
 
 ## Översikt
 
-Developer Portfolio är en flerspråkig utvecklarportfolio byggd med Astro, React, TypeScript och Tailwind CSS.
+Det här är en flerspråkig portfölj och ett lättviktigt Git-baserat innehållshanteringssystem byggt med Next.js 16, TypeScript, Tailwind CSS v4, shadcn/ui och next-intl. Den publika webbplatsen stöder engelska, svenska och kinesiska genom språkspecifika routes och innehåll. Projektens fallstudier lagras i Markdown, medan strukturerat profilinnehåll som Om mig, Färdigheter och Utbildning hanteras som flerspråkig JSON.
 
-Den publika webbplatsen använder Astro för att generera statiska sidor från Markdown- och JSON-innehåll. De engelska, svenska och kinesiska versionerna delar samma applikationsstruktur men använder språkspecifika routes och separat innehåll.
+Projektet innehåller också två olika sätt att redigera innehåll:
 
-Projektstudier lagras som Markdown genom Astro Content Collections, medan strukturerat profilinnehåll som About, Skills och Education hanteras som flerspråkig JSON.
+- Ett offentligt testläge där man kan utforska CMS-gränssnittet utan att ändringarna sparas permanent
+- En lokal Dashboard för att redigera repositoryts faktiska JSON- och Markdown-källfiler under utveckling
 
-Projektet innehåller även två Dashboard-lägen: ett publikt Trial-gränssnitt för att utforska Content Editor och ett lokalt Dashboard som är integrerat i Astro/Vite dev server för att hantera portfolions källfiler.
-
-Resultatet är en statisk produktionswebbplats med ett lättviktigt och Git-baserat innehållsflöde i stället för en produktionsdatabas eller ett CMS.
+Den nuvarande arkitekturen använder Git som den enda källan till sanning, undviker en innehållsdatabas i produktion och använder samma Next.js-applikation för publik rendering, CMS-gränssnitt, lokalisering och innehålls-API:er som endast används under utveckling.
 
 ## Problemet
 
-En flerspråkig portfolio innehåller flera typer av innehåll som behöver vara organiserade och enkla att uppdatera.
+En flerspråkig portfölj innehåller flera typer av innehåll som behöver hållas organiserade och enkla att underhålla.
 
-Projektet innehåller:
+Det här projektet innehåller:
 
-- About- och CV-information
-- Skills och Education
-- Projektstudier
+- Information om mig och mitt CV
+- Färdigheter och utbildning
+- Projektmetadata
+- Längre projektfallstudier
 - Innehåll på engelska, svenska och kinesiska
+- Översättningar för det publika användargränssnittet
+- Översättningar för CMS-gränssnittet
 
-Att redigera allt detta innehåll direkt i källfiler fungerar bra i liten skala, men blir mindre praktiskt när mängden strukturerat innehåll och längre projektbeskrivningar växer.
+Att redigera allt detta direkt i JSON- och Markdown-filer fungerar bra i liten skala, men blir allt mer opraktiskt när mängden innehåll växer. Samtidigt behöver portföljen inte ett traditionellt CMS för produktion. Innehållet ändras relativt sällan och passar naturligt tillsammans med applikationskoden. Att införa en databas, ett autentiseringssystem, ett hostat CMS och ett permanent skriv-API skulle skapa mer infrastruktur med begränsat värde och höga kostnader. Målet blev därför att behålla fördelarna med att lagra innehållet i GitHub och samtidigt skapa ett mer praktiskt redigeringsflöde.
 
-Samtidigt är den publika portfolion huvudsakligen statisk. Att införa en produktionsdatabas och en permanent backend skulle skapa ytterligare infrastruktur som inte är nödvändig för innehåll som endast ändras när webbplatsen byggs om.
+## Resultat
 
-Målet blev därför att behålla den publika webbplatsen statisk samtidigt som det skapades ett mer praktiskt sätt att hantera Markdown- och JSON-innehållet.
-
-## Lösning
-
-Portfolion använder en content-to-code-arkitektur.
-
-Projektstudier lagras som Markdown och valideras med Astro Content Collections. About, Skills och Education lagras som flerspråkig JSON.
+Portföljen använder nu en enda Next.js App Router-applikation. Det grundläggande innehållsflödet är medvetet enkelt:
 
 ```text
 JSON / Markdown
-       ↓
-     Astro
-       ↓
- Static Build
-       ↓
+      ↓
+   Next.js
+      ↓
+Publik portfölj
+      ↓
     Vercel
 ```
 
-Astro använder dessa källfiler under build-processen för att generera den publika portfolion.
-
-För innehållshantering lägger projektet till ett React-baserat Dashboard ovanpå samma filer.
-
-Den publika routen `/trial` erbjuder en sandbox-version av Content Editor där ändringar endast finns i browser state.
-
-Den lokala routen `/dashboard` använder development-only middleware i Astro/Vite dev server för att direkt uppdatera portfolions JSON- och Markdown-filer.
+Projektfallstudier lagras i Markdown. Innehåll för Om mig, Färdigheter och Utbildning lagras som flerspråkig JSON. Under lokal utveckling arbetar CMS:et direkt mot samma källfiler.
 
 ```text
-Dashboard
-   ↓
-Astro / Vite dev middleware
-   ↓
+Lokal Dashboard
+      ↓
+Next.js Route Handlers
+      ↓
 JSON / Markdown
-   ↓
-Git commit
-   ↓
-Vercel rebuild
-```
-
-Detta gör att Git kan fortsätta vara den enda källan till sanning samtidigt som innehållet kan hanteras genom ett visuellt redigeringsflöde.
-
-Det förenklar även den lokala utvecklingsmiljön eftersom portfolion, Dashboard och Content Editor middleware körs genom samma `npm run dev`-process.
-
-## Funktioner
-
-### Statisk HTML-first-portfolio
-
-Den publika portfolion är byggd med Astro och genereras som statiskt innehåll.
-
-Markdown och JSON omvandlas till sidor under build-processen, vilket håller den driftsatta webbplatsen lättviktig och väl anpassad för en portfolio med fokus på utvecklarinformation och tekniska projektstudier.
-
-### Flerspråkigt stöd
-
-Portfolion stöder engelska, svenska och kinesiska.
-
-Varje språk använder statiska routes under:
-
-```text
-/en/
-/sv/
-/zh/
-```
-
-Samma struktur används för språkspecifikt projektinnehåll.
-
-```text
-/en/projects/
-/sv/projects/
-/zh/projects/
-```
-
-Det gör att webbplatsen kan dela templates och komponenter samtidigt som innehållet hålls separerat mellan språken.
-
-### Project Content Collections
-
-Projektstudier lagras i språkspecifika Markdown-mappar.
-
-```text
-src/
-└── content/
-    └── projects/
-        ├── en/
-        ├── sv/
-        └── zh/
-```
-
-Astro Content Collections används för att validera och hantera Markdown-innehållet.
-
-Frontmatter innehåller strukturerad metadata som projektstatus, technologies och links, medan Markdown innehåller själva projektstudien.
-
-### Flerspråkigt JSON-innehåll
-
-About, Skills och Education lagras som flerspråkig JSON.
-
-Språkfilerna organiseras under:
-
-```text
-src/i18n/locales/
-├── en/
-├── sv/
-└── zh/
-```
-
-Detta separerar strukturerad profilinformation från längre projektinnehåll samtidigt som båda formaten finns kvar i samma repository.
-
-### Publikt Trial-läge
-
-Portfolion innehåller ett publikt Dashboard sandbox på:
-
-```text
-/trial
-```
-
-Besökare kan utforska Content Editor-gränssnittet och ändra innehåll direkt i browsern.
-
-Ändringarna finns endast i browser state och skrivs aldrig till källfilerna.
-
-När sidan laddas om återställs Trial-innehållet.
-
-### Lokalt Content Dashboard
-
-Ett separat lokalt Dashboard finns på:
-
-```text
-/dashboard
-```
-
-Det erbjuder ett React-baserat gränssnitt för att hantera portfolions innehåll under development.
-
-Dashboard stöder flerspråkig innehållshantering och projektredigering.
-
-Project Editor har separata vyer för `Edit` och `Preview`, vilket gör det möjligt att kontrollera Markdown-innehållet innan källfilerna uppdateras.
-
-### Development-Only Content Editor Middleware
-
-Det lokala Dashboard kommunicerar med development-only middleware som registreras i Astro/Vite dev server.
-
-I stället för att lagra innehåll i en databas redigerar middleware direkt de JSON- och Markdown-filer som Astro använder.
-
-Middleware används endast under local development.
-
-Content Editor API körs i samma process som Astro/Vite dev server, vilket innebär att ingen separat backend service, port eller proxy behövs.
-
-Production build exponerar inga API:er som kan skriva permanent till portfolions källfiler.
-
-### Responsivt gränssnitt
-
-Tailwind CSS används för layouten i både portfolion och Dashboard.
-
-Gränssnittet är utformat för att fungera på både desktop och mindre skärmar samtidigt som återanvändbara stylingmönster delas mellan sidor och komponenter.
-
-## Arkitektur
-
-Projektet separerar publik rendering från lokal innehållshantering.
-
-### Publik webbplats
-
-```text
-Markdown / JSON
       ↓
-    Astro
+   Git diff
       ↓
- Static HTML
+ Git commit
       ↓
    Vercel
 ```
 
-Den driftsatta portfolion läser innehållet under build-processen och producerar en statisk webbplats.
+Den publika routen `/trial` använder samma redigeringsgränssnitt, men alla ändringar hålls i webbläsarens/applikationens state. Inga permanenta skrivoperationer utförs i testläget. På så sätt förblir Git den enda källan till sanning samtidigt som projektet fortfarande erbjuder ett visuellt arbetsflöde för innehållshantering.
 
-Det publika Trial-läget ingår också i den statiska deploymenten, men ändringar stannar i browser state och skrivs inte tillbaka till repository-filerna.
+## Avvägningar
 
-### Lokal innehållshantering
+Här beskriver jag mina val och överväganden.
 
-```text
-React Dashboard
-       ↓
-Astro / Vite dev middleware
-       ↓
-Markdown / JSON
-       ↓
-      Git
-       ↓
- Astro Build
-       ↓
-    Vercel
-```
+### Flerspråkig portfölj
 
-Dashboard fungerar som ett visuellt redigeringslager ovanpå samma källfiler som används av den publika portfolion.
+Anledningen till att jag skapade en flerspråkig portfölj är att jag vill förbättra både mina språkkunskaper och min förmåga att skriva dokumentation. Nackdelen är att jag behöver hantera mycket dokumentation, vilket innebär att jag inte kan arbeta med alltför många projekt samtidigt.
 
-Content Editor middleware körs endast under `astro dev` och är inte en del av production architecture.
+Just nu har jag inte så många projekt att hantera, så det fungerar bra. Om antalet projekt ökar i framtiden kan jag byta från en flerspråkig portfölj till en portfölj på ett enda språk för att hålla den enkel och lättare att underhålla.
 
-## Viktiga beslut
+### Varför jag valde Next.js
+
+> HTML/CSS -> React -> Astro -> Astro + C# -> Astro + React -> Next.js (nu)
+
+Mitt portföljprojekt började ursprungligen med enbart HTML och CSS. Efter att jag lärde mig React under mina studier migrerade jag webbplatsen till React. Senare stötte jag på ett problem kopplat till JavaScript. När JavaScript var avstängt i webbläsaren visades webbplatsen inte korrekt. Därför migrerade jag så småningom projektet till Astro.
+
+Ungefär samtidigt lade jag också till en bloggfunktion för att kunna publicera och dela det jag skrev. När bloggen växte blev det dock svårt att hantera innehållet manuellt. För att lösa det problemet byggde jag ett eget CMS med C#. När projektet fortsatte att utvecklas ville jag förenkla den övergripande arkitekturen. Därför ersatte jag CMS:et i C# med en React-baserad lösning och tog bort bloggfunktionen. Jag upptäckte också ett annat prestandaproblem. Webbplatsen kunde ibland rendera HTML först och läsa in CSS efteråt. Det märktes särskilt på långsammare internetanslutningar, eftersom användaren kort kunde se en ostylad version av sidan. Jag försökte lägga CSS direkt i HTML-filen så att båda kunde levereras tillsammans, men det löste inte problemet.
+
+Senare lärde jag mig att Next.js stöder server-side rendering och fortfarande kan leverera renderad HTML även när JavaScript är avstängt i webbläsaren. Därför bestämde jag mig för att migrera webbplatsen från Astro till Next.js. Resultatet är sämre än Astro i Lighthouse-testet. Det gick inte heller att minska mängden JavaScript som används i deploymenten med hjälp av `.vercelignore`. Däremot är användarupplevelsen bättre. Jag tycker att en bättre användarupplevelse är viktigare än maximal hastighet.
+
+#### Lighthouse-resultat — Astro (mobil)
+
+**First Contentful Paint:** 0.8 s
+
+**Largest Contentful Paint:** 0.8 s
+
+**Total Blocking Time:** 0 ms
+
+**Cumulative Layout Shift:** 0
+
+**Speed Index:** 0.8 s
+
+**Performance:** 100
+
+**Accessibility:** 94
+
+- Bakgrunds- och förgrundsfärgerna har inte tillräckligt hög kontrast.
+
+**Best Practices:** 100
+
+**SEO:** 100
+
+**Agentic Browsing:** 2/2
+
+Jag tar inte med resultaten för desktop eftersom prestandan där redan är bättre än på mobil.
+
+#### Lighthouse-resultat — Next.js (mobil)
+
+**First Contentful Paint:** 1.2 s
+
+**Largest Contentful Paint:** 2.1 s
+
+**Total Blocking Time:** 40 ms
+
+**Cumulative Layout Shift:** 0
+
+**Speed Index:** 3.9 s
+
+**Performance:** 97
+
+- En del JavaScript används inte.
+
+**Accessibility:** 96
+
+- Bakgrunds- och förgrundsfärgerna har inte tillräckligt hög kontrast.
+
+**Best Practices:** 100
+
+**SEO:** 100
+
+**Agentic Browsing:** 2/2
+
+### JSON och Markdown
+
+Det mesta av mina data består av dokumentationsliknande innehåll, och det finns inga komplexa relationer mellan datan. I det här projektet läser vi ofta in datan en gång och använder den direkt. Vi behöver inte göra komplexa queries eller hantera relationer mellan olika delar av datan. JSON-filer är enkla att sätta upp när de innehåller en mindre mängd dokumentationsliknande innehåll, så de fungerar bra för flerspråkigt innehåll som texten på en landningssida. När dokumentationen växer blir JSON-filer däremot svårare att läsa och underhålla.
+
+För längre dokumentation är Markdown-filer ett bättre val. De kan kräva mer arbete i början, men jag tycker att den extra insatsen är värd det. Jag började använda Markdown för projektdokumentation när jag började arbeta med Astro. Sedan dess har jag fortsatt använda det eftersom Markdown gör dokumentationen enklare att skriva, läsa och underhålla.
+
+### Offentligt testläge
+
+Testläget används för att demonstrera det CMS jag har byggt. I Astro-versionen är det relativt enkelt att skapa och underhålla. Det blir däremot mer komplext när frontend och backend använder samma programmeringsspråk och ramverk.
+
+Den här funktionen kan ändras eller tas bort i framtiden beroende på hur projektet utvecklas.
+
+### Lokal innehållspanel
+
+Den lokala innehållspanelen gör det enklare att redigera JSON- och Markdown-dokumentation utan att behöva öppna och ändra de råa `.json`- och `.md`-filerna direkt.
+
+### Innehålls-API:er endast för utveckling
+
+Innehålls-API:er som endast används under utveckling fungerar bra när frontend och backend använder olika programmeringsspråk, eftersom de två delarna då kan separeras tydligare. Nu när allt hanteras i Next.js känns den här lösningen mer komplex och kostsam att underhålla. Därför kan dessa API:er ändras eller tas bort i framtiden.
+
+### Gemensamt UI-system
+
+Det gemensamma UI-systemet gör det enklare att underhålla teman, CSS-stilar och återanvändbara UI-element i hela projektet.
 
 ### Behålla innehållet i Git
 
-Markdown och JSON fortsätter att vara portfolions enda källa till sanning.
+Markdown och JSON förblir den enda källan till sanning.
 
-Det håller innehållet tillsammans med applikationskoden och gör att innehållsändringar kan följa samma Git-workflow som resten av projektet.
+Det innebär att portföljens innehåll versionshanteras tillsammans med applikationskoden.
 
-Det innebär också att Astro kan generera hela webbplatsen direkt från innehållet i repository vid varje build.
-
-### Använda Astro/Vite Development Middleware
-
-Content Editor behöver endast kunna skriva till filer under local development.
-
-I stället för att behålla en separat backend application implementeras Editor API som development-only middleware i den befintliga Astro/Vite-processen.
-
-Det minskar den lokala utvecklingsmiljön från två processer till en:
+Varje permanent innehållsändring kan därför granskas med:
 
 ```text
-Tidigare
-
-Astro / Vite
-+
-ASP.NET Core
+git diff
 ```
+
+innan den committas.
+
+Arbetsflödet är fortfarande:
 
 ```text
-Nu
-
-Astro / Vite
-├── Portfolio
-├── Dashboard
-└── Content Editor middleware
+Redigera
+  ↓
+Granska diff
+  ↓
+Commit
+  ↓
+Push
+  ↓
+Vercel deployment
 ```
 
-Detta behåller den statiska production architecture samtidigt som en onödig lokal runtime, extra port och proxy-konfiguration tas bort.
+Detta ger:
 
-Middleware behåller fortfarande de viktiga beteendena från den tidigare implementationen, inklusive validation, safe path handling, atomic writes, project rename, locale move, collision protection och file deletion.
+- Full historik
+- Enkel rollback
+- Innehållsändringar som kan granskas
+- Ingen CMS-databas
+- Ingen separat strategi för backup av innehåll
+- Portabel Markdown och JSON
 
-### Separera Trial och lokalt Dashboard
+### Undvika en CMS-databas i produktion
 
-Projektet erbjuder två versioner av redigeringsupplevelsen för olika syften.
+Portföljen behöver inte frekvent samarbetsbaserad publicering eller redigering i produktion i realtid.
 
-```text
-/trial
-```
+En CMS-databas i produktion skulle därför innebära:
 
-är publik och non-persistent.
+- Ytterligare infrastruktur
+- Krav på autentisering
+- API-hantering
+- Databashosting
+- Frågor kring synkronisering av innehåll
+- Mer operativ komplexitet
 
-```text
-/dashboard
-```
+utan att ge tillräckligt mycket värde för det nuvarande användningsfallet.
 
-är avsedd för local development och kan uppdatera det faktiska källinnehållet genom development-only Content Editor middleware.
-
-Det gör det möjligt att demonstrera Dashboard publikt utan att exponera funktionalitet som kan skriva permanent till källfilerna.
-
-### Använda Markdown och JSON för olika typer av innehåll
-
-Projektstudier lagras i Markdown, medan strukturerad profilinformation som About, Skills och Education lagras i JSON.
-
-På så sätt kan varje innehållstyp använda ett format som passar hur den redigeras och renderas.
+Innehåll direkt i repositoryt är enklare och passar bättre för hur ofta projektet uppdateras.
 
 ### Ta bort bloggen
 
-En tidigare version av portfolion innehöll en flerspråkig teknisk blogg.
+En tidigare version av portföljen innehöll en flerspråkig teknisk blogg.
 
-Att underhålla längre artiklar på flera språk skapade en betydande innehållskostnad samtidigt som bloggen bidrog relativt lite till portfolions huvudsakliga syfte: att presentera mjukvaruprojekt och teknisk kompetens.
+Att underhålla längre artiklar på flera språk skapade mycket arbete med översättning och underhåll, samtidigt som det bidrog relativt lite till portföljens huvudsakliga syfte.
 
-Därför togs bloggen bort i stället för att utvecklas vidare till ett större publiceringssystem.
+Därför togs bloggen bort i stället för att byggas ut till en större publiceringsplattform.
 
-Tekniskt skrivande som syftar till professionell synlighet passar bättre på plattformar som LinkedIn, där det redan finns ett professionellt nätverk och etablerade mekanismer för innehållsdistribution.
+Tekniskt skrivande som är avsett för professionell synlighet passar bättre på plattformar som LinkedIn, där både distribution och professionellt sammanhang redan finns.
 
-Projektspecifika tekniska beslut, arkitekturförändringar och avvägningar finns fortfarande kvar i Project Case Studies, där de direkt stödjer och förklarar arbetet som presenteras.
+Projektspecifika tekniska beslut finns kvar i projektens fallstudier, där de direkt stöder de system som presenteras.
 
-Det gör att portfolion kan fokusera på sina viktigaste ansvarsområden:
+Portföljen fokuserar därför på:
 
 ```text
-About
+Om mig
 → Vem jag är
 
-Skills
+Färdigheter
 → Vad jag arbetar med
 
-Projects
+Projekt
 → Vad jag har byggt
 
-Project Case Studies
-→ Hur systemen har designats och utvecklats
+Projektfallstudier
+→ Hur systemen designades och utvecklades
 
 GitHub
 → Källkod och utvecklingshistorik
 
 LinkedIn
-→ Professionellt skrivande och offentlig kommunikation
+→ Professionellt skrivande och kommunikation
 ```
 
-Att ta bort bloggen minskar dessutom duplicerat innehåll, översättningsarbete och långsiktigt underhåll utan att ta bort de tekniska bevis som är viktigast för portfolion.
+Detta minskar duplicerat innehåll och översättningsarbete samtidigt som den tekniska dokumentation som är mest relevant för portföljen behålls.
 
-## Utveckling
-
-Installera frontend dependencies:
-
-```bash
-npm install
-```
-
-Starta portfolion och den lokala Content Editor:
-
-```bash
-npm run dev
-```
-
-Development environment körs nu som en enda Astro/Vite-process:
+## Nuvarande arkitektur
 
 ```text
-Astro / Vite
-├── Portfolio
-├── Dashboard
-└── Content Editor middleware
+                 Git-repository
+                       │
+            ┌──────────┴──────────┐
+            │                     │
+      JSON-innehåll        Markdown-innehåll
+            │                     │
+            └──────────┬──────────┘
+                       ↓
+                    Next.js
+                       │
+       ┌───────────────┼────────────────┐
+       │               │                │
+Publik portfölj    Trial CMS      Lokal Dashboard
+       │               │                │
+       │          Browser state         ↓
+       │                          Route Handlers
+       │                                │
+       │                          JSON / Markdown
+       │                                │
+       └────────────────┬───────────────┘
+                        ↓
+                       Git
+                        ↓
+                      Vercel
 ```
 
-Standardadressen lokalt är:
-
-```text
-http://localhost:4321
-```
-
-Ingen separat backend process behöver startas.
-
-## Deployment
-
-Den publika portfolion är deployad på Vercel.
-
-Astro bygger Markdown- och JSON-innehållet till en statisk webbplats.
-
-Development-only Content Editor middleware ingår inte i production deployment, så den deployade portfolion exponerar inga API:er som kan skriva till repository-filerna.
-
-Det publika Trial-läget är fortfarande tillgängligt i production, men alla ändringar lagras endast i browser state.
-
-Innehållsuppdateringar följer ett Git-baserat workflow:
-
-```text
-Edit content locally
-     ↓
-Git commit
-     ↓
-Vercel rebuild
-```
-
-Det gör att den deployade webbplatsen kan förbli statisk samtidigt som portfolions innehåll versionshanteras i repository.
-
-## Framtida förbättringar
-
-- Förbättra redigering och validation i Dashboard
-- Fortsätta utveckla Project Case Studies i takt med att systemen utvecklas
-- Förbättra architecture diagrams och project visualizations
-- Lägga till rikare structured SEO metadata
-- Fortsätta förbättra accessibility
-- Fortsätta förbättra performance
-- Fortsätta förenkla content workflow när maintenance cost överstiger det praktiska värdet
+Repositoryt förblir den enda källan till sanning genom hela arbetsflödet.

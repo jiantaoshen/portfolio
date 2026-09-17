@@ -43,7 +43,7 @@ Multilingual developer portfolio with a lightweight Git-based CMS.
 /dashboard/projects
 ```
 
-`/` redirects to `/sv`.
+The root route redirects to the language of user uses in the webbrowser. If no language match, then it redirects to English.
 
 ## Content
 
