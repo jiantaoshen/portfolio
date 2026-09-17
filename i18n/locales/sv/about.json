@@ -16,25 +16,21 @@
       {
         "title": "Frontend",
         "items": [
+          "Next.js",
           "React",
-          "HTML/CSS",
-          "TypeScript/JavaScript",
-          "Tailwind CSS"
+          "TypeScript",
+          "Tailwind CSS",
+          "HTML"
         ]
       },
       {
-        "title": "Backend",
+        "title": "Backend & Databas",
         "items": [
           "C#",
-          ".NET",
-          "ASP.NET Core"
-        ]
-      },
-      {
-        "title": "Databas",
-        "items": [
+          "ASP.NET Core",
           "PostgreSQL",
-          "Entity Framework Core"
+          "Azure",
+          "Vercel"
         ]
       },
       {
@@ -42,14 +38,6 @@
         "items": [
           "Python",
           "Ollama"
-        ]
-      },
-      {
-        "title": "Moln & Driftsättning",
-        "items": [
-          "Azure",
-          "Vercel",
-          "Git/GitHub"
         ]
       },
       {
