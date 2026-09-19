@@ -55,15 +55,15 @@
     "items": [
       {
         "period": "March 2026 - December 2026",
-        "degree": "AI Programmer (Vocational Training)",
+        "degree": "Programmer AI (IT extension training)",
         "school": "Lexicon AB, Malmö · Remote",
-        "description": "Currently studying the development of web applications and cloud services."
+        "description": "Developed skills in web development using React and C#, as well as experience with AI and Ollama.\n\nInternship: Working as a web developer, responsible for the development, deployment, and maintenance of websites.\n"
       },
       {
         "period": "September 2019 - July 2024",
         "degree": "M.Sc. in Engineering, Robotics",
         "school": "Mälardalen University, Västerås",
-        "description": "Studied robotics, embedded systems, artificial intelligence, and electronics. For my master's thesis, I developed a radar-based hand gesture recognition system using Python, TensorFlow, and convolutional neural networks (CNNs). The system achieved 95% classification accuracy with a prediction time of approximately 25 ms.",
+        "description": "Studied robotics, embedded systems and artificial intelligence. For my master's thesis, I developed a radar-based hand gesture recognition system using Python, TensorFlow, and convolutional neural networks (CNNs). The system achieved 95% classification accuracy with a prediction time of approximately 25 ms.",
         "thesis": "Implementation of Machine Learning Algorithm for Radar-Based Hand Gesture Recognition",
         "thesisUrl": "https://mdu.diva-portal.org/smash/record.jsf?pid=diva2%3A1870908&dswid=-2606"
       }

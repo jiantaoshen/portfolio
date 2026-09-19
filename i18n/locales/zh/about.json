@@ -57,13 +57,13 @@
         "period": "2026年3月 - 2026年12月",
         "degree": "AI 程序开发（职业培训）",
         "school": "Lexicon AB, 马尔默 · 远程",
-        "description": "目前主要学习 Web 应用程序开发与云服务相关技术。"
+        "description": "掌握了使用 React 和 C# 进行 Web 开发的相关知识，并具备人工智能（AI）及 Ollama 的使用经验。\n\n实习：担任 Web 开发人员，负责网站的开发、部署和维护。"
       },
       {
         "period": "2019年9月 - 2024年7月",
         "degree": "机器人方向工程硕士",
         "school": "梅拉达伦大学，韦斯特罗斯",
-        "description": "主要学习机器人技术、嵌入式系统、人工智能和电子技术。硕士毕业论文中，使用 Python、TensorFlow 和卷积神经网络（CNN）开发了基于雷达的手势识别系统，分类准确率达到 95%，单次预测时间约为 25 毫秒。",
+        "description": "主要学习机器人技术、嵌入式系统和人工智能。硕士毕业论文中，使用 Python、TensorFlow 和卷积神经网络（CNN）开发了基于雷达的手势识别系统，分类准确率达到 95%，单次预测时间约为 25 毫秒。",
         "thesis": "Implementation of Machine Learning Algorithm for Radar-Based Hand Gesture Recognition",
         "thesisUrl": "https://mdu.diva-portal.org/smash/record.jsf?pid=diva2%3A1870908&dswid=-2606"
       }

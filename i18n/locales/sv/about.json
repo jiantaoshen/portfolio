@@ -55,15 +55,15 @@
     "items": [
       {
         "period": "Mars 2026 - December 2026",
-        "degree": "Programmerare AI (yrkesutbildning)",
+        "degree": "Programmerare AI (IT-påbyggnadsutbildning)",
         "school": "Lexicon AB, Malmö · Distans",
-        "description": "Studerar utveckling av webbapplikationer och molntjänster."
+        "description": "Utvecklade kunskaper inom webbutveckling med React och C# samt användning av AI och Ollama.\n\nPraktik: Arbetar som webbutvecklare med utveckling, driftsättning och underhåll av webbsidor."
       },
       {
         "period": "September 2019 - Juli 2024",
         "degree": "Civilingenjör inom robotik",
         "school": "Mälardalens universitet, Västerås",
-        "description": "Studerade robotik, inbyggda system, artificiell intelligens och elektronik. Examensarbetet fokuserade på utveckling av ett radarbaserat system för handgestigenkänning med Python, TensorFlow och CNN. Systemet uppnådde 95 % klassificeringsnoggrannhet och cirka 25 ms prediktionstid.",
+        "description": "Studerade robotik, inbyggda system och artificiell intelligens. Examensarbetet fokuserade på utvecklingen av ett radarbaserat system för handgestigenkänning med Python, TensorFlow och CNN. Systemet uppnådde 95 % klassificeringsnoggrannhet och en prediktionstid på cirka 25 ms.",
         "thesis": "Implementation of Machine Learning Algorithm for Radar-Based Hand Gesture Recognition",
         "thesisUrl": "https://mdu.diva-portal.org/smash/record.jsf?pid=diva2%3A1870908&dswid=-2606"
       }
