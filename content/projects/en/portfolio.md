@@ -1,20 +1,22 @@
 ---
 lang: en
-title: "Developer Portfolio"
-description: "A multilingual portfolio and lightweight Git-based content management system (CMS) with a public CMS trial and local-only source content editing."
-status: "Live"
-order: 3
+title: Developer Portfolio
+description: >-
+  A multilingual portfolio and lightweight Git-based content management system
+  (CMS) with a public CMS trial and local-only source content editing.
+status: Live
+order: 2
 technologies:
-  - "Next.js 16"
-  - "TypeScript"
-  - "Tailwind CSS v4"
-  - "shadcn/ui"
-  - "next-intl"
-  - "GitHub"
-  - "Vercel"
+  - Next.js 16
+  - TypeScript
+  - Tailwind CSS v4
+  - shadcn/ui
+  - next-intl
+  - GitHub
+  - Vercel
 links:
-  github: "https://github.com/jiantaoshen/portfolio-dev"
-  live: "https://www.jiantao.dev"
+  github: 'https://github.com/jiantaoshen/portfolio-dev'
+  live: 'https://www.jiantao.dev'
 draft: false
 ---
 
@@ -280,5 +282,3 @@ Public Portfolio    Trial CMS     Local Dashboard
 ```
 
 The repository remains the source of truth throughout the entire workflow.
-
-

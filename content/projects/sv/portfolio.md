@@ -1,29 +1,23 @@
 ---
 lang: sv
-
-title: "Utvecklarportfölj"
-
-description: "En flerspråkig portfölj och ett lättviktigt Git-baserat innehållshanteringssystem (CMS) med ett offentligt CMS-testläge och lokal redigering av källinnehåll."
-
-status: "Live"
-
-order: 3
-
+title: Utvecklarportfölj
+description: >-
+  En flerspråkig portfölj och ett lättviktigt Git-baserat
+  innehållshanteringssystem (CMS) med ett offentligt CMS-testläge och lokal
+  redigering av källinnehåll.
+status: Live
+order: 0
 technologies:
-
-  - "Next.js 16"
-  - "TypeScript"
-  - "Tailwind CSS v4"
-  - "shadcn/ui"
-  - "next-intl"
-  - "GitHub"
-  - "Vercel"
-
+  - Next.js 16
+  - TypeScript
+  - Tailwind CSS v4
+  - shadcn/ui
+  - next-intl
+  - GitHub
+  - Vercel
 links:
-
-  github: "https://github.com/jiantaoshen/portfolio-dev"
-  live: "https://www.jiantao.dev"
-
+  github: 'https://github.com/jiantaoshen/portfolio-dev'
+  live: 'https://www.jiantao.dev'
 draft: false
 ---
 

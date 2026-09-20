@@ -1,29 +1,20 @@
 ---
 lang: zh
-
-title: "开发者作品集"
-
-description: "一个多语言作品集和轻量级、基于 Git 的内容管理系统（CMS），包含公开的 CMS 试用模式以及仅限本地使用的源内容编辑功能。"
-
-status: "Live"
-
-order: 3
-
+title: 开发者作品集
+description: 一个多语言作品集和轻量级、基于 Git 的内容管理系统（CMS），包含公开的 CMS 试用模式以及仅限本地使用的源内容编辑功能。
+status: Live
+order: 2
 technologies:
-
-  - "Next.js 16"
-  - "TypeScript"
-  - "Tailwind CSS v4"
-  - "shadcn/ui"
-  - "next-intl"
-  - "GitHub"
-  - "Vercel"
-
+  - Next.js 16
+  - TypeScript
+  - Tailwind CSS v4
+  - shadcn/ui
+  - next-intl
+  - GitHub
+  - Vercel
 links:
-
-  github: "https://github.com/jiantaoshen/portfolio-dev"
-  live: "https://www.jiantao.dev"
-
+  github: 'https://github.com/jiantaoshen/portfolio-dev'
+  live: 'https://www.jiantao.dev'
 draft: false
 ---
 
