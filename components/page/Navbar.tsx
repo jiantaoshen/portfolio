@@ -123,10 +123,10 @@ export default function Navbar({ locale }: NavbarProps) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-muted">
-      <PageContainer className="flex min-h-[var(--nav-min-height)] items-center justify-between gap-6">
+      <PageContainer className="flex min-h-(--nav-min-height) items-center justify-between gap-6">
         <Link
           href={`/${locale}/`}
-          className="inline-flex items-baseline text-[length:var(--nav-logo-size)] font-extrabold tracking-tight text-foreground transition-colors hover:text-primary"
+          className="inline-flex items-baseline text-(length:--nav-logo-size) font-extrabold tracking-tight text-foreground transition-colors hover:text-primary"
           aria-label="JIANTAO.dev home"
         >
           <span>JIANTAO</span>
