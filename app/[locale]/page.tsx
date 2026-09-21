@@ -9,8 +9,8 @@ import {hasLocale} from "next-intl";
 import {routing} from "@/i18n/routing";
 
 export const metadata: Metadata = {
-  title: "Jiantao Shen | Backend Software Developer",
-  description: "A backend developer in Eskilstuna",
+  title: "Jiantao Shen | Fullstack Developer",
+  description: "A Fullstack Developer in Eskilstuna",
 };
 
 interface HomePageProps {
