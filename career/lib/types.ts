@@ -1,5 +1,8 @@
+import type { Locale } from "@/lib/locales";
+
+export type { Locale } from "@/lib/locales";
+
 export type DashboardMode = "trial" | "admin"
-export type Locale = "en" | "sv" | "zh"
 
 export type AboutSkillGroup = {
   title: string

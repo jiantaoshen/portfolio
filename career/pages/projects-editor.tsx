@@ -7,10 +7,11 @@ import { Clipboard, Save, Trash2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 import { EditorTabs, type EditorTab } from "../components/dashboard/editor-tabs";
-import { localeLabels } from "../components/dashboard/locale-switcher";
+import { Field } from "../components/dashboard/field";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Card,
   CardContent,
@@ -19,10 +20,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { isLocale, localeMeta } from "@/lib/locales";
 
 import { getProjectsByLocale } from "../lib/projects";
+import { parseCommaList } from "../lib/text";
 import type { DashboardMode, Locale, Project } from "../lib/types";
 import { useCareerWorkspace } from "../workspace";
 
@@ -35,8 +37,7 @@ export function ProjectsEditorPage() {
   const searchParams = useSearchParams();
 
   const localeParam = searchParams.get("lang");
-  const locale: Locale =
-    localeParam && localeParam in localeLabels ? (localeParam as Locale) : "en";
+  const locale: Locale = isLocale(localeParam) ? localeParam : "en";
 
   const selectedId = searchParams.get("project") ?? "";
 
@@ -146,14 +147,14 @@ export function ProjectsEditorPage() {
       ) : (
         <Card>
           <CardContent className="p-12 text-center">
-            <h1 className="m-0 text-2xl font-bold tracking-tight text-foreground">
+            <h1 className="m-0 text-[length:var(--dashboard-heading-size)] font-bold tracking-tight text-foreground">
               {t("projects.title")}
             </h1>
 
             <p className="mt-2 mb-0 text-sm text-muted-foreground">
               {visibleProjects.length === 0
                 ? t("projects.empty", {
-                    language: localeLabels[locale],
+                    language: localeMeta[locale].label,
                   })
                 : t("projects.opening")}
             </p>
@@ -227,7 +228,7 @@ function ProjectEditor({
             </CardTitle>
 
             <Badge variant="secondary">
-              {localeLabels[draft.language]}
+              {localeMeta[draft.language].label}
             </Badge>
           </div>
 
@@ -286,7 +287,7 @@ function ProjectEditor({
             <div className="pb-2 text-sm text-muted-foreground">
               {t("projects.fields.language")}:{" "}
               <strong className="font-semibold text-foreground">
-                {localeLabels[draft.language]}
+                {localeMeta[draft.language].label}
               </strong>
             </div>
           </div>
@@ -317,7 +318,7 @@ function ProjectEditor({
 
                   setDraft({
                     ...draft,
-                    technologies: splitComma(value),
+                    technologies: parseCommaList(value),
                   });
                 }}
               />
@@ -362,8 +363,7 @@ function ProjectEditor({
           </Field>
 
           <label className="flex items-center gap-2 text-sm text-foreground">
-            <input
-              type="checkbox"
+            <Checkbox
               checked={draft.published}
               onChange={(event) =>
                 setDraft({
@@ -371,7 +371,6 @@ function ProjectEditor({
                   published: event.target.checked,
                 })
               }
-              className="size-4 accent-primary"
             />
 
             {t("projects.fields.published")}
@@ -469,27 +468,5 @@ function ProjectEditor({
         </CardContent>
       )}
     </Card>
-  );
-}
-
-function splitComma(value: string) {
-  return value
-    .split(",")
-    .map((item) => item.trim())
-    .filter(Boolean);
-}
-
-function Field({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="space-y-2">
-      <Label>{label}</Label>
-      {children}
-    </div>
   );
 }

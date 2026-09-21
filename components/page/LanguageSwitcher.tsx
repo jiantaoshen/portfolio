@@ -1,78 +1,40 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useLocale } from "next-intl";
 
-import {usePathname} from "next/navigation";
-
-import {useLocale} from "next-intl";
-
-import type {Locale} from "@/i18n/routing";
-
-import {cn} from "@/lib/utils";
-
-
-const languages: {code: Locale; label: string;}[] = [
-  {
-    code: "en",
-    label: "EN",
-  },
-  {
-    code: "sv",
-    label: "SV",
-  },
-  {
-    code: "zh",
-    label: "中文",
-  },
-];
-
+import { navLinkActive, navLinkBase } from "@/components/page/navigation-styles";
+import { localeMeta, locales, stripLocalePrefix, type Locale } from "@/lib/locales";
+import { cn } from "@/lib/utils";
 
 export default function LanguageSwitcher() {
-  const pathname =
-    usePathname();
-
+  const pathname = usePathname();
   const currentLocale = useLocale() as Locale;
+  const pathWithoutLanguage = stripLocalePrefix(pathname);
 
-  const pathWithoutLanguage =
-    pathname.replace(
-      /^\/(en|sv|zh)(?=\/|$)/,
-      "",
-    );
-
-
-  function languageHref(
-    locale: Locale,
-  ) {
-    return `/${locale}${
-      pathWithoutLanguage ||
-      "/"
-    }`;
+  function languageHref(locale: Locale) {
+    return `/${locale}${pathWithoutLanguage || "/"}`;
   }
 
-
   return (
-    <div
-      className="flex items-center gap-1"
-      aria-label="Language"
-    >
-      {languages.map(
-        (language) => {
-          const isActive = language.code === currentLocale;
+    <div className="flex items-center gap-1" aria-label="Language">
+      {locales.map((locale) => {
+        const isActive = locale === currentLocale;
 
-          return (
-            <Link 
-              key={language.code}
-              href={languageHref(language.code,)}
-              lang={language.code}
-              hrefLang={language.code}
-              aria-current={isActive ? "page": undefined }
-              className={cn("nav-link", isActive && "nav-active")}
-            >
-              {language.label}
-            </Link>
-          );
-        },
-      )}
+        return (
+          <Link
+            key={locale}
+            href={languageHref(locale)}
+            lang={locale}
+            hrefLang={locale}
+            aria-current={isActive ? "page" : undefined}
+            className={cn(navLinkBase, isActive && navLinkActive)}
+          >
+            {localeMeta[locale].shortLabel}
+          </Link>
+        );
+      })}
     </div>
   );
 }

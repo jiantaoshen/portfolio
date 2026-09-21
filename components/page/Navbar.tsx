@@ -5,7 +5,9 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { Menu } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { PageContainer } from "@/components/layout/page-container";
 import LanguageSwitcher from "@/components/page/LanguageSwitcher";
+import { navLinkActive, navLinkBase } from "@/components/page/navigation-styles";
 import { buttonVariants } from "@/components/ui/button";
 import {
   Sheet,
@@ -44,7 +46,6 @@ function getServerHashSnapshot() {
 
 export default function Navbar({ locale }: NavbarProps) {
   const about = useTranslations("about");
-
   const [observedSection, setObservedSection] = useState<SectionId | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -78,18 +79,12 @@ export default function Navbar({ locale }: NavbarProps) {
 
     sectionIds.forEach((id) => {
       const section = document.getElementById(id);
-
-      if (section) {
-        observer.observe(section);
-      }
+      if (section) observer.observe(section);
     });
 
     function handleHashChange() {
       const id = window.location.hash.replace("#", "");
-
-      if (isSectionId(id)) {
-        setObservedSection(id);
-      }
+      if (isSectionId(id)) setObservedSection(id);
     }
 
     window.addEventListener("hashchange", handleHashChange);
@@ -113,54 +108,43 @@ export default function Navbar({ locale }: NavbarProps) {
     );
   }
 
+  function desktopLinkClass(section: SectionId) {
+    return cn(navLinkBase, activeSection === section && navLinkActive);
+  }
+
   return (
-    <header className="site-header">
-      <nav className="container nav-shell">
+    <header className="sticky top-0 z-50 border-b border-border bg-muted">
+      <PageContainer className="flex min-h-[var(--nav-min-height)] items-center justify-between gap-6">
         <Link
           href={`/${locale}/`}
-          className="site-logo"
+          className="inline-flex items-baseline text-[length:var(--nav-logo-size)] font-extrabold tracking-tight text-foreground transition-colors hover:text-primary"
           aria-label="JIANTAO.dev home"
         >
           <span>JIANTAO</span>
-          <span>.dev</span>
+          <span className="text-primary">.dev</span>
         </Link>
 
-        <div className="desktop-nav">
+        <div className="hidden items-center gap-1 md:flex min-[1920px]:gap-1.5">
           <Link
             href={`/${locale}/#skills`}
-            className={cn(
-              "nav-link",
-              activeSection === "skills" && "nav-active",
-            )}
-            aria-current={
-              activeSection === "skills" ? "location" : undefined
-            }
+            className={desktopLinkClass("skills")}
+            aria-current={activeSection === "skills" ? "location" : undefined}
           >
             {about("skills.title")}
           </Link>
 
           <Link
             href={`/${locale}/#projects`}
-            className={cn(
-              "nav-link",
-              activeSection === "projects" && "nav-active",
-            )}
-            aria-current={
-              activeSection === "projects" ? "location" : undefined
-            }
+            className={desktopLinkClass("projects")}
+            aria-current={activeSection === "projects" ? "location" : undefined}
           >
             {about("projects.title")}
           </Link>
 
           <Link
             href={`/${locale}/#education`}
-            className={cn(
-              "nav-link",
-              activeSection === "education" && "nav-active",
-            )}
-            aria-current={
-              activeSection === "education" ? "location" : undefined
-            }
+            className={desktopLinkClass("education")}
+            aria-current={activeSection === "education" ? "location" : undefined}
           >
             {about("education.title")}
           </Link>
@@ -182,10 +166,7 @@ export default function Navbar({ locale }: NavbarProps) {
               <Menu className="size-5" />
             </SheetTrigger>
 
-            <SheetContent
-              side="right"
-              className="w-full sm:max-w-sm"
-            >
+            <SheetContent side="right" className="w-full sm:max-w-sm">
               <SheetHeader>
                 <SheetTitle>Navigation</SheetTitle>
               </SheetHeader>
@@ -194,9 +175,7 @@ export default function Navbar({ locale }: NavbarProps) {
                 <Link
                   href={`/${locale}/#skills`}
                   className={mobileLinkClass("skills")}
-                  aria-current={
-                    activeSection === "skills" ? "location" : undefined
-                  }
+                  aria-current={activeSection === "skills" ? "location" : undefined}
                   onClick={closeMobileMenu}
                 >
                   {about("skills.title")}
@@ -205,9 +184,7 @@ export default function Navbar({ locale }: NavbarProps) {
                 <Link
                   href={`/${locale}/#projects`}
                   className={mobileLinkClass("projects")}
-                  aria-current={
-                    activeSection === "projects" ? "location" : undefined
-                  }
+                  aria-current={activeSection === "projects" ? "location" : undefined}
                   onClick={closeMobileMenu}
                 >
                   {about("projects.title")}
@@ -216,9 +193,7 @@ export default function Navbar({ locale }: NavbarProps) {
                 <Link
                   href={`/${locale}/#education`}
                   className={mobileLinkClass("education")}
-                  aria-current={
-                    activeSection === "education" ? "location" : undefined
-                  }
+                  aria-current={activeSection === "education" ? "location" : undefined}
                   onClick={closeMobileMenu}
                 >
                   {about("education.title")}
@@ -231,7 +206,7 @@ export default function Navbar({ locale }: NavbarProps) {
             </SheetContent>
           </Sheet>
         </div>
-      </nav>
+      </PageContainer>
     </header>
   );
 }

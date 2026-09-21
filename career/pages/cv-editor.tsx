@@ -13,13 +13,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { localeMeta } from "@/lib/locales";
 
-import {
-  LocaleSwitcher,
-  localeLabels,
-} from "../components/dashboard/locale-switcher";
+import { Field } from "../components/dashboard/field";
+import { LocaleSwitcher } from "../components/dashboard/locale-switcher";
 
 import type {
   AboutContent,
@@ -28,6 +26,7 @@ import type {
   Locale,
 } from "../lib/types";
 
+import { parseCommaList } from "../lib/text";
 import { useCareerWorkspace } from "../workspace";
 
 function blankSkillGroup(): AboutSkillGroup {
@@ -113,7 +112,7 @@ export function CvEditorPage() {
     <div className="space-y-6">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <h1 className="m-0 text-3xl font-bold tracking-tight text-foreground">
+          <h1 className="m-0 text-[length:var(--dashboard-heading-size)] font-bold tracking-tight text-foreground">
             {t("cv.title")}
           </h1>
 
@@ -221,15 +220,16 @@ export function CvEditorPage() {
         </CardContent>
       </Card>
 
-      <Card className="sticky bottom-4 z-10 shadow-lg">
+      <Card className="sticky bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-10 shadow-lg">
         <CardContent className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
             <Badge variant="outline">{locale}</Badge>
-            <span className="font-mono text-xs">{sourcePath}</span>
+            <span className="min-w-0 break-all font-mono text-xs">{sourcePath}</span>
           </div>
 
           <Button
             type="button"
+            className="w-full sm:w-auto"
             disabled={saving}
             onClick={() =>
               void actions.saveAbout(locale, draft).catch(() => {})
@@ -242,7 +242,7 @@ export function CvEditorPage() {
               : mode === "trial"
                 ? t("actions.applyLocally")
                 : t("actions.saveLanguage", {
-                    language: localeLabels[locale],
+                    language: localeMeta[locale].label,
                   })}
           </Button>
         </CardContent>
@@ -309,7 +309,7 @@ function SkillGroupEditor({
 
               onChange({
                 ...group,
-                items: splitTags(value),
+                items: parseCommaList(value),
               });
             }}
             placeholder={t("cv.skills.technologiesPlaceholder")}
@@ -425,27 +425,5 @@ function EducationEditor({
         </div>
       </CardContent>
     </Card>
-  );
-}
-
-function splitTags(value: string) {
-  return value
-    .split(",")
-    .map((item) => item.trim())
-    .filter(Boolean);
-}
-
-function Field({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="space-y-2">
-      <Label>{label}</Label>
-      {children}
-    </div>
   );
 }

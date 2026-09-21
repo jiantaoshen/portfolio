@@ -2,15 +2,12 @@
 
 import { useTranslations } from "next-intl";
 
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-import type { Locale } from "../../lib/types";
+import { localeMeta, locales, type Locale } from "@/lib/locales";
 
-export const localeLabels: Record<Locale, string> = {
-  en: "English",
-  sv: "Svenska",
-  zh: "中文",
-};
+import { dashboardNavItemVariants } from "./nav-variants";
 
 export function LocaleSwitcher({
   value,
@@ -23,28 +20,28 @@ export function LocaleSwitcher({
 
   return (
     <div
-      className="flex flex-wrap items-center gap-4"
+      className="flex flex-wrap items-center gap-2"
       role="group"
       aria-label={t("contentLanguage.label")}
     >
-      {(Object.keys(localeLabels) as Locale[]).map((locale) => {
+      {locales.map((locale) => {
         const isActive = value === locale;
 
         return (
-          <button
+          <Button
             key={locale}
             type="button"
+            variant="ghost"
+            size="sm"
             onClick={() => onChange(locale)}
             aria-pressed={isActive}
             className={cn(
-              "relative py-2 text-sm font-medium transition-colors",
-              isActive
-                ? "text-foreground after:absolute after:right-0 after:bottom-0 after:left-0 after:h-0.5 after:rounded-full after:bg-primary"
-                : "text-muted-foreground hover:text-foreground",
+              "h-auto rounded-none px-2 py-2",
+              dashboardNavItemVariants({ active: isActive, underlineInset: "md" }),
             )}
           >
-            {localeLabels[locale]}
-          </button>
+            {localeMeta[locale].label}
+          </Button>
         );
       })}
     </div>

@@ -17,12 +17,13 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { isLocale, localeMeta, locales } from "@/lib/locales";
 import { cn } from "@/lib/utils";
 
 import { emptyProject, getNextProjectSortOrder, getProjectsByLocale } from "../../lib/projects";
 import type { DashboardMode, Locale } from "../../lib/types";
 import { useCareerWorkspace } from "../../workspace";
-import { localeLabels } from "./locale-switcher";
+import { dashboardNavItemVariants } from "./nav-variants";
 
 interface DashboardShellProps {
   mode: DashboardMode;
@@ -54,12 +55,10 @@ export function DashboardShell({
   const projectsActive = pathname.startsWith(projectsPath);
 
   const localeParam = searchParams.get("lang");
-  const projectLocale: Locale =
-    localeParam && localeParam in localeLabels ? (localeParam as Locale) : "en";
+  const projectLocale: Locale = isLocale(localeParam) ? localeParam : "en";
 
   const selectedProjectId = searchParams.get("project") ?? "";
   const visibleProjects = getProjectsByLocale(data.projects, projectLocale);
-  const locales = Object.keys(localeLabels) as Locale[];
 
   function openProjects() {
     if (projectsActive) return;
@@ -111,8 +110,8 @@ export function DashboardShell({
   }
 
   return (
-    <div className="min-h-screen bg-muted text-foreground lg:grid lg:grid-cols-5">
-      <aside className="border-b border-border bg-background p-4 lg:col-span-1 lg:min-h-screen lg:border-r lg:border-b-0 lg:p-6">
+    <div className="dashboard-shell min-h-screen bg-muted text-foreground lg:grid lg:grid-cols-[var(--dashboard-sidebar-width)_minmax(0,1fr)]">
+      <aside className="border-b border-border bg-background p-4 lg:min-h-screen lg:border-r lg:border-b-0 lg:p-[var(--dashboard-sidebar-padding)]">
         <div className="mb-6 flex items-center justify-between lg:block">
           <div>
             <div className="text-sm font-semibold text-primary">JIANTAO.dev</div>
@@ -136,10 +135,8 @@ export function DashboardShell({
             href={cvPath}
             aria-current={cvActive ? "page" : undefined}
             className={cn(
-              "relative flex items-center gap-2 px-3 py-2 text-sm font-medium transition-colors",
-              cvActive
-                ? "text-foreground after:absolute after:right-3 after:bottom-0 after:left-3 after:h-0.5 after:rounded-full after:bg-primary"
-                : "text-muted-foreground hover:text-foreground",
+              "flex items-center gap-2 px-3 py-2 text-sm font-medium",
+              dashboardNavItemVariants({ active: cvActive, underlineInset: "lg" }),
             )}
           >
             <FileUser className="size-4" />
@@ -153,10 +150,8 @@ export function DashboardShell({
               onClick={openProjects}
               aria-expanded={projectsActive}
               className={cn(
-                "relative h-auto w-full justify-start rounded-none px-3 py-2",
-                projectsActive
-                  ? "text-foreground after:absolute after:right-3 after:bottom-0 after:left-3 after:h-0.5 after:rounded-full after:bg-primary"
-                  : "text-muted-foreground",
+                "h-auto w-full justify-start rounded-none px-3 py-2",
+                dashboardNavItemVariants({ active: projectsActive, underlineInset: "lg" }),
               )}
             >
               <BriefcaseBusiness className="size-4" />
@@ -182,13 +177,11 @@ export function DashboardShell({
                         size="xs"
                         onClick={() => changeProjectLocale(locale)}
                         className={cn(
-                          "relative h-auto rounded-none px-2 py-1",
-                          active
-                            ? "text-foreground after:absolute after:right-1 after:bottom-0 after:left-1 after:h-0.5 after:rounded-full after:bg-primary"
-                            : "text-muted-foreground",
+                          "h-auto rounded-none px-2 py-1",
+                          dashboardNavItemVariants({ active, underlineInset: "sm" }),
                         )}
                       >
-                        {localeLabels[locale]}
+                        {localeMeta[locale].label}
                       </Button>
                     );
                   })}
@@ -219,7 +212,7 @@ export function DashboardShell({
 
                   {visibleProjects.length === 0 && (
                     <p className="m-0 px-2 py-2 text-xs text-muted-foreground">
-                      {t("projects.empty", { language: localeLabels[projectLocale] })}
+                      {t("projects.empty", { language: localeMeta[projectLocale].label })}
                     </p>
                   )}
                 </div>
@@ -262,7 +255,7 @@ export function DashboardShell({
         </div>
       </aside>
 
-      <main className="min-w-0 lg:col-span-4">
+      <main className="min-w-0">
         {mode === "trial" && (
           <div className="border-b border-border bg-accent px-5 py-3 text-sm text-accent-foreground sm:px-6">
             <strong>{t("notices.trialTitle")}</strong>{" "}
@@ -299,7 +292,7 @@ export function DashboardShell({
           </div>
         )}
 
-        <div className="mx-auto w-full max-w-7xl p-5 sm:p-8">
+        <div className="mx-auto w-full max-w-[var(--dashboard-content-max-width)] p-5 sm:p-[var(--dashboard-content-padding)]">
           {children}
         </div>
       </main>

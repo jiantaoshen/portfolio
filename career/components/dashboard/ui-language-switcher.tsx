@@ -4,14 +4,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
-import type { Locale } from "@/i18n/routing";
+import { localeMeta, locales, type Locale } from "@/lib/locales";
 import { cn } from "@/lib/utils";
-
-const languages: { code: Locale; label: string }[] = [
-  { code: "en", label: "EN" },
-  { code: "sv", label: "SV" },
-  { code: "zh", label: "中文" },
-];
 
 export function UiLanguageSwitcher() {
   const t = useTranslations("dashboard");
@@ -30,17 +24,17 @@ export function UiLanguageSwitcher() {
       role="group"
       aria-label={t("interfaceLanguage.label")}
     >
-      {languages.map((language) => {
-        const active = language.code === currentLocale;
+      {locales.map((locale) => {
+        const active = locale === currentLocale;
 
         return (
           <Button
-            key={language.code}
+            key={locale}
             type="button"
             variant="ghost"
             size="sm"
             aria-pressed={active}
-            onClick={() => changeLocale(language.code)}
+            onClick={() => changeLocale(locale)}
             className={cn(
               "h-8 px-2 font-mono text-xs",
               active
@@ -48,7 +42,7 @@ export function UiLanguageSwitcher() {
                 : "text-muted-foreground",
             )}
           >
-            {language.label}
+            {localeMeta[locale].shortLabel}
           </Button>
         );
       })}

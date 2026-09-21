@@ -161,6 +161,77 @@ Development-only content APIs work well when the frontend and backend use differ
 
 The Shared UI System makes it easier to maintain themes, CSS styles, and reusable UI elements across the project.
 
+> **UI architecture rule:** shadcn/ui manages UI primitives; Tailwind CSS manages components and layout; CSS variables manage design tokens; regular CSS is only used for cases Tailwind is not well suited for or where dynamic content requires selectors.
+
+The UI follows a clear separation of responsibilities:
+
+```text
+shadcn/ui
+└── UI primitives
+
+Tailwind CSS
+└── Component styling
+└── Page layout
+└── Responsive behavior
+└── Local visual adjustments
+
+CSS variables
+└── Design tokens
+└── Colors
+└── Typography scale
+└── Spacing
+└── Responsive sizing
+
+Regular CSS
+└── Features Tailwind is not well suited for
+└── Selector-driven dynamic content
+└── Markdown typography
+```
+
+In short, shadcn/ui manages UI primitives, Tailwind manages components and layout, CSS variables manage design tokens, and regular CSS is reserved for cases where Tailwind is not a good fit or where dynamic content requires selectors.
+
+The project also follows **DRY (Don't Repeat Yourself)** by keeping shared knowledge and behavior in a single source of truth.
+
+In this context:
+
+- **Knowledge** means rules, definitions, configuration, and facts that the system needs to know. Examples include supported locales, locale labels, design tokens, responsive sizing rules, and shared navigation states.
+- **Behavior** means reusable logic or operations that describe how the system does something. Examples include parsing comma-separated values, rendering shared technology badges, or applying the same form-field structure across CMS editors.
+
+For example, supported locales should not be defined independently in several files:
+
+```ts
+export const locales = ["en", "sv", "zh"] as const;
+
+export type Locale = (typeof locales)[number];
+```
+
+This keeps the list of supported locales as a single source of truth.
+
+Reusable behavior follows the same principle. Instead of repeating the same parsing logic in several editors:
+
+```ts
+export function parseCommaList(value: string) {
+  return value
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+```
+
+the shared utility is reused wherever that behavior is needed.
+
+DRY is therefore applied to shared **knowledge and behavior**, rather than mechanically removing every repeated Tailwind class.
+
+For example, two components may both use:
+
+```tsx
+<div className="flex flex-wrap gap-2">
+```
+
+without needing a shared abstraction if they represent different concepts and may evolve independently.
+
+This avoids over-abstraction while still keeping genuinely shared rules and logic maintainable from a single place.
+
 
 ### Keeping Content in Git
 

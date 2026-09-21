@@ -5,6 +5,8 @@ import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 
 import MarkdownContent from "@/components/content/MarkdownContent";
+import { TechList } from "@/components/content/TechList";
+import { PageContainer } from "@/components/layout/page-container";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { routing } from "@/i18n/routing";
@@ -83,62 +85,52 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <>
-      <section className="project-detail-header">
-        <div className="container">
+      <section className="border-b border-border bg-muted py-[var(--detail-header-padding-y)]">
+        <PageContainer>
           <Link
             href={`/${locale}/#projects`}
-            className="project-detail-back"
+            className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-foreground"
           >
             <span aria-hidden="true">←</span>
             {projectT("detail.back")}
           </Link>
 
           {project.data.status && (
-            <div className="project-detail-meta">
+            <div className="mb-4 flex flex-wrap items-center gap-3">
               <Badge variant="secondary" className="font-mono text-xs">
                 {project.data.status}
               </Badge>
             </div>
           )}
 
-          <h1 className="project-detail-title">
+          <h1 className="m-0 max-w-[var(--detail-title-max-width)] text-[length:var(--detail-title-size)] font-extrabold tracking-tight text-foreground">
             {project.data.title}
           </h1>
 
-          <p className="project-detail-description">
+          <p className="mt-6 mb-0 max-w-[var(--detail-description-max-width)] text-[length:var(--detail-description-size)] leading-relaxed text-muted-foreground">
             {project.data.description}
           </p>
 
           {project.data.technologies.length > 0 && (
-            <div className="project-detail-technologies">
-              <p className="text-label project-detail-label">
+            <div className="mt-8">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary min-[1920px]:text-[0.8125rem]">
                 {projectT("detail.technologies")}
               </p>
 
-              <div className="flex flex-wrap gap-2">
-                {project.data.technologies.map((technology) => (
-                  <Badge
-                    key={technology}
-                    variant="outline"
-                    className="font-mono text-xs text-muted-foreground"
-                  >
-                    {technology}
-                  </Badge>
-                ))}
-              </div>
+              <TechList items={project.data.technologies} />
             </div>
           )}
 
           {(project.data.links?.live || project.data.links?.github) && (
-            <div className="project-detail-actions">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               {project.data.links?.live && (
                 <a
                   href={project.data.links.live}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={cn(
-                    buttonVariants({ variant: "default" }),
-                    "h-12 w-full px-5 sm:w-auto",
+                    buttonVariants({ variant: "default", size: "xl" }),
+                    "w-full sm:w-auto",
                   )}
                 >
                   {commonT("buttons.liveDemo")}
@@ -152,8 +144,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={cn(
-                    buttonVariants({ variant: "outline" }),
-                    "h-12 w-full px-5 sm:w-auto",
+                    buttonVariants({ variant: "outline", size: "xl" }),
+                    "w-full sm:w-auto",
                   )}
                 >
                   {commonT("buttons.github")}
@@ -162,26 +154,26 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               )}
             </div>
           )}
-        </div>
+        </PageContainer>
       </section>
 
-      <section className="project-detail-body">
-        <div className="container project-detail-grid">
-          <article className="project-detail-article">
+      <section className="bg-background py-[var(--detail-body-padding-y)]">
+        <PageContainer className="grid grid-cols-1 gap-12 lg:grid-cols-4 lg:gap-16 2xl:gap-20 min-[2560px]:grid-cols-[minmax(0,3.2fr)_minmax(18rem,0.8fr)] min-[2560px]:gap-28">
+          <article className="min-w-0 lg:col-span-3 min-[2560px]:col-span-1">
             <div className="article-content">
               <MarkdownContent content={project.content} />
             </div>
           </article>
 
           {headings.length > 0 && (
-            <aside className="project-detail-sidebar">
-              <div className="project-detail-toc">
-                <p className="text-label text-muted-foreground">
+            <aside className="hidden lg:col-span-1 lg:block min-[2560px]:col-span-1">
+              <div className="sticky top-28">
+                <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground min-[1920px]:text-[0.8125rem]">
                   {projectT("detail.contents")}
                 </p>
 
                 <nav
-                  className="project-detail-toc-links"
+                  className="mt-4 flex flex-col gap-3"
                   aria-label={projectT("detail.contents")}
                 >
                   {headings.map((heading) => (
@@ -189,8 +181,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       key={heading.slug}
                       href={`#${heading.slug}`}
                       className={cn(
-                        "project-detail-toc-link",
-                        heading.depth === 3 && "project-detail-toc-child",
+                        "text-sm text-muted-foreground transition-colors hover:text-primary min-[1536px]:text-[0.95rem] min-[2560px]:text-base",
+                        heading.depth === 3 && "pl-4 text-xs min-[2560px]:text-sm",
                       )}
                     >
                       {heading.text}
@@ -200,7 +192,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </div>
             </aside>
           )}
-        </div>
+        </PageContainer>
       </section>
     </>
   );

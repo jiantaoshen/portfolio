@@ -176,6 +176,75 @@ Innehålls-API:er som endast används under utveckling fungerar bra när fronten
 
 Det gemensamma UI-systemet gör det enklare att underhålla teman, CSS-stilar och återanvändbara UI-element i hela projektet.
 
+En viktig princip i projektet är att varje lager har ett tydligt ansvar:
+
+```text
+shadcn/ui
+└── UI-primitives
+
+Tailwind CSS
+└── Komponentstilar
+└── Sidlayout
+└── Responsivt beteende
+└── Lokala visuella justeringar
+
+CSS-variabler
+└── Design tokens
+└── Färger
+└── Typografisk skala
+└── Spacing
+└── Responsiv storlek
+
+Vanlig CSS
+└── Sådant som Tailwind inte lämpar sig för
+└── Dynamiskt innehåll som kräver selectors
+└── Markdown-typografi
+```
+
+Kort sagt:
+
+> **shadcn/ui hanterar UI-primitives; Tailwind CSS hanterar komponenter och layout; CSS-variabler hanterar design tokens; vanlig CSS används endast för sådant som Tailwind inte lämpar sig för eller när dynamiskt innehåll kräver selectors.**
+
+Projektet följer också principen **DRY (Don't Repeat Yourself)** genom att hålla delad kunskap och delat beteende i en enda källa till sanning.
+
+I det här sammanhanget betyder:
+
+- **Knowledge** regler, definitioner, konfiguration och fakta som systemet behöver känna till. Exempel är vilka locales som stöds, deras labels, design tokens, responsiva storleksregler och gemensamma navigationsstates.
+- **Behavior** återanvändbar logik eller operationer som beskriver hur systemet gör något. Exempel är att tolka kommaseparerade värden, rendera gemensamma technology badges eller använda samma fältstruktur i flera CMS-editorer.
+
+Exempelvis ska stödda locales inte definieras separat i flera filer:
+
+```ts
+export const locales = ["en", "sv", "zh"] as const;
+
+export type Locale = (typeof locales)[number];
+```
+
+På så sätt finns definitionen av vilka språk projektet stöder på ett enda ställe.
+
+Samma princip gäller återanvändbar logik. I stället för att upprepa samma parsingkod i flera editorer används en gemensam funktion:
+
+```ts
+export function parseCommaList(value: string) {
+  return value
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+```
+
+DRY används därför för gemensam **knowledge och behavior**, inte för att mekaniskt ta bort varje upprepad Tailwind-klass.
+
+Två komponenter kan till exempel båda använda:
+
+```tsx
+<div className="flex flex-wrap gap-2">
+```
+
+utan att det behöver bli en gemensam abstraktion, om komponenterna representerar olika koncept och kan utvecklas oberoende av varandra.
+
+Det minskar onödig duplicering utan att skapa överdriven abstraktion.
+
 ### Behålla innehållet i Git
 
 Markdown och JSON förblir den enda källan till sanning.

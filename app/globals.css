@@ -2,57 +2,322 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-
 /* =========================================
-   Brand tokens
+   Brand + semantic tokens
    ========================================= */
 
 :root {
   --brand-dark: #182033;
-
   --brand-role: #7196c9;
   --brand-soft: #dce8f5;
-
   --brand-light: #fafbfd;
   --brand-white: #ffffff;
-
   --brand-slate: #5f6c84;
   --brand-slate-muted: #cbd5e1;
 
-
-  /* =========================================
-     Semantic tokens
-     ========================================= */
-
   --background: var(--brand-white);
   --foreground: var(--brand-dark);
-
   --card: var(--brand-white);
   --card-foreground: var(--brand-dark);
-
   --popover: var(--brand-white);
   --popover-foreground: var(--brand-dark);
-
   --primary: var(--brand-role);
   --primary-foreground: var(--brand-white);
-
   --secondary: var(--brand-soft);
   --secondary-foreground: var(--brand-dark);
-
   --muted: var(--brand-light);
   --muted-foreground: var(--brand-slate);
-
   --accent: var(--brand-soft);
   --accent-foreground: var(--brand-dark);
-
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-
   --border: var(--brand-soft);
   --input: var(--brand-soft);
   --ring: var(--brand-role);
+
+  /* =========================================
+     Responsive design tokens
+     ========================================= */
+
+  --page-max-width: 72rem;
+  --page-padding-x: 1.25rem;
+  --section-padding-y: 5rem;
+
+  --nav-min-height: 5rem;
+  --nav-logo-size: 1rem;
+  --nav-link-size: 0.875rem;
+
+  --hero-padding-y: 3.5rem;
+  --hero-title-max-width: 56rem;
+  --hero-title-size: 3rem;
+  --hero-description-max-width: 42rem;
+  --hero-description-size: 1rem;
+
+  --section-title-size: 1.875rem;
+  --row-padding-y: 1.75rem;
+  --project-heading-size: 1.125rem;
+  --project-body-size: 0.875rem;
+  --education-body-size: 0.875rem;
+  --footer-link-size: 0.875rem;
+  --footer-copy-size: 0.75rem;
+
+  --detail-header-padding-y: 3.5rem;
+  --detail-title-max-width: 56rem;
+  --detail-title-size: 2.25rem;
+  --detail-description-max-width: 48rem;
+  --detail-description-size: 1rem;
+  --detail-body-padding-y: 3.5rem;
+
+  --article-max-width: 48rem;
+  --article-font-size: 1rem;
+  --article-line-height: 2rem;
+  --article-h1-size: 1.875rem;
+  --article-h2-size: 1.5rem;
+  --article-h3-size: 1.25rem;
+
+  --cta-height: 3rem;
+  --cta-padding-x: 1.25rem;
+  --cta-font-size: 0.875rem;
+
+  --tech-badge-height: 2rem;
+  --tech-badge-padding-x: 0.75rem;
+  --tech-badge-font-size: 0.75rem;
+
+  /* shadcn primitive sizing tokens */
+  --ui-button-height-default: 2rem;
+  --ui-button-height-xs: 1.5rem;
+  --ui-button-height-sm: 1.75rem;
+  --ui-button-height-lg: 2.25rem;
+  --ui-button-font-default: 0.875rem;
+  --ui-button-font-xs: 0.75rem;
+  --ui-button-font-sm: 0.8rem;
+  --ui-button-font-lg: 0.875rem;
+  --ui-input-height: 2rem;
+  --ui-input-padding-x: 0.625rem;
+  --ui-input-font-size: 0.875rem;
+  --ui-textarea-min-height: 4rem;
+  --ui-textarea-padding-x: 0.625rem;
+  --ui-textarea-padding-y: 0.5rem;
+  --ui-card-spacing: 1rem;
+  --ui-card-spacing-sm: 0.75rem;
+  --ui-card-title-size: 1rem;
+  --ui-label-font-size: 0.875rem;
 }
 
+@media (min-width: 640px) {
+  :root {
+    --section-padding-y: 6rem;
+    --hero-padding-y: 4rem;
+    --hero-title-size: 3.75rem;
+    --hero-description-size: 1.125rem;
+    --section-title-size: 2.25rem;
+    --row-padding-y: 2rem;
+    --project-heading-size: 1.25rem;
+    --detail-header-padding-y: 4rem;
+    --detail-title-size: 3rem;
+    --detail-description-size: 1.125rem;
+    --detail-body-padding-y: 4rem;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --hero-padding-y: 5rem;
+    --hero-description-size: 1.25rem;
+    --detail-header-padding-y: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --section-padding-y: 7rem;
+    --hero-padding-y: 6rem;
+    --hero-title-size: 4.5rem;
+    --hero-description-size: 1.5rem;
+    --detail-title-size: 3.75rem;
+    --detail-body-padding-y: 5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --hero-title-size: 6rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  :root {
+    --page-max-width: 90rem;
+    --page-padding-x: 2rem;
+    --section-padding-y: 7.5rem;
+    --nav-logo-size: 1.125rem;
+    --nav-link-size: 0.95rem;
+    --hero-title-max-width: 58rem;
+    --hero-title-size: 6.25rem;
+    --hero-description-max-width: 48rem;
+    --hero-description-size: 1.5rem;
+    --section-title-size: 2.75rem;
+    --row-padding-y: 2.25rem;
+    --project-heading-size: 1.375rem;
+    --project-body-size: 1.0625rem;
+    --education-body-size: 1.0625rem;
+    --footer-link-size: 1rem;
+    --detail-header-padding-y: 6rem;
+    --detail-title-max-width: 60rem;
+    --detail-title-size: 4.5rem;
+    --detail-description-max-width: 52rem;
+    --detail-description-size: 1.25rem;
+    --detail-body-padding-y: 6rem;
+    --article-max-width: 54rem;
+    --article-font-size: 1.0625rem;
+    --cta-height: 3.25rem;
+    --cta-padding-x: 1.5rem;
+    --cta-font-size: 1rem;
+    --tech-badge-height: 2.25rem;
+    --tech-badge-padding-x: 0.8rem;
+    --tech-badge-font-size: 0.8125rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --page-max-width: 104rem;
+    --page-padding-x: 3rem;
+    --section-padding-y: 8.5rem;
+    --nav-min-height: 5.5rem;
+    --nav-logo-size: 1.25rem;
+    --nav-link-size: 1.0625rem;
+    --hero-padding-y: 7.5rem;
+    --hero-title-max-width: 66rem;
+    --hero-title-size: 6.75rem;
+    --hero-description-max-width: 54rem;
+    --hero-description-size: 1.625rem;
+    --section-title-size: 3rem;
+    --project-body-size: 1.125rem;
+    --education-body-size: 1.125rem;
+    --footer-link-size: 1.0625rem;
+    --footer-copy-size: 0.875rem;
+    --detail-title-max-width: 68rem;
+    --detail-title-size: 5rem;
+    --detail-description-max-width: 58rem;
+    --detail-description-size: 1.375rem;
+    --article-max-width: 60rem;
+    --article-font-size: 1.125rem;
+    --article-line-height: 2.125rem;
+    --article-h1-size: 2.25rem;
+    --article-h2-size: 1.875rem;
+    --article-h3-size: 1.5rem;
+    --cta-height: 3.5rem;
+    --cta-padding-x: 1.75rem;
+    --cta-font-size: 1.0625rem;
+    --tech-badge-height: 2.5rem;
+    --tech-badge-padding-x: 0.9rem;
+    --tech-badge-font-size: 0.875rem;
+  }
+}
+
+@media (min-width: 2560px) {
+  :root {
+    --page-max-width: 120rem;
+    --page-padding-x: 4rem;
+    --section-padding-y: 10rem;
+    --nav-min-height: 6rem;
+    --nav-logo-size: 1.375rem;
+    --nav-link-size: 1.125rem;
+    --hero-padding-y: 9rem;
+    --hero-title-max-width: 74rem;
+    --hero-title-size: 7.5rem;
+    --hero-description-max-width: 60rem;
+    --hero-description-size: 1.875rem;
+    --section-title-size: 3.5rem;
+    --row-padding-y: 3rem;
+    --project-heading-size: 1.625rem;
+    --project-body-size: 1.25rem;
+    --education-body-size: 1.25rem;
+    --detail-header-padding-y: 8rem;
+    --detail-title-max-width: 76rem;
+    --detail-title-size: 5.5rem;
+    --detail-description-max-width: 64rem;
+    --detail-description-size: 1.5rem;
+    --detail-body-padding-y: 8rem;
+    --article-max-width: 66rem;
+    --article-font-size: 1.25rem;
+    --article-line-height: 2.35rem;
+    --cta-height: 3.75rem;
+    --cta-padding-x: 2rem;
+    --cta-font-size: 1.125rem;
+    --tech-badge-height: 2.75rem;
+    --tech-badge-padding-x: 1rem;
+    --tech-badge-font-size: 0.9375rem;
+  }
+}
+
+/* Dashboard-specific token overrides. Layout remains in Tailwind. */
+.dashboard-shell {
+  --dashboard-sidebar-width: 18rem;
+  --dashboard-sidebar-padding: 1.5rem;
+  --dashboard-content-max-width: 80rem;
+  --dashboard-content-padding: 2rem;
+  --dashboard-heading-size: 1.875rem;
+}
+
+@media (min-width: 1920px) {
+  .dashboard-shell {
+    --dashboard-sidebar-width: 22rem;
+    --dashboard-sidebar-padding: 2rem;
+    --dashboard-content-max-width: 96rem;
+    --dashboard-content-padding: 2.5rem;
+    --dashboard-heading-size: 2.25rem;
+
+    --ui-button-height-default: 2.5rem;
+    --ui-button-height-xs: 1.75rem;
+    --ui-button-height-sm: 2rem;
+    --ui-button-height-lg: 2.75rem;
+    --ui-button-font-default: 0.95rem;
+    --ui-button-font-xs: 0.8rem;
+    --ui-button-font-sm: 0.875rem;
+    --ui-button-font-lg: 1rem;
+    --ui-input-height: 2.75rem;
+    --ui-input-padding-x: 0.875rem;
+    --ui-input-font-size: 1rem;
+    --ui-textarea-min-height: 5rem;
+    --ui-textarea-padding-x: 0.875rem;
+    --ui-textarea-padding-y: 0.75rem;
+    --ui-card-spacing: 1.25rem;
+    --ui-card-spacing-sm: 0.9375rem;
+    --ui-card-title-size: 1.125rem;
+    --ui-label-font-size: 1rem;
+  }
+}
+
+@media (min-width: 2560px) {
+  .dashboard-shell {
+    --dashboard-sidebar-width: 26rem;
+    --dashboard-sidebar-padding: 2.5rem;
+    --dashboard-content-max-width: 112rem;
+    --dashboard-content-padding: 3.5rem;
+    --dashboard-heading-size: 2.5rem;
+
+    --ui-button-height-default: 2.75rem;
+    --ui-button-height-xs: 2rem;
+    --ui-button-height-sm: 2.25rem;
+    --ui-button-height-lg: 3rem;
+    --ui-button-font-default: 1rem;
+    --ui-button-font-xs: 0.875rem;
+    --ui-button-font-sm: 0.95rem;
+    --ui-button-font-lg: 1.0625rem;
+    --ui-input-height: 3rem;
+    --ui-input-padding-x: 1rem;
+    --ui-input-font-size: 1.0625rem;
+    --ui-textarea-min-height: 5.5rem;
+    --ui-textarea-padding-x: 1rem;
+    --ui-textarea-padding-y: 0.875rem;
+    --ui-card-spacing: 1.5rem;
+    --ui-card-spacing-sm: 1.125rem;
+    --ui-card-title-size: 1.25rem;
+    --ui-label-font-size: 1.0625rem;
+  }
+}
 
 /* =========================================
    Tailwind semantic color mapping
@@ -61,49 +326,35 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
-
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
-
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
 }
 
-
-/* ============================================================
+/* =========================================
    Base
-   ============================================================ */
+   ========================================= */
 
 html {
   @apply scroll-smooth bg-background;
 }
 
 body {
-  @apply min-h-screen
-    bg-background
-    font-sans
-    text-foreground
-    antialiased;
-
+  @apply min-h-screen bg-background font-sans text-foreground antialiased;
   text-rendering: optimizeLegibility;
 }
 
@@ -113,623 +364,34 @@ select {
 }
 
 ::selection {
-  @apply bg-primary
-    text-primary-foreground;
+  @apply bg-primary text-primary-foreground;
 }
 
-
-/* ============================================================
-   Layout
-   ============================================================ */
-
-.container {
-  @apply mx-auto
-    w-full
-    max-w-6xl
-    px-5;
-}
-
-.section {
-  @apply py-20
-    sm:py-24
-    lg:py-28;
-}
-
-
-/* ============================================================
-   Typography
-   ============================================================ */
-
-
-.text-label {
-  @apply text-xs
-    font-semibold
-    uppercase
-    tracking-widest;
-}
-
-/* ============================================================
-   Navigation
-   ============================================================ */
-
-.site-header {
-  @apply sticky
-    top-0
-    z-50
-    border-b
-    border-border
-    bg-muted;
-}
-
-.nav-shell {
-  @apply flex
-    min-h-20
-    items-center
-    justify-between
-    gap-6;
-}
-
-.site-logo {
-  @apply inline-flex
-    items-baseline
-    text-base
-    font-extrabold
-    tracking-tight
-    text-foreground
-    transition-colors
-    hover:text-primary;
-}
-
-.site-logo span:last-child {
-  @apply text-primary;
-}
-
-
-/* Desktop navigation */
-
-.desktop-nav {
-  @apply hidden
-    items-center
-    gap-1
-    md:flex;
-}
-
-.nav-link {
-  @apply relative
-    inline-flex
-    items-center
-    justify-center
-    px-2
-    py-2
-    text-sm
-    font-medium
-    text-muted-foreground
-    transition-colors
-    hover:text-foreground;
-}
-
-.nav-active,
-.nav-link[aria-current="page"],
-.nav-link[aria-current="location"] {
-  @apply text-foreground;
-}
-
-.nav-active::after,
-.nav-link[aria-current="page"]::after,
-.nav-link[aria-current="location"]::after {
-  content: "";
-
-  @apply absolute
-    right-2
-    bottom-0
-    left-2
-    h-0.5
-    rounded-full
-    bg-primary;
-}
-
-
-/* ============================================================
-   Hero
-   ============================================================ */
-
-.hero-shell {
-  @apply flex
-    items-center
-    bg-muted
-    py-14
-    sm:py-16
-    md:py-20
-    lg:py-24;
-}
-
-.hero-grid {
-  @apply grid
-    grid-cols-1
-    items-center
-    gap-10
-    lg:grid-cols-3
-    lg:gap-16;
-}
-
-.hero-copy {
-  @apply max-w-3xl
-    lg:col-span-2
-    xl:max-w-4xl;
-}
-
-.hero-title {
-  @apply m-0
-    max-w-4xl
-    text-5xl
-    leading-none
-    font-extrabold
-    tracking-tighter
-    text-foreground
-    sm:text-6xl
-    lg:text-7xl
-    xl:text-8xl;
-}
-
-.hero-description {
-  @apply mt-6
-    mb-0
-    max-w-2xl
-    text-base
-    leading-relaxed
-    text-muted-foreground
-    sm:text-lg
-    md:mt-8
-    md:text-xl
-    lg:text-2xl;
-}
-
-.hero-actions {
-  @apply mt-8
-    flex
-    flex-col
-    gap-3
-    sm:flex-row
-    sm:flex-wrap;
-}
-
-.hero-skills {
-  @apply flex
-    flex-col
-    justify-center
-    border-t
-    border-border
-    pt-8
-    lg:col-span-1
-    lg:border-t-0
-    lg:border-l
-    lg:pt-0
-    lg:pl-11;
-}
-
-
-/* ============================================================
-   Skills
-   ============================================================ */
-
-.skills-heading {
-  @apply mt-0
-    mb-5
-    font-mono
-    text-xs
-    font-bold
-    uppercase
-    tracking-widest
-    text-primary
-    sm:mb-6;
-}
-
-.skill-groups {
-  @apply grid
-    gap-5
-    sm:gap-6;
-}
-
-.skill-group {
-  @apply grid gap-3;
-}
-
-.skill-group h3 {
-  @apply m-0
-    text-sm
-    font-bold
-    text-foreground;
-}
-
-.skill-tags {
-  @apply flex
-    flex-wrap
-    gap-2;
-}
-
-
-/* ============================================================
-   Projects / Education shared
-   ============================================================ */
-
-.projects-section,
-.education-section {
-  @apply bg-muted;
-}
-
-.projects-title,
-.education-title {
-  @apply m-0
-    text-3xl
-    font-bold
-    tracking-tight
-    text-foreground
-    sm:text-4xl;
-}
-
-.projects-list,
-.education-list {
-  @apply border-b
-    border-border;
-}
-
-.project-row,
-.education-row {
-  @apply grid
-    grid-cols-1
-    border-t
-    border-border
-    py-7
-    sm:py-8;
-}
-
-
-/* ============================================================
-   Projects
-   ============================================================ */
-
-.projects-header {
-  @apply mb-10
-    lg:mb-12;
-}
-
-.project-row {
-  @apply gap-4
-    lg:grid-cols-12
-    lg:items-start
-    lg:gap-6;
-}
-
-.project-main {
-  @apply grid
-    gap-3
-    lg:col-span-4;
-}
-
-.project-heading {
-  @apply flex
-    flex-wrap
-    items-center
-    gap-3;
-}
-
-.project-heading h3 {
-  @apply m-0
-    text-lg
-    font-bold
-    text-foreground
-    sm:text-xl;
-}
-
-.project-description {
-  @apply m-0
-    text-sm
-    leading-relaxed
-    text-muted-foreground
-    lg:col-span-6;
-}
-
-
-/* ============================================================
-   Education
-   ============================================================ */
-
-.education-header {
-  @apply mb-10
-    sm:mb-12;
-}
-
-.education-row {
-  @apply gap-3
-    md:grid-cols-4
-    md:gap-8
-    lg:gap-12;
-}
-
-.education-period {
-  @apply m-0
-    font-mono
-    text-sm
-    font-semibold
-    text-primary;
-}
-
-.education-content {
-  @apply grid
-    gap-2
-    md:col-span-3;
-}
-
-.education-content h3 {
-  @apply m-0
-    text-lg
-    font-bold
-    text-foreground
-    sm:text-xl;
-}
-
-.education-school {
-  @apply m-0
-    text-sm
-    font-medium
-    text-muted-foreground;
-}
-
-.education-description {
-  @apply m-0
-    max-w-3xl
-    text-sm
-    leading-relaxed
-    text-muted-foreground
-    sm:text-base;
-}
-
-.education-thesis {
-  @apply m-0
-    pt-1
-    text-sm
-    leading-relaxed
-    text-muted-foreground;
-}
-
-.education-thesis > span:first-child {
-  @apply font-semibold
-    text-foreground;
-}
-
-.education-thesis a {
-  @apply font-semibold
-    text-primary
-    transition-colors
-    hover:text-foreground;
-}
-
-
-/* ============================================================
-   Footer
-   ============================================================ */
-
-.site-footer {
-  @apply border-t
-    border-border
-    bg-background;
-}
-
-.footer-inner {
-  @apply flex
-    flex-col
-    gap-5
-    py-8
-    sm:py-10
-    md:flex-row
-    md:items-center
-    md:justify-between;
-}
-
-.footer-brand {
-  @apply w-fit
-    text-sm
-    font-bold
-    tracking-tight
-    text-foreground
-    transition-colors
-    hover:text-primary;
-}
-
-.footer-brand span {
-  @apply text-primary;
-}
-
-.footer-links {
-  @apply flex
-    flex-wrap
-    items-center
-    gap-5;
-}
-
-.footer-link {
-  @apply inline-flex
-    items-center
-    gap-1
-    text-sm
-    font-medium
-    text-muted-foreground
-    transition-colors
-    hover:text-foreground;
-}
-
-.footer-copyright {
-  @apply m-0
-    text-xs
-    leading-relaxed
-    text-muted-foreground;
-}
-
-
-/* ============================================================
-   Project Detail
-   ============================================================ */
-
-.project-detail-header {
-  @apply border-b
-    border-border
-    bg-muted
-    py-14
-    sm:py-16
-    md:py-20;
-}
-
-.project-detail-back {
-  @apply mb-8
-    inline-flex
-    items-center
-    gap-2
-    text-sm
-    font-semibold
-    text-primary
-    transition-colors
-    hover:text-foreground;
-}
-
-.project-detail-meta {
-  @apply mb-4
-    flex
-    flex-wrap
-    items-center
-    gap-3;
-}
-
-.project-detail-title {
-  @apply m-0
-    max-w-4xl
-    text-4xl
-    font-extrabold
-    tracking-tight
-    text-foreground
-    sm:text-5xl
-    lg:text-6xl;
-}
-
-.project-detail-description {
-  @apply mt-6
-    mb-0
-    max-w-3xl
-    text-base
-    leading-relaxed
-    text-muted-foreground
-    sm:text-lg;
-}
-
-.project-detail-technologies {
-  @apply mt-8;
-}
-
-.project-detail-label {
-  @apply mb-3
-    text-primary;
-}
-
-.project-detail-actions {
-  @apply mt-8
-    flex
-    flex-col
-    gap-3
-    sm:flex-row
-    sm:flex-wrap;
-}
-
-
-/* Project content */
-
-.project-detail-body {
-  @apply bg-background
-    py-14
-    sm:py-16
-    lg:py-20;
-}
-
-.project-detail-grid {
-  @apply grid
-    grid-cols-1
-    gap-12
-    lg:grid-cols-4
-    lg:gap-16;
-}
-
-.project-detail-article {
-  @apply min-w-0
-    lg:col-span-3;
-}
-
-.project-detail-sidebar {
-  @apply hidden
-    lg:col-span-1
-    lg:block;
-}
-
-.project-detail-toc {
-  @apply sticky
-    top-28;
-}
-
-.project-detail-toc-links {
-  @apply mt-4
-    flex
-    flex-col
-    gap-3;
-}
-
-.project-detail-toc-link {
-  @apply text-sm
-    text-muted-foreground
-    transition-colors
-    hover:text-primary;
-}
-
-.project-detail-toc-child {
-  @apply pl-4
-    text-xs;
-}
-
-
-/* ============================================================
-   Article Content
-   ============================================================ */
+/* =========================================
+   Dynamic Markdown content
+   These selectors stay in CSS because the HTML is generated.
+   ========================================= */
 
 .article-content {
-  @apply mx-auto
-    max-w-3xl
-    text-base
-    leading-8
-    text-muted-foreground;
+  @apply mx-auto text-muted-foreground;
+  max-width: var(--article-max-width);
+  font-size: var(--article-font-size);
+  line-height: var(--article-line-height);
 }
 
 .article-content h1 {
-  @apply mt-12
-    mb-6
-    text-3xl
-    font-bold
-    tracking-tight
-    text-foreground;
+  @apply mt-12 mb-6 font-bold tracking-tight text-foreground;
+  font-size: var(--article-h1-size);
 }
 
 .article-content h2 {
-  @apply mt-12
-    mb-4
-    scroll-mt-28
-    text-2xl
-    font-bold
-    tracking-tight
-    text-foreground;
+  @apply mt-12 mb-4 scroll-mt-28 font-bold tracking-tight text-foreground;
+  font-size: var(--article-h2-size);
 }
 
 .article-content h3 {
-  @apply mt-9
-    mb-3
-    scroll-mt-28
-    text-xl
-    font-bold
-    text-foreground;
+  @apply mt-9 mb-3 scroll-mt-28 font-bold text-foreground;
+  font-size: var(--article-h3-size);
 }
 
 .article-content p {
@@ -737,17 +399,11 @@ select {
 }
 
 .article-content ul {
-  @apply my-5
-    list-disc
-    space-y-2
-    pl-6;
+  @apply my-5 list-disc space-y-2 pl-6;
 }
 
 .article-content ol {
-  @apply my-5
-    list-decimal
-    space-y-2
-    pl-6;
+  @apply my-5 list-decimal space-y-2 pl-6;
 }
 
 .article-content li {
@@ -755,66 +411,32 @@ select {
 }
 
 .article-content blockquote {
-  @apply my-6
-    border-l-4
-    border-primary
-    bg-muted
-    px-5
-    py-3
-    italic;
+  @apply my-6 border-l-4 border-primary bg-muted px-5 py-3 italic;
 }
 
 .article-content code {
-  @apply rounded
-    bg-muted
-    px-1.5
-    py-0.5
-    font-mono
-    text-sm
-    text-foreground;
+  @apply rounded bg-muted px-1.5 py-0.5 font-mono text-sm text-foreground;
 }
 
 .article-content pre {
-  @apply my-7
-    overflow-x-auto
-    rounded-2xl
-    bg-foreground
-    p-5
-    text-sm
-    text-border;
+  @apply my-7 overflow-x-auto rounded-2xl bg-foreground p-5 text-sm text-border;
 }
 
 .article-content pre code {
-  @apply bg-transparent
-    p-0
-    text-inherit;
+  @apply bg-transparent p-0 text-inherit;
 }
 
 .article-content hr {
-  @apply my-10
-    border-border;
+  @apply my-10 border-border;
 }
 
 .article-content img {
-  @apply my-8
-    rounded-2xl
-    border
-    border-border;
+  @apply my-8 rounded-2xl border border-border;
 }
-
-
-/* ============================================================
-   Markdown shared
-   ============================================================ */
 
 .article-content a,
 .prose-lite a {
-  @apply font-medium
-    text-primary
-    underline
-    underline-offset-4
-    transition-colors
-    hover:text-foreground;
+  @apply font-medium text-primary underline underline-offset-4 transition-colors hover:text-foreground;
 }
 
 .article-content a {
@@ -823,44 +445,23 @@ select {
 
 .article-content strong,
 .prose-lite strong {
-  @apply font-semibold
-    text-foreground;
+  @apply font-semibold text-foreground;
 }
 
-
-/* ============================================================
-   Markdown Preview
-   ============================================================ */
-
 .prose-lite {
-  @apply text-sm
-    leading-relaxed
-    text-muted-foreground;
+  @apply text-sm leading-relaxed text-muted-foreground;
 }
 
 .prose-lite h1 {
-  @apply mt-8
-    mb-4
-    text-2xl
-    font-bold
-    tracking-tight
-    text-foreground;
+  @apply mt-8 mb-4 text-2xl font-bold tracking-tight text-foreground;
 }
 
 .prose-lite h2 {
-  @apply mt-7
-    mb-3
-    text-xl
-    font-bold
-    text-foreground;
+  @apply mt-7 mb-3 text-xl font-bold text-foreground;
 }
 
 .prose-lite h3 {
-  @apply mt-6
-    mb-2
-    text-lg
-    font-semibold
-    text-foreground;
+  @apply mt-6 mb-2 text-lg font-semibold text-foreground;
 }
 
 .prose-lite p {
@@ -868,25 +469,13 @@ select {
 }
 
 .prose-lite ul {
-  @apply my-4
-    list-disc
-    space-y-2
-    pl-5;
+  @apply my-4 list-disc space-y-2 pl-5;
 }
 
 .prose-lite ol {
-  @apply my-4
-    list-decimal
-    space-y-2
-    pl-5;
+  @apply my-4 list-decimal space-y-2 pl-5;
 }
 
 .prose-lite code {
-  @apply rounded
-    bg-accent
-    px-1
-    py-0.5
-    font-mono
-    text-xs
-    text-accent-foreground;
+  @apply rounded bg-accent px-1 py-0.5 font-mono text-xs text-accent-foreground;
 }

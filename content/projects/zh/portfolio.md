@@ -17,15 +17,14 @@ links:
   live: 'https://www.jiantao.dev'
 draft: false
 ---
-
 ## 概述
 
 这是一个多语言作品集和轻量级、基于 Git 的内容管理系统，使用 Next.js 16、TypeScript、Tailwind CSS v4、shadcn/ui 和 next-intl 构建。公开网站通过不同语言的路由和内容支持英语、瑞典语和中文。项目案例使用 Markdown 保存，而“关于我”“技能”和“教育经历”等结构化个人资料内容则使用多语言 JSON 维护。
 
 项目还提供两种内容编辑方式：
 
-- 一个公开的 Trial 模式，用于体验 CMS 界面，但不会永久保存修改
-- 一个本地 Dashboard，用于在开发过程中直接编辑仓库中的实际 JSON 和 Markdown 源文件
+* 一个公开的 Trial 模式，用于体验 CMS 界面，但不会永久保存修改
+* 一个本地 Dashboard，用于在开发过程中直接编辑仓库中的实际 JSON 和 Markdown 源文件
 
 当前架构继续以 Git 作为唯一事实来源，不使用生产环境内容数据库，并由同一个 Next.js 应用负责公开页面渲染、CMS 界面、本地化以及仅用于开发环境的内容 API。
 
@@ -35,13 +34,13 @@ draft: false
 
 这个项目包含：
 
-- 关于我和简历信息
-- 技能和教育经历
-- 项目元数据
-- 长篇项目案例
-- 英语、瑞典语和中文内容
-- 公开 UI 的翻译
-- CMS 界面的翻译
+* 关于我和简历信息
+* 技能和教育经历
+* 项目元数据
+* 长篇项目案例
+* 英语、瑞典语和中文内容
+* 公开 UI 的翻译
+* CMS 界面的翻译
 
 在内容规模较小时，直接编辑 JSON 和 Markdown 文件是可以接受的，但随着内容不断增加，这种方式会越来越不方便。与此同时，这个作品集并不需要传统的生产环境 CMS。内容更新频率相对较低，而且这些内容本来就适合与应用代码放在一起。引入数据库、身份验证系统、托管 CMS 和永久写入 API 会增加额外的基础设施，而带来的价值有限，成本却较高。因此，我的目标是在保留将内容存储在 GitHub 中这些优点的同时，提供一个更方便的编辑流程。
 
@@ -113,7 +112,7 @@ JSON / Markdown
 
 **Accessibility:** 94
 
-- 背景色与前景色之间的对比度不足。
+* 背景色与前景色之间的对比度不足。
 
 **Best Practices:** 100
 
@@ -137,11 +136,11 @@ JSON / Markdown
 
 **Performance:** 97
 
-- 有一部分 JavaScript 没有被使用。
+* 有一部分 JavaScript 没有被使用。
 
 **Accessibility:** 96
 
-- 背景色与前景色之间的对比度不足。
+* 背景色与前景色之间的对比度不足。
 
 **Best Practices:** 100
 
@@ -173,6 +172,111 @@ Trial 模式用于展示我开发的 CMS。在 Astro 版本中，这个功能相
 
 共享 UI 系统让项目中的主题、CSS 样式和可复用 UI 元素更容易统一维护。
 
+项目中的 UI 样式遵循明确的职责划分：
+
+```text
+shadcn/ui
+└── UI primitives
+
+Tailwind CSS
+├── Component styling
+├── Page layout
+├── Responsive behavior
+└── Local visual adjustments
+
+CSS variables
+├── Design tokens
+├── Colors
+├── Typography scale
+├── Spacing
+└── Responsive sizing
+
+普通 CSS
+├── Tailwind 不适合处理的特殊 CSS 能力
+├── 需要 selector 的动态内容
+└── Markdown typography
+```
+
+简单来说：
+
+> **shadcn/ui 管 UI primitives；Tailwind CSS 管 component 和 layout；CSS variables 管 design tokens；普通 CSS 只处理 Tailwind 不擅长，或者动态内容必须依赖 selector 的情况。**
+
+这样可以避免把页面布局、设计系统和基础 UI 组件的职责混在一起。
+
+例如，Button、Input、Card、Badge 和 Checkbox 等基础 UI 元素由 shadcn/ui primitive 负责；具体页面中的 Grid、Flex、Spacing 和 Responsive Layout 则使用 Tailwind；颜色、字体大小、间距尺度和响应式尺寸等设计规则通过 CSS variables 统一维护。
+
+项目同时遵循 **DRY（Don't Repeat Yourself）** 原则，将真正共享的知识和行为保持在单一事实来源中。
+
+这里的 **Knowledge** 和 **Behavior** 分别表示：
+
+* **Knowledge（知识）**：系统需要知道的规则、定义、配置和事实。
+* **Behavior（行为）**：系统执行某项操作时需要复用的逻辑或处理过程。
+
+例如，项目支持哪些语言属于 Knowledge：
+
+```ts
+export const locales = ["en", "sv", "zh"] as const;
+
+export type Locale = (typeof locales)[number];
+```
+
+如果在多个文件中分别写：
+
+```ts
+["en", "sv", "zh"]
+```
+
+以及：
+
+```ts
+type Locale = "en" | "sv" | "zh";
+```
+
+那么“系统支持哪些语言”这一份知识就出现了多个来源。
+
+通过让 `Locale` 类型直接从 `locales` 推导，可以让支持语言的定义保持为单一事实来源。
+
+Behavior 则更偏向可复用逻辑。
+
+例如，把逗号分隔的字符串转换成数组：
+
+```ts
+export function parseCommaList(value: string) {
+  return value
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+```
+
+如果 CV editor 和 Project editor 都需要相同的处理逻辑，它们会共享这个 utility，而不是分别实现相同的代码。
+
+项目中的 DRY 主要应用于这些真正共享的 Knowledge 和 Behavior，例如：
+
+* Locale metadata 和 Locale type 集中维护
+* Dashboard 中共享的表单 Field 结构
+* 逗号分隔内容的共享解析逻辑
+* Technology Badge 的共享语义组件
+* Dashboard navigation 的共享 active/inactive variants
+* Design tokens 的统一定义
+* shadcn/ui primitive 中共享的 control styles 和 variants
+
+不过，DRY 并不意味着必须消除所有看起来重复的代码。
+
+例如两个不同组件可能都包含：
+
+```tsx
+<div className="flex flex-wrap gap-2">
+```
+
+如果它们表达的是不同的业务或设计概念，而且未来可能独立变化，那么没有必要仅仅因为 Tailwind class 相同就抽成一个共享组件。
+
+因此，这个项目对 DRY 的理解是：
+
+> **避免重复维护相同的知识和行为，而不是机械地消除所有重复代码。**
+
+这样既能保持单一事实来源，也可以避免为了追求 DRY 而产生过度抽象。
+
 ### 将内容保存在 Git 中
 
 Markdown 和 JSON 仍然是唯一事实来源。
@@ -203,12 +307,12 @@ Vercel 部署
 
 这种方式可以提供：
 
-- 完整历史记录
-- 方便回滚
-- 可审查的内容修改
-- 不需要 CMS 数据库
-- 不需要单独的内容备份方案
-- 可移植的 Markdown 和 JSON
+* 完整历史记录
+* 方便回滚
+* 可审查的内容修改
+* 不需要 CMS 数据库
+* 不需要单独的内容备份方案
+* 可移植的 Markdown 和 JSON
 
 ### 避免使用生产环境 CMS 数据库
 
@@ -216,12 +320,12 @@ Vercel 部署
 
 因此，如果加入生产环境 CMS 数据库，就会增加：
 
-- 额外的基础设施
-- 身份验证需求
-- API 管理
-- 数据库托管
-- 内容同步问题
-- 更多运维复杂度
+* 额外的基础设施
+* 身份验证需求
+* API 管理
+* 数据库托管
+* 内容同步问题
+* 更多运维复杂度
 
 但对于目前的使用场景来说，这些额外投入并不能带来足够的价值。
 
