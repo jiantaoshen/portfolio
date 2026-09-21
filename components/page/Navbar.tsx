@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { Menu } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { PageContainer } from "@/components/layout/page-container";
-import LanguageSwitcher from "@/components/page/LanguageSwitcher";
-import { navLinkActive, navLinkBase } from "@/components/page/navigation-styles";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { navLinkActive, navLinkBase } from "./navigation-styles";
 import { buttonVariants } from "@/components/ui/button";
 import {
   Sheet,
@@ -46,7 +47,11 @@ function getServerHashSnapshot() {
 
 export default function Navbar({ locale }: NavbarProps) {
   const about = useTranslations("about");
-  const [observedSection, setObservedSection] = useState<SectionId | null>(null);
+  const pathname = usePathname();
+  const [observed, setObserved] = useState<{
+    pathname: string;
+    section: SectionId;
+  } | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const hash = useSyncExternalStore(
@@ -55,8 +60,12 @@ export default function Navbar({ locale }: NavbarProps) {
     getServerHashSnapshot,
   );
 
+  const observedSection = observed?.pathname === pathname ? observed.section : null;
   const hashSection = isSectionId(hash) ? hash : null;
-  const activeSection = observedSection ?? hashSection ?? "skills";
+  const routeSection: SectionId | null = pathname.includes("/projects/")
+    ? "projects"
+    : null;
+  const activeSection = observedSection ?? hashSection ?? routeSection ?? "skills";
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -68,7 +77,7 @@ export default function Navbar({ locale }: NavbarProps) {
         const id = visible[0]?.target.id;
 
         if (id && isSectionId(id)) {
-          setObservedSection(id);
+          setObserved({ pathname, section: id });
         }
       },
       {
@@ -84,7 +93,7 @@ export default function Navbar({ locale }: NavbarProps) {
 
     function handleHashChange() {
       const id = window.location.hash.replace("#", "");
-      if (isSectionId(id)) setObservedSection(id);
+      if (isSectionId(id)) setObserved({ pathname, section: id });
     }
 
     window.addEventListener("hashchange", handleHashChange);
@@ -93,7 +102,7 @@ export default function Navbar({ locale }: NavbarProps) {
       observer.disconnect();
       window.removeEventListener("hashchange", handleHashChange);
     };
-  }, []);
+  }, [pathname]);
 
   function closeMobileMenu() {
     setMobileOpen(false);
