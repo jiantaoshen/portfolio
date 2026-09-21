@@ -43,7 +43,7 @@ export default async function localeLayout({children, params}: LocaleLayoutProps
   }
 
   return (
-    <html lang={locale}>
+    <html lang={locale} data-scroll-behavior="smooth">
       <body>
         <NextIntlClientProvider>
         <div className="flex min-h-screen w-full flex-col">
