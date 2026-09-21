@@ -5,7 +5,7 @@
   },
   "about": {
     "introduction": "个人介绍",
-    "description": "专注于后端的软件开发者，拥有机器人学硕士学位，致力于构建可靠的软件产品，将复杂系统和 AI 能力转化为实用的软件。"
+    "description": "全栈软件开发者，拥有机器人学硕士学位，致力于构建可靠的软件产品，将复杂系统和 AI 能力转化为实用的软件。"
   },
   "projects": {
     "title": "项目"
@@ -20,7 +20,9 @@
           "React",
           "TypeScript",
           "Tailwind CSS",
-          "HTML"
+          "HTML",
+          "CSS",
+          "JavaScript"
         ]
       },
       {

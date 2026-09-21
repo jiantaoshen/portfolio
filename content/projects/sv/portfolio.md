@@ -1,16 +1,16 @@
 ---
 lang: sv
-title: Utvecklarportfölj
+title: Portfölj
 description: >-
   En flerspråkig portfölj och ett lättviktigt Git-baserat
   innehållshanteringssystem (CMS) med ett offentligt CMS-testläge och lokal
   redigering av källinnehåll.
 status: Live
-order: 0
+order: 3
 technologies:
-  - Next.js 16
+  - Next.js
   - TypeScript
-  - Tailwind CSS v4
+  - Tailwind CSS
   - shadcn/ui
   - next-intl
   - GitHub

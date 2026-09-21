@@ -1,15 +1,15 @@
 ---
 lang: en
-title: Developer Portfolio
+title: Portfolio
 description: >-
   A multilingual portfolio and lightweight Git-based content management system
   (CMS) with a public CMS trial and local-only source content editing.
 status: Live
 order: 2
 technologies:
-  - Next.js 16
+  - Next.js
   - TypeScript
-  - Tailwind CSS v4
+  - Tailwind CSS
   - shadcn/ui
   - next-intl
   - GitHub

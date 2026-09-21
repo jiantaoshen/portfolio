@@ -5,7 +5,7 @@
   },
   "about": {
     "introduction": "Introduktion",
-    "description": "Backendfokuserad mjukvaruutvecklare med en masterexamen i robotik, med fokus på att bygga pålitliga produkter som omvandlar komplexa system och AI-funktioner till praktisk mjukvara."
+    "description": "Fullstack mjukvaruutvecklare med en masterexamen i robotik, med fokus på att bygga pålitliga produkter som omvandlar komplexa system och AI-funktioner till praktisk mjukvara."
   },
   "projects": {
     "title": "Projekt"
@@ -20,7 +20,9 @@
           "React",
           "TypeScript",
           "Tailwind CSS",
-          "HTML"
+          "HTML",
+          "CSS",
+          "JavaScript"
         ]
       },
       {

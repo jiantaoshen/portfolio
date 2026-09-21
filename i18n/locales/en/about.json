@@ -5,7 +5,7 @@
   },
   "about": {
     "introduction": "Introduction",
-    "description": "Backend-focused software developer with an M.Sc. in Robotics, interested in building reliable products that turn complex systems and AI capabilities into practical software."
+    "description": "Full stack developer with an M.Sc. in Robotics, interested in building reliable products that turn complex systems and AI capabilities into practical software."
   },
   "projects": {
     "title": "Projects"
@@ -20,7 +20,9 @@
           "React",
           "TypeScript",
           "Tailwind CSS",
-          "HTML"
+          "HTML",
+          "CSS",
+          "JavaScript"
         ]
       },
       {
