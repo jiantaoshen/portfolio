@@ -29,9 +29,9 @@ draft: false
 
 ## Projektöversikt
 
-Price Watch är ett personligt prisbevakningssystem för produkter och abonnemang. Systemet kombinerar en molnbaserad webbapplikation med en lokal och privat scraper.
+Price Watch är ett personligt prisbevakningssystem för produkter och abonnemang. Systemet kombinerar en molnbaserad webbapplikation med ett lokalt och privat scraper-flöde.
 
-Webbappen används för att hantera bevakade objekt, granska prisändringar och visa prishistorik. Automatisk prisinsamling körs lokalt med Python och Playwright.
+Molnappen används för att hantera bevakade objekt, granskningsflöden och prishistorik. En separat lokal/private webbapp används för scraper-körningar och schemaläggning. De två frontend-apparna är separata men delar gemensam UI, design, formattering och HTTP-infrastruktur genom workspace-paket.
 
 ## Problem att lösa
 
@@ -41,11 +41,13 @@ Price Watch normaliserar priser efter kvantitet, sparar historiska förändringa
 
 ## Lösning
 
-Systemet separerar den publika applikationen från lokal webbläsarautomation.
+Systemet separerar den publika molnapplikationen från lokal webbläsarautomation, samtidigt som gemensamma frontend-grunder delas.
 
-Next.js kommunicerar med ett autentiserat ASP.NET Core API. API:t använder EF Core och Npgsql för att läsa och skriva data i Neon PostgreSQL. Den lokala tjänsten `PriceWatch.Private` startar Python Playwright-scrapern och skriver tillbaka godkända resultat till databasen.
+Molnappen i Next.js kommunicerar med ett autentiserat ASP.NET Core API. API:t använder EF Core och Npgsql för att läsa och skriva data i Neon PostgreSQL.
 
-Produktion och utveckling använder separata Neon-brancher.
+En separat lokal `private-web`-app kommunicerar med `PriceWatch.Private`, som startar Python Playwright-scrapern och skriver tillbaka godkända resultat till samma produktionsdatabas.
+
+De två frontend-apparna delar återanvändbara paket för designsystem, UI-komponenter, formatteringshjälpare och HTTP-transport.
 
 ## Kärnfunktioner
 
@@ -77,25 +79,29 @@ Python och Playwright körs endast lokalt. Det molnbaserade Web API:t styr inte 
 
 ### Separera moln och privata komponenter
 
-Det publika API:t är stateless och körs i molnet, medan webbläsarautomation stannar på en betrodd lokal dator.
+Molnapplikationen kan driftsättas oberoende, medan scraper-orkestrering och webbläsarautomation stannar på en betrodd lokal dator.
+
+### Delade frontend-grunder
+
+Moln- och private-frontend är separata applikationer, men de delar samma designsystem, återanvändbara UI-komponenter, formatteringshjälpare och HTTP-transport genom npm workspaces.
 
 ### Konsekvent prisjämförelse
 
 Systemet lagrar både råpris och kvantitet och jämför objekt med hjälp av normaliserat enhetspris.
 
-### Separata databasmiljöer
+### En gemensam produktionsdatabas
 
-Produktionstjänster använder Neon production-branch, medan lokal utveckling använder en separat dev-branch så att testdata inte påverkar riktig data.
+Molntjänster och lokala produktionskomponenter använder samma Neon production-databas. Lokal utveckling hålls medvetet enkel och använder samma datakälla.
 
 ## Driftsättning
 
-Next.js-frontend körs på Vercel.
+Molnfrontend i Next.js körs på Vercel.
 
 ASP.NET Core Web API körs på Azure App Service.
 
 PostgreSQL hostas på Neon.
 
-`PriceWatch.Private` och Python Playwright-scrapern körs lokalt och ansluter till produktionsdatabasen vid riktig prisinsamling.
+`private-web`, `PriceWatch.Private` och Python Playwright-scrapern körs lokalt och ansluter till produktionsdatabasen.
 
 ## Framtida uppdateringar
 
@@ -105,4 +111,4 @@ Fortsatt arbete fokuserar på bättre scraper-stabilitet, granskningsflöden, no
 
 ### Projektbakgrund
 
-Price Watch är ett personligt projekt som underhålls löpande. Det löser ett verkligt behov av prisbevakning och ger samtidigt praktisk erfarenhet av molndrift, autentisering, PostgreSQL, automation och underhåll av ett system med flera runtimes.
+Price Watch är ett personligt projekt som underhålls löpande. Det löser ett verkligt behov av prisbevakning och ger samtidigt praktisk erfarenhet av molndrift, autentisering, PostgreSQL, webbläsarautomation, delad frontend-arkitektur och underhåll av ett system med flera runtimes.

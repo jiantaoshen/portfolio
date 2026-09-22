@@ -29,9 +29,9 @@ draft: false
 
 ## Project Overview
 
-Price Watch is a personal price-tracking system for products and subscriptions. It combines a cloud web application with a local/private scraper runner.
+Price Watch is a personal price-tracking system for products and subscriptions. It combines a cloud web application with a local/private scraper workflow.
 
-The main web app is built with Next.js and ASP.NET Core, stores data in PostgreSQL on Neon, and uses Microsoft Entra authentication. Automated scraping runs locally through Python and Playwright.
+The cloud app manages tracked items, review workflows, and price history. A separate local/private app is used for scraper operations and scheduling. Both frontends remain separate applications while sharing common UI, design, formatting, and HTTP infrastructure through workspace packages.
 
 ## Problem to Solve
 
@@ -41,11 +41,13 @@ Price Watch normalizes prices by quantity, tracks historical changes, supports m
 
 ## Solution
 
-The system separates the public application from local browser automation.
+The system separates the public cloud application from local browser automation while sharing common frontend foundations.
 
-Next.js communicates with the authenticated ASP.NET Core API. The API uses EF Core and Npgsql to read and write Neon PostgreSQL. A separate local `PriceWatch.Private` service runs the Python Playwright scraper and writes accepted results back to the same database.
+The cloud Next.js app communicates with the authenticated ASP.NET Core API. The API uses EF Core and Npgsql to read and write Neon PostgreSQL.
 
-Production and development use separate Neon branches.
+A separate local `private-web` app communicates with `PriceWatch.Private`, which runs the Python Playwright scraper and writes accepted results to the same production database.
+
+The two frontend applications share reusable packages for the design system, UI components, formatting helpers, and HTTP transport.
 
 ## Core Features
 
@@ -77,25 +79,29 @@ Python and Playwright run only on the local machine. The cloud Web API does not 
 
 ### Separating Cloud and Private Components
 
-The public API remains stateless and cloud-hosted, while scraping and browser automation stay on a trusted local machine.
+The cloud application remains independently deployable, while scraper orchestration and browser automation stay on a trusted local machine.
+
+### Shared Frontend Foundations
+
+The cloud and private frontends remain separate applications, but they share the same design system, reusable UI components, formatting helpers, and HTTP transport through npm workspaces.
 
 ### Consistent Price Comparison
 
 The system stores raw price and quantity together and compares items using normalized unit prices.
 
-### Database Environment Separation
+### Single Production Database
 
-Production services use the Neon production branch. Local development uses a separate development branch so test data does not affect real data.
+Cloud and local production services use the same Neon production database. Local development is intentionally kept simple and uses the same source of truth.
 
 ## Deployment
 
-The Next.js frontend is deployed to Vercel.
+The cloud Next.js frontend is deployed to Vercel.
 
 The ASP.NET Core Web API runs on Azure App Service.
 
 PostgreSQL is hosted on Neon.
 
-`PriceWatch.Private` and the Python Playwright scraper run locally and connect to the production database for real price collection.
+`private-web`, `PriceWatch.Private`, and the Python Playwright scraper run locally and connect to the production database.
 
 ## Future Updates
 
@@ -105,4 +111,4 @@ Future work will focus on improving scraper reliability, review workflows, notif
 
 ### Project Background
 
-Price Watch is a personal-use project and an ongoing full-stack engineering project. It is designed to solve a real recurring need while providing practical experience with cloud deployment, authentication, PostgreSQL, background automation, and maintaining a system across multiple runtimes.
+Price Watch is a personal-use project and an ongoing full-stack engineering project. It is designed to solve a real recurring need while providing practical experience with cloud deployment, authentication, PostgreSQL, browser automation, shared frontend architecture, and maintaining a system across multiple runtimes.
