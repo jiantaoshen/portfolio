@@ -2,18 +2,15 @@
   "buttons": {
     "linkedin": "Linkedin",
     "github": "GitHub",
-    "caseStudy": "View Case Study",
-    "liveDemo": "Live Demo"
+    "liveDemo": "Live Demo",
+    "viewProjects": "View Projects"
   },
-
   "language": {
     "english": "English",
     "swedish": "Svenska",
     "chinese": "中文"
   },
-
   "rights": "All rights reserved.",
-
   "notFound": {
     "title": "This page doesn't exist.",
     "description": "The page may have been moved, removed or the address may be incorrect.",

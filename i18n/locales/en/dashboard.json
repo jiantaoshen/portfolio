@@ -5,40 +5,29 @@
   },
   "nav": {
     "cv": "CV / About",
-    "projects": "Projects",
     "portfolio": "Portfolio home"
   },
   "status": {
     "trial": "Trial",
     "local": "Local"
   },
-  "tabs": {
-    "edit": "Edit",
-    "preview": "Preview"
-  },
   "contentLanguage": {
     "label": "Content language"
   },
   "actions": {
-    "save": "Save",
     "saving": "Saving...",
     "delete": "Delete",
     "newProject": "New project",
     "resetDemo": "Reset demo",
     "dismiss": "Dismiss error",
     "applyLocally": "Apply locally",
-    "saveLanguage": "Save {language}",
-    "applyInDemo": "Apply in demo",
-    "saveMarkdown": "Save Markdown file",
-    "copyMarkdown": "Copy body Markdown",
-    "removeFromDemo": "Remove from demo",
-    "deleteSource": "Delete source file"
+    "saveLanguage": "Save {language}"
   },
   "notices": {
     "trialTitle": "Demo mode.",
     "trialDescription": "You are editing a temporary browser copy of public portfolio content. No write request is sent to the backend.",
     "localTitle": "Local editor.",
-    "localDescription": "Saves write directly to portfolio JSON and Markdown source files. Review the Git diff before committing and pushing."
+    "localDescription": "Saves write directly to the portfolio JSON source files. Review the Git diff before committing and pushing."
   },
   "errors": {
     "loadFailed": "Failed to load content.",
@@ -46,9 +35,12 @@
   },
   "cv": {
     "title": "CV / About",
-    "description": "Each language keeps its own editor state, matching the three About JSON files directly.",
+    "description": "Each language has one About JSON file containing the introduction, projects, skills, and education.",
     "introduction": {
-      "title": "Introduction"
+      "title": "Introduction",
+      "titleBefore": "Hero text before name",
+      "titleHighlight": "Highlighted name",
+      "description": "Introduction"
     },
     "skills": {
       "title": "Skills",
@@ -68,38 +60,24 @@
       "thesis": "Thesis (optional)",
       "thesisUrl": "Thesis URL (optional)",
       "delete": "Delete education item"
-    }
+    },
+    "sectionTitle": "Section title"
   },
   "projects": {
     "title": "Projects",
-    "empty": "No {language} projects yet. Create one from the sidebar.",
-    "opening": "Opening the first project...",
-    "untitled": "Untitled project",
-    "demoCopy": "Browser-only demo copy.",
-    "source": "Source: {sourceId}",
-    "confirmDelete": "Delete source file {sourceId}?",
     "fields": {
       "title": "Title",
-      "slug": "Slug",
       "status": "Project status",
-      "language": "Language",
       "summary": "Description / summary",
       "technologies": "Technologies (comma separated)",
       "githubUrl": "GitHub URL",
-      "liveUrl": "Live URL",
-      "sortOrder": "Display order",
-      "published": "Published (`draft: false`)",
-      "markdown": "Content (Markdown)"
+      "liveUrl": "Live URL"
     },
     "placeholders": {
       "status": "Live"
-    },
-    "preview": {
-      "published": "Published"
     }
   },
-
   "interfaceLanguage": {
-  "label": "Interface language"
-}
+    "label": "Interface language"
+  }
 }

@@ -4,11 +4,53 @@
     "titleHighlight": "沈键涛"
   },
   "about": {
-    "introduction": "个人介绍",
     "description": "全栈软件开发者，拥有机器人学硕士学位，致力于构建可靠的软件产品，将复杂系统和 AI 能力转化为实用的软件。"
   },
   "projects": {
-    "title": "项目"
+    "title": "项目",
+    "items": [
+      {
+        "title": "Price Watch",
+        "description": "一个面向商品与订阅的个人价格追踪系统，支持多来源价格比较、标准化价格、价格历史、审核流程和本地自动抓取。",
+        "status": "Live",
+        "technologies": [
+          "Next.js",
+          "TypeScript",
+          "Tailwind CSS",
+          "shadcn UI",
+          "ASP.NET Core",
+          ".NET 10",
+          "PostgreSQL",
+          "Neon",
+          "EF Core",
+          "Npgsql",
+          "Microsoft Entra",
+          "MSAL",
+          "Python",
+          "Playwright",
+          "Azure App Service",
+          "Vercel"
+        ],
+        "githubUrl": "https://github.com/jiantaoshen/PriceWatch",
+        "liveUrl": "https://pricewatch.jiantao.dev"
+      },
+      {
+        "title": "个人网页",
+        "description": "使用 Next.js、TypeScript、Tailwind CSS、shadcn/ui 和 next-intl 构建的多语言个人作品集。",
+        "status": "Live",
+        "technologies": [
+          "Next.js",
+          "TypeScript",
+          "Tailwind CSS",
+          "shadcn/ui",
+          "next-intl",
+          "GitHub",
+          "Vercel"
+        ],
+        "githubUrl": "https://github.com/jiantaoshen/portfolio",
+        "liveUrl": "https://www.jiantao.dev"
+      }
+    ]
   },
   "skills": {
     "title": "技术能力",

@@ -22,6 +22,7 @@ import { LocaleSwitcher } from "../components/dashboard/locale-switcher";
 import type {
   AboutContent,
   AboutEducationItem,
+  AboutProject,
   AboutSkillGroup,
   Locale,
 } from "../lib/types";
@@ -44,6 +45,17 @@ function blankEducation(): AboutEducationItem {
     description: "",
     thesis: "",
     thesisUrl: "",
+  };
+}
+
+function blankProject(): AboutProject {
+  return {
+    title: "",
+    description: "",
+    status: "Live",
+    technologies: [],
+    githubUrl: "",
+    liveUrl: "",
   };
 }
 
@@ -82,6 +94,28 @@ export function CvEditorPage() {
       skills: {
         ...current.skills,
         items: current.skills.items.filter((_, i) => i !== index),
+      },
+    }));
+  }
+
+  function updateProject(index: number, next: AboutProject) {
+    setDraft((current) => ({
+      ...current,
+      projects: {
+        ...current.projects,
+        items: current.projects.items.map((project, i) =>
+          i === index ? next : project,
+        ),
+      },
+    }));
+  }
+
+  function removeProject(index: number) {
+    setDraft((current) => ({
+      ...current,
+      projects: {
+        ...current.projects,
+        items: current.projects.items.filter((_, i) => i !== index),
       },
     }));
   }
@@ -129,20 +163,106 @@ export function CvEditorPage() {
           <CardTitle>{t("cv.introduction.title")}</CardTitle>
         </CardHeader>
 
-        <CardContent className="space-y-4">
-          <Textarea
-            rows={8}
-            value={draft.about.description}
-            onChange={(event) =>
+        <CardContent className="grid gap-4 md:grid-cols-2">
+          <Field label={t("cv.introduction.titleBefore")}>
+            <Input
+              value={draft.hero.titleBefore}
+              onChange={(event) =>
+                setDraft((current) => ({
+                  ...current,
+                  hero: {
+                    ...current.hero,
+                    titleBefore: event.target.value,
+                  },
+                }))
+              }
+            />
+          </Field>
+
+          <Field label={t("cv.introduction.titleHighlight")}>
+            <Input
+              value={draft.hero.titleHighlight}
+              onChange={(event) =>
+                setDraft((current) => ({
+                  ...current,
+                  hero: {
+                    ...current.hero,
+                    titleHighlight: event.target.value,
+                  },
+                }))
+              }
+            />
+          </Field>
+
+          <div className="md:col-span-2">
+            <Field label={t("cv.introduction.description")}>
+              <Textarea
+                rows={8}
+                value={draft.about.description}
+                onChange={(event) =>
+                  setDraft((current) => ({
+                    ...current,
+                    about: {
+                      ...current.about,
+                      description: event.target.value,
+                    },
+                  }))
+                }
+              />
+            </Field>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader className="gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <CardTitle>{t("projects.title")}</CardTitle>
+
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() =>
               setDraft((current) => ({
                 ...current,
-                about: {
-                  ...current.about,
-                  description: event.target.value,
+                projects: {
+                  ...current.projects,
+                  items: [...current.projects.items, blankProject()],
                 },
               }))
             }
-          />
+          >
+            <Plus className="mr-2 size-4" />
+            {t("actions.newProject")}
+          </Button>
+        </CardHeader>
+
+        <CardContent className="space-y-4">
+          <Field label={t("cv.sectionTitle")}>
+            <Input
+              value={draft.projects.title}
+              onChange={(event) =>
+                setDraft((current) => ({
+                  ...current,
+                  projects: {
+                    ...current.projects,
+                    title: event.target.value,
+                  },
+                }))
+              }
+            />
+          </Field>
+
+          <div className="grid gap-4 xl:grid-cols-2">
+            {draft.projects.items.map((project, index) => (
+              <ProjectEditor
+                key={`${locale}-${project.title}-${index}`}
+                project={project}
+                onChange={(next) => updateProject(index, next)}
+                onDelete={() => removeProject(index)}
+              />
+            ))}
+          </div>
         </CardContent>
       </Card>
 
@@ -169,7 +289,22 @@ export function CvEditorPage() {
           </Button>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="space-y-4">
+          <Field label={t("cv.sectionTitle")}>
+            <Input
+              value={draft.skills.title}
+              onChange={(event) =>
+                setDraft((current) => ({
+                  ...current,
+                  skills: {
+                    ...current.skills,
+                    title: event.target.value,
+                  },
+                }))
+              }
+            />
+          </Field>
+
           <div className="grid gap-4 xl:grid-cols-2">
             {draft.skills.items.map((group, index) => (
               <SkillGroupEditor
@@ -206,7 +341,22 @@ export function CvEditorPage() {
           </Button>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="space-y-4">
+          <Field label={t("cv.sectionTitle")}>
+            <Input
+              value={draft.education.title}
+              onChange={(event) =>
+                setDraft((current) => ({
+                  ...current,
+                  education: {
+                    ...current.education,
+                    title: event.target.value,
+                  },
+                }))
+              }
+            />
+          </Field>
+
           <div className="space-y-4">
             {draft.education.items.map((item, index) => (
               <EducationEditor
@@ -248,6 +398,125 @@ export function CvEditorPage() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+function ProjectEditor({
+  project,
+  onChange,
+  onDelete,
+}: {
+  project: AboutProject;
+  onChange: (next: AboutProject) => void;
+  onDelete: () => void;
+}) {
+  const t = useTranslations("dashboard");
+  const [itemsText, setItemsText] = useState(project.technologies.join(", "));
+  const [editingItems, setEditingItems] = useState(false);
+  const itemsValue = project.technologies.join(", ");
+
+  return (
+    <Card className="bg-background">
+      <CardContent className="grid gap-4 p-4 md:grid-cols-2">
+        <Field label={t("projects.fields.title")}>
+          <Input
+            value={project.title}
+            onChange={(event) =>
+              onChange({
+                ...project,
+                title: event.target.value,
+              })
+            }
+          />
+        </Field>
+
+        <Field label={t("projects.fields.status")}>
+          <Input
+            value={project.status}
+            onChange={(event) =>
+              onChange({
+                ...project,
+                status: event.target.value,
+              })
+            }
+            placeholder={t("projects.placeholders.status")}
+          />
+        </Field>
+
+        <div className="md:col-span-2">
+          <Field label={t("projects.fields.summary")}>
+            <Textarea
+              rows={3}
+              value={project.description}
+              onChange={(event) =>
+                onChange({
+                  ...project,
+                  description: event.target.value,
+                })
+              }
+            />
+          </Field>
+        </div>
+
+        <div className="md:col-span-2">
+          <Field label={t("projects.fields.technologies")}>
+            <Input
+              value={editingItems ? itemsText : itemsValue}
+              onFocus={() => {
+                setItemsText(itemsValue);
+                setEditingItems(true);
+              }}
+              onBlur={() => setEditingItems(false)}
+              onChange={(event) => {
+                const value = event.target.value;
+                setItemsText(value);
+                onChange({
+                  ...project,
+                  technologies: parseCommaList(value),
+                });
+              }}
+            />
+          </Field>
+        </div>
+
+        <Field label={t("projects.fields.githubUrl")}>
+          <Input
+            value={project.githubUrl}
+            onChange={(event) =>
+              onChange({
+                ...project,
+                githubUrl: event.target.value,
+              })
+            }
+          />
+        </Field>
+
+        <Field label={t("projects.fields.liveUrl")}>
+          <Input
+            value={project.liveUrl}
+            onChange={(event) =>
+              onChange({
+                ...project,
+                liveUrl: event.target.value,
+              })
+            }
+          />
+        </Field>
+
+        <div className="md:col-span-2">
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+            onClick={onDelete}
+          >
+            <Trash2 className="mr-2 size-4" />
+            {t("actions.delete")}
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 
