@@ -4,11 +4,53 @@
     "titleHighlight": "Jiantao Shen"
   },
   "about": {
-    "introduction": "Introduction",
     "description": "Full stack developer with an M.Sc. in Robotics, interested in building reliable products that turn complex systems and AI capabilities into practical software."
   },
   "projects": {
-    "title": "Projects"
+    "title": "Projects",
+    "items": [
+      {
+        "title": "Price Watch",
+        "description": "A personal price-tracking system for products and subscriptions with multi-source comparison, price history, review workflows, and automated scraping.",
+        "status": "Live",
+        "technologies": [
+          "Next.js",
+          "TypeScript",
+          "Tailwind CSS",
+          "shadcn UI",
+          "ASP.NET Core",
+          ".NET 10",
+          "PostgreSQL",
+          "Neon",
+          "EF Core",
+          "Npgsql",
+          "Microsoft Entra",
+          "MSAL",
+          "Python",
+          "Playwright",
+          "Azure App Service",
+          "Vercel"
+        ],
+        "githubUrl": "https://github.com/jiantaoshen/PriceWatch",
+        "liveUrl": "https://pricewatch.jiantao.dev"
+      },
+      {
+        "title": "Portfolio",
+        "description": "A multilingual personal portfolio built with Next.js, TypeScript, Tailwind CSS, shadcn/ui, and next-intl.",
+        "status": "Live",
+        "technologies": [
+          "Next.js",
+          "TypeScript",
+          "Tailwind CSS",
+          "shadcn/ui",
+          "next-intl",
+          "GitHub",
+          "Vercel"
+        ],
+        "githubUrl": "https://github.com/jiantaoshen/portfolio",
+        "liveUrl": "https://www.jiantao.dev"
+      }
+    ]
   },
   "skills": {
     "title": "Skills",

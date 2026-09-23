@@ -2,18 +2,15 @@
   "buttons": {
     "linkedin": "Linkedin",
     "github": "GitHub",
-    "caseStudy": "查看案例",
-    "liveDemo": "Live Demo"
+    "liveDemo": "Live Demo",
+    "viewProjects": "查看项目"
   },
-
   "language": {
     "english": "English",
     "swedish": "Svenska",
     "chinese": "中文"
   },
-
   "rights": "保留所有权利。",
-
   "notFound": {
     "title": "这个页面不存在。",
     "description": "页面可能已经移动、删除，或者当前地址不正确。",

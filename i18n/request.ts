@@ -17,7 +17,7 @@ export default getRequestConfig(async ({locale: overrideLocale}) => {
         : routing.defaultLocale;
 
 
-    const [about, common, project, dashboard] =
+    const [about, common, dashboard] =
       await Promise.all([
         import(
           `./locales/${locale}/about.json`
@@ -25,10 +25,6 @@ export default getRequestConfig(async ({locale: overrideLocale}) => {
 
         import(
           `./locales/${locale}/common.json`
-        ),
-
-        import(
-          `./locales/${locale}/project.json`
         ),
         
         import(
@@ -45,7 +41,6 @@ export default getRequestConfig(async ({locale: overrideLocale}) => {
 
         common: common.default,
 
-        project: project.default,
 
         dashboard: dashboard.default,
       },

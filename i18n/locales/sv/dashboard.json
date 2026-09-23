@@ -5,40 +5,29 @@
   },
   "nav": {
     "cv": "CV / Om",
-    "projects": "Projekt",
     "portfolio": "Till portfolio"
   },
   "status": {
     "trial": "Test",
     "local": "Lokal"
   },
-  "tabs": {
-    "edit": "Redigera",
-    "preview": "Förhandsgranska"
-  },
   "contentLanguage": {
     "label": "Innehållsspråk"
   },
   "actions": {
-    "save": "Spara",
     "saving": "Sparar...",
     "delete": "Ta bort",
     "newProject": "Nytt projekt",
     "resetDemo": "Återställ demo",
     "dismiss": "Stäng felmeddelande",
     "applyLocally": "Tillämpa lokalt",
-    "saveLanguage": "Spara {language}",
-    "applyInDemo": "Tillämpa i demon",
-    "saveMarkdown": "Spara Markdown-fil",
-    "copyMarkdown": "Kopiera Markdown-innehåll",
-    "removeFromDemo": "Ta bort från demon",
-    "deleteSource": "Ta bort källfil"
+    "saveLanguage": "Spara {language}"
   },
   "notices": {
     "trialTitle": "Demoläge.",
     "trialDescription": "Du redigerar en tillfällig webbläsarkopia av portfolions publika innehåll. Ingen skrivförfrågan skickas till backend.",
     "localTitle": "Lokal redigerare.",
-    "localDescription": "Ändringar skrivs direkt till portfolions JSON- och Markdown-filer. Granska Git-diffen innan du committar och pushar."
+    "localDescription": "Ändringar skrivs direkt till portfolions JSON-källfiler. Granska Git-diffen innan du committar och pushar."
   },
   "errors": {
     "loadFailed": "Det gick inte att läsa in innehållet.",
@@ -46,9 +35,12 @@
   },
   "cv": {
     "title": "CV / Om",
-    "description": "Varje språk har sitt eget redigeringsläge och motsvarar direkt de tre About JSON-filerna.",
+    "description": "Varje språk har en About JSON-fil som innehåller introduktion, projekt, kompetenser och utbildning.",
     "introduction": {
-      "title": "Introduktion"
+      "title": "Introduktion",
+      "titleBefore": "Hero-text före namnet",
+      "titleHighlight": "Markerat namn",
+      "description": "Introduktion"
     },
     "skills": {
       "title": "Kompetenser",
@@ -68,37 +60,24 @@
       "thesis": "Examensarbete (valfritt)",
       "thesisUrl": "URL till examensarbete (valfritt)",
       "delete": "Ta bort utbildningspost"
-    }
+    },
+    "sectionTitle": "Sektionsrubrik"
   },
   "projects": {
     "title": "Projekt",
-    "empty": "Inga projekt på {language} ännu. Skapa ett från sidomenyn.",
-    "opening": "Öppnar det första projektet...",
-    "untitled": "Namnlöst projekt",
-    "demoCopy": "Tillfällig demokopia i webbläsaren.",
-    "source": "Källa: {sourceId}",
-    "confirmDelete": "Ta bort källfilen {sourceId}?",
     "fields": {
       "title": "Titel",
-      "slug": "Slug",
       "status": "Projektstatus",
-      "language": "Språk",
       "summary": "Beskrivning / sammanfattning",
       "technologies": "Tekniker (kommaseparerade)",
       "githubUrl": "GitHub-URL",
-      "liveUrl": "Live-URL",
-      "sortOrder": "Visningsordning",
-      "published": "Publicerad (`draft: false`)",
-      "markdown": "Innehåll (Markdown)"
+      "liveUrl": "Live-URL"
     },
     "placeholders": {
       "status": "Live"
-    },
-    "preview": {
-      "published": "Publicerad"
     }
   },
-      "interfaceLanguage": {
-  "label": "Gränssnittsspråk"
-}
+  "interfaceLanguage": {
+    "label": "Gränssnittsspråk"
+  }
 }

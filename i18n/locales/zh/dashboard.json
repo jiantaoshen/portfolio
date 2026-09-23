@@ -5,40 +5,29 @@
   },
   "nav": {
     "cv": "简历 / 关于",
-    "projects": "项目",
     "portfolio": "返回作品集"
   },
   "status": {
     "trial": "体验",
     "local": "本地"
   },
-  "tabs": {
-    "edit": "编辑",
-    "preview": "预览"
-  },
   "contentLanguage": {
     "label": "内容语言"
   },
   "actions": {
-    "save": "保存",
     "saving": "保存中...",
     "delete": "删除",
     "newProject": "新建项目",
     "resetDemo": "重置体验",
     "dismiss": "关闭错误",
     "applyLocally": "应用到本地状态",
-    "saveLanguage": "保存 {language}",
-    "applyInDemo": "应用到体验模式",
-    "saveMarkdown": "保存 Markdown 文件",
-    "copyMarkdown": "复制 Markdown 正文",
-    "removeFromDemo": "从体验模式移除",
-    "deleteSource": "删除源文件"
+    "saveLanguage": "保存 {language}"
   },
   "notices": {
     "trialTitle": "体验模式。",
     "trialDescription": "你正在编辑公开作品集内容的临时浏览器副本，不会向后端发送任何写入请求。",
     "localTitle": "本地编辑器。",
-    "localDescription": "保存操作会直接写入作品集的 JSON 和 Markdown 源文件。提交和推送前请检查 Git diff。"
+    "localDescription": "保存操作会直接写入作品集的 JSON 源文件。提交和推送前请检查 Git diff。"
   },
   "errors": {
     "loadFailed": "内容加载失败。",
@@ -46,9 +35,12 @@
   },
   "cv": {
     "title": "简历 / 关于",
-    "description": "每种语言都有独立的编辑状态，并直接对应三份 About JSON 文件。",
+    "description": "每种语言使用一份 About JSON 文件，统一维护简介、项目、技能和教育经历。",
     "introduction": {
-      "title": "个人简介"
+      "title": "个人简介",
+      "titleBefore": "主页标题前半部分",
+      "titleHighlight": "高亮姓名",
+      "description": "个人简介"
     },
     "skills": {
       "title": "技能",
@@ -68,37 +60,24 @@
       "thesis": "论文（可选）",
       "thesisUrl": "论文链接（可选）",
       "delete": "删除教育经历"
-    }
+    },
+    "sectionTitle": "区块标题"
   },
   "projects": {
     "title": "项目",
-    "empty": "暂无{language}项目，请从侧边栏新建一个。",
-    "opening": "正在打开第一个项目...",
-    "untitled": "未命名项目",
-    "demoCopy": "仅存在于浏览器中的体验副本。",
-    "source": "源文件：{sourceId}",
-    "confirmDelete": "确定删除源文件 {sourceId} 吗？",
     "fields": {
       "title": "标题",
-      "slug": "Slug",
       "status": "项目状态",
-      "language": "语言",
       "summary": "描述 / 摘要",
       "technologies": "技术栈（用逗号分隔）",
       "githubUrl": "GitHub 链接",
-      "liveUrl": "在线链接",
-      "sortOrder": "显示顺序",
-      "published": "已发布（`draft: false`）",
-      "markdown": "内容（Markdown）"
+      "liveUrl": "在线链接"
     },
     "placeholders": {
       "status": "Live"
-    },
-    "preview": {
-      "published": "已发布"
     }
   },
   "interfaceLanguage": {
-  "label": "界面语言"
-}
+    "label": "界面语言"
+  }
 }

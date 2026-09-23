@@ -2,18 +2,15 @@
   "buttons": {
     "linkedin": "Linkedin",
     "github": "GitHub",
-    "caseStudy": "Se projektet",
-    "liveDemo": "Live Demo"
+    "liveDemo": "Live Demo",
+    "viewProjects": "Visa projekt"
   },
-
   "language": {
     "english": "English",
     "swedish": "Svenska",
     "chinese": "中文"
   },
-
   "rights": "Alla rättigheter förbehållna.",
-
   "notFound": {
     "title": "Sidan kunde inte hittas.",
     "description": "Sidan kan ha flyttats, tagits bort eller så är adressen felaktig.",

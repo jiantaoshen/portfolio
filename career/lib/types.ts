@@ -2,62 +2,59 @@ import type { Locale } from "@/lib/locales";
 
 export type { Locale } from "@/lib/locales";
 
-export type DashboardMode = "trial" | "admin"
+export type DashboardMode = "trial" | "admin";
 
 export type AboutSkillGroup = {
-  title: string
-  items: string[]
-}
+  title: string;
+  items: string[];
+};
 
 export type AboutEducationItem = {
-  period: string
-  degree: string
-  school: string
-  description: string
-  thesis?: string
-  thesisUrl?: string
-}
+  period: string;
+  degree: string;
+  school: string;
+  description: string;
+  thesis?: string;
+  thesisUrl?: string;
+};
+
+export type AboutProject = {
+  title: string;
+  description: string;
+  status: string;
+  technologies: string[];
+  githubUrl: string;
+  liveUrl: string;
+};
 
 export type AboutContent = {
+  hero: {
+    titleBefore: string;
+    titleHighlight: string;
+  };
+
   about: {
-    introduction: string
-    description: string
-  }
+    description: string;
+  };
+
+  projects: {
+    title: string;
+    items: AboutProject[];
+  };
 
   skills: {
-    title: string
-    items: AboutSkillGroup[]
-  }
+    title: string;
+    items: AboutSkillGroup[];
+  };
 
   education: {
-    title: string
-    items: AboutEducationItem[]
-  }
-}
+    title: string;
+    items: AboutEducationItem[];
+  };
+};
 
-export type AboutByLocale = Record<Locale, AboutContent>
+export type AboutByLocale = Record<Locale, AboutContent>;
 
-export type Project = {
-  id: string
-  sourceId: string
-  language: Locale
-  title: string
-  slug: string
-  summary: string
-  contentMarkdown: string
-  status: string
-  technologies: string[]
-  githubUrl: string
-  demoUrl: string
-  published: boolean
-  sortOrder: number
-}
-
-
-export type PortfolioContent = {
-  projects: Project[]
-}
-
-export type CareerSnapshot = PortfolioContent & {
-  about: AboutByLocale
-}
+export type CareerSnapshot = {
+  about: AboutByLocale;
+};

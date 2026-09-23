@@ -55,7 +55,7 @@ export default async function Hero({ locale }: HeroProps) {
                   "w-full sm:w-auto",
                 )}
               >
-                {common("buttons.caseStudy")}
+                {common("buttons.viewProjects")}
                 <span aria-hidden="true">↓</span>
               </a>
 
