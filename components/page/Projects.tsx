@@ -51,7 +51,7 @@ export default async function FeaturedProjects({ locale }: FeaturedProjectsProps
                   </h3>
 
                   {project.data.status && (
-                    <Badge variant="secondary" className="font-mono text-xs">
+                    <Badge variant="outline" className="font-mono text-xs">
                       {project.data.status}
                     </Badge>
                   )}

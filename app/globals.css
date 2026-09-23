@@ -7,13 +7,10 @@
    ========================================= */
 
 :root {
-  --brand-dark: #182033;
-  --brand-role: #7196c9;
-  --brand-soft: #dce8f5;
-  --brand-light: #fafbfd;
+  --brand-dark: #020305;
+  --brand-role: #3B82F6;
   --brand-white: #ffffff;
-  --brand-slate: #5f6c84;
-  --brand-slate-muted: #cbd5e1;
+  --brand-slate: #6B7280;
 
   --background: var(--brand-white);
   --foreground: var(--brand-dark);
@@ -23,16 +20,16 @@
   --popover-foreground: var(--brand-dark);
   --primary: var(--brand-role);
   --primary-foreground: var(--brand-white);
-  --secondary: var(--brand-soft);
+  --secondary: var(--brand-slate);
   --secondary-foreground: var(--brand-dark);
-  --muted: var(--brand-light);
+  --muted: var(--brand-white);
   --muted-foreground: var(--brand-slate);
-  --accent: var(--brand-soft);
+  --accent: var(--brand-slate);
   --accent-foreground: var(--brand-dark);
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-  --border: var(--brand-soft);
-  --input: var(--brand-soft);
+  --border: var(--brand-slate);
+  --input: var(--brand-slate);
   --ring: var(--brand-role);
 
   /* =========================================
