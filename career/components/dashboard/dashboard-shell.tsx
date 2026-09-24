@@ -3,35 +3,29 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { FileUser, Home, RotateCcw, X } from "lucide-react";
+import { FileUser, Home, X } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-import type { DashboardMode } from "../../lib/types";
 import { dashboardNavItemVariants } from "./nav-variants";
 import { UiLanguageSwitcher } from "./ui-language-switcher";
 
 interface DashboardShellProps {
-  mode: DashboardMode;
-  onReset?: () => void;
   actionError?: string | null;
   onDismissError?: () => void;
   children: React.ReactNode;
 }
 
 export function DashboardShell({
-  mode,
-  onReset,
   actionError,
   onDismissError,
   children,
 }: DashboardShellProps) {
   const t = useTranslations("dashboard");
   const pathname = usePathname();
-  const base = mode === "trial" ? "/trial" : "/dashboard";
-  const cvPath = `${base}/cv`;
+  const cvPath = `/dashboard/cv`;
   const cvActive = pathname === cvPath;
 
   return (
@@ -42,13 +36,13 @@ export function DashboardShell({
             <div className="text-sm font-semibold text-primary">JIANTAO.dev</div>
 
             <div className="mt-1 text-xl font-bold tracking-tight text-foreground">
-              {mode === "trial" ? t("title.trial") : t("title.local")}
+              {t("title.local")}
             </div>
           </div>
 
           <div className="flex items-center gap-2 lg:mt-3 lg:flex-col lg:items-start">
             <Badge variant="outline" className="font-mono text-primary">
-              {mode === "trial" ? t("status.trial") : t("status.local")}
+              {t("status.local")}
             </Badge>
 
             <UiLanguageSwitcher />
@@ -77,35 +71,15 @@ export function DashboardShell({
             <Home className="mr-2 size-4" />
             {t("nav.portfolio")}
           </Link>
-
-          {mode === "trial" && onReset && (
-            <Button
-              type="button"
-              variant="outline"
-              className="w-full justify-start"
-              onClick={onReset}
-            >
-              <RotateCcw className="mr-2 size-4" />
-              {t("actions.resetDemo")}
-            </Button>
-          )}
         </div>
       </aside>
 
       <main className="min-w-0">
-        {mode === "trial" && (
-          <div className="border-b border-border bg-accent px-5 py-3 text-sm text-accent-foreground sm:px-6">
-            <strong>{t("notices.trialTitle")}</strong>{" "}
-            {t("notices.trialDescription")}
-          </div>
-        )}
+        <div className="border-b border-border bg-background px-5 py-3 text-sm text-muted-foreground sm:px-6">
+          <strong className="text-foreground">{t("notices.localTitle")}</strong>{" "}
+          {t("notices.localDescription")}
+        </div>
 
-        {mode === "admin" && (
-          <div className="border-b border-border bg-background px-5 py-3 text-sm text-muted-foreground sm:px-6">
-            <strong className="text-foreground">{t("notices.localTitle")}</strong>{" "}
-            {t("notices.localDescription")}
-          </div>
-        )}
 
         {actionError && (
           <div className="flex items-center justify-between gap-3 border-b border-destructive/30 bg-destructive/10 px-5 py-3 text-sm text-destructive sm:px-6">
@@ -129,7 +103,7 @@ export function DashboardShell({
           </div>
         )}
 
-        <div className="mx-auto w-full max-w-[var(--dashboard-content-max-width)] p-5 sm:p-[var(--dashboard-content-padding)]">
+        <div className="mx-auto w-full max-w-(--dashboard-content-max-width) p-5 sm:p-(--dashboard-content-padding)">
           {children}
         </div>
       </main>

@@ -1,14 +1,12 @@
 {
   "title": {
-    "trial": "CMS Demo",
     "local": "Local Content Editor"
   },
   "nav": {
-    "cv": "CV / About",
+    "cv": "CV",
     "portfolio": "Portfolio home"
   },
   "status": {
-    "trial": "Trial",
     "local": "Local"
   },
   "contentLanguage": {
@@ -18,14 +16,10 @@
     "saving": "Saving...",
     "delete": "Delete",
     "newProject": "New project",
-    "resetDemo": "Reset demo",
     "dismiss": "Dismiss error",
-    "applyLocally": "Apply locally",
     "saveLanguage": "Save {language}"
   },
   "notices": {
-    "trialTitle": "Demo mode.",
-    "trialDescription": "You are editing a temporary browser copy of public portfolio content. No write request is sent to the backend.",
     "localTitle": "Local editor.",
     "localDescription": "Saves write directly to the portfolio JSON source files. Review the Git diff before committing and pushing."
   },
@@ -34,7 +28,7 @@
     "saveFailed": "Save failed:"
   },
   "cv": {
-    "title": "CV / About",
+    "title": "CV",
     "description": "Each language has one About JSON file containing the introduction, projects, skills, and education.",
     "introduction": {
       "title": "Introduction",

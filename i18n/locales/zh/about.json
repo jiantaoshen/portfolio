@@ -34,7 +34,7 @@
       },
       {
         "title": "个人网页",
-        "description": "使用 Next.js、TypeScript、Tailwind CSS、shadcn/ui 和 next-intl 构建的多语言个人作品集。",
+        "description": "一个多语言开发者作品集，并配有一个轻量级的本地 Git 内容管理面板。",
         "status": "Live",
         "technologies": [
           "Next.js",

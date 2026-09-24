@@ -1,342 +1,548 @@
+/*Media-query-driven responsive design with CSS design tokens*/
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
 /* =========================================
-   Brand + semantic tokens
+   Brand + semantic colors
    ========================================= */
 
 :root {
+  /* Brand colors */
   --brand-dark: #020305;
-  --brand-role: #3B82F6;
+  --brand-role: #3b82f6;
   --brand-white: #ffffff;
-  --brand-slate: #6B7280;
+  --brand-slate: #6b7280;
 
+  /* Semantic colors */
   --background: var(--brand-white);
   --foreground: var(--brand-dark);
+
   --card: var(--brand-white);
   --card-foreground: var(--brand-dark);
+
   --popover: var(--brand-white);
   --popover-foreground: var(--brand-dark);
+
   --primary: var(--brand-role);
   --primary-foreground: var(--brand-white);
+
   --secondary: var(--brand-slate);
   --secondary-foreground: var(--brand-dark);
+
   --muted: var(--brand-white);
   --muted-foreground: var(--brand-slate);
+
   --accent: var(--brand-slate);
   --accent-foreground: var(--brand-dark);
+
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
+
   --border: var(--brand-slate);
   --input: var(--brand-slate);
   --ring: var(--brand-role);
 
   /* =========================================
      Responsive design tokens
+
+     Mobile-first default values.
+     Components read these variables;
+     media queries below change their values.
      ========================================= */
 
+  /* ---------- Page ---------- */
+
+  /* Main content maximum width. */
   --page-max-width: 72rem;
+
+  /* Left / right page padding. */
   --page-padding-x: 1.25rem;
+
+  /* Vertical spacing for major sections. */
   --section-padding-y: 5rem;
 
+  /* ---------- Navbar ---------- */
+
+  /* Minimum Navbar height. */
   --nav-min-height: 5rem;
-  --nav-logo-size: 1rem;
+
+  /* Responsive SVG logo height. Width stays auto. */
+  --nav-logo-height: 1.5rem;
+
+  /* Navbar link font size. */
   --nav-link-size: 0.875rem;
 
+  /* ---------- Hero ---------- */
+
+  /* Hero vertical spacing. */
   --hero-padding-y: 3.5rem;
+
+  /* Prevent the Hero title from becoming too wide. */
   --hero-title-max-width: 56rem;
+
+  /* Hero title font size. */
   --hero-title-size: 3rem;
+
+  /* Hero description maximum width. */
   --hero-description-max-width: 42rem;
+
+  /* Hero description font size. */
   --hero-description-size: 1rem;
 
+  /* ---------- Sections ---------- */
+
+  /* Skills / Projects / Education heading size. */
   --section-title-size: 1.875rem;
+
+  /* Vertical padding used by row-based content. */
   --row-padding-y: 1.75rem;
+
+  /* ---------- Projects ---------- */
+
   --project-heading-size: 1.125rem;
   --project-body-size: 0.875rem;
+
+  /* ---------- Education ---------- */
+
   --education-body-size: 0.875rem;
+
+  /* ---------- Footer ---------- */
+
+  /* Footer SVG logo height. */
+  --footer-logo-height: 1.375rem;
+
+  /* GitHub / LinkedIn link size. */
   --footer-link-size: 0.875rem;
+
+  /* Copyright text size. */
   --footer-copy-size: 0.75rem;
 
-  --detail-header-padding-y: 3.5rem;
-  --detail-title-max-width: 56rem;
-  --detail-title-size: 2.25rem;
-  --detail-description-max-width: 48rem;
-  --detail-description-size: 1rem;
-  --detail-body-padding-y: 3.5rem;
-
-  --article-max-width: 48rem;
-  --article-font-size: 1rem;
-  --article-line-height: 2rem;
-  --article-h1-size: 1.875rem;
-  --article-h2-size: 1.5rem;
-  --article-h3-size: 1.25rem;
+  /* ---------- CTA ---------- */
 
   --cta-height: 3rem;
   --cta-padding-x: 1.25rem;
   --cta-font-size: 0.875rem;
 
+  /* ---------- Technology badges ---------- */
+
   --tech-badge-height: 2rem;
   --tech-badge-padding-x: 0.75rem;
   --tech-badge-font-size: 0.75rem;
 
-  /* shadcn primitive sizing tokens */
+  /* =========================================
+     shadcn/ui primitive sizing
+
+     Mainly used by Dashboard UI.
+     ========================================= */
+
+  /* Button */
   --ui-button-height-default: 2rem;
   --ui-button-height-xs: 1.5rem;
   --ui-button-height-sm: 1.75rem;
   --ui-button-height-lg: 2.25rem;
+
   --ui-button-font-default: 0.875rem;
   --ui-button-font-xs: 0.75rem;
   --ui-button-font-sm: 0.8rem;
   --ui-button-font-lg: 0.875rem;
+
+  /* Input */
   --ui-input-height: 2rem;
   --ui-input-padding-x: 0.625rem;
   --ui-input-font-size: 0.875rem;
+
+  /* Textarea */
   --ui-textarea-min-height: 4rem;
   --ui-textarea-padding-x: 0.625rem;
   --ui-textarea-padding-y: 0.5rem;
+
+  /* Card */
   --ui-card-spacing: 1rem;
   --ui-card-spacing-sm: 0.75rem;
   --ui-card-title-size: 1rem;
+
+  /* Label */
   --ui-label-font-size: 0.875rem;
 }
+
+/* =========================================
+   >= 640px
+   Large phone / small tablet
+   ========================================= */
 
 @media (min-width: 640px) {
   :root {
     --section-padding-y: 6rem;
+
+    --nav-logo-height: 1.625rem;
+
     --hero-padding-y: 4rem;
     --hero-title-size: 3.75rem;
     --hero-description-size: 1.125rem;
+
     --section-title-size: 2.25rem;
     --row-padding-y: 2rem;
+
     --project-heading-size: 1.25rem;
-    --detail-header-padding-y: 4rem;
-    --detail-title-size: 3rem;
-    --detail-description-size: 1.125rem;
-    --detail-body-padding-y: 4rem;
+
+    --footer-logo-height: 1.5rem;
   }
 }
 
+/* =========================================
+   >= 768px
+   Tablet
+   ========================================= */
+
 @media (min-width: 768px) {
   :root {
+    --nav-logo-height: 1.75rem;
+
     --hero-padding-y: 5rem;
     --hero-description-size: 1.25rem;
-    --detail-header-padding-y: 5rem;
   }
 }
+
+/* =========================================
+   >= 1024px
+   Laptop / desktop
+   ========================================= */
 
 @media (min-width: 1024px) {
   :root {
     --section-padding-y: 7rem;
+
+    --nav-logo-height: 1.875rem;
+
     --hero-padding-y: 6rem;
     --hero-title-size: 4.5rem;
     --hero-description-size: 1.5rem;
-    --detail-title-size: 3.75rem;
-    --detail-body-padding-y: 5rem;
+
+    --footer-logo-height: 1.625rem;
   }
 }
 
+/* =========================================
+   >= 1280px
+   Standard desktop
+   ========================================= */
+
 @media (min-width: 1280px) {
   :root {
+    --nav-logo-height: 2rem;
     --hero-title-size: 6rem;
   }
 }
 
+/* =========================================
+   >= 1536px
+   Large desktop
+
+   Wider container, more whitespace and
+   slightly larger typography.
+   ========================================= */
+
 @media (min-width: 1536px) {
   :root {
+    /* 90rem = 1440px */
     --page-max-width: 90rem;
     --page-padding-x: 2rem;
+
     --section-padding-y: 7.5rem;
-    --nav-logo-size: 1.125rem;
+
+    /* Navbar */
+    --nav-logo-height: 2.125rem;
     --nav-link-size: 0.95rem;
+
+    /* Hero */
     --hero-title-max-width: 58rem;
     --hero-title-size: 6.25rem;
     --hero-description-max-width: 48rem;
     --hero-description-size: 1.5rem;
+
+    /* Sections */
     --section-title-size: 2.75rem;
     --row-padding-y: 2.25rem;
+
+    /* Projects */
     --project-heading-size: 1.375rem;
     --project-body-size: 1.0625rem;
+
+    /* Education */
     --education-body-size: 1.0625rem;
+
+    /* Footer */
+    --footer-logo-height: 1.75rem;
     --footer-link-size: 1rem;
-    --detail-header-padding-y: 6rem;
-    --detail-title-max-width: 60rem;
-    --detail-title-size: 4.5rem;
-    --detail-description-max-width: 52rem;
-    --detail-description-size: 1.25rem;
-    --detail-body-padding-y: 6rem;
-    --article-max-width: 54rem;
-    --article-font-size: 1.0625rem;
+
+    /* CTA */
     --cta-height: 3.25rem;
     --cta-padding-x: 1.5rem;
     --cta-font-size: 1rem;
+
+    /* Technology badges */
     --tech-badge-height: 2.25rem;
     --tech-badge-padding-x: 0.8rem;
     --tech-badge-font-size: 0.8125rem;
   }
 }
 
+/* =========================================
+   >= 1920px
+   Full HD large screen
+
+   Large-screen design starts here.
+   The page is not globally scaled;
+   individual design tokens grow instead.
+   ========================================= */
+
 @media (min-width: 1920px) {
   :root {
+    /* 104rem = 1664px */
     --page-max-width: 104rem;
     --page-padding-x: 3rem;
+
     --section-padding-y: 8.5rem;
+
+    /* Navbar */
     --nav-min-height: 5.5rem;
-    --nav-logo-size: 1.25rem;
+    --nav-logo-height: 2.375rem;
     --nav-link-size: 1.0625rem;
+
+    /* Hero */
     --hero-padding-y: 7.5rem;
     --hero-title-max-width: 66rem;
-    --hero-title-size: 6.75rem;
+    --hero-title-size: 6.5rem;
     --hero-description-max-width: 54rem;
     --hero-description-size: 1.625rem;
+
+    /* Sections */
     --section-title-size: 3rem;
+
+    /* Projects */
+    --project-heading-size: 1.5rem;
     --project-body-size: 1.125rem;
+
+    /* Education */
     --education-body-size: 1.125rem;
+
+    /* Footer */
+    --footer-logo-height: 2rem;
     --footer-link-size: 1.0625rem;
     --footer-copy-size: 0.875rem;
-    --detail-title-max-width: 68rem;
-    --detail-title-size: 5rem;
-    --detail-description-max-width: 58rem;
-    --detail-description-size: 1.375rem;
-    --article-max-width: 60rem;
-    --article-font-size: 1.125rem;
-    --article-line-height: 2.125rem;
-    --article-h1-size: 2.25rem;
-    --article-h2-size: 1.875rem;
-    --article-h3-size: 1.5rem;
+
+    /* CTA */
     --cta-height: 3.5rem;
     --cta-padding-x: 1.75rem;
     --cta-font-size: 1.0625rem;
+
+    /* Technology badges */
     --tech-badge-height: 2.5rem;
     --tech-badge-padding-x: 0.9rem;
     --tech-badge-font-size: 0.875rem;
   }
 }
 
+/* =========================================
+   >= 2560px
+   QHD / 4K / ultrawide
+
+   Content remains centered and constrained.
+   More whitespace is preferred over simply
+   stretching everything across the screen.
+   ========================================= */
+
 @media (min-width: 2560px) {
   :root {
-    --page-max-width: 120rem;
+    /* 108rem = 1728px */
+    --page-max-width: 108rem;
     --page-padding-x: 4rem;
+
     --section-padding-y: 10rem;
+
+    /* Navbar */
     --nav-min-height: 6rem;
-    --nav-logo-size: 1.375rem;
+    --nav-logo-height: 2.625rem;
     --nav-link-size: 1.125rem;
+
+    /* Hero */
     --hero-padding-y: 9rem;
     --hero-title-max-width: 74rem;
-    --hero-title-size: 7.5rem;
+    --hero-title-size: 7rem;
     --hero-description-max-width: 60rem;
     --hero-description-size: 1.875rem;
+
+    /* Sections */
     --section-title-size: 3.5rem;
     --row-padding-y: 3rem;
+
+    /* Projects */
     --project-heading-size: 1.625rem;
     --project-body-size: 1.25rem;
+
+    /* Education */
     --education-body-size: 1.25rem;
-    --detail-header-padding-y: 8rem;
-    --detail-title-max-width: 76rem;
-    --detail-title-size: 5.5rem;
-    --detail-description-max-width: 64rem;
-    --detail-description-size: 1.5rem;
-    --detail-body-padding-y: 8rem;
-    --article-max-width: 66rem;
-    --article-font-size: 1.25rem;
-    --article-line-height: 2.35rem;
+
+    /* Footer */
+    --footer-logo-height: 2.25rem;
+
+    /* CTA */
     --cta-height: 3.75rem;
     --cta-padding-x: 2rem;
     --cta-font-size: 1.125rem;
+
+    /* Technology badges */
     --tech-badge-height: 2.75rem;
     --tech-badge-padding-x: 1rem;
     --tech-badge-font-size: 0.9375rem;
   }
 }
 
-/* Dashboard-specific token overrides. Layout remains in Tailwind. */
+/* =========================================
+   Dashboard-specific tokens
+
+   Dashboard sizing is scoped to
+   .dashboard-shell so it does not change
+   the public Portfolio UI.
+   ========================================= */
+
 .dashboard-shell {
+  /* Sidebar */
   --dashboard-sidebar-width: 18rem;
   --dashboard-sidebar-padding: 1.5rem;
+
+  /* Main content */
   --dashboard-content-max-width: 80rem;
   --dashboard-content-padding: 2rem;
+
+  /* Heading */
   --dashboard-heading-size: 1.875rem;
 }
 
+/* =========================================
+   Dashboard >= 1920px
+   ========================================= */
+
 @media (min-width: 1920px) {
   .dashboard-shell {
+    /* Dashboard layout */
     --dashboard-sidebar-width: 22rem;
     --dashboard-sidebar-padding: 2rem;
     --dashboard-content-max-width: 96rem;
     --dashboard-content-padding: 2.5rem;
     --dashboard-heading-size: 2.25rem;
 
+    /* Button */
     --ui-button-height-default: 2.5rem;
     --ui-button-height-xs: 1.75rem;
     --ui-button-height-sm: 2rem;
     --ui-button-height-lg: 2.75rem;
+
     --ui-button-font-default: 0.95rem;
     --ui-button-font-xs: 0.8rem;
     --ui-button-font-sm: 0.875rem;
     --ui-button-font-lg: 1rem;
+
+    /* Input */
     --ui-input-height: 2.75rem;
     --ui-input-padding-x: 0.875rem;
     --ui-input-font-size: 1rem;
+
+    /* Textarea */
     --ui-textarea-min-height: 5rem;
     --ui-textarea-padding-x: 0.875rem;
     --ui-textarea-padding-y: 0.75rem;
+
+    /* Card */
     --ui-card-spacing: 1.25rem;
     --ui-card-spacing-sm: 0.9375rem;
     --ui-card-title-size: 1.125rem;
+
+    /* Label */
     --ui-label-font-size: 1rem;
   }
 }
 
+/* =========================================
+   Dashboard >= 2560px
+   ========================================= */
+
 @media (min-width: 2560px) {
   .dashboard-shell {
+    /* Dashboard layout */
     --dashboard-sidebar-width: 26rem;
     --dashboard-sidebar-padding: 2.5rem;
     --dashboard-content-max-width: 112rem;
     --dashboard-content-padding: 3.5rem;
     --dashboard-heading-size: 2.5rem;
 
+    /* Button */
     --ui-button-height-default: 2.75rem;
     --ui-button-height-xs: 2rem;
     --ui-button-height-sm: 2.25rem;
     --ui-button-height-lg: 3rem;
+
     --ui-button-font-default: 1rem;
     --ui-button-font-xs: 0.875rem;
     --ui-button-font-sm: 0.95rem;
     --ui-button-font-lg: 1.0625rem;
+
+    /* Input */
     --ui-input-height: 3rem;
     --ui-input-padding-x: 1rem;
     --ui-input-font-size: 1.0625rem;
+
+    /* Textarea */
     --ui-textarea-min-height: 5.5rem;
     --ui-textarea-padding-x: 1rem;
     --ui-textarea-padding-y: 0.875rem;
+
+    /* Card */
     --ui-card-spacing: 1.5rem;
     --ui-card-spacing-sm: 1.125rem;
     --ui-card-title-size: 1.25rem;
+
+    /* Label */
     --ui-label-font-size: 1.0625rem;
   }
 }
 
 /* =========================================
    Tailwind semantic color mapping
+
+   Enables classes such as:
+   bg-background
+   text-foreground
+   text-primary
+   border-border
    ========================================= */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
+
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -362,117 +568,4 @@ select {
 
 ::selection {
   @apply bg-primary text-primary-foreground;
-}
-
-/* =========================================
-   Dynamic Markdown content
-   These selectors stay in CSS because the HTML is generated.
-   ========================================= */
-
-.article-content {
-  @apply mx-auto text-muted-foreground;
-  max-width: var(--article-max-width);
-  font-size: var(--article-font-size);
-  line-height: var(--article-line-height);
-}
-
-.article-content h1 {
-  @apply mt-12 mb-6 font-bold tracking-tight text-foreground;
-  font-size: var(--article-h1-size);
-}
-
-.article-content h2 {
-  @apply mt-12 mb-4 scroll-mt-28 font-bold tracking-tight text-foreground;
-  font-size: var(--article-h2-size);
-}
-
-.article-content h3 {
-  @apply mt-9 mb-3 scroll-mt-28 font-bold text-foreground;
-  font-size: var(--article-h3-size);
-}
-
-.article-content p {
-  @apply my-5;
-}
-
-.article-content ul {
-  @apply my-5 list-disc space-y-2 pl-6;
-}
-
-.article-content ol {
-  @apply my-5 list-decimal space-y-2 pl-6;
-}
-
-.article-content li {
-  @apply pl-1;
-}
-
-.article-content blockquote {
-  @apply my-6 border-l-4 border-primary bg-muted px-5 py-3 italic;
-}
-
-.article-content code {
-  @apply rounded bg-muted px-1.5 py-0.5 font-mono text-sm text-foreground;
-}
-
-.article-content pre {
-  @apply my-7 overflow-x-auto rounded-2xl bg-foreground p-5 text-sm text-border;
-}
-
-.article-content pre code {
-  @apply bg-transparent p-0 text-inherit;
-}
-
-.article-content hr {
-  @apply my-10 border-border;
-}
-
-.article-content img {
-  @apply my-8 rounded-2xl border border-border;
-}
-
-.article-content a,
-.prose-lite a {
-  @apply font-medium text-primary underline underline-offset-4 transition-colors hover:text-foreground;
-}
-
-.article-content a {
-  @apply decoration-primary/30;
-}
-
-.article-content strong,
-.prose-lite strong {
-  @apply font-semibold text-foreground;
-}
-
-.prose-lite {
-  @apply text-sm leading-relaxed text-muted-foreground;
-}
-
-.prose-lite h1 {
-  @apply mt-8 mb-4 text-2xl font-bold tracking-tight text-foreground;
-}
-
-.prose-lite h2 {
-  @apply mt-7 mb-3 text-xl font-bold text-foreground;
-}
-
-.prose-lite h3 {
-  @apply mt-6 mb-2 text-lg font-semibold text-foreground;
-}
-
-.prose-lite p {
-  @apply my-4;
-}
-
-.prose-lite ul {
-  @apply my-4 list-disc space-y-2 pl-5;
-}
-
-.prose-lite ol {
-  @apply my-4 list-decimal space-y-2 pl-5;
-}
-
-.prose-lite code {
-  @apply rounded bg-accent px-1 py-0.5 font-mono text-xs text-accent-foreground;
 }

@@ -34,7 +34,7 @@
       },
       {
         "title": "Portfölj",
-        "description": "En flerspråkig personlig portfölj byggd med Next.js, TypeScript, Tailwind CSS, shadcn/ui och next-intl.",
+        "description": "En flerspråkig utvecklarportfolio med en lättviktig lokal Git-baserad innehållspanel.",
         "status": "Live",
         "technologies": [
           "Next.js",

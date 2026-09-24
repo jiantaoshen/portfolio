@@ -2,8 +2,6 @@ import type { Locale } from "@/lib/locales";
 
 export type { Locale } from "@/lib/locales";
 
-export type DashboardMode = "trial" | "admin";
-
 export type AboutSkillGroup = {
   title: string;
   items: string[];
