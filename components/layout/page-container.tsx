@@ -9,7 +9,7 @@ export function PageContainer({
   return (
     <div
       className={cn(
-        "mx-auto w-full max-w-[var(--page-max-width)] px-[var(--page-padding-x)]",
+        "mx-auto w-full max-w-(--page-max-width) px-(--page-padding-x)",
         className,
       )}
       {...props}

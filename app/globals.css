@@ -1,16 +1,23 @@
+/* Media-query-driven responsive design with CSS design tokens */
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
 /* =========================================
    Brand + semantic tokens
+   品牌颜色 + 语义颜色
+
+   这里负责“颜色是什么”。
+   页面和组件尽量使用 background / foreground / primary / muted
+   等语义 token，而不是直接写 hex。
    ========================================= */
 
 :root {
   --brand-dark: #020305;
-  --brand-role: #3B82F6;
+  --brand-role: #3b82f6;
   --brand-white: #ffffff;
-  --brand-slate: #6B7280;
+  --brand-slate: #6b7280;
 
   --background: var(--brand-white);
   --foreground: var(--brand-dark);
@@ -34,53 +41,76 @@
 
   /* =========================================
      Responsive design tokens
+     响应式尺寸 token
+
+     Mobile-first：这里是默认值，主要服务 < 640px。
+     后面的 @media 只覆盖需要变化的 token。
+
+     PageContainer / Hero / Projects 等组件只读取 token，
+     不需要知道具体 breakpoint。
      ========================================= */
 
+  /* ---------- Page / layout ---------- */
+
+  /* 页面内容最大宽度。
+     PageContainer: max-w-[var(--page-max-width)] */
   --page-max-width: 72rem;
+
+  /* 页面左右安全距离。
+     PageContainer: px-[var(--page-padding-x)] */
   --page-padding-x: 1.25rem;
+
+  /* 每个主要 section 的上下留白。 */
   --section-padding-y: 5rem;
+
+  /* ---------- Navbar ---------- */
 
   --nav-min-height: 5rem;
   --nav-logo-size: 1rem;
   --nav-link-size: 0.875rem;
 
+  /* ---------- Hero ---------- */
+
   --hero-padding-y: 3.5rem;
+
+  /* 限制 Hero 文本行宽，避免宽屏上一行过长。 */
   --hero-title-max-width: 56rem;
   --hero-title-size: 3rem;
   --hero-description-max-width: 42rem;
   --hero-description-size: 1rem;
 
+  /* ---------- Public content ---------- */
+
   --section-title-size: 1.875rem;
+
+  /* 如果某些 section 仍然使用 row layout，可继续复用。 */
   --row-padding-y: 1.75rem;
+
   --project-heading-size: 1.125rem;
   --project-body-size: 0.875rem;
   --education-body-size: 0.875rem;
   --footer-link-size: 0.875rem;
   --footer-copy-size: 0.75rem;
 
-  --detail-header-padding-y: 3.5rem;
-  --detail-title-max-width: 56rem;
-  --detail-title-size: 2.25rem;
-  --detail-description-max-width: 48rem;
-  --detail-description-size: 1rem;
-  --detail-body-padding-y: 3.5rem;
-
-  --article-max-width: 48rem;
-  --article-font-size: 1rem;
-  --article-line-height: 2rem;
-  --article-h1-size: 1.875rem;
-  --article-h2-size: 1.5rem;
-  --article-h3-size: 1.25rem;
+  /* ---------- CTA buttons ---------- */
 
   --cta-height: 3rem;
   --cta-padding-x: 1.25rem;
   --cta-font-size: 0.875rem;
 
+  /* ---------- Technology badges ---------- */
+
   --tech-badge-height: 2rem;
   --tech-badge-padding-x: 0.75rem;
   --tech-badge-font-size: 0.75rem;
 
-  /* shadcn primitive sizing tokens */
+  /* =========================================
+     shadcn primitive sizing tokens
+
+     这些主要控制 Dashboard / Trial 里的 Button、Input、
+     Textarea、Card、Label 等基础组件。
+     ========================================= */
+
   --ui-button-height-default: 2rem;
   --ui-button-height-xs: 1.5rem;
   --ui-button-height-sm: 1.75rem;
@@ -89,52 +119,82 @@
   --ui-button-font-xs: 0.75rem;
   --ui-button-font-sm: 0.8rem;
   --ui-button-font-lg: 0.875rem;
+
   --ui-input-height: 2rem;
   --ui-input-padding-x: 0.625rem;
   --ui-input-font-size: 0.875rem;
+
   --ui-textarea-min-height: 4rem;
   --ui-textarea-padding-x: 0.625rem;
   --ui-textarea-padding-y: 0.5rem;
+
   --ui-card-spacing: 1rem;
   --ui-card-spacing-sm: 0.75rem;
   --ui-card-title-size: 1rem;
+
   --ui-label-font-size: 0.875rem;
 }
+
+/* =========================================
+   >= 640px
+   大手机横屏 / 小平板
+
+   开始增加纵向空间和标题尺寸。
+   ========================================= */
 
 @media (min-width: 640px) {
   :root {
     --section-padding-y: 6rem;
+
     --hero-padding-y: 4rem;
     --hero-title-size: 3.75rem;
     --hero-description-size: 1.125rem;
+
     --section-title-size: 2.25rem;
     --row-padding-y: 2rem;
     --project-heading-size: 1.25rem;
-    --detail-header-padding-y: 4rem;
-    --detail-title-size: 3rem;
-    --detail-description-size: 1.125rem;
-    --detail-body-padding-y: 4rem;
   }
 }
+
+/* =========================================
+   >= 768px
+   平板
+
+   Hero 获得更多 breathing room。
+   ========================================= */
 
 @media (min-width: 768px) {
   :root {
     --hero-padding-y: 5rem;
     --hero-description-size: 1.25rem;
-    --detail-header-padding-y: 5rem;
   }
 }
+
+/* =========================================
+   >= 1024px
+   笔记本 / 标准 desktop 起点
+
+   明显增加 Hero 与 section 的空间，
+   但页面仍保持相对紧凑。
+   ========================================= */
 
 @media (min-width: 1024px) {
   :root {
     --section-padding-y: 7rem;
+
     --hero-padding-y: 6rem;
     --hero-title-size: 4.5rem;
     --hero-description-size: 1.5rem;
-    --detail-title-size: 3.75rem;
-    --detail-body-padding-y: 5rem;
   }
 }
+
+/* =========================================
+   >= 1280px
+   标准 desktop
+
+   主要增强 Hero；container 仍保持克制，
+   避免普通桌面内容太散。
+   ========================================= */
 
 @media (min-width: 1280px) {
   :root {
@@ -142,114 +202,169 @@
   }
 }
 
+/* =========================================
+   >= 1536px
+   大型 desktop / 大笔记本
+
+   开始进入 large-screen design：
+   - container 变宽
+   - section 留白增加
+   - project / footer / badges 轻微放大
+   ========================================= */
+
 @media (min-width: 1536px) {
   :root {
+    /* 90rem = 1440px */
     --page-max-width: 90rem;
     --page-padding-x: 2rem;
+
     --section-padding-y: 7.5rem;
+
     --nav-logo-size: 1.125rem;
     --nav-link-size: 0.95rem;
+
     --hero-title-max-width: 58rem;
     --hero-title-size: 6.25rem;
     --hero-description-max-width: 48rem;
     --hero-description-size: 1.5rem;
+
     --section-title-size: 2.75rem;
     --row-padding-y: 2.25rem;
+
     --project-heading-size: 1.375rem;
     --project-body-size: 1.0625rem;
     --education-body-size: 1.0625rem;
+
     --footer-link-size: 1rem;
-    --detail-header-padding-y: 6rem;
-    --detail-title-max-width: 60rem;
-    --detail-title-size: 4.5rem;
-    --detail-description-max-width: 52rem;
-    --detail-description-size: 1.25rem;
-    --detail-body-padding-y: 6rem;
-    --article-max-width: 54rem;
-    --article-font-size: 1.0625rem;
+
     --cta-height: 3.25rem;
     --cta-padding-x: 1.5rem;
     --cta-font-size: 1rem;
+
     --tech-badge-height: 2.25rem;
     --tech-badge-padding-x: 0.8rem;
     --tech-badge-font-size: 0.8125rem;
   }
 }
 
+/* =========================================
+   >= 1920px
+   Full HD 大屏
+
+   重点不是 scale 整个页面，而是分别调整：
+   container / whitespace / typography / controls。
+
+   104rem = 1664px，1920px 屏幕上仍保留左右空间。
+   ========================================= */
+
 @media (min-width: 1920px) {
   :root {
     --page-max-width: 104rem;
     --page-padding-x: 3rem;
+
     --section-padding-y: 8.5rem;
+
     --nav-min-height: 5.5rem;
     --nav-logo-size: 1.25rem;
     --nav-link-size: 1.0625rem;
+
     --hero-padding-y: 7.5rem;
     --hero-title-max-width: 66rem;
-    --hero-title-size: 6.75rem;
+
+    /* 稍微收住 Hero，不让标题在大屏变成过大的海报文字。 */
+    --hero-title-size: 6.5rem;
+
     --hero-description-max-width: 54rem;
     --hero-description-size: 1.625rem;
+
     --section-title-size: 3rem;
+
+    /* 1536 -> 1.375rem
+       1920 -> 1.5rem
+       2560 -> 1.625rem
+       让 Project heading 的增长更平滑。 */
+    --project-heading-size: 1.5rem;
+
     --project-body-size: 1.125rem;
     --education-body-size: 1.125rem;
+
     --footer-link-size: 1.0625rem;
     --footer-copy-size: 0.875rem;
-    --detail-title-max-width: 68rem;
-    --detail-title-size: 5rem;
-    --detail-description-max-width: 58rem;
-    --detail-description-size: 1.375rem;
-    --article-max-width: 60rem;
-    --article-font-size: 1.125rem;
-    --article-line-height: 2.125rem;
-    --article-h1-size: 2.25rem;
-    --article-h2-size: 1.875rem;
-    --article-h3-size: 1.5rem;
+
     --cta-height: 3.5rem;
     --cta-padding-x: 1.75rem;
     --cta-font-size: 1.0625rem;
+
     --tech-badge-height: 2.5rem;
     --tech-badge-padding-x: 0.9rem;
     --tech-badge-font-size: 0.875rem;
   }
 }
 
+/* =========================================
+   >= 2560px
+   QHD / 4K 大屏
+
+   这个 breakpoint 会覆盖 2560px、3440px、3840px 等宽屏。
+
+   重点：
+   - 不把 container 拉满整个屏幕
+   - 增加 whitespace
+   - 字体适度增加，但设置合理上限
+
+   108rem = 1728px。
+   对两列 Project cards 来说比 120rem / 1920px 更容易阅读。
+   ========================================= */
+
 @media (min-width: 2560px) {
   :root {
-    --page-max-width: 120rem;
+    --page-max-width: 108rem;
     --page-padding-x: 4rem;
+
     --section-padding-y: 10rem;
+
     --nav-min-height: 6rem;
     --nav-logo-size: 1.375rem;
     --nav-link-size: 1.125rem;
+
     --hero-padding-y: 9rem;
     --hero-title-max-width: 74rem;
-    --hero-title-size: 7.5rem;
+
+    /* 7rem = 112px：足够有大屏层次，但不会无限放大。 */
+    --hero-title-size: 7rem;
+
     --hero-description-max-width: 60rem;
     --hero-description-size: 1.875rem;
+
     --section-title-size: 3.5rem;
     --row-padding-y: 3rem;
+
     --project-heading-size: 1.625rem;
     --project-body-size: 1.25rem;
     --education-body-size: 1.25rem;
-    --detail-header-padding-y: 8rem;
-    --detail-title-max-width: 76rem;
-    --detail-title-size: 5.5rem;
-    --detail-description-max-width: 64rem;
-    --detail-description-size: 1.5rem;
-    --detail-body-padding-y: 8rem;
-    --article-max-width: 66rem;
-    --article-font-size: 1.25rem;
-    --article-line-height: 2.35rem;
+
     --cta-height: 3.75rem;
     --cta-padding-x: 2rem;
     --cta-font-size: 1.125rem;
+
     --tech-badge-height: 2.75rem;
     --tech-badge-padding-x: 1rem;
     --tech-badge-font-size: 0.9375rem;
   }
 }
 
-/* Dashboard-specific token overrides. Layout remains in Tailwind. */
+/* =========================================
+   Dashboard-specific tokens
+   Dashboard 专用尺寸
+
+   Public Portfolio 和 Dashboard 的目标不同：
+   - Public page 强调阅读和展示
+   - Dashboard 强调表单和操作
+
+   所以 Dashboard 在 .dashboard-shell 内单独覆盖尺寸，
+   不影响公开页面。
+   ========================================= */
+
 .dashboard-shell {
   --dashboard-sidebar-width: 18rem;
   --dashboard-sidebar-padding: 1.5rem;
@@ -258,6 +373,7 @@
   --dashboard-heading-size: 1.875rem;
 }
 
+/* Full HD 大屏 Dashboard */
 @media (min-width: 1920px) {
   .dashboard-shell {
     --dashboard-sidebar-width: 22rem;
@@ -266,6 +382,7 @@
     --dashboard-content-padding: 2.5rem;
     --dashboard-heading-size: 2.25rem;
 
+    /* Dashboard controls 在大屏上单独变大。 */
     --ui-button-height-default: 2.5rem;
     --ui-button-height-xs: 1.75rem;
     --ui-button-height-sm: 2rem;
@@ -274,12 +391,15 @@
     --ui-button-font-xs: 0.8rem;
     --ui-button-font-sm: 0.875rem;
     --ui-button-font-lg: 1rem;
+
     --ui-input-height: 2.75rem;
     --ui-input-padding-x: 0.875rem;
     --ui-input-font-size: 1rem;
+
     --ui-textarea-min-height: 5rem;
     --ui-textarea-padding-x: 0.875rem;
     --ui-textarea-padding-y: 0.75rem;
+
     --ui-card-spacing: 1.25rem;
     --ui-card-spacing-sm: 0.9375rem;
     --ui-card-title-size: 1.125rem;
@@ -287,6 +407,7 @@
   }
 }
 
+/* QHD / 4K Dashboard */
 @media (min-width: 2560px) {
   .dashboard-shell {
     --dashboard-sidebar-width: 26rem;
@@ -303,12 +424,15 @@
     --ui-button-font-xs: 0.875rem;
     --ui-button-font-sm: 0.95rem;
     --ui-button-font-lg: 1.0625rem;
+
     --ui-input-height: 3rem;
     --ui-input-padding-x: 1rem;
     --ui-input-font-size: 1.0625rem;
+
     --ui-textarea-min-height: 5.5rem;
     --ui-textarea-padding-x: 1rem;
     --ui-textarea-padding-y: 0.875rem;
+
     --ui-card-spacing: 1.5rem;
     --ui-card-spacing-sm: 1.125rem;
     --ui-card-title-size: 1.25rem;
@@ -318,6 +442,10 @@
 
 /* =========================================
    Tailwind semantic color mapping
+
+   把 CSS semantic tokens 映射成 Tailwind v4 颜色，
+   这样组件里可以继续使用：
+   bg-background / text-foreground / border-border / text-primary 等。
    ========================================= */
 
 @theme inline {
@@ -344,14 +472,18 @@
 
 /* =========================================
    Base
+   全局基础行为
    ========================================= */
 
 html {
+  /* 用于 Navbar 的 #skills / #projects / #education 平滑滚动。 */
   @apply scroll-smooth bg-background;
 }
 
 body {
   @apply min-h-screen bg-background font-sans text-foreground antialiased;
+
+  /* 改善文字渲染观感；这不是 responsive scaling。 */
   text-rendering: optimizeLegibility;
 }
 
@@ -362,117 +494,4 @@ select {
 
 ::selection {
   @apply bg-primary text-primary-foreground;
-}
-
-/* =========================================
-   Dynamic Markdown content
-   These selectors stay in CSS because the HTML is generated.
-   ========================================= */
-
-.article-content {
-  @apply mx-auto text-muted-foreground;
-  max-width: var(--article-max-width);
-  font-size: var(--article-font-size);
-  line-height: var(--article-line-height);
-}
-
-.article-content h1 {
-  @apply mt-12 mb-6 font-bold tracking-tight text-foreground;
-  font-size: var(--article-h1-size);
-}
-
-.article-content h2 {
-  @apply mt-12 mb-4 scroll-mt-28 font-bold tracking-tight text-foreground;
-  font-size: var(--article-h2-size);
-}
-
-.article-content h3 {
-  @apply mt-9 mb-3 scroll-mt-28 font-bold text-foreground;
-  font-size: var(--article-h3-size);
-}
-
-.article-content p {
-  @apply my-5;
-}
-
-.article-content ul {
-  @apply my-5 list-disc space-y-2 pl-6;
-}
-
-.article-content ol {
-  @apply my-5 list-decimal space-y-2 pl-6;
-}
-
-.article-content li {
-  @apply pl-1;
-}
-
-.article-content blockquote {
-  @apply my-6 border-l-4 border-primary bg-muted px-5 py-3 italic;
-}
-
-.article-content code {
-  @apply rounded bg-muted px-1.5 py-0.5 font-mono text-sm text-foreground;
-}
-
-.article-content pre {
-  @apply my-7 overflow-x-auto rounded-2xl bg-foreground p-5 text-sm text-border;
-}
-
-.article-content pre code {
-  @apply bg-transparent p-0 text-inherit;
-}
-
-.article-content hr {
-  @apply my-10 border-border;
-}
-
-.article-content img {
-  @apply my-8 rounded-2xl border border-border;
-}
-
-.article-content a,
-.prose-lite a {
-  @apply font-medium text-primary underline underline-offset-4 transition-colors hover:text-foreground;
-}
-
-.article-content a {
-  @apply decoration-primary/30;
-}
-
-.article-content strong,
-.prose-lite strong {
-  @apply font-semibold text-foreground;
-}
-
-.prose-lite {
-  @apply text-sm leading-relaxed text-muted-foreground;
-}
-
-.prose-lite h1 {
-  @apply mt-8 mb-4 text-2xl font-bold tracking-tight text-foreground;
-}
-
-.prose-lite h2 {
-  @apply mt-7 mb-3 text-xl font-bold text-foreground;
-}
-
-.prose-lite h3 {
-  @apply mt-6 mb-2 text-lg font-semibold text-foreground;
-}
-
-.prose-lite p {
-  @apply my-4;
-}
-
-.prose-lite ul {
-  @apply my-4 list-disc space-y-2 pl-5;
-}
-
-.prose-lite ol {
-  @apply my-4 list-decimal space-y-2 pl-5;
-}
-
-.prose-lite code {
-  @apply rounded bg-accent px-1 py-0.5 font-mono text-xs text-accent-foreground;
 }
