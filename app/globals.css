@@ -1,5 +1,4 @@
-/* Media-query-driven responsive design with CSS design tokens */
-
+/*Media-query-driven responsive design with CSS design tokens*/
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -8,9 +7,12 @@
    Brand + semantic tokens
    品牌颜色 + 语义颜色
 
-   这里负责“颜色是什么”。
-   页面和组件尽量使用 background / foreground / primary / muted
-   等语义 token，而不是直接写 hex。
+   Brand tokens:
+   项目真正使用的品牌颜色。
+
+   Semantic tokens:
+   告诉组件这些颜色“做什么”，
+   而不是要求组件直接知道具体 hex。
    ========================================= */
 
 :root {
@@ -21,150 +23,234 @@
 
   --background: var(--brand-white);
   --foreground: var(--brand-dark);
+
   --card: var(--brand-white);
   --card-foreground: var(--brand-dark);
+
   --popover: var(--brand-white);
   --popover-foreground: var(--brand-dark);
+
   --primary: var(--brand-role);
   --primary-foreground: var(--brand-white);
+
   --secondary: var(--brand-slate);
   --secondary-foreground: var(--brand-dark);
+
   --muted: var(--brand-white);
   --muted-foreground: var(--brand-slate);
+
   --accent: var(--brand-slate);
   --accent-foreground: var(--brand-dark);
+
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
+
   --border: var(--brand-slate);
   --input: var(--brand-slate);
   --ring: var(--brand-role);
 
   /* =========================================
      Responsive design tokens
-     响应式尺寸 token
+     Mobile-first 默认值
 
-     Mobile-first：这里是默认值，主要服务 < 640px。
-     后面的 @media 只覆盖需要变化的 token。
+     这里主要服务手机。
 
-     PageContainer / Hero / Projects 等组件只读取 token，
-     不需要知道具体 breakpoint。
+     后面的 @media 只覆盖需要改变的值，
+     component 本身只读取 CSS variables。
      ========================================= */
 
-  /* ---------- Page / layout ---------- */
+  /* -----------------------------------------
+     Page layout
+     ----------------------------------------- */
 
-  /* 页面内容最大宽度。
-     PageContainer: max-w-[var(--page-max-width)] */
+  /*
+   * 整个公开页面内容的最大宽度。
+   *
+   * PageContainer:
+   * max-w-[var(--page-max-width)]
+   */
   --page-max-width: 72rem;
 
-  /* 页面左右安全距离。
-     PageContainer: px-[var(--page-padding-x)] */
+  /*
+   * 页面左右 padding。
+   *
+   * PageContainer:
+   * px-[var(--page-padding-x)]
+   */
   --page-padding-x: 1.25rem;
 
-  /* 每个主要 section 的上下留白。 */
+  /*
+   * Skills / Projects / Education 等
+   * 主要 section 的上下空间。
+   */
   --section-padding-y: 5rem;
 
-  /* ---------- Navbar ---------- */
+  /* -----------------------------------------
+     Navbar
+     ----------------------------------------- */
 
+  /* Navbar 最小高度。 */
   --nav-min-height: 5rem;
-  --nav-logo-size: 1rem;
+
+  /*
+   * SVG Logo 的高度。
+   *
+   * width 不需要定义。
+   * 因为 <img> 使用 width: auto，
+   * SVG 会按照自己的 viewBox 比例自动计算宽度。
+   */
+  --nav-logo-height: 1.5rem;
+
+  /*
+   * Navbar 普通 navigation link 字号。
+   */
   --nav-link-size: 0.875rem;
 
-  /* ---------- Hero ---------- */
+  /* -----------------------------------------
+     Hero
+     ----------------------------------------- */
 
+  /* Hero section 上下空间。 */
   --hero-padding-y: 3.5rem;
 
-  /* 限制 Hero 文本行宽，避免宽屏上一行过长。 */
+  /*
+   * Hero 标题最大宽度。
+   * 防止超宽屏时标题无限拉长。
+   */
   --hero-title-max-width: 56rem;
+
+  /* Hero 主标题字号。 */
   --hero-title-size: 3rem;
+
+  /* Hero description 最大宽度。 */
   --hero-description-max-width: 42rem;
+
+  /* Hero description 字号。 */
   --hero-description-size: 1rem;
 
-  /* ---------- Public content ---------- */
+  /* -----------------------------------------
+     Public sections
+     ----------------------------------------- */
 
+  /* Skills / Projects / Education 标题。 */
   --section-title-size: 1.875rem;
 
-  /* 如果某些 section 仍然使用 row layout，可继续复用。 */
+  /*
+   * Row 类型内容上下 padding。
+   * 例如 Skills / Education row。
+   */
   --row-padding-y: 1.75rem;
 
+  /* Project Card 标题。 */
   --project-heading-size: 1.125rem;
+
+  /* Project Card description。 */
   --project-body-size: 0.875rem;
+
+  /* Education 正文。 */
   --education-body-size: 0.875rem;
+
+  /* Footer links。 */
   --footer-link-size: 0.875rem;
+
+  /* Footer copyright。 */
   --footer-copy-size: 0.75rem;
 
-  /* ---------- CTA buttons ---------- */
+  /* -----------------------------------------
+     CTA
+     ----------------------------------------- */
 
+  /*
+   * Hero / public page CTA button。
+   */
   --cta-height: 3rem;
   --cta-padding-x: 1.25rem;
   --cta-font-size: 0.875rem;
 
-  /* ---------- Technology badges ---------- */
+  /* -----------------------------------------
+     Technology badges
+     ----------------------------------------- */
 
   --tech-badge-height: 2rem;
   --tech-badge-padding-x: 0.75rem;
   --tech-badge-font-size: 0.75rem;
 
   /* =========================================
-     shadcn primitive sizing tokens
+     shadcn/ui primitive sizing
 
-     这些主要控制 Dashboard / Trial 里的 Button、Input、
-     Textarea、Card、Label 等基础组件。
+     这些是通用 UI primitive 的尺寸，
+     主要给 Dashboard / Trial 使用。
+
+     Public Portfolio 不需要为了 4K
+     把所有 UI primitive 一起放大。
      ========================================= */
 
+  /* Button */
   --ui-button-height-default: 2rem;
   --ui-button-height-xs: 1.5rem;
   --ui-button-height-sm: 1.75rem;
   --ui-button-height-lg: 2.25rem;
+
   --ui-button-font-default: 0.875rem;
   --ui-button-font-xs: 0.75rem;
   --ui-button-font-sm: 0.8rem;
   --ui-button-font-lg: 0.875rem;
 
+  /* Input */
   --ui-input-height: 2rem;
   --ui-input-padding-x: 0.625rem;
   --ui-input-font-size: 0.875rem;
 
+  /* Textarea */
   --ui-textarea-min-height: 4rem;
   --ui-textarea-padding-x: 0.625rem;
   --ui-textarea-padding-y: 0.5rem;
 
+  /* Card */
   --ui-card-spacing: 1rem;
   --ui-card-spacing-sm: 0.75rem;
   --ui-card-title-size: 1rem;
 
+  /* Label */
   --ui-label-font-size: 0.875rem;
 }
 
 /* =========================================
    >= 640px
-   大手机横屏 / 小平板
-
-   开始增加纵向空间和标题尺寸。
+   Large phone / small tablet
    ========================================= */
 
 @media (min-width: 640px) {
   :root {
     --section-padding-y: 6rem;
 
+    /*
+     * Logo 开始稍微增大。
+     * 宽度自动按照 SVG 比例变化。
+     */
+    --nav-logo-height: 1.625rem;
+
     --hero-padding-y: 4rem;
     --hero-title-size: 3.75rem;
     --hero-description-size: 1.125rem;
 
     --section-title-size: 2.25rem;
+
     --row-padding-y: 2rem;
+
     --project-heading-size: 1.25rem;
   }
 }
 
 /* =========================================
    >= 768px
-   平板
-
-   Hero 获得更多 breathing room。
+   Tablet
    ========================================= */
 
 @media (min-width: 768px) {
   :root {
+    --nav-logo-height: 1.75rem;
+
     --hero-padding-y: 5rem;
     --hero-description-size: 1.25rem;
   }
@@ -172,15 +258,14 @@
 
 /* =========================================
    >= 1024px
-   笔记本 / 标准 desktop 起点
-
-   明显增加 Hero 与 section 的空间，
-   但页面仍保持相对紧凑。
+   Laptop / desktop
    ========================================= */
 
 @media (min-width: 1024px) {
   :root {
     --section-padding-y: 7rem;
+
+    --nav-logo-height: 1.875rem;
 
     --hero-padding-y: 6rem;
     --hero-title-size: 4.5rem;
@@ -190,57 +275,70 @@
 
 /* =========================================
    >= 1280px
-   标准 desktop
-
-   主要增强 Hero；container 仍保持克制，
-   避免普通桌面内容太散。
+   Standard desktop
    ========================================= */
 
 @media (min-width: 1280px) {
   :root {
+    --nav-logo-height: 2rem;
+
     --hero-title-size: 6rem;
   }
 }
 
 /* =========================================
    >= 1536px
-   大型 desktop / 大笔记本
+   Large desktop
 
-   开始进入 large-screen design：
+   开始进入真正的大屏布局：
    - container 变宽
-   - section 留白增加
-   - project / footer / badges 轻微放大
+   - whitespace 增加
+   - typography 适度增大
+   - Logo 继续按比例增长
    ========================================= */
 
 @media (min-width: 1536px) {
   :root {
-    /* 90rem = 1440px */
+    /*
+     * 90rem = 1440px
+     */
     --page-max-width: 90rem;
     --page-padding-x: 2rem;
 
     --section-padding-y: 7.5rem;
 
-    --nav-logo-size: 1.125rem;
+    /* Navbar */
+    --nav-logo-height: 2.125rem;
     --nav-link-size: 0.95rem;
 
+    /* Hero */
     --hero-title-max-width: 58rem;
     --hero-title-size: 6.25rem;
+
     --hero-description-max-width: 48rem;
     --hero-description-size: 1.5rem;
 
+    /* Sections */
     --section-title-size: 2.75rem;
+
     --row-padding-y: 2.25rem;
 
+    /* Projects */
     --project-heading-size: 1.375rem;
     --project-body-size: 1.0625rem;
+
+    /* Education */
     --education-body-size: 1.0625rem;
 
+    /* Footer */
     --footer-link-size: 1rem;
 
+    /* CTA */
     --cta-height: 3.25rem;
     --cta-padding-x: 1.5rem;
     --cta-font-size: 1rem;
 
+    /* Technology badges */
     --tech-badge-height: 2.25rem;
     --tech-badge-padding-x: 0.8rem;
     --tech-badge-font-size: 0.8125rem;
@@ -249,52 +347,74 @@
 
 /* =========================================
    >= 1920px
-   Full HD 大屏
+   Full HD large screen
 
-   重点不是 scale 整个页面，而是分别调整：
-   container / whitespace / typography / controls。
+   目标：
+   不使用 transform: scale() 放大整页。
 
-   104rem = 1664px，1920px 屏幕上仍保留左右空间。
+   分别调整：
+   - container
+   - whitespace
+   - typography
+   - logo
+   - controls
    ========================================= */
 
 @media (min-width: 1920px) {
   :root {
+    /*
+     * 104rem = 1664px
+     *
+     * 1920 viewport 中依然保留
+     * 足够的左右 breathing room。
+     */
     --page-max-width: 104rem;
     --page-padding-x: 3rem;
 
     --section-padding-y: 8.5rem;
 
+    /* Navbar */
     --nav-min-height: 5.5rem;
-    --nav-logo-size: 1.25rem;
+
+    /*
+     * Logo SVG 高度。
+     *
+     * SVG 本身没有固定显示尺寸，
+     * 所以修改这个 token 就会响应式缩放。
+     */
+    --nav-logo-height: 2.375rem;
+
     --nav-link-size: 1.0625rem;
 
+    /* Hero */
     --hero-padding-y: 7.5rem;
-    --hero-title-max-width: 66rem;
 
-    /* 稍微收住 Hero，不让标题在大屏变成过大的海报文字。 */
+    --hero-title-max-width: 66rem;
     --hero-title-size: 6.5rem;
 
     --hero-description-max-width: 54rem;
     --hero-description-size: 1.625rem;
 
+    /* Sections */
     --section-title-size: 3rem;
 
-    /* 1536 -> 1.375rem
-       1920 -> 1.5rem
-       2560 -> 1.625rem
-       让 Project heading 的增长更平滑。 */
+    /* Projects */
     --project-heading-size: 1.5rem;
-
     --project-body-size: 1.125rem;
+
+    /* Education */
     --education-body-size: 1.125rem;
 
+    /* Footer */
     --footer-link-size: 1.0625rem;
     --footer-copy-size: 0.875rem;
 
+    /* CTA */
     --cta-height: 3.5rem;
     --cta-padding-x: 1.75rem;
     --cta-font-size: 1.0625rem;
 
+    /* Technology badges */
     --tech-badge-height: 2.5rem;
     --tech-badge-padding-x: 0.9rem;
     --tech-badge-font-size: 0.875rem;
@@ -303,50 +423,77 @@
 
 /* =========================================
    >= 2560px
-   QHD / 4K 大屏
+   QHD / 4K / ultrawide
 
-   这个 breakpoint 会覆盖 2560px、3440px、3840px 等宽屏。
+   这个 breakpoint 不代表内容必须铺满屏幕。
 
-   重点：
-   - 不把 container 拉满整个屏幕
-   - 增加 whitespace
-   - 字体适度增加，但设置合理上限
-
-   108rem = 1728px。
-   对两列 Project cards 来说比 120rem / 1920px 更容易阅读。
+   核心原则：
+   - container 有最大宽度
+   - whitespace 增加
+   - typography 适量放大
+   - Logo 适量放大
    ========================================= */
 
 @media (min-width: 2560px) {
   :root {
+    /*
+     * 108rem = 1728px
+     *
+     * 即使 viewport 是 2560 / 3440 / 3840，
+     * content 也不会无限拉宽。
+     */
     --page-max-width: 108rem;
+
     --page-padding-x: 4rem;
 
     --section-padding-y: 10rem;
 
+    /* Navbar */
     --nav-min-height: 6rem;
-    --nav-logo-size: 1.375rem;
+
+    /*
+     * 4K Logo 大约 42px 高。
+     *
+     * width 会根据 SVG viewBox 自动计算。
+     */
+    --nav-logo-height: 2.625rem;
+
     --nav-link-size: 1.125rem;
 
+    /* Hero */
     --hero-padding-y: 9rem;
+
     --hero-title-max-width: 74rem;
 
-    /* 7rem = 112px：足够有大屏层次，但不会无限放大。 */
+    /*
+     * 7rem = 112px
+     *
+     * 大屏上足够明显，
+     * 但不会无限变成超大 poster text。
+     */
     --hero-title-size: 7rem;
 
     --hero-description-max-width: 60rem;
     --hero-description-size: 1.875rem;
 
+    /* Sections */
     --section-title-size: 3.5rem;
+
     --row-padding-y: 3rem;
 
+    /* Projects */
     --project-heading-size: 1.625rem;
     --project-body-size: 1.25rem;
+
+    /* Education */
     --education-body-size: 1.25rem;
 
+    /* CTA */
     --cta-height: 3.75rem;
     --cta-padding-x: 2rem;
     --cta-font-size: 1.125rem;
 
+    /* Technology badges */
     --tech-badge-height: 2.75rem;
     --tech-badge-padding-x: 1rem;
     --tech-badge-font-size: 0.9375rem;
@@ -355,87 +502,115 @@
 
 /* =========================================
    Dashboard-specific tokens
-   Dashboard 专用尺寸
 
-   Public Portfolio 和 Dashboard 的目标不同：
-   - Public page 强调阅读和展示
-   - Dashboard 强调表单和操作
+   Dashboard 和公开 Portfolio 分开控制。
 
-   所以 Dashboard 在 .dashboard-shell 内单独覆盖尺寸，
-   不影响公开页面。
+   Public:
+   展示、阅读、视觉 hierarchy。
+
+   Dashboard:
+   表单输入、编辑和操作效率。
    ========================================= */
 
 .dashboard-shell {
+  /* Sidebar */
   --dashboard-sidebar-width: 18rem;
   --dashboard-sidebar-padding: 1.5rem;
+
+  /* Main content */
   --dashboard-content-max-width: 80rem;
   --dashboard-content-padding: 2rem;
+
+  /* Dashboard heading */
   --dashboard-heading-size: 1.875rem;
 }
 
-/* Full HD 大屏 Dashboard */
+/* =========================================
+   Dashboard >= 1920px
+   ========================================= */
+
 @media (min-width: 1920px) {
   .dashboard-shell {
     --dashboard-sidebar-width: 22rem;
     --dashboard-sidebar-padding: 2rem;
+
     --dashboard-content-max-width: 96rem;
     --dashboard-content-padding: 2.5rem;
+
     --dashboard-heading-size: 2.25rem;
 
-    /* Dashboard controls 在大屏上单独变大。 */
+    /* Button */
     --ui-button-height-default: 2.5rem;
     --ui-button-height-xs: 1.75rem;
     --ui-button-height-sm: 2rem;
     --ui-button-height-lg: 2.75rem;
+
     --ui-button-font-default: 0.95rem;
     --ui-button-font-xs: 0.8rem;
     --ui-button-font-sm: 0.875rem;
     --ui-button-font-lg: 1rem;
 
+    /* Input */
     --ui-input-height: 2.75rem;
     --ui-input-padding-x: 0.875rem;
     --ui-input-font-size: 1rem;
 
+    /* Textarea */
     --ui-textarea-min-height: 5rem;
     --ui-textarea-padding-x: 0.875rem;
     --ui-textarea-padding-y: 0.75rem;
 
+    /* Card */
     --ui-card-spacing: 1.25rem;
     --ui-card-spacing-sm: 0.9375rem;
     --ui-card-title-size: 1.125rem;
+
+    /* Label */
     --ui-label-font-size: 1rem;
   }
 }
 
-/* QHD / 4K Dashboard */
+/* =========================================
+   Dashboard >= 2560px
+   ========================================= */
+
 @media (min-width: 2560px) {
   .dashboard-shell {
     --dashboard-sidebar-width: 26rem;
     --dashboard-sidebar-padding: 2.5rem;
+
     --dashboard-content-max-width: 112rem;
     --dashboard-content-padding: 3.5rem;
+
     --dashboard-heading-size: 2.5rem;
 
+    /* Button */
     --ui-button-height-default: 2.75rem;
     --ui-button-height-xs: 2rem;
     --ui-button-height-sm: 2.25rem;
     --ui-button-height-lg: 3rem;
+
     --ui-button-font-default: 1rem;
     --ui-button-font-xs: 0.875rem;
     --ui-button-font-sm: 0.95rem;
     --ui-button-font-lg: 1.0625rem;
 
+    /* Input */
     --ui-input-height: 3rem;
     --ui-input-padding-x: 1rem;
     --ui-input-font-size: 1.0625rem;
 
+    /* Textarea */
     --ui-textarea-min-height: 5.5rem;
     --ui-textarea-padding-x: 1rem;
     --ui-textarea-padding-y: 0.875rem;
 
+    /* Card */
     --ui-card-spacing: 1.5rem;
     --ui-card-spacing-sm: 1.125rem;
     --ui-card-title-size: 1.25rem;
+
+    /* Label */
     --ui-label-font-size: 1.0625rem;
   }
 }
@@ -443,28 +618,43 @@
 /* =========================================
    Tailwind semantic color mapping
 
-   把 CSS semantic tokens 映射成 Tailwind v4 颜色，
-   这样组件里可以继续使用：
-   bg-background / text-foreground / border-border / text-primary 等。
+   把上面的 CSS variables 映射到 Tailwind v4。
+
+   之后 component 可以使用：
+
+   bg-background
+   text-foreground
+   text-primary
+   bg-card
+   border-border
+   等。
    ========================================= */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
+
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -472,18 +662,23 @@
 
 /* =========================================
    Base
-   全局基础行为
    ========================================= */
 
 html {
-  /* 用于 Navbar 的 #skills / #projects / #education 平滑滚动。 */
+  /*
+   * Navbar 点击 #skills / #projects / #education
+   * 时进行平滑滚动。
+   */
   @apply scroll-smooth bg-background;
 }
 
 body {
   @apply min-h-screen bg-background font-sans text-foreground antialiased;
 
-  /* 改善文字渲染观感；这不是 responsive scaling。 */
+  /*
+   * 改善文字渲染。
+   * 与 responsive scaling 无关。
+   */
   text-rendering: optimizeLegibility;
 }
 
