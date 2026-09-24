@@ -19,10 +19,6 @@
     "dismiss": "关闭错误",
     "saveLanguage": "保存 {language}"
   },
-  "notices": {
-    "localTitle": "本地编辑器。",
-    "localDescription": "保存操作会直接写入作品集的 JSON 源文件。提交和推送前请检查 Git diff。"
-  },
   "errors": {
     "loadFailed": "内容加载失败。",
     "saveFailed": "保存失败："

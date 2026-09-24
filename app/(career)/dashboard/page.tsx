@@ -1,9 +1,7 @@
 import {
-  redirect,
-} from "next/navigation";
+  CvEditorPage,
+} from "@/career/pages/cv-editor";
 
-export default function DashboardPage() {
-  redirect(
-    "/dashboard/cv",
-  );
+export default function Page() {
+  return <CvEditorPage />;
 }

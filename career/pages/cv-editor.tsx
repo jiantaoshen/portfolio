@@ -11,8 +11,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { localeMeta } from "@/lib/locales";
 
-import { Field } from "../components/dashboard/field";
-import { LocaleSwitcher } from "../components/dashboard/locale-switcher";
+import { Field } from "../components/field";
+import { LocaleSwitcher } from "../components/locale-switcher";
 import type { AboutContent, AboutEducationItem, AboutProject, AboutSkillGroup, Locale } from "../lib/types";
 import { parseCommaList } from "../lib/text";
 import { useCareerWorkspace } from "../workspace";

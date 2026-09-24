@@ -408,10 +408,6 @@
    ========================================= */
 
 .dashboard-shell {
-  /* Sidebar */
-  --dashboard-sidebar-width: 18rem;
-  --dashboard-sidebar-padding: 1.5rem;
-
   /* Main content */
   --dashboard-content-max-width: 80rem;
   --dashboard-content-padding: 2rem;
@@ -427,8 +423,6 @@
 @media (min-width: 1920px) {
   .dashboard-shell {
     /* Dashboard layout */
-    --dashboard-sidebar-width: 22rem;
-    --dashboard-sidebar-padding: 2rem;
     --dashboard-content-max-width: 96rem;
     --dashboard-content-padding: 2.5rem;
     --dashboard-heading-size: 2.25rem;
@@ -471,8 +465,6 @@
 @media (min-width: 2560px) {
   .dashboard-shell {
     /* Dashboard layout */
-    --dashboard-sidebar-width: 26rem;
-    --dashboard-sidebar-padding: 2.5rem;
     --dashboard-content-max-width: 112rem;
     --dashboard-content-padding: 3.5rem;
     --dashboard-heading-size: 2.5rem;

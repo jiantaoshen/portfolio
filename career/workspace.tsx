@@ -2,7 +2,7 @@
 
 import { createContext, useContext } from "react";
 
-import { DashboardShell } from "./components/dashboard/dashboard-shell";
+import { DashboardShell } from "./components/dashboard-shell";
 import { useCareerData } from "./hooks/use-career-data";
 import type { AboutByLocale } from "./lib/types";
 
