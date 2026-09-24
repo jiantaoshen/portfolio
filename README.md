@@ -2,7 +2,7 @@
 
 Multilingual developer portfolio with a lightweight Git-based CMS.
 
-**Live:** [https://www.jiantao.dev](https://www.jiantao.dev)
+**Live:** https://www.jiantao.dev
 
 ## Tech Stack
 
@@ -18,10 +18,8 @@ Multilingual developer portfolio with a lightweight Git-based CMS.
 - English, Swedish, and Chinese
 - Localized routes: `/en`, `/sv`, `/zh`
 - Multilingual About / CV content
-- Responsive project cards
 - GitHub and Live Demo links for projects
-- Responsive UI
-- Large-screen responsive enhancements
+- Media-query-driven responsive design with CSS design tokens
 - Public CMS trial mode
 - Local content dashboard
 - Git-based publishing workflow
@@ -44,20 +42,24 @@ Tailwind CSS
 CSS variables
 ├── Design tokens
 ├── Colors
-├── Typography scale
+├── Typography
 ├── Spacing
 └── Responsive sizing
 
-Regular CSS
-└── Features Tailwind is not well suited for
-└── Selector-driven cases
+Media queries
+└── Breakpoint-specific design token overrides
+
+Shared assets
+└── Brand SVGs
 ```
 
 In short:
 
-> shadcn/ui manages UI primitives; Tailwind manages components and layout; CSS variables manage design tokens; regular CSS is reserved for cases where Tailwind is not a good fit.
+> shadcn/ui manages UI primitives; Tailwind manages components and layout; CSS variables manage design tokens; media queries adjust those tokens across viewport sizes.
 
-The project avoids scaling the entire page on larger displays. Instead, typography, spacing, containers, controls, and layout dimensions can be adjusted independently through responsive design rules.
+The project avoids scaling the entire page on larger displays. Instead, container widths, typography, spacing, navigation, controls, project cards, and dashboard dimensions are adjusted independently.
+
+Brand assets also follow a single-source approach. The main SVG logo is stored once and reused across the Navbar and Footer, while each location controls its own responsive display size.
 
 ## DRY Principles
 
@@ -71,6 +73,7 @@ Examples include:
 - Technology badges are rendered through a shared semantic component.
 - Dashboard navigation states use shared variants.
 - Design values such as colors, typography, spacing, and responsive sizing are controlled through shared design tokens.
+- The main brand logo is stored once as a shared SVG asset and reused across the Navbar and Footer.
 - shadcn/ui primitives centralize common control styles and variants.
 
 DRY is applied to shared **knowledge and behavior**, rather than removing every repeated Tailwind class.
@@ -118,7 +121,7 @@ GitHub URL
 Live Demo URL
 ```
 
-Long-form project Case Studies were removed to reduce duplicated documentation and maintenance.
+Long-form Project Case Studies were removed to reduce duplicated documentation and maintenance.
 
 Technical details and frequently changing project information are maintained in the corresponding GitHub repositories, while Live Demo links show the current product experience.
 
@@ -176,29 +179,85 @@ Locale definitions are maintained through a shared source of truth so routing, l
 
 ## Responsive Design
 
-The portfolio uses a mobile-first responsive layout.
+The portfolio uses a mobile-first, media-query-driven responsive design system.
 
-The interface does not rely on page-level `zoom`, `scale`, or other whole-page transformations.
+Responsive sizing is controlled primarily through shared CSS design tokens. Components consume these tokens without needing to know the current viewport breakpoint.
 
-Instead, individual design tokens and layout properties can adapt independently:
+```text
+Mobile defaults
+    ↓
+640px
+    ↓
+768px
+    ↓
+1024px
+    ↓
+1280px
+    ↓
+1536px
+    ↓
+1920px
+    ↓
+2560px+
+```
+
+The larger breakpoints are used for dedicated large-screen enhancements rather than scaling the entire interface.
+
+Responsive values include:
 
 ```text
 Container width
-Typography
-Spacing
-Navigation
+Page padding
+Section spacing
+Navigation sizing
+Logo sizing
+Hero typography
+Project typography
 Buttons and controls
-Project cards
+Technology badges
+Footer sizing
 Dashboard sidebar
-Editor width
+Dashboard editor width
 ```
 
-This keeps the layout flexible across different viewport sizes without scaling the entire interface as one unit.
+The interface does not rely on page-level `zoom`, `scale`, or other whole-page transformations.
+
+Instead, each part of the design can grow independently through CSS variables and media-query overrides. This keeps the interface readable and proportionally balanced across phones, tablets, laptops, Full HD displays, QHD displays, and larger screens.
+
+### Responsive Branding
+
+The main brand logo is stored as a shared SVG asset:
+
+```text
+public/
+└── logo.svg
+```
+
+The same asset is used in multiple locations while each component controls its own responsive display size:
+
+```text
+logo.svg
+   │
+   ├── Navbar
+   │   └── --nav-logo-height
+   │
+   └── Footer
+       └── --footer-logo-height
+```
+
+The SVG keeps its intrinsic aspect ratio while CSS design tokens control its displayed height across breakpoints.
 
 ## Development
 
+Install dependencies:
+
 ```bash
 npm install
+```
+
+Start the development server:
+
+```bash
 npm run dev
 ```
 
@@ -222,8 +281,16 @@ http://localhost:3000/trial
 
 ## Build
 
+Create a production build:
+
 ```bash
 npm run build
+```
+
+Start the production server locally:
+
+```bash
+npm run start
 ```
 
 Content is version-controlled in Git and deployed through Vercel.
