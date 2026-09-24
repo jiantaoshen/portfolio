@@ -19,10 +19,6 @@
     "dismiss": "Stäng felmeddelande",
     "saveLanguage": "Spara {language}"
   },
-  "notices": {
-    "localTitle": "Lokal redigerare.",
-    "localDescription": "Ändringar skrivs direkt till portfolions JSON-källfiler. Granska Git-diffen innan du committar och pushar."
-  },
   "errors": {
     "loadFailed": "Det gick inte att läsa in innehållet.",
     "saveFailed": "Det gick inte att spara:"

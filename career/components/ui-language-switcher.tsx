@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { localeMeta, locales, type Locale } from "@/lib/locales";
 import { cn } from "@/lib/utils";
 
+import { dashboardSwitcherItemVariants } from "./switcher-variants";
+
 export function UiLanguageSwitcher() {
   const t = useTranslations("dashboard");
   const router = useRouter();
@@ -15,15 +17,11 @@ export function UiLanguageSwitcher() {
   function changeLocale(locale: Locale) {
     // eslint-disable-next-line react-hooks/immutability
     document.cookie = `career-ui-locale=${locale}; path=/; max-age=31536000; samesite=lax`;
-
     router.refresh();
   }
+
   return (
-    <div
-      className="flex items-center gap-1"
-      role="group"
-      aria-label={t("interfaceLanguage.label")}
-    >
+    <div className="flex items-center gap-1" role="group" aria-label={t("interfaceLanguage.label")}>
       {locales.map((locale) => {
         const active = locale === currentLocale;
 
@@ -32,15 +30,9 @@ export function UiLanguageSwitcher() {
             key={locale}
             type="button"
             variant="ghost"
-            size="sm"
             aria-pressed={active}
             onClick={() => changeLocale(locale)}
-            className={cn(
-              "h-8 px-2 font-mono text-xs",
-              active
-                ? "bg-accent text-accent-foreground"
-                : "text-muted-foreground",
-            )}
+            className={cn("h-9 rounded-none px-3 text-(length:--nav-link-size) font-medium", dashboardSwitcherItemVariants({ active, underlineInset: "md" }))}
           >
             {localeMeta[locale].shortLabel}
           </Button>

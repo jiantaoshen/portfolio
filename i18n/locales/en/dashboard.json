@@ -19,10 +19,6 @@
     "dismiss": "Dismiss error",
     "saveLanguage": "Save {language}"
   },
-  "notices": {
-    "localTitle": "Local editor.",
-    "localDescription": "Saves write directly to the portfolio JSON source files. Review the Git diff before committing and pushing."
-  },
   "errors": {
     "loadFailed": "Failed to load content.",
     "saveFailed": "Save failed:"
