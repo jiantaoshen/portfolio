@@ -191,15 +191,15 @@ Lighthouse 测试结果比 Astro 差一些，而且使用 `.vercelignore` 也无
 
 **First Contentful Paint:** 1.2 s
 
-**Largest Contentful Paint:** 2.1 s
+**Largest Contentful Paint:** 1.5 s
 
-**Total Blocking Time:** 40 ms
+**Total Blocking Time:** 270 ms
 
 **Cumulative Layout Shift:** 0
 
-**Speed Index:** 3.9 s
+**Speed Index:** 1.9 s
 
-**Performance:** 97
+**Performance:** 95
 
 - 有一部分 JavaScript 没有被使用。
 
@@ -251,9 +251,8 @@ Portfolio content
      JSON
 ```
 
-### 为什么删除 Project Case Study
-
-早期的 Portfolio 会为每个项目提供独立的 Case Study。
+### 为什么删除 Project Case Study 和 blog
+Portfolio 的早期版本曾经包含一个多语言技术博客和为每个项目提供独立的 Case Study。
 
 它们主要用于记录：
 
@@ -266,7 +265,21 @@ Portfolio content
 
 这个设计最初的目标，是让 Portfolio 不只是展示最终结果，也可以展示项目是如何设计和演进的。
 
-但随着项目持续开发，我发现 Case Study 出现了几个实际问题。
+但随着项目持续开发，我发现 博客和 Case Study 并不完全相同，但它们最终遇到了相似的问题：
+
+```text
+更多长篇内容
+↓
+更多翻译
+↓
+更多同步
+↓
+更多长期维护
+```
+
+
+
+
 
 #### 1. 与 GitHub README 重复
 
@@ -284,12 +297,7 @@ Technology stack
 Deployment
 Known limitations
 ```
-
-如果这些内容同时出现在 GitHub README 和 Portfolio Case Study 中，就会形成两个内容来源。
-
-当两边没有同时更新时，它们还有可能描述不同版本的项目。
-
-因此，对技术细节来说，让项目自己的 repository 成为主要文档来源更加合理。
+如果这些内容同时出现在 GitHub README， blog 和 Portfolio Case Study 中，就会形成三个内容来源。没有同时更新时，它们还有可能描述不同版本的项目。因此，对技术细节来说，让项目自己的 repository 成为主要文档来源更加合理。
 
 #### 2. Feature 更新导致额外维护
 
@@ -325,7 +333,7 @@ Swedish Case Study
 Chinese Case Study
 ```
 
-最终，我开始为了保持 Portfolio 文档同步，而额外维护多份描述同一个系统的内容。
+最终，我开始为了保持 Portfolio 文档同步，而额外维护多份描述同一个系统的内容。Blog也是同样道理。
 
 这不符合我希望降低 Portfolio 维护成本的目标。
 
@@ -354,11 +362,7 @@ GitHub
 
 #### 4. Portfolio 的主要职责是筛选，而不是保存全部文档
 
-我后来重新考虑了 Portfolio 的主要作用。
-
-它不需要保存关于我的所有信息。
-
-它更重要的作用是，让第一次访问的人可以快速回答：
+维护多种语言的长篇文章会带来大量翻译和维护工作，但对作品集主要目的的帮助相对有限。如果技术文章的目标是提高职业曝光度，那么 LinkedIn 这类平台更加合适，因为它本身已经具备内容分发能力和职业场景。它不需要保存关于我的所有信息。它更重要的作用是，让第一次访问的人可以快速回答：
 
 ```text
 这个人是谁？
@@ -389,27 +393,9 @@ GitHub
 
 只要项目的核心定位没有变化，即使内部增加了一些 feature，也通常不需要修改 Portfolio。
 
-#### 5. 删除 Case Study 也简化了代码
+#### 5. 删除 Blog 和 Case Study 也简化了代码
 
-Case Study 不只是内容成本，它本身也需要一整套实现：
-
-```text
-Markdown files
-↓
-Markdown parser
-↓
-Project schema
-↓
-Dynamic project routes
-↓
-Case Study renderer
-↓
-Project editor
-↓
-Project content API
-```
-
-移除 Case Study 后，这些代码都不再需要维护。
+Blog 和 Case Study 不只是内容成本，它们本身也各自需要一整套实现架构。移除它们后，这些代码都不再需要维护。
 
 项目内容可以直接变成：
 
@@ -425,11 +411,37 @@ projects[]
 
 这样减少的不只是文档数量，也包括应用自身的复杂度。
 
-因此，删除 Case Study 并不是因为它完全没有价值，而是因为在这个 Portfolio 当前的规模和目标下：
+因此，删除 Blog 和 Case Study 并不是因为它们完全没有价值，而是因为在这个 Portfolio 当前的规模和目标下：
 
 > **它带来的额外信息价值已经低于长期维护它所需要的成本。**
 
 更详细、变化更频繁的内容交给 GitHub；实际产品体验交给 Live Demo；Portfolio 则负责提供简洁、稳定和经过筛选的项目入口。
+
+因此，现在 Portfolio 主要围绕以下内容展开：
+
+```text
+关于我
+→ 我是谁
+
+技能
+→ 我使用和学习什么技术
+
+项目
+→ 我构建了什么
+
+Live Demo
+→ 项目现在是什么样子
+
+GitHub
+→ 源代码、技术文档和开发历史
+
+LinkedIn
+→ 职业写作和沟通
+```
+
+这样可以减少重复内容和翻译工作，同时让不同平台承担更明确的职责。
+
+
 
 ### 公开 Trial 模式
 
@@ -626,73 +638,6 @@ Vercel 部署
 - 不需要 CMS 数据库
 - 不需要单独的内容备份方案
 - 内容与应用代码保持在同一个 repository
-
-### 避免使用生产环境 CMS 数据库
-
-这个作品集不需要频繁的多人协作发布，也不需要在生产环境中进行实时编辑。
-
-因此，如果加入生产环境 CMS 数据库，就会增加：
-
-- 额外的基础设施
-- 身份验证需求
-- API 管理
-- 数据库托管
-- 内容同步问题
-- 更多运维复杂度
-
-但对于目前的使用场景来说，这些额外投入并不能带来足够的价值。
-
-直接把内容保存在仓库中更加简单，也更符合这个项目的更新频率。
-
-### 移除博客
-
-作品集的早期版本曾经包含一个多语言技术博客。
-
-维护多种语言的长篇文章会带来大量翻译和维护工作，但对作品集主要目的的帮助相对有限。
-
-因此，我选择移除博客，而不是继续把它扩展成一个更大的发布平台。
-
-如果技术文章的目标是提高职业曝光度，那么 LinkedIn 这类平台更加合适，因为它本身已经具备内容分发能力和职业场景。
-
-后来，我也基于类似的原因重新评估了 Project Case Study。
-
-博客和 Case Study 并不完全相同，但它们最终遇到了相似的问题：
-
-```text
-更多长篇内容
-↓
-更多翻译
-↓
-更多同步
-↓
-更多长期维护
-```
-
-对于具体项目，GitHub README 已经是更自然的技术文档位置，而 Live Demo 可以展示项目当前的实际状态。
-
-因此，现在 Portfolio 主要围绕以下内容展开：
-
-```text
-关于我
-→ 我是谁
-
-技能
-→ 我使用和学习什么技术
-
-项目
-→ 我构建了什么
-
-Live Demo
-→ 项目现在是什么样子
-
-GitHub
-→ 源代码、技术文档和开发历史
-
-LinkedIn
-→ 职业写作和沟通
-```
-
-这样可以减少重复内容和翻译工作，同时让不同平台承担更明确的职责。
 
 ## 当前架构
 

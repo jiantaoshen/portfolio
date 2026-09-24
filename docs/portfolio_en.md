@@ -2,7 +2,7 @@
 
 This is a multilingual personal portfolio and a lightweight, Git-based content management system built with Next.js 16, TypeScript, Tailwind CSS v4, shadcn/ui, and next-intl.
 
-The public website supports English, Swedish, and Chinese through localized routes and translated content. Structured profile content such as About, Projects, Skills, and Education is maintained in multilingual JSON files.
+The public website supports English, Swedish, and Chinese through localized routes and content. Structured profile content such as About, Projects, Skills, and Education is maintained in multilingual JSON files.
 
 The project provides two ways to edit content:
 
@@ -11,11 +11,11 @@ The project provides two ways to edit content:
 
 The current architecture continues to use Git as the single source of truth. It does not use a production content database, and the same Next.js application is responsible for rendering the public website, providing the CMS interface, handling localization, and exposing development-only content APIs.
 
-The portfolio no longer tries to act as complete documentation for every project. Each project only keeps essential information such as a short description, technology stack, GitHub repository, and Live Demo. More detailed and frequently changing technical documentation is maintained in the corresponding project repository instead.
+The portfolio itself no longer serves as complete project documentation. Each project only keeps essential information such as a short description, technology stack, GitHub repository, and Live Demo. More detailed and frequently changing technical content is maintained in the corresponding project's GitHub repository.
 
 ## Problem
 
-A multilingual portfolio contains several different types of content that need to remain well organized and maintainable.
+A multilingual portfolio contains several different types of content that need to remain well organized and easy to maintain.
 
 This project includes:
 
@@ -26,9 +26,9 @@ This project includes:
 - Public UI translations
 - CMS interface translations
 
-Earlier versions also included long-form Project Case Studies. Each Case Study documented a project's architecture, features, technical decisions, and development process.
+Earlier versions also included long-form Project Case Studies. Each Case Study documented the project's architecture, features, technical decisions, and development process.
 
-This worked reasonably well when there were only a few projects and those projects changed infrequently. However, as the projects continued to evolve, a new problem became increasingly obvious:
+This worked reasonably well when there were only a few projects and they did not change frequently. However, as the projects continued to evolve, a new problem gradually became clear:
 
 The same project information started to exist in multiple places.
 
@@ -39,28 +39,28 @@ Actual project
 ↓
 GitHub README
 ↓
-Portfolio project information
+Portfolio Project information
 ↓
 Portfolio Case Study
 ↓
 Different language versions
 ```
 
-As a result, Case Studies gradually changed from being a useful explanation of project decisions into another copy of the project documentation that had to be kept synchronized.
+As a result, the Case Study gradually changed from something that explained the design process into another copy of the project documentation that had to be kept synchronized.
 
-For projects that are still actively developed, this creates noticeable maintenance overhead. If every new feature, technology change, or architectural change also requires updating a long-form Portfolio Case Study, maintaining the portfolio starts to consume time that could otherwise be spent improving the actual projects.
+For projects that are still actively developed, this creates noticeable maintenance overhead. If every new feature, technology change, or architectural change also requires updating a long-form Case Study in the Portfolio, maintaining the Portfolio itself starts to consume time that could otherwise be spent improving the actual projects.
 
-At the same time, this portfolio does not need a traditional production CMS. Content changes are relatively infrequent, and the content naturally fits alongside the application code.
+At the same time, this portfolio does not need a traditional production CMS. Content updates are relatively infrequent, and the content naturally fits alongside the application code.
 
-Introducing a database, authentication system, hosted CMS, and permanent write APIs would increase infrastructure and operational complexity without providing enough value for this use case.
+Introducing a database, authentication system, hosted CMS, and permanent write APIs would add extra infrastructure while providing limited value and increasing maintenance costs.
 
-My goal therefore gradually changed from:
+Therefore, my goal gradually changed from:
 
-> Keeping complete project documentation inside the portfolio
+> Keeping complete project documentation inside the Portfolio
 
 to:
 
-> Making the portfolio quickly explain who I am, what I have built, and where users can find the most appropriate source for more detailed information.
+> Making the Portfolio quickly explain who I am, what I have built, and where users can find the most appropriate source for more detailed information.
 
 ## Result
 
@@ -73,7 +73,7 @@ JSON
  ↓
 Next.js
  ↓
-Public portfolio
+Public Portfolio
  ↓
 Vercel
 ```
@@ -91,7 +91,7 @@ GitHub URL
 Live Demo URL
 ```
 
-The portfolio no longer stores separate long-form Project Case Studies.
+The Portfolio no longer stores separate long-form Project Case Studies.
 
 During local development, the Dashboard edits these same JSON source files directly:
 
@@ -117,21 +117,21 @@ This keeps Git as the single source of truth while still providing a visual cont
 
 ## Trade-offs and Decisions
 
-This section explains the reasoning behind several architectural and product decisions in the project.
+This section explains the reasoning behind several decisions made in the project.
 
 ### Multilingual Portfolio
 
-I created a multilingual portfolio because I wanted to improve both my language skills and my ability to write technical documentation.
+I created a multilingual portfolio because I wanted to improve both my language skills and my ability to write documentation.
 
-The downside is that every piece of translated content increases maintenance cost.
+The downside is that every piece of translated content increases maintenance costs.
 
-If a section exists in English, Swedish, and Chinese, adding one long-term piece of content effectively means maintaining three versions of it.
+If a piece of content exists in English, Swedish, and Chinese, adding one long-term section effectively means maintaining three versions of it.
 
-This was also one of the reasons I eventually removed long-form Project Case Studies.
+This was also one of the main reasons I later removed the long-form Case Studies.
 
-The portfolio now keeps most content relatively short and stable, which makes the multilingual structure manageable.
+The content currently kept in the portfolio is relatively short and changes infrequently, so the multilingual structure is still manageable.
 
-If the amount of portfolio content grows significantly again in the future, I may reconsider whether every section still needs to be available in all three languages.
+If the amount of content grows significantly again in the future, I may reconsider whether every section still needs to be available in all three languages.
 
 ### Why I Chose Next.js
 
@@ -147,19 +147,19 @@ Around the same time, I added a blog for publishing and sharing articles.
 
 As the amount of blog content increased, manually managing that content became more difficult. To solve this, I built my own CMS using C#.
 
-As the project continued to evolve, I wanted to simplify the architecture. I replaced the C# CMS with a React-based solution and removed the blog.
+As the project continued to evolve, I wanted to simplify the overall architecture. I replaced the C# CMS with a React-based solution and removed the blog.
 
 I also noticed another performance-related issue: the site would sometimes render HTML first and load CSS afterward. This was especially noticeable on slower network connections because users could briefly see an unstyled page.
 
 I tried inlining CSS directly into the HTML so both could be delivered together, but this did not solve the problem.
 
-Later, I learned that Next.js supports server-side rendering and can send pre-rendered HTML even when JavaScript is disabled in the browser.
+Later, I learned that Next.js supports server-side rendering and can still send pre-rendered HTML even when JavaScript is disabled in the browser.
 
 Because of this, I decided to migrate the site from Astro to Next.js.
 
-The Lighthouse results are slightly worse than the Astro version, and using `.vercelignore` does not reduce the amount of JavaScript used in the deployment. However, the overall user experience is better.
+The Lighthouse results are slightly worse than the Astro version, and using `.vercelignore` also does not reduce the amount of JavaScript used in the deployment. However, the overall user experience is better.
 
-For me, improving the user experience is more important than optimizing purely for benchmark scores.
+For me, better user experience is more important than optimizing purely for speed.
 
 #### Lighthouse Results — Astro (Mobile)
 
@@ -191,15 +191,15 @@ I did not include the desktop results because desktop performance was already be
 
 **First Contentful Paint:** 1.2 s
 
-**Largest Contentful Paint:** 2.1 s
+**Largest Contentful Paint:** 1.5 s
 
-**Total Blocking Time:** 40 ms
+**Total Blocking Time:** 270 ms
 
 **Cumulative Layout Shift:** 0
 
-**Speed Index:** 3.9 s
+**Speed Index:** 1.9 s
 
-**Performance:** 97
+**Performance:** 95
 
 - Some JavaScript was unused.
 
@@ -215,7 +215,7 @@ I did not include the desktop results because desktop performance was already be
 
 ### Why JSON
 
-Most data in the current portfolio is small-scale structured content without complex relationships.
+Most data in the current Portfolio is small-scale structured content without complex relationships.
 
 For example:
 
@@ -226,7 +226,7 @@ Skills
 Education
 ```
 
-This data normally only needs to be loaded once and used directly during rendering.
+This data usually only needs to be loaded once and then used directly during page rendering.
 
 The project does not require:
 
@@ -235,17 +235,15 @@ The project does not require:
 - Real-time synchronization
 - Multi-user concurrent editing
 
-For the current scale, JSON is simple and works well with the multilingual content structure used by next-intl.
+For the current scale, JSON is simple enough and also works well with the multilingual content structure used by next-intl.
 
 Earlier versions used Markdown for longer Project Case Studies.
 
-Markdown is well suited to long-form documentation because it is easier to read and write than large JSON strings.
+Markdown works well for long-form documentation because it is easier to read and write than large JSON strings.
 
-However, after removing Case Studies, the portfolio no longer contains enough long-form content to justify maintaining a separate Markdown content system.
+However, after removing the Case Studies, the Portfolio no longer contains enough long-form content to justify maintaining a separate Markdown loader, schema, dynamic route, and editor.
 
-Keeping a Markdown loader, schema, dynamic routes, and editor would add complexity without providing enough value.
-
-Removing that system makes the content model more consistent:
+Removing this part also makes the content model more consistent:
 
 ```text
 Portfolio content
@@ -253,9 +251,9 @@ Portfolio content
      JSON
 ```
 
-### Why I Removed Project Case Studies
+### Why I Removed Project Case Studies and the Blog
 
-Earlier versions of the portfolio included a separate Case Study for each project.
+Earlier versions of the Portfolio included a multilingual technical blog and a separate Case Study for each project.
 
 They were mainly used to document:
 
@@ -266,17 +264,27 @@ They were mainly used to document:
 - Problems encountered
 - Future improvements
 
-The original goal was to show not only the final result, but also how each project was designed and evolved.
+The original goal was to make the Portfolio show not only the final result, but also how each project was designed and evolved.
 
-As the projects continued to develop, however, several practical problems became clear.
+However, as the projects continued to develop, I found that although the blog and Case Studies were not exactly the same, they eventually created similar problems:
 
-#### 1. Duplicate Content with GitHub README Files
+```text
+More long-form content
+↓
+More translation
+↓
+More synchronization
+↓
+More long-term maintenance
+```
+
+#### 1. Duplication with GitHub README Files
 
 Projects usually already contain a README.
 
 The README is closer to the actual codebase and can evolve together with the code.
 
-For example, it can document:
+For example:
 
 ```text
 Architecture
@@ -287,9 +295,9 @@ Deployment
 Known limitations
 ```
 
-If the same information also exists inside a Portfolio Case Study, there are now two sources of project documentation.
+If the same information also exists in the GitHub README, the blog, and the Portfolio Case Study, there are now three sources of project documentation.
 
-If both are not updated at the same time, they can eventually describe different versions of the same project.
+If they are not updated at the same time, they may eventually describe different versions of the same project.
 
 For technical details, it therefore makes more sense for the project's own repository to remain the primary documentation source.
 
@@ -309,9 +317,9 @@ Changing the deployment architecture
 
 These changes already require updates to the code and, when necessary, the README.
 
-If the portfolio also contains a complete Case Study, the same information has to be updated again.
+If the Portfolio also contains a complete Case Study, the same information has to be updated again.
 
-In a multilingual portfolio, this problem becomes even larger.
+In a multilingual Portfolio, this problem becomes even larger.
 
 A single change could theoretically become:
 
@@ -327,17 +335,19 @@ Swedish Case Study
 Chinese Case Study
 ```
 
-Eventually, I found myself maintaining multiple descriptions of the same system purely to keep the portfolio documentation synchronized.
+Eventually, I found myself maintaining multiple descriptions of the same system purely to keep the Portfolio documentation synchronized.
 
-This conflicted with my goal of reducing the portfolio's long-term maintenance cost.
+The blog created the same kind of problem.
+
+This did not align with my goal of reducing the Portfolio's long-term maintenance cost.
 
 #### 3. Live Demo Already Shows the Product Result
 
-If someone wants to understand what a project actually looks like and how it behaves, a Live Demo is the most direct source.
+If someone wants to understand what a project actually looks like, a Live Demo is the most direct source.
 
-It shows the currently deployed version instead of a written snapshot of an older state.
+It shows the currently running version instead of a written snapshot of an older state.
 
-The responsibilities can therefore be separated more clearly:
+Therefore:
 
 ```text
 Portfolio
@@ -350,31 +360,33 @@ GitHub
 → How the project is implemented
 ```
 
-These three entry points already cover different needs.
+These three entry points already serve different responsibilities.
 
-Adding a Case Study on top of them increasingly duplicated information already available elsewhere.
+Continuing to add Case Studies would create increasing overlap between the Portfolio and GitHub.
 
 #### 4. The Main Purpose of a Portfolio Is Curation, Not Complete Documentation
 
-I eventually reconsidered the primary responsibility of the portfolio itself.
+Maintaining long-form articles in multiple languages creates a large amount of translation and maintenance work while contributing relatively little to the main purpose of the Portfolio.
 
-It does not need to contain everything about me or every technical detail about my projects.
+If the goal of technical writing is professional visibility, platforms such as LinkedIn are more suitable because they already provide content distribution and a professional context.
 
-Its more important job is to help a first-time visitor quickly answer:
+The Portfolio does not need to store everything about me.
+
+Its more important role is to help a first-time visitor quickly answer:
 
 ```text
 Who is this person?
 ↓
-What technologies do they work with?
+What technologies do they mainly use?
 ↓
 What have they built?
 ↓
 Which projects are worth exploring further?
 ```
 
-The portfolio therefore works better as a curated entry point rather than a complete project documentation platform.
+The Portfolio therefore works better as a curated entry point rather than a project documentation platform.
 
-Each Project Card now contains only enough information to help visitors understand the project:
+Each Project Card only keeps enough information to help users understand the project:
 
 ```text
 Title
@@ -387,31 +399,15 @@ GitHub
 
 If someone is interested in a project, they can continue to the corresponding GitHub repository or Live Demo.
 
-This also makes the portfolio content more stable.
+This also makes the Portfolio content more stable.
 
-As long as the core purpose of a project does not change, adding internal features usually does not require updating the portfolio.
+As long as the core purpose of a project does not change, adding internal features usually does not require updating the Portfolio.
 
-#### 5. Removing Case Studies Also Simplified the Codebase
+#### 5. Removing the Blog and Case Studies Also Simplified the Codebase
 
-Case Studies were not only a content-maintenance cost. They also required an entire implementation layer:
+The blog and Case Studies were not only a content-maintenance cost. Each also required its own implementation architecture.
 
-```text
-Markdown files
-↓
-Markdown parser
-↓
-Project schema
-↓
-Dynamic project routes
-↓
-Case Study renderer
-↓
-Project editor
-↓
-Project content API
-```
-
-After removing Case Studies, none of these pieces are necessary anymore.
+After removing them, this code no longer needs to be maintained.
 
 Project content can now be represented directly as:
 
@@ -425,21 +421,45 @@ projects[]
 └── liveUrl
 ```
 
-This reduces both documentation overhead and application complexity.
+This reduces not only the amount of documentation, but also the complexity of the application itself.
 
-Removing Case Studies does not mean that they have no value.
+Therefore, removing the Blog and Case Studies does not mean they had no value.
 
-It means that, for the current size and purpose of this portfolio:
+For the current size and purpose of this Portfolio:
 
-> **The additional information provided by Case Studies no longer justifies their long-term maintenance cost.**
+> **The additional information they provided no longer justified their long-term maintenance cost.**
 
-Detailed and frequently changing technical information belongs in GitHub. The current product experience belongs in the Live Demo. The portfolio itself remains a concise, stable, and curated entry point.
+Detailed and frequently changing information belongs in GitHub. The actual product experience belongs in the Live Demo. The Portfolio itself is responsible for providing a concise, stable, and curated entry point.
+
+The Portfolio is therefore now centered around:
+
+```text
+About
+→ Who I am
+
+Skills
+→ What technologies I use and learn
+
+Projects
+→ What I have built
+
+Live Demo
+→ What the project currently looks like
+
+GitHub
+→ Source code, technical documentation, and development history
+
+LinkedIn
+→ Professional writing and communication
+```
+
+This reduces duplicated content and translation work while giving each platform a clearer responsibility.
 
 ### Public Trial Mode
 
-Trial mode exists to demonstrate the lightweight CMS interface I built.
+Trial mode is used to demonstrate the lightweight content-editing interface I built.
 
-In the Astro version, this feature was relatively easy to create and maintain. After moving the frontend and backend responsibilities into the same framework, I started reconsidering which editing capabilities were actually worth keeping.
+In the Astro version, this feature was relatively easy to create and maintain. However, when the frontend and backend use the same programming language and framework, I need to reconsider which editing capabilities are actually worth keeping.
 
 The current Trial mode uses the same UI as the local Dashboard, but changes only exist in application state and are never written to the repository.
 
@@ -447,7 +467,7 @@ This feature may still be adjusted or removed in the future depending on how the
 
 ### Local Content Dashboard
 
-The local content Dashboard makes it easier to edit JSON content without manually opening and changing raw `.json` files.
+The local content Dashboard makes it easier to edit JSON content without manually opening and modifying raw `.json` files.
 
 It currently manages:
 
@@ -458,7 +478,7 @@ Skills
 Education
 ```
 
-By merging Projects into the same content workflow, I no longer need a separate Project CMS.
+By merging Projects into the same content-editing workflow, I no longer need a separate Project CMS.
 
 This reduces duplicated logic across different editor pages, data models, and APIs.
 
@@ -468,7 +488,7 @@ The local Dashboard still needs a way to write edited content back into the JSON
 
 Next.js Route Handlers therefore handle development-time file operations.
 
-These APIs are not used for real-time production content management.
+These APIs are not used for real-time content management in production.
 
 The workflow remains:
 
@@ -482,7 +502,7 @@ JSON
 Git
 ```
 
-Because Project Markdown and Case Studies have been removed, the API now has fewer content types to manage.
+Because the Case Studies and Project Markdown have been removed, the API now has fewer content types to manage.
 
 If maintaining the Dashboard itself eventually becomes more expensive than the value it provides, I may simplify this part further in the future.
 
@@ -509,18 +529,18 @@ CSS variables
 ├── Spacing
 └── Responsive sizing
 
-Plain CSS
+Regular CSS
 ├── Special CSS capabilities that are not well suited to Tailwind
 └── Cases that require selectors
 ```
 
 In simple terms:
 
-> **shadcn/ui manages UI primitives; Tailwind CSS manages components and layout; CSS variables manage design tokens; plain CSS is reserved for special cases that Tailwind does not handle well.**
+> **shadcn/ui manages UI primitives; Tailwind CSS manages components and layout; CSS variables manage design tokens; regular CSS is reserved for special cases that Tailwind does not handle well.**
 
-This prevents page layout, design system rules, and low-level UI components from becoming mixed together.
+This prevents page layout, design system rules, and basic UI components from becoming mixed together.
 
-For example, basic UI elements such as Button, Input, Card, Badge, and Checkbox are provided by shadcn/ui primitives.
+For example, basic UI elements such as Button, Input, Card, Badge, and Checkbox are handled by shadcn/ui primitives.
 
 Grid, Flexbox, spacing, and responsive page layouts are handled with Tailwind CSS.
 
@@ -570,39 +590,39 @@ export function parseCommaList(value: string) {
 }
 ```
 
-If multiple editors need the same logic, they share this utility instead of implementing the same behavior independently.
+If different editors need the same processing logic, they share this utility instead of implementing the same behavior independently.
 
 DRY is mainly applied to genuinely shared Knowledge and Behavior in the project, including:
 
 - Centralized locale metadata and the `Locale` type
 - Shared form Field structures in the Dashboard
 - Shared parsing logic for comma-separated values
-- Shared semantic components for technology Badges
+- Shared semantic components for Technology Badges
 - Shared active/inactive navigation variants in the Dashboard
 - Centralized design tokens
 - Shared control styles and variants in shadcn/ui primitives
 
 However, DRY does not mean eliminating every piece of code that happens to look similar.
 
-For example, two unrelated components may both contain:
+For example, two different components may both contain:
 
 ```tsx
 <div className="flex flex-wrap gap-2">
 ```
 
-If those components represent different product or design concepts and may evolve independently in the future, there is no need to create a shared abstraction simply because the Tailwind classes happen to match.
+If they represent different business or design concepts and may evolve independently in the future, there is no need to create a shared abstraction simply because the Tailwind classes happen to be the same.
 
 Therefore, the interpretation of DRY in this project is:
 
-> **Avoid maintaining the same knowledge and behavior in multiple places, rather than mechanically removing every instance of repeated code.**
+> **Avoid maintaining the same knowledge and behavior in multiple places, rather than mechanically eliminating every instance of repeated code.**
 
 This helps preserve a single source of truth without introducing unnecessary abstraction.
 
 ### Keeping Content in Git
 
-JSON remains the single source of truth for portfolio content.
+JSON remains the single source of truth for Portfolio content.
 
-This allows content and application code to be version-controlled together.
+This allows the Portfolio content and application code to be version-controlled together.
 
 Every permanent content change can therefore be reviewed using:
 
@@ -635,73 +655,6 @@ This provides:
 - No separate content backup strategy
 - Content and application code stored in the same repository
 
-### Avoiding a Production CMS Database
-
-This portfolio does not require frequent multi-user publishing or real-time editing in production.
-
-Adding a production CMS database would introduce:
-
-- Additional infrastructure
-- Authentication requirements
-- API management
-- Database hosting
-- Content synchronization concerns
-- More operational complexity
-
-For the current use case, these additional costs do not provide enough value.
-
-Keeping content directly in the repository is simpler and better aligned with how frequently the portfolio is updated.
-
-### Removing the Blog
-
-Earlier versions of the portfolio included a multilingual technical blog.
-
-Maintaining long-form articles in multiple languages required significant translation and maintenance work while providing relatively limited value to the portfolio's main purpose.
-
-I therefore chose to remove the blog instead of continuing to expand the portfolio into a larger publishing platform.
-
-If the goal of technical writing is professional visibility, platforms such as LinkedIn are more suitable because they already provide content distribution and a professional audience.
-
-Later, I reconsidered Project Case Studies for similar reasons.
-
-Blogs and Case Studies are not identical, but they eventually created a similar pattern:
-
-```text
-More long-form content
-↓
-More translation
-↓
-More synchronization
-↓
-More long-term maintenance
-```
-
-For individual projects, GitHub README files are a more natural place for technical documentation, while Live Demos show the current state of the product.
-
-The portfolio is therefore now centered around:
-
-```text
-About
-→ Who I am
-
-Skills
-→ What technologies I use and learn
-
-Projects
-→ What I have built
-
-Live Demo
-→ What the project currently looks like
-
-GitHub
-→ Source code, technical documentation, and development history
-
-LinkedIn
-→ Professional writing and communication
-```
-
-This reduces duplicated content and translation work while giving each platform a clearer responsibility.
-
 ## Current Architecture
 
 ```text
@@ -731,7 +684,7 @@ This reduces duplicated content and translation work while giving each platform 
 
 Throughout the entire workflow, the Git repository remains the single source of truth.
 
-The public portfolio is responsible for presenting curated information rather than duplicating complete project documentation:
+The public Portfolio is responsible for presenting curated information rather than duplicating complete project documentation:
 
 ```text
 Portfolio
@@ -751,4 +704,4 @@ Portfolio
              └── Development History
 ```
 
-This structure keeps the portfolio itself simple while avoiding the need to maintain another set of constantly changing technical documentation just for presentation purposes.
+This structure keeps the Portfolio itself simple while avoiding the need to maintain another set of constantly changing technical documentation just for presentation purposes.
