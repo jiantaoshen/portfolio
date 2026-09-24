@@ -112,7 +112,7 @@ export default function Navbar({ locale }: NavbarProps) {
       <PageContainer className="flex min-h-(--nav-min-height) items-center justify-between gap-6">
         {/* Logo：width / height 只提供 SVG 比例，实际显示高度由 --nav-logo-height 控制。 */}
         <Link href={`/${locale}/`} className="inline-flex shrink-0 items-center" aria-label="JIANTAO.dev home">
-          <Image src="/logo.svg" alt="" aria-hidden="true" width={320} height={64} unoptimized className="block h-(--nav-logo-height) w-auto" />
+          <Image src="/logo.svg" alt="" aria-hidden="true" width={320} height={64} unoptimized loading="eager" className="block h-(--nav-logo-height) w-auto" />
         </Link>
 
         {/* Desktop navigation：>= 768px 显示。 */}
