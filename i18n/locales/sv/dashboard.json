@@ -1,14 +1,12 @@
 {
   "title": {
-    "trial": "CMS-demo",
     "local": "Lokal innehållsredigerare"
   },
   "nav": {
-    "cv": "CV / Om",
+    "cv": "CV",
     "portfolio": "Till portfolio"
   },
   "status": {
-    "trial": "Test",
     "local": "Lokal"
   },
   "contentLanguage": {
@@ -18,14 +16,10 @@
     "saving": "Sparar...",
     "delete": "Ta bort",
     "newProject": "Nytt projekt",
-    "resetDemo": "Återställ demo",
     "dismiss": "Stäng felmeddelande",
-    "applyLocally": "Tillämpa lokalt",
     "saveLanguage": "Spara {language}"
   },
   "notices": {
-    "trialTitle": "Demoläge.",
-    "trialDescription": "Du redigerar en tillfällig webbläsarkopia av portfolions publika innehåll. Ingen skrivförfrågan skickas till backend.",
     "localTitle": "Lokal redigerare.",
     "localDescription": "Ändringar skrivs direkt till portfolions JSON-källfiler. Granska Git-diffen innan du committar och pushar."
   },
@@ -34,7 +28,7 @@
     "saveFailed": "Det gick inte att spara:"
   },
   "cv": {
-    "title": "CV / Om",
+    "title": "CV",
     "description": "Varje språk har en About JSON-fil som innehåller introduktion, projekt, kompetenser och utbildning.",
     "introduction": {
       "title": "Introduktion",

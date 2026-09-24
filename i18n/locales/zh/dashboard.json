@@ -1,14 +1,12 @@
 {
   "title": {
-    "trial": "CMS 体验",
     "local": "本地内容编辑器"
   },
   "nav": {
-    "cv": "简历 / 关于",
-    "portfolio": "返回作品集"
+    "cv": "简历",
+    "portfolio": "返回个人网站"
   },
   "status": {
-    "trial": "体验",
     "local": "本地"
   },
   "contentLanguage": {
@@ -18,14 +16,10 @@
     "saving": "保存中...",
     "delete": "删除",
     "newProject": "新建项目",
-    "resetDemo": "重置体验",
     "dismiss": "关闭错误",
-    "applyLocally": "应用到本地状态",
     "saveLanguage": "保存 {language}"
   },
   "notices": {
-    "trialTitle": "体验模式。",
-    "trialDescription": "你正在编辑公开作品集内容的临时浏览器副本，不会向后端发送任何写入请求。",
     "localTitle": "本地编辑器。",
     "localDescription": "保存操作会直接写入作品集的 JSON 源文件。提交和推送前请检查 Git diff。"
   },
@@ -34,7 +28,7 @@
     "saveFailed": "保存失败："
   },
   "cv": {
-    "title": "简历 / 关于",
+    "title": "简历",
     "description": "每种语言使用一份 About JSON 文件，统一维护简介、项目、技能和教育经历。",
     "introduction": {
       "title": "个人简介",

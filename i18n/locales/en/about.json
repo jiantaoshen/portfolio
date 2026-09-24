@@ -34,7 +34,7 @@
       },
       {
         "title": "Portfolio",
-        "description": "A multilingual personal portfolio built with Next.js, TypeScript, Tailwind CSS, shadcn/ui, and next-intl.",
+        "description": "A multilingual developer portfolio with a lightweight local Git-based content dashboard.",
         "status": "Live",
         "technologies": [
           "Next.js",
