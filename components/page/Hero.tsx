@@ -18,7 +18,7 @@ type SkillGroup = {
 export default async function Hero({ locale }: HeroProps) {
   const common = await getTranslations({
     locale,
-    namespace: common,
+    namespace: "common",
   });
 
   const about = await getTranslations({
