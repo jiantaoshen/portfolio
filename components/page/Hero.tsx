@@ -31,19 +31,19 @@ export default async function Hero({ locale }: HeroProps) {
   return (
     <section
       id="skills"
-      className="flex items-center bg-muted py-[var(--hero-padding-y)]"
+      className="flex items-center py-(--hero-padding-y)"
     >
       <PageContainer>
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-3 lg:gap-16 2xl:gap-[4.5rem] min-[1920px]:grid-cols-[minmax(0,2.15fr)_minmax(20rem,0.85fr)] min-[1920px]:gap-[5.5rem] min-[2560px]:grid-cols-[minmax(0,2.25fr)_minmax(23rem,0.75fr)] min-[2560px]:gap-28">
-          <div className="max-w-3xl lg:col-span-2 xl:max-w-4xl 2xl:max-w-[60rem] min-[1920px]:col-span-1">
-            <h1 className="m-0 max-w-[var(--hero-title-max-width)] text-[length:var(--hero-title-size)] leading-[0.94] font-extrabold tracking-tighter text-foreground">
-              {about("hero.titleBefore")} {" "}
-              <span className="text-primary">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-3 lg:gap-16 2xl:gap-18 min-[1920px]:grid-cols-[minmax(0,2.15fr)_minmax(20rem,0.85fr)] min-[1920px]:gap-22 min-[2560px]:grid-cols-[minmax(0,2.25fr)_minmax(23rem,0.75fr)] min-[2560px]:gap-28">
+          <div className="max-w-3xl lg:col-span-2 xl:max-w-4xl 2xl:max-w-240 min-[1920px]:col-span-1">
+            <h1 className="max-w-(--hero-title-max-width) text-(length:--hero-title-size) font-extrabold tracking-tighter text-foreground">
+              {about("hero.titleBefore")}
+              <span className="block text-primary sm:inline">
                 {about("hero.titleHighlight")}
               </span>
             </h1>
 
-            <p className="mt-6 mb-0 max-w-[var(--hero-description-max-width)] text-[length:var(--hero-description-size)] leading-relaxed text-muted-foreground md:mt-8 min-[1920px]:leading-[1.55]">
+            <p className="max-w-(--hero-description-max-width) text-(length:--hero-description-size) text-muted-foreground">
               {about("about.description")}
             </p>
 
@@ -88,12 +88,12 @@ export default async function Hero({ locale }: HeroProps) {
           </div>
 
           <aside
-            className="flex flex-col justify-center border-t border-border pt-8 lg:col-span-1 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-11 2xl:pl-14 min-[1920px]:pl-14 min-[2560px]:pl-[4.5rem]"
+            className="flex flex-col justify-center border-t border-border pt-8 lg:col-span-1 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-11 2xl:pl-14 min-[1920px]:pl-14 min-[2560px]:pl-18"
             aria-labelledby="hero-skills-title"
           >
             <h2
               id="hero-skills-title"
-              className="mt-0 mb-5 font-mono text-xs font-bold uppercase tracking-widest text-primary sm:mb-6 min-[1920px]:text-[0.8125rem]"
+              className="mb-5 font-mono text-xs font-bold uppercase tracking-widest text-primary sm:mb-6 min-[1920px]:text-[0.8125rem]"
             >
               {about("skills.title")}
             </h2>
@@ -104,7 +104,7 @@ export default async function Hero({ locale }: HeroProps) {
                   key={group.title}
                   className="grid gap-3 min-[2560px]:gap-4"
                 >
-                  <h3 className="m-0 text-sm font-bold text-foreground min-[1920px]:text-base min-[2560px]:text-lg">
+                  <h3 className="text-sm font-bold text-foreground min-[1920px]:text-base min-[2560px]:text-lg">
                     {group.title}
                   </h3>
 

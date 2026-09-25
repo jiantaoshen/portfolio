@@ -42,10 +42,10 @@ export default async function FeaturedProjects({ locale }: FeaturedProjectsProps
   const projects = about.raw("projects.items") as ProjectCard[];
 
   return (
-    <section id="projects" className="bg-muted py-[var(--section-padding-y)]">
+    <section id="projects" className="py-(--section-padding-y)">
       <PageContainer>
         <div className="mb-10 lg:mb-12 min-[1920px]:mb-14">
-          <h2 className="m-0 text-[length:var(--section-title-size)] font-bold tracking-tight text-foreground">
+          <h2 className=" text-(length:--section-title-size) font-bold tracking-tight text-foreground">
             {about("projects.title")}
           </h2>
         </div>
@@ -55,7 +55,7 @@ export default async function FeaturedProjects({ locale }: FeaturedProjectsProps
             <Card key={project.title} className="h-full bg-background">
               <CardHeader className="gap-3">
                 <div className="flex flex-wrap items-center gap-3">
-                  <CardTitle className="text-[length:var(--project-heading-size)] font-bold">
+                  <CardTitle className="text-(length:--project-heading-size) font-bold">
                     {project.title}
                   </CardTitle>
 
@@ -68,7 +68,7 @@ export default async function FeaturedProjects({ locale }: FeaturedProjectsProps
               </CardHeader>
 
               <CardContent className="flex-1">
-                <p className="m-0 text-[length:var(--project-body-size)] leading-relaxed text-muted-foreground min-[1920px]:leading-7">
+                <p className="text-(length:--project-body-size) leading-relaxed text-muted-foreground min-[1920px]:leading-7">
                   {project.description}
                 </p>
 
@@ -76,7 +76,7 @@ export default async function FeaturedProjects({ locale }: FeaturedProjectsProps
               </CardContent>
 
               {(project.liveUrl || project.githubUrl) && (
-                <CardFooter className="flex flex-wrap gap-2 border-t bg-muted/40">
+                <CardFooter className="flex flex-wrap gap-2 border-t">
                   {project.liveUrl && (
                     <a
                       href={project.liveUrl}
