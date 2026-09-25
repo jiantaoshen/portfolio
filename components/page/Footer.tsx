@@ -34,7 +34,7 @@ export default async function Footer({ locale }: FooterProps) {
           </nav>
 
           {/* 年份由 Server Component 生成，rights 继续使用当前语言。 */}
-          <p className="m-0 text-(length:--footer-copy-size) leading-relaxed text-muted-foreground">
+          <p className=" text-(length:--footer-copy-size) leading-relaxed text-muted-foreground">
             © {year} Jiantao Shen. {common("rights")}
           </p>
         </div>

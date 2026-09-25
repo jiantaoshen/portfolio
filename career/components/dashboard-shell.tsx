@@ -17,7 +17,7 @@ export function DashboardShell({ actionError, onDismissError, children }: Dashbo
   const t = useTranslations("dashboard");
 
   return (
-    <div className="dashboard-shell min-h-screen bg-muted text-foreground">
+    <div className="dashboard-shell min-h-screen text-foreground">
       {/* Dashboard uses the same visual Navbar system as the public Portfolio. */}
       <DashboardNavbar />
 
