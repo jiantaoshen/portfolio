@@ -24,10 +24,7 @@
           "Microsoft Entra",
           "MSAL",
           "PostgreSQL",
-          "Python",
-          "Neon",
-          "Azure App Service",
-          "Vercel"
+          "Python"
         ],
         "githubUrl": "https://github.com/jiantaoshen/PriceWatch",
         "liveUrl": "https://pricewatch.jiantao.dev"
