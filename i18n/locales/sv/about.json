@@ -14,16 +14,10 @@
         "description": "Ett personligt prisbevakningssystem för produkter och abonnemang med stöd för flera källor, normaliserade prisjämförelser, prishistorik, granskningsflöden och lokal automatiserad insamling.",
         "status": "Live",
         "technologies": [
-          "Next.js/React",
-          "TypeScript",
-          "Tailwind CSS",
-          "shadcn UI",
-          "C#/.NET 10",
+          "Next.js",
           "ASP.NET Core",
           "EF Core",
           "Microsoft Entra",
-          "MSAL",
-          "PostgreSQL",
           "Python"
         ],
         "githubUrl": "https://github.com/jiantaoshen/PriceWatch",
@@ -35,10 +29,6 @@
         "status": "Live",
         "technologies": [
           "Next.js",
-          "TypeScript",
-          "Tailwind CSS",
-          "shadcn/ui",
-          "next-intl",
           "GitHub",
           "Vercel"
         ],

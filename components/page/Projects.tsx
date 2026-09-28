@@ -71,12 +71,15 @@ export default async function FeaturedProjects({ locale }: FeaturedProjectsProps
                 <p className="text-(length:--project-body-size) leading-relaxed text-muted-foreground min-[1920px]:leading-7">
                   {project.description}
                 </p>
-
-                <TechList items={project.technologies} />
               </CardContent>
 
+              <CardContent>
+                <TechList items={project.technologies} />
+              </CardContent>
+              
+
               {(project.liveUrl || project.githubUrl) && (
-                <CardFooter className="flex flex-wrap gap-2 border-t">
+                <CardFooter className="gap-2">
                   {project.liveUrl && (
                     <a
                       href={project.liveUrl}

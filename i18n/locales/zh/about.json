@@ -14,16 +14,10 @@
         "description": "一个面向商品与订阅的个人价格追踪系统，支持多来源价格比较、标准化价格、价格历史、审核流程和本地自动抓取。",
         "status": "Live",
         "technologies": [
-          "Next.js/React",
-          "TypeScript",
-          "Tailwind CSS",
-          "shadcn UI",
-          "C#/.NET 10",
+          "Next.js",
           "ASP.NET Core",
           "EF Core",
           "Microsoft Entra",
-          "MSAL",
-          "PostgreSQL",
           "Python"
         ],
         "githubUrl": "https://github.com/jiantaoshen/PriceWatch",
@@ -35,10 +29,6 @@
         "status": "Live",
         "technologies": [
           "Next.js",
-          "TypeScript",
-          "Tailwind CSS",
-          "shadcn/ui",
-          "next-intl",
           "GitHub",
           "Vercel"
         ],
@@ -73,8 +63,7 @@
       {
         "title": "人工智能",
         "items": [
-          "Python",
-          "Ollama"
+          "Python"
         ]
       },
       {
