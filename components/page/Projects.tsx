@@ -8,7 +8,7 @@ import { Card } from "@/components/ui/card";
 import type { Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-interface FeaturedProjectsProps {
+interface ProjectsProps {
   locale: Locale;
 }
 
@@ -23,7 +23,9 @@ type ProjectCard = {
   imageAlt?: string;
 };
 
-export default async function Projects({ locale }: FeaturedProjectsProps) {
+export default async function Projects({
+  locale,
+}: ProjectsProps) {
   const [about, common] = await Promise.all([
     getTranslations({
       locale,
@@ -38,7 +40,10 @@ export default async function Projects({ locale }: FeaturedProjectsProps) {
   const projects = about.raw("projects.items") as ProjectCard[];
 
   return (
-    <section id="projects" aria-labelledby="projects-title">
+    <section
+      id="projects"
+      aria-labelledby="projects-title"
+    >
       <div className="mb-7 sm:mb-8 min-[1920px]:mb-10">
         <h2
           id="projects-title"
@@ -55,14 +60,23 @@ export default async function Projects({ locale }: FeaturedProjectsProps) {
             className="overflow-hidden bg-background p-0"
           >
             <div className="grid md:grid-cols-[minmax(12rem,0.9fr)_minmax(0,1.35fr)]">
-              <div className="relative min-h-48 overflow-hidden border-b border-border bg-muted/40 md:min-h-64 md:border-r md:border-b-0">
+              {/* Project image */}
+              <div className="relative min-h-48 overflow-hidden border-b border-border bg-muted/30 md:min-h-64 md:border-r md:border-b-0">
                 {project.image ? (
                   <Image
                     src={project.image}
-                    alt={project.imageAlt ?? project.title}
+                    alt={
+                      project.imageAlt ??
+                      `${project.title} screenshot`
+                    }
                     fill
-                    sizes="(min-width: 1024px) 32vw, (min-width: 768px) 40vw, 100vw"
-                    className="object-cover"
+                    sizes="
+                      (min-width: 1920px) 26vw,
+                      (min-width: 1024px) 30vw,
+                      (min-width: 768px) 40vw,
+                      100vw
+                    "
+                    className="object-contain p-2"
                   />
                 ) : (
                   <div
@@ -70,12 +84,13 @@ export default async function Projects({ locale }: FeaturedProjectsProps) {
                     aria-hidden="true"
                   >
                     <span className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground/50">
-                      Image
+                      Project Image
                     </span>
                   </div>
                 )}
               </div>
 
+              {/* Project content */}
               <div className="flex min-w-0 flex-col p-5 sm:p-6 min-[1920px]:p-7">
                 <div className="flex flex-wrap items-center gap-3">
                   <h3 className="text-(length:--project-heading-size) font-bold text-foreground">
@@ -83,7 +98,10 @@ export default async function Projects({ locale }: FeaturedProjectsProps) {
                   </h3>
 
                   {project.status && (
-                    <Badge variant="outline" className="font-mono text-xs">
+                    <Badge
+                      variant="outline"
+                      className="font-mono text-xs"
+                    >
                       {project.status}
                     </Badge>
                   )}
@@ -94,10 +112,13 @@ export default async function Projects({ locale }: FeaturedProjectsProps) {
                 </p>
 
                 <div className="mt-5">
-                  <TechList items={project.technologies} />
+                  <TechList
+                    items={project.technologies}
+                  />
                 </div>
 
-                {(project.liveUrl || project.githubUrl) && (
+                {(project.liveUrl ||
+                  project.githubUrl) && (
                   <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                     {project.liveUrl && (
                       <a
@@ -105,12 +126,16 @@ export default async function Projects({ locale }: FeaturedProjectsProps) {
                         target="_blank"
                         rel="noopener noreferrer"
                         className={cn(
-                          buttonVariants({ variant: "default" }),
+                          buttonVariants({
+                            variant: "default",
+                          }),
                           "w-full sm:w-auto",
                         )}
                       >
                         {common("buttons.liveDemo")}
-                        <span aria-hidden="true">↗</span>
+                        <span aria-hidden="true">
+                          ↗
+                        </span>
                       </a>
                     )}
 
@@ -120,12 +145,16 @@ export default async function Projects({ locale }: FeaturedProjectsProps) {
                         target="_blank"
                         rel="noopener noreferrer"
                         className={cn(
-                          buttonVariants({ variant: "outline" }),
+                          buttonVariants({
+                            variant: "outline",
+                          }),
                           "w-full sm:w-auto",
                         )}
                       >
                         {common("buttons.github")}
-                        <span aria-hidden="true">↗</span>
+                        <span aria-hidden="true">
+                          ↗
+                        </span>
                       </a>
                     )}
                   </div>
