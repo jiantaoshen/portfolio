@@ -76,13 +76,13 @@
   /* ---------- Hero ---------- */
 
   /* Hero vertical spacing. */
-  --hero-padding-y: 3.5rem;
+  --hero-padding-y: 2rem;
 
   /* Prevent the Hero title from becoming too wide. */
   --hero-title-max-width: 56rem;
 
   /* Hero title font size. */
-  --hero-title-size: 3rem;
+  --hero-title-size: 2.5rem;
 
   /* Hero description maximum width. */
   --hero-description-max-width: 42rem;
@@ -177,8 +177,8 @@
 
     --nav-logo-height: 1.625rem;
 
-    --hero-padding-y: 4rem;
-    --hero-title-size: 3.75rem;
+    --hero-padding-y: 2.5rem;
+    --hero-title-size: 3rem;
     --hero-description-size: 1.125rem;
 
     --section-title-size: 2.25rem;
@@ -199,7 +199,7 @@
   :root {
     --nav-logo-height: 1.75rem;
 
-    --hero-padding-y: 5rem;
+    --hero-padding-y: 3rem;
     --hero-description-size: 1.25rem;
   }
 }
@@ -215,8 +215,8 @@
 
     --nav-logo-height: 1.875rem;
 
-    --hero-padding-y: 6rem;
-    --hero-title-size: 4.5rem;
+    --hero-padding-y: 3.5rem;
+    --hero-title-size: 3.25rem;
     --hero-description-size: 1.5rem;
 
     --footer-logo-height: 1.625rem;
@@ -231,7 +231,7 @@
 @media (min-width: 1280px) {
   :root {
     --nav-logo-height: 2rem;
-    --hero-title-size: 6rem;
+    --hero-title-size: 3.5rem;
   }
 }
 
@@ -257,7 +257,7 @@
 
     /* Hero */
     --hero-title-max-width: 58rem;
-    --hero-title-size: 6.25rem;
+    --hero-title-size: 3.75rem;
     --hero-description-max-width: 48rem;
     --hero-description-size: 1.5rem;
 
@@ -311,9 +311,9 @@
     --nav-link-size: 1.0625rem;
 
     /* Hero */
-    --hero-padding-y: 7.5rem;
+    --hero-padding-y: 4rem;
     --hero-title-max-width: 66rem;
-    --hero-title-size: 6.5rem;
+    --hero-title-size: 4rem;
     --hero-description-max-width: 54rem;
     --hero-description-size: 1.625rem;
 
@@ -367,9 +367,9 @@
     --nav-link-size: 1.125rem;
 
     /* Hero */
-    --hero-padding-y: 9rem;
+    --hero-padding-y: 4.5rem;
     --hero-title-max-width: 74rem;
-    --hero-title-size: 7rem;
+    --hero-title-size: 4.25rem;
     --hero-description-max-width: 60rem;
     --hero-description-size: 1.875rem;
 
