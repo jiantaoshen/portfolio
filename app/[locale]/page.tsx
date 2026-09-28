@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import {hasLocale} from "next-intl";
+import { hasLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
+
 import { routing, type Locale } from "@/i18n/routing";
 import Intro from "@/components/page/Intro";
 import Skills from "@/components/page/Skills";
@@ -8,13 +10,23 @@ import Projects from "@/components/page/Projects";
 import Education from "@/components/page/Education";
 import { PageContainer } from "@/components/layout/page-container";
 
-export const metadata: Metadata = {
-  title: "Jiantao Shen | Fullstack Developer",
-  description: "A Fullstack Developer in Eskilstuna",
-};
-
 interface HomePageProps {
   params: Promise<{locale: string;}>;
+}
+
+export async function generateMetadata({params}: HomePageProps): Promise<Metadata> {
+  const { locale } = await params;
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
+  const about = await getTranslations({locale, namespace: "about"});
+
+  return {
+    title: "Jiantao Shen | Fullstack Developer",
+    description: about("about.description"),
+  };
 }
 
 export default async function HomePage({ params }: HomePageProps) {
