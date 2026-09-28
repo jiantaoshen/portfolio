@@ -1,6 +1,5 @@
 import { getTranslations } from "next-intl/server";
 
-import { PageContainer } from "@/components/layout/page-container";
 import type { Locale } from "@/i18n/routing";
 
 interface EducationProps {
@@ -25,66 +24,60 @@ export default async function Education({ locale }: EducationProps) {
   const educationItems = about.raw("education.items") as EducationItem[];
 
   return (
-    <section
-      id="education"
-      className="py-(--section-padding-y)"
-    >
-      <PageContainer>
-        <div className="mb-10 sm:mb-12 min-[1920px]:mb-14">
-          <h2 className=" text-(length:--section-title-size) font-bold tracking-tight text-foreground">
-            {about("education.title")}
-          </h2>
-        </div>
+    <section id="education" aria-labelledby="education-title">
+      <h2
+        id="education-title"
+        className="mb-6 font-mono text-xs font-bold uppercase tracking-widest text-primary min-[1920px]:text-[0.8125rem]"
+      >
+        {about("education.title")}
+      </h2>
 
-        <div className="border-b border-border">
-          {educationItems.map((item) => (
-            <article
-              key={`${item.period}-${item.degree}`}
-              className="grid grid-cols-1 gap-3 border-t border-border py-(--row-padding-y) md:grid-cols-4 md:gap-8 lg:gap-12 min-[1920px]:grid-cols-[minmax(13rem,1fr)_minmax(0,3fr)] min-[1920px]:gap-16 min-[2560px]:grid-cols-[minmax(15rem,1fr)_minmax(0,3.2fr)] min-[2560px]:gap-20"
-            >
-              <p className=" font-mono text-sm font-semibold text-primary min-[1920px]:text-base">
-                {item.period}
+      <div className="grid gap-0 border-b border-border">
+        {educationItems.map((item) => (
+          <article
+            key={`${item.period}-${item.degree}`}
+            className="border-t border-border py-6 first:pt-0 first:border-t-0 min-[1920px]:py-7"
+          >
+            <p className="font-mono text-xs font-semibold text-primary min-[1920px]:text-sm">
+              {item.period}
+            </p>
+
+            <h3 className="mt-2 text-base font-bold leading-snug text-foreground min-[1920px]:text-lg">
+              {item.degree}
+            </h3>
+
+            <p className="mt-1 text-sm font-medium leading-6 text-muted-foreground">
+              {item.school}
+            </p>
+
+            {item.description && (
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                {item.description}
               </p>
+            )}
 
-              <div className="grid gap-2 md:col-span-3 min-[1920px]:col-span-1">
-                <h3 className=" text-(length:--project-heading-size) font-bold text-foreground">
-                  {item.degree}
-                </h3>
+            {item.thesis && (
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                <span className="font-semibold text-foreground">Thesis: </span>
 
-                <p className=" text-sm font-medium text-muted-foreground min-[1920px]:text-base">
-                  {item.school}
-                </p>
-
-                {item.description && (
-                  <p className=" max-w-3xl text-(length:--education-body-size) leading-relaxed text-muted-foreground min-[1920px]:max-w-232 min-[1920px]:leading-7">
-                    {item.description}
-                  </p>
+                {item.thesisUrl ? (
+                  <a
+                    href={item.thesisUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-primary transition-colors hover:text-foreground"
+                  >
+                    {item.thesis}
+                    <span aria-hidden="true"> ↗</span>
+                  </a>
+                ) : (
+                  <span>{item.thesis}</span>
                 )}
-
-                {item.thesis && (
-                  <p className=" pt-1 text-(length:--education-body-size) leading-relaxed text-muted-foreground min-[1920px]:max-w-232 min-[1920px]:leading-7">
-                    <span className="font-semibold text-foreground">Thesis: </span>
-
-                    {item.thesisUrl ? (
-                      <a
-                        href={item.thesisUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-semibold text-primary transition-colors hover:text-foreground"
-                      >
-                        {item.thesis}
-                        <span aria-hidden="true"> ↗</span>
-                      </a>
-                    ) : (
-                      <span>{item.thesis}</span>
-                    )}
-                  </p>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-      </PageContainer>
+              </p>
+            )}
+          </article>
+        ))}
+      </div>
     </section>
   );
 }

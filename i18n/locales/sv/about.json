@@ -14,20 +14,16 @@
         "description": "Ett personligt prisbevakningssystem för produkter och abonnemang med stöd för flera källor, normaliserade prisjämförelser, prishistorik, granskningsflöden och lokal automatiserad insamling.",
         "status": "Live",
         "technologies": [
-          "Next.js/React",
-          "TypeScript",
-          "Tailwind CSS",
-          "shadcn UI",
-          "C#/.NET 10",
+          "Next.js",
           "ASP.NET Core",
           "EF Core",
           "Microsoft Entra",
-          "MSAL",
-          "PostgreSQL",
           "Python"
         ],
         "githubUrl": "https://github.com/jiantaoshen/PriceWatch",
-        "liveUrl": "https://pricewatch.jiantao.dev"
+        "liveUrl": "https://pricewatch.jiantao.dev",
+        "image": "/projects/pricewatch.png",
+        "imageAlt": "Price Watch page"
       },
       {
         "title": "Portfölj",
@@ -35,15 +31,13 @@
         "status": "Live",
         "technologies": [
           "Next.js",
-          "TypeScript",
-          "Tailwind CSS",
-          "shadcn/ui",
-          "next-intl",
           "GitHub",
           "Vercel"
         ],
         "githubUrl": "https://github.com/jiantaoshen/portfolio",
-        "liveUrl": "https://www.jiantao.dev"
+        "liveUrl": "https://www.jiantao.dev/dashboard",
+        "image": "/projects/portfolio-dashboard.png",
+        "imageAlt": "portfolio's dashboard page"
       }
     ]
   },

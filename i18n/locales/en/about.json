@@ -14,20 +14,16 @@
         "description": "A personal price-tracking system for products and subscriptions with multi-source comparison, price history, review workflows, and automated scraping.",
         "status": "Live",
         "technologies": [
-          "Next.js/React",
-          "TypeScript",
-          "Tailwind CSS",
-          "shadcn UI",
-          "C#/.NET 10",
+          "Next.js",
           "ASP.NET Core",
           "EF Core",
           "Microsoft Entra",
-          "MSAL",
-          "PostgreSQL",
           "Python"
         ],
         "githubUrl": "https://github.com/jiantaoshen/PriceWatch",
-        "liveUrl": "https://pricewatch.jiantao.dev"
+        "liveUrl": "https://pricewatch.jiantao.dev",
+        "image": "/projects/pricewatch.png",
+        "imageAlt": "Price Watch page"
       },
       {
         "title": "Portfolio",
@@ -35,15 +31,13 @@
         "status": "Live",
         "technologies": [
           "Next.js",
-          "TypeScript",
-          "Tailwind CSS",
-          "shadcn/ui",
-          "next-intl",
           "GitHub",
           "Vercel"
         ],
         "githubUrl": "https://github.com/jiantaoshen/portfolio",
-        "liveUrl": "https://www.jiantao.dev"
+        "liveUrl": "https://www.jiantao.dev/dashboard",
+        "image": "/projects/portfolio-dashboard.png",
+        "imageAlt": "portfolio's dashboard page"
       }
     ]
   },
