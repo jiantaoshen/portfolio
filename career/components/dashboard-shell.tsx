@@ -1,11 +1,10 @@
 "use client";
 
 import { X } from "lucide-react";
-import { useTranslations } from "next-intl";
-
+import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-
-import { DashboardNavbar } from "./dashboard-navbar";
+import Navbar from "@/components/page/Navbar";
+import type { Locale } from "@/lib/locales";
 
 interface DashboardShellProps {
   actionError?: string | null;
@@ -15,11 +14,12 @@ interface DashboardShellProps {
 
 export function DashboardShell({ actionError, onDismissError, children }: DashboardShellProps) {
   const t = useTranslations("dashboard");
+  const locale = useLocale() as Locale;
 
   return (
     <div className="dashboard-shell min-h-screen text-foreground">
       {/* Dashboard uses the same visual Navbar system as the public Portfolio. */}
-      <DashboardNavbar />
+      <Navbar locale={locale} title = {t("title.local")}/>
 
       <main>
         {/* Save errors are shown globally above the editor content. */}

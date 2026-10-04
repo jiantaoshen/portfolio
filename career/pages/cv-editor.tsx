@@ -44,10 +44,14 @@ const blankLocalizedProject = (): AboutProject => ({ title: "", description: "",
 const blankSharedProject = (): SharedProject => ({ id: newTempId("project"), status: "Live", githubUrl: "", liveUrl: "", technologyGroups: [] });
 const blankTechnologyGroup = (): SharedProjectTechnologyGroup => ({ id: newTempId("project-tech"), items: [] });
 
-export function CvEditorPage() {
+interface CvEditorPageProps {
+  initialLocale: Locale;
+}
+
+export function CvEditorPage({ initialLocale }: CvEditorPageProps) {
   const t = useTranslations("dashboard");
   const { data, actions, saving } = useCareerWorkspace();
-  const [locale, setLocale] = useState<Locale>("en");
+  const [locale, setLocale] = useState<Locale>(initialLocale);
   const [drafts, setDrafts] = useState(() => clone(data.about));
   const [skillDrafts, setSkillDrafts] = useState<Record<Locale, SharedSkills>>(() =>
     Object.fromEntries((Object.keys(data.about) as Locale[]).map((key) => [key, clone(data.skills)])) as Record<Locale, SharedSkills>,
