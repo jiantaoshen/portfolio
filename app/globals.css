@@ -544,20 +544,29 @@
    Base
    ========================================= */
 
-html {
-  @apply scroll-smooth bg-background;
+@layer base {
+  html {
+    @apply scroll-smooth bg-background;
+  }
+
+  body {
+    @apply min-h-screen bg-background font-sans text-foreground antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  section {
+    @apply p-4 lg:p-8;
+  }
+
+  button,
+  select {
+    @apply cursor-pointer;
+  }
+
+  ::selection {
+    @apply bg-primary text-primary-foreground;
+  }
 }
 
-body {
-  @apply min-h-screen bg-background font-sans text-foreground antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-button,
-select {
-  @apply cursor-pointer;
-}
-
-::selection {
-  @apply bg-primary text-primary-foreground;
+@layer components {
 }

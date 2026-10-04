@@ -8,7 +8,6 @@ import Intro from "@/components/page/Intro";
 import Skills from "@/components/page/Skills";
 import Projects from "@/components/page/Projects";
 import Education from "@/components/page/Education";
-import { PageContainer } from "@/components/layout/page-container";
 
 interface HomePageProps {
   params: Promise<{locale: string;}>;
@@ -39,26 +38,16 @@ export default async function HomePage({ params }: HomePageProps) {
   const currentLocale = locale as Locale;
 
   return (
-    <div className="py-8 sm:py-10 lg:py-12 min-[1920px]:py-14">
-      <PageContainer>
-        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,2.15fr)_minmax(18rem,0.85fr)] lg:gap-12 xl:gap-16 min-[1920px]:grid-cols-[minmax(0,2.2fr)_minmax(21rem,0.8fr)] min-[1920px]:gap-18 min-[2560px]:grid-cols-[minmax(0,2.3fr)_minmax(23rem,0.7fr)] min-[2560px]:gap-22">
-          <div className="min-w-0">
-            <Intro locale={currentLocale} />
-
-            <div className="mt-10 sm:mt-12 lg:mt-12 min-[1920px]:mt-14">
-              <Projects locale={currentLocale} />
-            </div>
-          </div>
-
-          <aside className="min-w-0 border-t border-border pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-10 xl:pl-12 min-[1920px]:pl-14 min-[2560px]:pl-18">
-            <Skills locale={currentLocale} />
-
-            <div className="mt-10 border-t border-border pt-8 min-[1920px]:mt-12 min-[1920px]:pt-10">
-              <Education locale={currentLocale} />
-            </div>
-          </aside>
+      <div className="mx-auto container grid grid-cols-1 items-start lg:grid-cols-[minmax(0,2.15fr)_minmax(18rem,0.85fr)]">
+        <div>
+          <Intro locale={currentLocale} />
+          <Projects locale={currentLocale} />
         </div>
-      </PageContainer>
-    </div>
+
+        <div className="lg:border-l-4 border-accent/50">
+          <Skills locale={currentLocale} />
+          <Education locale={currentLocale} />
+        </div>
+      </div>
   );
 }
