@@ -14,7 +14,7 @@ export default async function Footer({ locale }: FooterProps) {
 
   return (
     <footer className="bg-foreground/90 text-background w-full">
-      <div className="container flex flex-col items-center justify-between gap-4 p-8 md:flex-row">
+      <div className="mx-auto container flex flex-col items-center justify-between gap-4 p-8 md:flex-row">
 
         {/* Logo */}
         <Link

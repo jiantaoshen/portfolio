@@ -12,7 +12,7 @@ interface NavbarProps {
 export default function Navbar({ locale, title}: NavbarProps) {
   return (
     <header className="sticky top-0 z-50 border-b-2 border-accent bg-muted">
-      <div className="container px-5 flex min-h-(--nav-min-height) items-center justify-between">
+      <div className="mx-auto container px-5 flex min-h-(--nav-min-height) items-center justify-between">
         {/* Logo */}
         <Link
           href={`/${locale}/`}
