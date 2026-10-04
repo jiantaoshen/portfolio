@@ -227,7 +227,7 @@ export function CvEditorPage({ initialLocale }: CvEditorPageProps) {
     <div className="space-y-6">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <h1 className="text-(length:--dashboard-heading-size) font-bold tracking-tight text-foreground">{t("cv.title")}</h1>
+          <h1>{t("cv.title")}</h1>
           <p className="max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">{t("cv.description")}</p>
         </div>
         <LocaleSwitcher value={locale} onChange={setLocale} />

@@ -22,17 +22,14 @@ export default async function Intro({ locale }: IntroProps) {
 
   return (
     <section aria-labelledby="intro-title">
-      <h1
-        id="intro-title"
-        className="max-w-(--hero-title-max-width) text-(length:--hero-title-size) font-extrabold tracking-tighter text-foreground"
-      >
+      <h1 id="intro-title">
         {about("hero.titleBefore")}
         <span className="block text-primary sm:inline">
           {about("hero.titleHighlight")}
         </span>
       </h1>
 
-      <p className="mt-5 max-w-(--hero-description-max-width) text-(length:--hero-description-size) leading-relaxed text-muted-foreground sm:mt-6">
+      <p className="max-w-(--hero-description-max-width) text-(length:--hero-description-size) leading-relaxed text-muted-foreground sm:mt-6">
         {about("about.description")}
       </p>
 
