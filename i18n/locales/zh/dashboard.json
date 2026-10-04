@@ -25,7 +25,7 @@
   },
   "cv": {
     "title": "简历",
-    "description": "每种语言使用一份 About JSON 文件，统一维护简介、项目、技能和教育经历。",
+    "description": "本地化文字保存在各语言的 About JSON 中；项目结构、项目技术栈和技术技能由所有语言共用。",
     "introduction": {
       "title": "个人简介",
       "titleBefore": "主页标题前半部分",
@@ -38,7 +38,8 @@
       "categoryPlaceholder": "分类名称",
       "deleteCategory": "删除技能分类",
       "technologies": "其他技术（用逗号分隔）",
-      "technologiesPlaceholder": "ASP.NET Core, REST APIs, JWT"
+      "technologiesPlaceholder": "ASP.NET Core, REST APIs, JWT",
+      "sharedNote": "技术项和分类顺序由所有语言共用；分类名称按当前语言翻译。"
     },
     "education": {
       "title": "教育与学习经历",
@@ -51,7 +52,16 @@
       "thesisUrl": "论文链接（可选）",
       "delete": "删除教育经历"
     },
-    "sectionTitle": "区块标题"
+    "sectionTitle": "区块标题",
+    "languages": {
+      "title": "语言能力",
+      "add": "添加语言",
+      "name": "语言",
+      "namePlaceholder": "英语",
+      "proficiency": "熟练度",
+      "proficiencyPlaceholder": "B2 / 母语",
+      "delete": "删除语言"
+    }
   },
   "projects": {
     "title": "项目",
@@ -65,7 +75,15 @@
     },
     "placeholders": {
       "status": "Live"
-    }
+    },
+    "sharedNote": "项目顺序、状态、链接、技术分类及技术项由所有语言共用；标题、描述、亮点和分类名称按语言翻译。",
+    "highlights": "项目亮点（每行一项）",
+    "technologyCategories": "技术分类",
+    "addCategory": "添加分类",
+    "category": "分类",
+    "categoryPlaceholder": "前端 / 后端 / DevOps",
+    "technologiesPlaceholder": "Next.js, TypeScript, Tailwind CSS",
+    "deleteCategory": "删除技术分类"
   },
   "interfaceLanguage": {
     "label": "界面语言"

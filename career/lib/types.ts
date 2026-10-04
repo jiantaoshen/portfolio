@@ -2,9 +2,43 @@ import type { Locale } from "@/lib/locales";
 
 export type { Locale } from "@/lib/locales";
 
-export type AboutSkillGroup = {
-  title: string;
+export type SharedSkillGroup = {
+  id: string;
   items: string[];
+};
+
+export type SharedSkills = {
+  items: SharedSkillGroup[];
+};
+
+export type SharedProjectTechnologyGroup = {
+  id: string;
+  items: string[];
+};
+
+export type SharedProject = {
+  id: string;
+  status: string;
+  githubUrl: string;
+  liveUrl: string;
+  technologyGroups: SharedProjectTechnologyGroup[];
+};
+
+export type SharedProjects = {
+  items: SharedProject[];
+};
+
+export type AboutProject = {
+  title: string;
+  description: string;
+  highlights?: string[];
+  technologyCategories: Record<string, string>;
+};
+
+export type AboutLanguageItem = {
+  id: string;
+  name: string;
+  proficiency?: string;
 };
 
 export type AboutEducationItem = {
@@ -16,35 +50,26 @@ export type AboutEducationItem = {
   thesisUrl?: string;
 };
 
-export type AboutProject = {
-  title: string;
-  description: string;
-  status: string;
-  technologies: string[];
-  githubUrl: string;
-  liveUrl: string;
-};
-
 export type AboutContent = {
   hero: {
     titleBefore: string;
     titleHighlight: string;
   };
-
   about: {
     description: string;
   };
-
   projects: {
     title: string;
-    items: AboutProject[];
+    items: Record<string, AboutProject>;
   };
-
   skills: {
     title: string;
-    items: AboutSkillGroup[];
+    categories: Record<string, string>;
   };
-
+  languages: {
+    title: string;
+    items: AboutLanguageItem[];
+  };
   education: {
     title: string;
     items: AboutEducationItem[];
@@ -52,7 +77,8 @@ export type AboutContent = {
 };
 
 export type AboutByLocale = Record<Locale, AboutContent>;
-
 export type CareerSnapshot = {
   about: AboutByLocale;
+  skills: SharedSkills;
+  projects: SharedProjects;
 };

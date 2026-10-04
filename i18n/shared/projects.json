@@ -1,0 +1,82 @@
+{
+  "items": [
+    {
+      "id": "price-watch",
+      "status": "Live",
+      "githubUrl": "https://github.com/jiantaoshen/PriceWatch",
+      "liveUrl": "https://pricewatch.jiantao.dev",
+      "technologyGroups": [
+        {
+          "id": "frontend",
+          "items": [
+            "Next.js",
+            "TypeScript",
+            "Tailwind CSS",
+            "shadcn/ui"
+          ]
+        },
+        {
+          "id": "backend",
+          "items": [
+            "C#",
+            "ASP.NET Core",
+            "REST API",
+            "EF Core"
+          ]
+        },
+        {
+          "id": "database-auth",
+          "items": [
+            "PostgreSQL",
+            "Neon"
+          ]
+        },
+        {
+          "id": "automation-devops",
+          "items": [
+            "Microsoft Entra ID",
+            "MSAL"
+          ]
+        },
+        {
+          "id": "project-tech_001bb19c-f579-4fd2-87b8-8be7d787ac24",
+          "items": [
+            "Python",
+            "Playwright"
+          ]
+        },
+        {
+          "id": "project-tech_d406690d-3cf7-49cf-b812-34e757e31bdf",
+          "items": [
+            "Docker",
+            "CI/CD",
+            "Vercel",
+            "Google Cloud Run",
+            "GHCR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "portfolio",
+      "status": "Live",
+      "githubUrl": "https://github.com/jiantaoshen/portfolio",
+      "liveUrl": "https://www.jiantao.dev/dashboard",
+      "technologyGroups": [
+        {
+          "id": "frontend",
+          "items": [
+            "Next.js"
+          ]
+        },
+        {
+          "id": "delivery",
+          "items": [
+            "GitHub",
+            "Vercel"
+          ]
+        }
+      ]
+    }
+  ]
+}

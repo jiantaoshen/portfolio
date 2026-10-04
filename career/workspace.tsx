@@ -2,9 +2,12 @@
 
 import { createContext, useContext } from "react";
 
+import sharedProjects from "@/i18n/shared/projects.json";
+import sharedSkills from "@/i18n/shared/skills.json";
+
 import { DashboardShell } from "./components/dashboard-shell";
 import { useCareerData } from "./hooks/use-career-data";
-import type { AboutByLocale } from "./lib/types";
+import type { AboutByLocale, SharedProjects, SharedSkills } from "./lib/types";
 
 type WorkspaceValue = ReturnType<typeof useCareerData>;
 
@@ -12,11 +15,7 @@ const WorkspaceContext = createContext<WorkspaceValue | null>(null);
 
 export function useCareerWorkspace() {
   const value = useContext(WorkspaceContext);
-
-  if (!value) {
-    throw new Error("useCareerWorkspace must be used inside CareerWorkspace");
-  }
-
+  if (!value) throw new Error("useCareerWorkspace must be used inside CareerWorkspace");
   return value;
 }
 
@@ -25,17 +24,16 @@ interface CareerWorkspaceProps {
   children: React.ReactNode;
 }
 
-export function CareerWorkspace({initialAbout, children}: CareerWorkspaceProps) {
-  const state = useCareerData(initialAbout);
-
-  const value = {...state, data: state.data};
+export function CareerWorkspace({ initialAbout, children }: CareerWorkspaceProps) {
+  const state = useCareerData(
+    initialAbout,
+    sharedSkills as SharedSkills,
+    sharedProjects as SharedProjects,
+  );
 
   return (
-    <WorkspaceContext.Provider value={value}>
-      <DashboardShell
-        actionError={state.actionError}
-        onDismissError={state.dismissActionError}
-      >
+    <WorkspaceContext.Provider value={state}>
+      <DashboardShell actionError={state.actionError} onDismissError={state.dismissActionError}>
         {children}
       </DashboardShell>
     </WorkspaceContext.Provider>

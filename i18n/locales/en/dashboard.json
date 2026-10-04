@@ -25,7 +25,7 @@
   },
   "cv": {
     "title": "CV",
-    "description": "Each language has one About JSON file containing the introduction, projects, skills, and education.",
+    "description": "Localized text stays in each About JSON file; project structure, project technologies, and technical skills are shared across languages.",
     "introduction": {
       "title": "Introduction",
       "titleBefore": "Hero text before name",
@@ -38,7 +38,8 @@
       "categoryPlaceholder": "Category name",
       "deleteCategory": "Delete skill category",
       "technologies": "Other technologies (comma separated)",
-      "technologiesPlaceholder": "ASP.NET Core, REST APIs, JWT"
+      "technologiesPlaceholder": "ASP.NET Core, REST APIs, JWT",
+      "sharedNote": "Technologies and category order are shared across all languages; category names are translated per language."
     },
     "education": {
       "title": "Education & Learning",
@@ -51,7 +52,16 @@
       "thesisUrl": "Thesis URL (optional)",
       "delete": "Delete education item"
     },
-    "sectionTitle": "Section title"
+    "sectionTitle": "Section title",
+    "languages": {
+      "title": "Languages",
+      "add": "Add language",
+      "name": "Language",
+      "namePlaceholder": "English",
+      "proficiency": "Proficiency",
+      "proficiencyPlaceholder": "B2 / Native",
+      "delete": "Delete language"
+    }
   },
   "projects": {
     "title": "Projects",
@@ -65,7 +75,15 @@
     },
     "placeholders": {
       "status": "Live"
-    }
+    },
+    "sharedNote": "Project order, status, URLs, technology groups, and technologies are shared across all languages; titles, descriptions, highlights, and category names are translated per language.",
+    "highlights": "Highlights · one per line",
+    "technologyCategories": "Technology categories",
+    "addCategory": "Add category",
+    "category": "Category",
+    "categoryPlaceholder": "Frontend / Backend / DevOps",
+    "technologiesPlaceholder": "Next.js, TypeScript, Tailwind CSS",
+    "deleteCategory": "Delete technology category"
   },
   "interfaceLanguage": {
     "label": "Interface language"
