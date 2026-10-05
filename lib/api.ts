@@ -1,4 +1,5 @@
-import type { AboutContent, Locale, SharedProjects, SharedSkills } from "./types";
+import type { Locale } from "@/i18n/routing";
+import type { AboutContent, SharedProjects, SharedSkills } from "./types";
 
 async function request<T>(url: string, init?: RequestInit): Promise<T> {
   const headers = new Headers(init?.headers);

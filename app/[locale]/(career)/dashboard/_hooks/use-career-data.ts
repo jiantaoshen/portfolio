@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { localContentApi } from "@/career/lib/api";
+import { localContentApi } from "@/lib/api";
 import type {
   AboutByLocale,
   AboutContent,
@@ -8,7 +8,7 @@ import type {
   Locale,
   SharedProjects,
   SharedSkills,
-} from "@/career/lib/types";
+} from "@/lib/types";
 
 const clone = <T,>(value: T): T => structuredClone(value);
 

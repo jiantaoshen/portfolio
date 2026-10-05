@@ -4,7 +4,7 @@ import path from "node:path";
 import { hasLocale } from "next-intl";
 import { NextResponse } from "next/server";
 
-import type { AboutContent } from "@/career/lib/types";
+import type { AboutContent } from "@/lib/types";
 import { routing } from "@/i18n/routing";
 
 export const runtime = "nodejs";

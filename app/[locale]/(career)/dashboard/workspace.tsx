@@ -7,7 +7,7 @@ import sharedSkills from "@/i18n/shared/skills.json";
 
 import { DashboardShell } from "./_components/dashboard-shell";
 import { useCareerData } from "./_hooks/use-career-data";
-import type { AboutByLocale, SharedProjects, SharedSkills } from "@/career/lib/types";
+import type { AboutByLocale, SharedProjects, SharedSkills } from "@/lib/types";
 
 type WorkspaceValue = ReturnType<typeof useCareerData>;
 

@@ -1,4 +1,4 @@
-import { getAboutContent } from "@/career/server/about-content";
+import { getAboutContent } from "@/server/about-content";
 import { CareerWorkspace } from "@/app/[locale]/(career)/dashboard/workspace";
 
 export default function DashboardLayout({

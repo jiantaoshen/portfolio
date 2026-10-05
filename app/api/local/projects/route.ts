@@ -3,7 +3,7 @@ import path from "node:path";
 
 import { NextResponse } from "next/server";
 
-import type { SharedProjects } from "@/career/lib/types";
+import type { SharedProjects } from "@/lib/types";
 
 export const runtime = "nodejs";
 

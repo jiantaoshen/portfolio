@@ -24,8 +24,8 @@ import type {
   SharedProjectTechnologyGroup,
   SharedSkillGroup,
   SharedSkills,
-} from "@/career/lib/types";
-import { parseCommaList, parseLineList } from "@/career/lib/text";
+} from "@/lib/types";
+import { parseCommaList, parseLineList } from "@/lib/text";
 import { useCareerWorkspace } from "@/app/[locale]/(career)/dashboard/workspace";
 
 const move = <T,>(items: T[], from: number, to: number) => {
