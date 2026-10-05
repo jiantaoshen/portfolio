@@ -25,7 +25,6 @@
   },
   "cv": {
     "title": "CV",
-    "description": "Lokaliserad text ligger i varje About JSON-fil; projektstruktur, projekttekniker och tekniska kompetenser delas mellan alla språk.",
     "introduction": {
       "title": "Introduktion",
       "titleBefore": "Hero-text före namnet",
@@ -38,8 +37,7 @@
       "categoryPlaceholder": "Kategorinamn",
       "deleteCategory": "Ta bort kompetenskategori",
       "technologies": "Övriga tekniker (kommaseparerade)",
-      "technologiesPlaceholder": "ASP.NET Core, REST APIs, JWT",
-      "sharedNote": "Tekniker och kategoriordning delas mellan alla språk; kategorinamnen översätts per språk."
+      "technologiesPlaceholder": "ASP.NET Core, REST APIs, JWT"
     },
     "education": {
       "title": "Utbildning & lärande",
@@ -76,7 +74,6 @@
     "placeholders": {
       "status": "Live"
     },
-    "sharedNote": "Projektordning, status, länkar, teknikkategorier och tekniker delas mellan alla språk; titlar, beskrivningar, höjdpunkter och kategorinamn översätts per språk.",
     "highlights": "Höjdpunkter · en per rad",
     "technologyCategories": "Teknikkategorier",
     "addCategory": "Lägg till kategori",

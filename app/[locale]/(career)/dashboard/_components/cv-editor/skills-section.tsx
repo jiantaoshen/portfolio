@@ -36,12 +36,7 @@ export function SkillsSection({
   return (
     <Card>
       <CardHeader className="gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <CardTitle>{t("cv.skills.title")}</CardTitle>
-          <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
-            {t("cv.skills.sharedNote")}
-          </p>
-        </div>
+        <CardTitle>{t("cv.skills.title")}</CardTitle>
 
         <Button type="button" variant="outline" size="sm" onClick={addSkill}>
           <Plus className="mr-2 size-4" />

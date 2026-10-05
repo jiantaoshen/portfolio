@@ -26,15 +26,6 @@
           "project-tech_001bb19c-f579-4fd2-87b8-8be7d787ac24": "Automation",
           "project-tech_d406690d-3cf7-49cf-b812-34e757e31bdf": "DevOps"
         }
-      },
-      "portfolio": {
-        "title": "Portfölj",
-        "description": "En flerspråkig utvecklarportfolio med en lättviktig lokal Git-baserad innehållspanel.",
-        "highlights": [],
-        "technologyCategories": {
-          "frontend": "Frontend",
-          "delivery": "Plattform & driftsättning"
-        }
       }
     }
   },

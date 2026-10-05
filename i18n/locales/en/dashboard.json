@@ -25,7 +25,6 @@
   },
   "cv": {
     "title": "CV",
-    "description": "Localized text stays in each About JSON file; project structure, project technologies, and technical skills are shared across languages.",
     "introduction": {
       "title": "Introduction",
       "titleBefore": "Hero text before name",
@@ -38,8 +37,7 @@
       "categoryPlaceholder": "Category name",
       "deleteCategory": "Delete skill category",
       "technologies": "Other technologies (comma separated)",
-      "technologiesPlaceholder": "ASP.NET Core, REST APIs, JWT",
-      "sharedNote": "Technologies and category order are shared across all languages; category names are translated per language."
+      "technologiesPlaceholder": "ASP.NET Core, REST APIs, JWT"
     },
     "education": {
       "title": "Education & Learning",
@@ -76,7 +74,6 @@
     "placeholders": {
       "status": "Live"
     },
-    "sharedNote": "Project order, status, URLs, technology groups, and technologies are shared across all languages; titles, descriptions, highlights, and category names are translated per language.",
     "highlights": "Highlights · one per line",
     "technologyCategories": "Technology categories",
     "addCategory": "Add category",

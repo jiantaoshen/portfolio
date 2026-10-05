@@ -21,12 +21,7 @@ export function CvEditorPage({ initialLocale }: CvEditorPageProps) {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1>{t("cv.title")}</h1>
-        <p className="max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-          {t("cv.description")}
-        </p>
-      </div>
+      <h1>{t("cv.title")}</h1>
 
       <IntroductionSection
         draft={editor.draft}

@@ -25,7 +25,6 @@
   },
   "cv": {
     "title": "简历",
-    "description": "本地化文字保存在各语言的 About JSON 中；项目结构、项目技术栈和技术技能由所有语言共用。",
     "introduction": {
       "title": "个人简介",
       "titleBefore": "主页标题前半部分",
@@ -38,8 +37,7 @@
       "categoryPlaceholder": "分类名称",
       "deleteCategory": "删除技能分类",
       "technologies": "其他技术（用逗号分隔）",
-      "technologiesPlaceholder": "ASP.NET Core, REST APIs, JWT",
-      "sharedNote": "技术项和分类顺序由所有语言共用；分类名称按当前语言翻译。"
+      "technologiesPlaceholder": "ASP.NET Core, REST APIs, JWT"
     },
     "education": {
       "title": "教育与学习经历",
@@ -76,7 +74,6 @@
     "placeholders": {
       "status": "Live"
     },
-    "sharedNote": "项目顺序、状态、链接、技术分类及技术项由所有语言共用；标题、描述、亮点和分类名称按语言翻译。",
     "highlights": "项目亮点（每行一项）",
     "technologyCategories": "技术分类",
     "addCategory": "添加分类",
