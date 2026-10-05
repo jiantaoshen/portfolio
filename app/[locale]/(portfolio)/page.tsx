@@ -4,10 +4,10 @@ import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 
 import { routing, type Locale } from "@/i18n/routing";
-import Intro from "@/components/page/Intro";
-import Skills from "@/components/page/Skills";
-import Projects from "@/components/page/Projects";
-import Education from "@/components/page/Education";
+import Intro from "@/app/[locale]/(portfolio)/_sections/Intro";
+import Skills from "@/app/[locale]/(portfolio)/_sections/Skills";
+import Projects from "@/app/[locale]/(portfolio)/_sections/Projects";
+import Education from "@/app/[locale]/(portfolio)/_sections/Education";
 
 interface HomePageProps {
   params: Promise<{locale: string;}>;
