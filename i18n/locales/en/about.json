@@ -8,78 +8,45 @@
   },
   "projects": {
     "title": "Projects",
-    "items": [
-      {
+    "items": {
+      "price-watch": {
         "title": "Price Watch",
         "description": "A personal price-tracking system for products and subscriptions with multi-source comparison, price history, review workflows, and automated scraping.",
-        "status": "Live",
-        "technologies": [
-          "Next.js",
-          "ASP.NET Core",
-          "EF Core",
-          "Microsoft Entra",
-          "Python"
+        "highlights": [
+          "Cloud web app + private local scraper architecture",
+          "Multi-source price tracking with normalized unit comparison",
+          "Price history, target prices, and suspicious scrape review",
+          "Dockerized deployment with CI/CD and cloud hosting"
         ],
-        "githubUrl": "https://github.com/jiantaoshen/PriceWatch",
-        "liveUrl": "https://pricewatch.jiantao.dev",
-        "image": "/projects/pricewatch.png",
-        "imageAlt": "Price Watch page"
+        "technologyCategories": {
+          "frontend": "Frontend",
+          "backend": "Backend",
+          "database-auth": "Database",
+          "automation-devops": "Authentication",
+          "project-tech_001bb19c-f579-4fd2-87b8-8be7d787ac24": "Automation",
+          "project-tech_d406690d-3cf7-49cf-b812-34e757e31bdf": "DevOps"
+        }
       },
-      {
+      "portfolio": {
         "title": "Portfolio",
         "description": "A multilingual developer portfolio with a lightweight local Git-based content dashboard.",
-        "status": "Live",
-        "technologies": [
-          "Next.js",
-          "GitHub",
-          "Vercel"
-        ],
-        "githubUrl": "https://github.com/jiantaoshen/portfolio",
-        "liveUrl": "https://www.jiantao.dev/dashboard",
-        "image": "/projects/portfolio-dashboard.png",
-        "imageAlt": "portfolio's dashboard page"
+        "highlights": [],
+        "technologyCategories": {
+          "frontend": "Frontend",
+          "delivery": "Platform & Deployment"
+        }
       }
-    ]
+    }
   },
   "skills": {
     "title": "Skills",
-    "items": [
-      {
-        "title": "Frontend",
-        "items": [
-          "Next.js",
-          "React",
-          "TypeScript",
-          "Tailwind CSS",
-          "HTML",
-          "CSS",
-          "JavaScript"
-        ]
-      },
-      {
-        "title": "Backend & Data",
-        "items": [
-          "C#",
-          "ASP.NET Core",
-          "PostgreSQL"
-        ]
-      },
-      {
-        "title": "AI",
-        "items": [
-          "Python",
-          "Ollama"
-        ]
-      },
-      {
-        "title": "Languages",
-        "items": [
-          "Chinese",
-          "English",
-          "Swedish"
-        ]
-      }
-    ]
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Database",
+      "ai": "AI",
+      "skill_1e6c38db-def3-46dd-83d5-e36012eeea12": "DevOps"
+    }
   },
   "education": {
     "title": "Education",
@@ -97,6 +64,26 @@
         "description": "Studied robotics, embedded systems and artificial intelligence. For my master's thesis, I developed a radar-based hand gesture recognition system using Python, TensorFlow, and convolutional neural networks (CNNs). The system achieved 95% classification accuracy with a prediction time of approximately 25 ms.",
         "thesis": "Implementation of Machine Learning Algorithm for Radar-Based Hand Gesture Recognition",
         "thesisUrl": "https://mdu.diva-portal.org/smash/record.jsf?pid=diva2%3A1870908&dswid=-2606"
+      }
+    ]
+  },
+  "languages": {
+    "title": "Languages",
+    "items": [
+      {
+        "id": "chinese",
+        "name": "Chinese",
+        "proficiency": "Native"
+      },
+      {
+        "id": "english",
+        "name": "English",
+        "proficiency": "B2"
+      },
+      {
+        "id": "swedish",
+        "name": "Swedish",
+        "proficiency": "B2"
       }
     ]
   }

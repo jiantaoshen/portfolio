@@ -25,7 +25,6 @@
   },
   "cv": {
     "title": "CV",
-    "description": "Varje språk har en About JSON-fil som innehåller introduktion, projekt, kompetenser och utbildning.",
     "introduction": {
       "title": "Introduktion",
       "titleBefore": "Hero-text före namnet",
@@ -51,7 +50,16 @@
       "thesisUrl": "URL till examensarbete (valfritt)",
       "delete": "Ta bort utbildningspost"
     },
-    "sectionTitle": "Sektionsrubrik"
+    "sectionTitle": "Sektionsrubrik",
+    "languages": {
+      "title": "Språk",
+      "add": "Lägg till språk",
+      "name": "Språk",
+      "namePlaceholder": "Engelska",
+      "proficiency": "Nivå",
+      "proficiencyPlaceholder": "B2 / Modersmål",
+      "delete": "Ta bort språk"
+    }
   },
   "projects": {
     "title": "Projekt",
@@ -65,7 +73,14 @@
     },
     "placeholders": {
       "status": "Live"
-    }
+    },
+    "highlights": "Höjdpunkter · en per rad",
+    "technologyCategories": "Teknikkategorier",
+    "addCategory": "Lägg till kategori",
+    "category": "Kategori",
+    "categoryPlaceholder": "Frontend / Backend / DevOps",
+    "technologiesPlaceholder": "Next.js, TypeScript, Tailwind CSS",
+    "deleteCategory": "Ta bort teknikkategori"
   },
   "interfaceLanguage": {
     "label": "Gränssnittsspråk"

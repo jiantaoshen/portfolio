@@ -25,7 +25,6 @@
   },
   "cv": {
     "title": "CV",
-    "description": "Each language has one About JSON file containing the introduction, projects, skills, and education.",
     "introduction": {
       "title": "Introduction",
       "titleBefore": "Hero text before name",
@@ -51,7 +50,16 @@
       "thesisUrl": "Thesis URL (optional)",
       "delete": "Delete education item"
     },
-    "sectionTitle": "Section title"
+    "sectionTitle": "Section title",
+    "languages": {
+      "title": "Languages",
+      "add": "Add language",
+      "name": "Language",
+      "namePlaceholder": "English",
+      "proficiency": "Proficiency",
+      "proficiencyPlaceholder": "B2 / Native",
+      "delete": "Delete language"
+    }
   },
   "projects": {
     "title": "Projects",
@@ -65,7 +73,14 @@
     },
     "placeholders": {
       "status": "Live"
-    }
+    },
+    "highlights": "Highlights · one per line",
+    "technologyCategories": "Technology categories",
+    "addCategory": "Add category",
+    "category": "Category",
+    "categoryPlaceholder": "Frontend / Backend / DevOps",
+    "technologiesPlaceholder": "Next.js, TypeScript, Tailwind CSS",
+    "deleteCategory": "Delete technology category"
   },
   "interfaceLanguage": {
     "label": "Interface language"

@@ -79,10 +79,10 @@
   --hero-padding-y: 2rem;
 
   /* Prevent the Hero title from becoming too wide. */
-  --hero-title-max-width: 56rem;
+  --h1-title-max-width: 56rem;
 
   /* Hero title font size. */
-  --hero-title-size: 2.5rem;
+  --h1-title-size: 2.5rem;
 
   /* Hero description maximum width. */
   --hero-description-max-width: 42rem;
@@ -178,7 +178,7 @@
     --nav-logo-height: 1.625rem;
 
     --hero-padding-y: 2.5rem;
-    --hero-title-size: 3rem;
+    --h1-title-size: 3rem;
     --hero-description-size: 1.125rem;
 
     --section-title-size: 2.25rem;
@@ -216,7 +216,7 @@
     --nav-logo-height: 1.875rem;
 
     --hero-padding-y: 3.5rem;
-    --hero-title-size: 3.25rem;
+    --h1-title-size: 3.25rem;
     --hero-description-size: 1.5rem;
 
     --footer-logo-height: 1.625rem;
@@ -231,7 +231,7 @@
 @media (min-width: 1280px) {
   :root {
     --nav-logo-height: 2rem;
-    --hero-title-size: 3.5rem;
+    --h1-title-size: 3.5rem;
   }
 }
 
@@ -256,8 +256,8 @@
     --nav-link-size: 0.95rem;
 
     /* Hero */
-    --hero-title-max-width: 58rem;
-    --hero-title-size: 3.75rem;
+    --h1-title-max-width: 58rem;
+    --h1-title-size: 3.75rem;
     --hero-description-max-width: 48rem;
     --hero-description-size: 1.5rem;
 
@@ -312,8 +312,8 @@
 
     /* Hero */
     --hero-padding-y: 4rem;
-    --hero-title-max-width: 66rem;
-    --hero-title-size: 4rem;
+    --h1-title-max-width: 66rem;
+    --h1-title-size: 4rem;
     --hero-description-max-width: 54rem;
     --hero-description-size: 1.625rem;
 
@@ -368,8 +368,8 @@
 
     /* Hero */
     --hero-padding-y: 4.5rem;
-    --hero-title-max-width: 74rem;
-    --hero-title-size: 4.25rem;
+    --h1-title-max-width: 74rem;
+    --h1-title-size: 4.25rem;
     --hero-description-max-width: 60rem;
     --hero-description-size: 1.875rem;
 
@@ -411,9 +411,6 @@
   /* Main content */
   --dashboard-content-max-width: 80rem;
   --dashboard-content-padding: 2rem;
-
-  /* Heading */
-  --dashboard-heading-size: 1.875rem;
 }
 
 /* =========================================
@@ -425,7 +422,6 @@
     /* Dashboard layout */
     --dashboard-content-max-width: 96rem;
     --dashboard-content-padding: 2.5rem;
-    --dashboard-heading-size: 2.25rem;
 
     /* Button */
     --ui-button-height-default: 2.5rem;
@@ -467,7 +463,6 @@
     /* Dashboard layout */
     --dashboard-content-max-width: 112rem;
     --dashboard-content-padding: 3.5rem;
-    --dashboard-heading-size: 2.5rem;
 
     /* Button */
     --ui-button-height-default: 2.75rem;
@@ -543,7 +538,6 @@
 /* =========================================
    Base
    ========================================= */
-
 html {
   @apply scroll-smooth bg-background;
 }
@@ -551,6 +545,18 @@ html {
 body {
   @apply min-h-screen bg-background font-sans text-foreground antialiased;
   text-rendering: optimizeLegibility;
+}
+
+section {
+  @apply p-4 lg:p-8;
+}
+
+h1 {
+  @apply max-w-(--h1-title-max-width) text-(length:--h1-title-size) font-extrabold tracking-tighter text-foreground;
+}
+
+h4{
+  @apply p-1 text-sm font-semibold text-foreground sm:text-base;
 }
 
 button,

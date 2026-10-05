@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "id": "frontend",
+      "items": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ]
+    },
+    {
+      "id": "backend",
+      "items": [
+        "C#",
+        ".NET",
+        "ASP.NET Core"
+      ]
+    },
+    {
+      "id": "database",
+      "items": [
+        "PostgreSQL"
+      ]
+    },
+    {
+      "id": "ai",
+      "items": [
+        "Python",
+        "Ollama"
+      ]
+    },
+    {
+      "id": "skill_1e6c38db-def3-46dd-83d5-e36012eeea12",
+      "items": [
+        "Vercel",
+        "GitHub",
+        "Docker",
+        "CICD (GitHub Action)"
+      ]
+    }
+  ]
+}

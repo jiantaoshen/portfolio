@@ -8,78 +8,36 @@
   },
   "projects": {
     "title": "Projekt",
-    "items": [
-      {
+    "items": {
+      "price-watch": {
         "title": "Price Watch",
         "description": "Ett personligt prisbevakningssystem för produkter och abonnemang med stöd för flera källor, normaliserade prisjämförelser, prishistorik, granskningsflöden och lokal automatiserad insamling.",
-        "status": "Live",
-        "technologies": [
-          "Next.js",
-          "ASP.NET Core",
-          "EF Core",
-          "Microsoft Entra",
-          "Python"
+        "highlights": [
+          "Separat arkitektur för molnbaserad webbapp och lokal privat datainsamling",
+          "Prisbevakning från flera källor och jämförelse av standardiserade enhetspriser",
+          "Prishistorik, målpriser och granskning av avvikande insamlade resultat",
+          "Containerisering med Docker och automatiserad distribution via CI/CD"
         ],
-        "githubUrl": "https://github.com/jiantaoshen/PriceWatch",
-        "liveUrl": "https://pricewatch.jiantao.dev",
-        "image": "/projects/pricewatch.png",
-        "imageAlt": "Price Watch page"
-      },
-      {
-        "title": "Portfölj",
-        "description": "En flerspråkig utvecklarportfolio med en lättviktig lokal Git-baserad innehållspanel.",
-        "status": "Live",
-        "technologies": [
-          "Next.js",
-          "GitHub",
-          "Vercel"
-        ],
-        "githubUrl": "https://github.com/jiantaoshen/portfolio",
-        "liveUrl": "https://www.jiantao.dev/dashboard",
-        "image": "/projects/portfolio-dashboard.png",
-        "imageAlt": "portfolio's dashboard page"
+        "technologyCategories": {
+          "frontend": "Frontend",
+          "backend": "Backend",
+          "database-auth": "Databas",
+          "automation-devops": "Autentisering",
+          "project-tech_001bb19c-f579-4fd2-87b8-8be7d787ac24": "Automation",
+          "project-tech_d406690d-3cf7-49cf-b812-34e757e31bdf": "DevOps"
+        }
       }
-    ]
+    }
   },
   "skills": {
     "title": "Kompetens",
-    "items": [
-      {
-        "title": "Frontend",
-        "items": [
-          "Next.js",
-          "React",
-          "TypeScript",
-          "Tailwind CSS",
-          "HTML",
-          "CSS",
-          "JavaScript"
-        ]
-      },
-      {
-        "title": "Backend & Databas",
-        "items": [
-          "C#",
-          "ASP.NET Core",
-          "PostgreSQL"
-        ]
-      },
-      {
-        "title": "AI",
-        "items": [
-          "Python",
-          "Ollama"
-        ]
-      },
-      {
-        "title": "Språk",
-        "items": [
-          "Kinesiska",
-          "Engelska",
-          "Svenska"
-        ]
-      }
-    ]
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Databas",
+      "ai": "AI",
+      "skill_1e6c38db-def3-46dd-83d5-e36012eeea12": "DevOps"
+    }
   },
   "education": {
     "title": "Utbildning",
@@ -97,6 +55,26 @@
         "description": "Studerade robotik, inbyggda system och artificiell intelligens. Examensarbetet fokuserade på utvecklingen av ett radarbaserat system för handgestigenkänning med Python, TensorFlow och CNN. Systemet uppnådde 95 % klassificeringsnoggrannhet och en prediktionstid på cirka 25 ms.",
         "thesis": "Implementation of Machine Learning Algorithm for Radar-Based Hand Gesture Recognition",
         "thesisUrl": "https://mdu.diva-portal.org/smash/record.jsf?pid=diva2%3A1870908&dswid=-2606"
+      }
+    ]
+  },
+  "languages": {
+    "title": "Språk",
+    "items": [
+      {
+        "id": "chinese",
+        "name": "Kinesiska",
+        "proficiency": "Modersmål"
+      },
+      {
+        "id": "english",
+        "name": "Engelska",
+        "proficiency": "B2"
+      },
+      {
+        "id": "swedish",
+        "name": "Svenska",
+        "proficiency": "B2"
       }
     ]
   }

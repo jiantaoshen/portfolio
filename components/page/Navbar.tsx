@@ -1,23 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { PageContainer } from "@/components/layout/page-container";
 import type { Locale } from "@/i18n/routing";
-
 import LanguageSwitcher from "./LanguageSwitcher";
 
 interface NavbarProps {
   locale: Locale;
+  title?: string;
 }
 
-export default function Navbar({ locale }: NavbarProps) {
+export default function Navbar({ locale, title}: NavbarProps) {
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-muted">
-      <PageContainer className="flex min-h-(--nav-min-height) items-center justify-between gap-6">
+    <header className="sticky top-0 z-50 border-b-2 border-accent bg-muted">
+      <div className="mx-auto container px-5 flex min-h-(--nav-min-height) items-center justify-between">
         {/* Logo */}
         <Link
           href={`/${locale}/`}
-          className="inline-flex shrink-0 items-center"
+          className="shrink-0"
           aria-label="JIANTAO.dev home"
         >
           <Image
@@ -28,18 +27,20 @@ export default function Navbar({ locale }: NavbarProps) {
             height={64}
             unoptimized
             loading="eager"
-            className="block h-(--nav-logo-height) w-auto"
+            className="h-(--nav-logo-height) w-auto"
           />
         </Link>
 
+        {/* Dashboard Title */}
+        {title && (
+          <span className="truncate font-semibold">
+            {title}
+          </span>
+        )}
+
         {/* Language switcher: desktop + mobile */}
-        <nav
-          className="flex shrink-0 items-center gap-1 min-[1920px]:gap-1.5"
-          aria-label="Language"
-        >
-          <LanguageSwitcher />
-        </nav>
-      </PageContainer>
+        <LanguageSwitcher aria-label="Language" />
+      </div>
     </header>
   );
 }

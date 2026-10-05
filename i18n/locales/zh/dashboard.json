@@ -25,7 +25,6 @@
   },
   "cv": {
     "title": "简历",
-    "description": "每种语言使用一份 About JSON 文件，统一维护简介、项目、技能和教育经历。",
     "introduction": {
       "title": "个人简介",
       "titleBefore": "主页标题前半部分",
@@ -51,7 +50,16 @@
       "thesisUrl": "论文链接（可选）",
       "delete": "删除教育经历"
     },
-    "sectionTitle": "区块标题"
+    "sectionTitle": "区块标题",
+    "languages": {
+      "title": "语言能力",
+      "add": "添加语言",
+      "name": "语言",
+      "namePlaceholder": "英语",
+      "proficiency": "熟练度",
+      "proficiencyPlaceholder": "B2 / 母语",
+      "delete": "删除语言"
+    }
   },
   "projects": {
     "title": "项目",
@@ -65,7 +73,14 @@
     },
     "placeholders": {
       "status": "Live"
-    }
+    },
+    "highlights": "项目亮点（每行一项）",
+    "technologyCategories": "技术分类",
+    "addCategory": "添加分类",
+    "category": "分类",
+    "categoryPlaceholder": "前端 / 后端 / DevOps",
+    "technologiesPlaceholder": "Next.js, TypeScript, Tailwind CSS",
+    "deleteCategory": "删除技术分类"
   },
   "interfaceLanguage": {
     "label": "界面语言"

@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLocale } from "next-intl";
-
-import { navLinkActive, navLinkBase } from "@/components/page/navigation-styles";
 import { localeMeta, locales, stripLocalePrefix, type Locale } from "@/lib/locales";
 import { cn } from "@/lib/utils";
 
@@ -12,13 +10,15 @@ export default function LanguageSwitcher() {
   const pathname = usePathname();
   const currentLocale = useLocale() as Locale;
   const pathWithoutLanguage = stripLocalePrefix(pathname);
+  const navLinkBase = "p-3 text-(length:--nav-link-size) font-medium text-muted-foreground transition-colors hover:text-foreground";
+  const navLinkActive = "text-foreground border-b-2 border-primary";
 
   function languageHref(locale: Locale) {
     return `/${locale}${pathWithoutLanguage || "/"}`;
   }
 
   return (
-    <div className="flex items-center gap-1" aria-label="Language">
+    <nav aria-label="Language">
       {locales.map((locale) => {
         const isActive = locale === currentLocale;
 
@@ -35,6 +35,6 @@ export default function LanguageSwitcher() {
           </Link>
         );
       })}
-    </div>
+    </nav>
   );
 }

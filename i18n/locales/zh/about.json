@@ -8,77 +8,45 @@
   },
   "projects": {
     "title": "项目",
-    "items": [
-      {
+    "items": {
+      "price-watch": {
         "title": "Price Watch",
         "description": "一个面向商品与订阅的个人价格追踪系统，支持多来源价格比较、标准化价格、价格历史、审核流程和本地自动抓取。",
-        "status": "Live",
-        "technologies": [
-          "Next.js",
-          "ASP.NET Core",
-          "EF Core",
-          "Microsoft Entra",
-          "Python"
+        "highlights": [
+          "云端 Web 应用与本地私有抓取分离架构",
+          "多来源价格追踪与标准化单位价格比较",
+          "价格历史、目标价格与异常抓取结果审核",
+          "Docker 容器化与 CI/CD 自动部署"
         ],
-        "githubUrl": "https://github.com/jiantaoshen/PriceWatch",
-        "liveUrl": "https://pricewatch.jiantao.dev",
-        "image": "/projects/pricewatch.png",
-        "imageAlt": "Price Watch page"
+        "technologyCategories": {
+          "frontend": "前端",
+          "backend": "后端",
+          "database-auth": "数据库",
+          "automation-devops": "身份认证",
+          "project-tech_001bb19c-f579-4fd2-87b8-8be7d787ac24": "自动化",
+          "project-tech_d406690d-3cf7-49cf-b812-34e757e31bdf": "DevOps"
+        }
       },
-      {
+      "portfolio": {
         "title": "个人网页",
         "description": "一个多语言开发者作品集，并配有一个轻量级的本地 Git 内容管理面板。",
-        "status": "Live",
-        "technologies": [
-          "Next.js",
-          "GitHub",
-          "Vercel"
-        ],
-        "githubUrl": "https://github.com/jiantaoshen/portfolio",
-        "liveUrl": "https://www.jiantao.dev/dashboard",
-        "image": "/projects/portfolio-dashboard.png",
-        "imageAlt": "portfolio's dashboard page"
+        "highlights": [],
+        "technologyCategories": {
+          "frontend": "前端",
+          "delivery": "平台与部署"
+        }
       }
-    ]
+    }
   },
   "skills": {
     "title": "技术能力",
-    "items": [
-      {
-        "title": "前端",
-        "items": [
-          "Next.js",
-          "React",
-          "TypeScript",
-          "Tailwind CSS",
-          "HTML",
-          "CSS",
-          "JavaScript"
-        ]
-      },
-      {
-        "title": "后端 & 数据库",
-        "items": [
-          "C#",
-          "ASP.NET Core",
-          "PostgreSQL"
-        ]
-      },
-      {
-        "title": "人工智能",
-        "items": [
-          "Python"
-        ]
-      },
-      {
-        "title": "语言",
-        "items": [
-          "中文",
-          "英语",
-          "瑞典语"
-        ]
-      }
-    ]
+    "categories": {
+      "frontend": "前端",
+      "backend": "后端",
+      "database": "数据库",
+      "ai": "人工智能",
+      "skill_1e6c38db-def3-46dd-83d5-e36012eeea12": "DevOps"
+    }
   },
   "education": {
     "title": "学历",
@@ -96,6 +64,26 @@
         "description": "主要学习机器人技术、嵌入式系统和人工智能。硕士毕业论文中，使用 Python、TensorFlow 和卷积神经网络（CNN）开发了基于雷达的手势识别系统，分类准确率达到 95%，单次预测时间约为 25 毫秒。",
         "thesis": "Implementation of Machine Learning Algorithm for Radar-Based Hand Gesture Recognition",
         "thesisUrl": "https://mdu.diva-portal.org/smash/record.jsf?pid=diva2%3A1870908&dswid=-2606"
+      }
+    ]
+  },
+  "languages": {
+    "title": "语言能力",
+    "items": [
+      {
+        "id": "chinese",
+        "name": "中文",
+        "proficiency": "母语"
+      },
+      {
+        "id": "english",
+        "name": "英语",
+        "proficiency": "B2"
+      },
+      {
+        "id": "swedish",
+        "name": "瑞典语",
+        "proficiency": "B2"
       }
     ]
   }
