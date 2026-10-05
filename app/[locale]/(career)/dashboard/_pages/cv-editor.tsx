@@ -3,6 +3,7 @@
 import { useState, type ChangeEvent, type DragEvent, type ReactNode } from "react";
 import { GripVertical, Plus, Save, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import type { Locale } from "@/i18n/routing";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -18,7 +19,6 @@ import type {
   AboutEducationItem,
   AboutLanguageItem,
   AboutProject,
-  Locale,
   SharedProject,
   SharedProjects,
   SharedProjectTechnologyGroup,

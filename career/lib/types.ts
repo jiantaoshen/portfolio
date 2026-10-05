@@ -1,7 +1,5 @@
 import type { Locale } from "@/lib/locales";
 
-export type { Locale } from "@/lib/locales";
-
 export type SharedSkillGroup = {
   id: string;
   items: string[];
