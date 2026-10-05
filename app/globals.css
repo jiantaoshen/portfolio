@@ -538,34 +538,32 @@
 /* =========================================
    Base
    ========================================= */
-
-@layer base {
-  html {
-    @apply scroll-smooth bg-background;
-  }
-
-  body {
-    @apply min-h-screen bg-background font-sans text-foreground antialiased;
-    text-rendering: optimizeLegibility;
-  }
-
-  section {
-    @apply p-4 lg:p-8;
-  }
-
-  h1 {
-    @apply max-w-(--h1-title-max-width) text-(length:--h1-title-size) font-extrabold tracking-tighter text-foreground;
-  }
-
-  button,
-  select {
-    @apply cursor-pointer;
-  }
-
-  ::selection {
-    @apply bg-primary text-primary-foreground;
-  }
+html {
+  @apply scroll-smooth bg-background;
 }
 
-@layer components {
+body {
+  @apply min-h-screen bg-background font-sans text-foreground antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+section {
+  @apply p-4 lg:p-8;
+}
+
+h1 {
+  @apply max-w-(--h1-title-max-width) text-(length:--h1-title-size) font-extrabold tracking-tighter text-foreground;
+}
+
+h4{
+  @apply p-1 text-sm font-semibold text-foreground sm:text-base;
+}
+
+button,
+select {
+  @apply cursor-pointer;
+}
+
+::selection {
+  @apply bg-primary text-primary-foreground;
 }

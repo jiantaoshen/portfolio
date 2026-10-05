@@ -230,7 +230,6 @@ export function CvEditorPage({ initialLocale }: CvEditorPageProps) {
           <h1>{t("cv.title")}</h1>
           <p className="max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">{t("cv.description")}</p>
         </div>
-        <LocaleSwitcher value={locale} onChange={setLocale} />
       </div>
 
       <Card>
@@ -379,13 +378,14 @@ export function CvEditorPage({ initialLocale }: CvEditorPageProps) {
 
       <Card className="sticky bottom-[max(.5rem,env(safe-area-inset-bottom))] z-10 shadow-lg">
         <CardContent className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <LocaleSwitcher value={locale} onChange={setLocale} />
           <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
             <Badge variant="outline">{locale}</Badge>
             <span className="min-w-0 break-all font-mono text-xs">i18n/locales/{locale}/about.json</span>
             <Badge variant="outline">shared</Badge>
             <span className="min-w-0 break-all font-mono text-xs">i18n/shared/skills.json</span>
             <span className="min-w-0 break-all font-mono text-xs">i18n/shared/projects.json</span>
-          </div>
+          </div> 
           <Button type="button" className="w-full sm:w-auto" disabled={saving} onClick={() => void save().catch(() => {})}>
             <Save className="mr-2 size-4" />{saving ? t("actions.saving") : t("actions.saveLanguage", { language: localeMeta[locale].label })}
           </Button>

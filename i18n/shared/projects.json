@@ -56,27 +56,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": "portfolio",
-      "status": "Live",
-      "githubUrl": "https://github.com/jiantaoshen/portfolio",
-      "liveUrl": "https://www.jiantao.dev/dashboard",
-      "technologyGroups": [
-        {
-          "id": "frontend",
-          "items": [
-            "Next.js"
-          ]
-        },
-        {
-          "id": "delivery",
-          "items": [
-            "GitHub",
-            "Vercel"
-          ]
-        }
-      ]
     }
   ]
 }

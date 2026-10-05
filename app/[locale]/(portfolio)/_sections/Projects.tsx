@@ -30,9 +30,10 @@ export default async function Projects({ locale }: { locale: Locale }) {
         </h2>
       </div>
 
-      <div className="space-y-5 lg:space-y-6 min-[1920px]:space-y-8">
+      <div className="space-y-5">
         {sharedProjects.items.map((shared) => {
           const project = localized[shared.id];
+
           if (!project?.title) return null;
 
           const groups = shared.technologyGroups
@@ -40,15 +41,15 @@ export default async function Projects({ locale }: { locale: Locale }) {
             .filter((group) => group.title && group.items.length);
 
           return (
-            <Card key={shared.id} className="overflow-hidden bg-background p-0">
+            <Card key={shared.id} className="overflow-hidden p-0">
               <div className={cn("grid", groups.length && "lg:grid-cols-[minmax(0,1.05fr)_minmax(22rem,.95fr)]")}>
-                <div className={cn("flex min-w-0 flex-col p-5 sm:p-6 min-[1920px]:p-7", groups.length && "lg:border-r lg:border-border")}>
+                <div className={cn("flex min-w-0 flex-col p-5", groups.length && "lg:border-r-2 lg:border-muted-foreground/30")}>
                   <div className="flex flex-wrap items-center gap-3">
                     <h3 className="text-(length:--project-heading-size) font-bold text-foreground">{project.title}</h3>
                     {shared.status && <Badge variant="outline" className="font-mono text-xs">{shared.status}</Badge>}
                   </div>
 
-                  <p className="mt-4 text-(length:--project-body-size) leading-relaxed text-muted-foreground min-[1920px]:leading-7">
+                  <p className="mt-4 text-(length:--project-body-size) leading-relaxed text-muted-foreground">
                     {project.description}
                   </p>
 
@@ -80,10 +81,10 @@ export default async function Projects({ locale }: { locale: Locale }) {
                 </div>
 
                 {!!groups.length && (
-                  <div className="space-y-5 border-t border-border p-5 sm:p-6 lg:border-t-0 min-[1920px]:p-7">
+                  <div className="space-y-5 p-5">
                     {groups.map((group) => (
                       <div key={group.id}>
-                        <h4 className="mb-2 text-sm font-semibold text-foreground sm:text-base">{group.title}</h4>
+                        <h4>{group.title}</h4>
                         <TechList items={group.items} />
                       </div>
                     ))}
