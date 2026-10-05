@@ -11,8 +11,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { localeMeta } from "@/lib/locales";
 
-import { Field } from "../components/field";
-import { LocaleSwitcher } from "../components/locale-switcher";
+import { Field } from "@/app/[locale]/(career)/dashboard/_components/field";
+import { LocaleSwitcher } from "@/app/[locale]/(career)/dashboard/_components/locale-switcher";
 import type {
   AboutContent,
   AboutEducationItem,
@@ -24,9 +24,9 @@ import type {
   SharedProjectTechnologyGroup,
   SharedSkillGroup,
   SharedSkills,
-} from "../lib/types";
-import { parseCommaList, parseLineList } from "../lib/text";
-import { useCareerWorkspace } from "../workspace";
+} from "@/career/lib/types";
+import { parseCommaList, parseLineList } from "@/career/lib/text";
+import { useCareerWorkspace } from "@/app/[locale]/(career)/dashboard/workspace";
 
 const move = <T,>(items: T[], from: number, to: number) => {
   if (from === to || from < 0 || to < 0 || from >= items.length || to >= items.length) return items;

@@ -1,4 +1,4 @@
-import { CvEditorPage } from "@/career/pages/cv-editor";
+import { CvEditorPage } from "./_pages/cv-editor";
 import type { Locale } from "@/i18n/routing";
 
 interface DashboardPageProps {
