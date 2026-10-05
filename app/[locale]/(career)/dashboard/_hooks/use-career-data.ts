@@ -1,11 +1,11 @@
 import { useState } from "react";
+import type { Locale } from "@/i18n/routing";
 
 import { localContentApi } from "@/lib/api";
 import type {
   AboutByLocale,
   AboutContent,
   CareerSnapshot,
-  Locale,
   SharedProjects,
   SharedSkills,
 } from "@/lib/types";
