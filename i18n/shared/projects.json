@@ -11,8 +11,7 @@
           "items": [
             "Next.js",
             "TypeScript",
-            "Tailwind CSS",
-            "shadcn/ui"
+            "Tailwind CSS"
           ]
         },
         {
@@ -53,6 +52,54 @@
             "Vercel",
             "Google Cloud Run",
             "GHCR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "project_b23afe49-7a88-4277-835b-9b4f3cc44e53",
+      "status": "Updated 2026-10",
+      "githubUrl": "https://github.com/jiantaoshen/AIChat",
+      "liveUrl": "",
+      "technologyGroups": [
+        {
+          "id": "project-tech_2d87933e-b57d-4ff9-a908-c1d244f793bd",
+          "items": [
+            "Next.js",
+            "React",
+            "TypeScript",
+            "Tailwind CSS"
+          ]
+        },
+        {
+          "id": "project-tech_05d94088-229c-4cfb-a87e-aa743e78978e",
+          "items": [
+            "C#",
+            "ASP.NET Core",
+            "REST API",
+            "EF Core"
+          ]
+        },
+        {
+          "id": "project-tech_64dab826-1e5a-42e5-a90d-2f58cd299156",
+          "items": [
+            "SQLite"
+          ]
+        },
+        {
+          "id": "project-tech_74a5e990-457e-4b89-8514-bc63abd308a4",
+          "items": [
+            "Ollama",
+            "Qwen 4B"
+          ]
+        },
+        {
+          "id": "project-tech_f2ab73ad-d25d-4dd8-8e47-621cbbc0ad6c",
+          "items": [
+            "CosyVoice3",
+            "PyTorch",
+            "FastAPI",
+            "Python"
           ]
         }
       ]
