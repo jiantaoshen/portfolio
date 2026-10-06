@@ -27,13 +27,21 @@
           "project-tech_d406690d-3cf7-49cf-b812-34e757e31bdf": "DevOps"
         }
       },
-      "portfolio": {
-        "title": "个人网页",
-        "description": "一个多语言开发者作品集，并配有一个轻量级的本地 Git 内容管理面板。",
-        "highlights": [],
+      "project_b23afe49-7a88-4277-835b-9b4f3cc44e53": {
+        "title": "AI Avatar",
+        "description": "一个本地优先的 AI Avatar 系统，结合本地语言模型、角色表情动作、语音合成与对话持久化，构建视觉小说风格的可交互 AI 角色。",
+        "highlights": [
+          "本地 Qwen 对话推理与结构化情绪、动作决策",
+          "CosyVoice3 本地语音合成与角色参考音色支持",
+          "C# 确定性控制角色状态、动作策略与 TTS 行为",
+          "SQLite 持久化对话、消息以及 LLM / TTS Telemetry"
+        ],
         "technologyCategories": {
-          "frontend": "前端",
-          "delivery": "平台与部署"
+          "project-tech_2d87933e-b57d-4ff9-a908-c1d244f793bd": "前端",
+          "project-tech_05d94088-229c-4cfb-a87e-aa743e78978e": "后端",
+          "project-tech_64dab826-1e5a-42e5-a90d-2f58cd299156": "数据库",
+          "project-tech_74a5e990-457e-4b89-8514-bc63abd308a4": "本地 AI",
+          "project-tech_f2ab73ad-d25d-4dd8-8e47-621cbbc0ad6c": "语音"
         }
       }
     }

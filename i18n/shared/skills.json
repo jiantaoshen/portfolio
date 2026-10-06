@@ -23,14 +23,17 @@
     {
       "id": "database",
       "items": [
-        "PostgreSQL"
+        "PostgreSQL",
+        "SQLite"
       ]
     },
     {
       "id": "ai",
       "items": [
         "Python",
-        "Ollama"
+        "Ollama",
+        "Machine Learning",
+        "AI"
       ]
     },
     {

@@ -26,6 +26,23 @@
           "project-tech_001bb19c-f579-4fd2-87b8-8be7d787ac24": "Automation",
           "project-tech_d406690d-3cf7-49cf-b812-34e757e31bdf": "DevOps"
         }
+      },
+      "project_b23afe49-7a88-4277-835b-9b4f3cc44e53": {
+        "title": "AI Avatar",
+        "description": "Ett lokalt AI Avatar-system som kombinerar lokala språkmodeller, karaktärsuttryck och gester, talsyntes och beständig lagring av konversationer i ett interaktivt gränssnitt inspirerat av visuella romaner.",
+        "highlights": [
+          "Lokal Qwen-inferens med strukturerade beslut för känslor och gester",
+          "Lokal talsyntes med CosyVoice3 och stöd för referensröst",
+          "Deterministisk C#-styrning av avatarens tillstånd, rörelsepolicy och TTS-beteende",
+          "SQLite-lagring av konversationer, meddelanden och LLM-/TTS-telemetri"
+        ],
+        "technologyCategories": {
+          "project-tech_2d87933e-b57d-4ff9-a908-c1d244f793bd": "Frontend",
+          "project-tech_05d94088-229c-4cfb-a87e-aa743e78978e": "Backend",
+          "project-tech_64dab826-1e5a-42e5-a90d-2f58cd299156": "Databas",
+          "project-tech_74a5e990-457e-4b89-8514-bc63abd308a4": "Lokal AI",
+          "project-tech_f2ab73ad-d25d-4dd8-8e47-621cbbc0ad6c": "Röst"
+        }
       }
     }
   },

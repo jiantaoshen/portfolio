@@ -27,13 +27,21 @@
           "project-tech_d406690d-3cf7-49cf-b812-34e757e31bdf": "DevOps"
         }
       },
-      "portfolio": {
-        "title": "Portfolio",
-        "description": "A multilingual developer portfolio with a lightweight local Git-based content dashboard.",
-        "highlights": [],
+      "project_b23afe49-7a88-4277-835b-9b4f3cc44e53": {
+        "title": "AI Avatar",
+        "description": "A local-first AI Avatar system combining local language models, character expressions and gestures, speech synthesis, and persistent conversation storage in a visual-novel-style interactive interface.",
+        "highlights": [
+          "Local Qwen inference with structured emotion and gesture decisions",
+          "Local CosyVoice3 speech synthesis with reference voice support",
+          "Deterministic C# control for avatar state, motion policy, and TTS behavior",
+          "SQLite persistence for conversations, messages, and LLM / TTS telemetry"
+        ],
         "technologyCategories": {
-          "frontend": "Frontend",
-          "delivery": "Platform & Deployment"
+          "project-tech_2d87933e-b57d-4ff9-a908-c1d244f793bd": "Frontend",
+          "project-tech_05d94088-229c-4cfb-a87e-aa743e78978e": "Backend",
+          "project-tech_64dab826-1e5a-42e5-a90d-2f58cd299156": "Database",
+          "project-tech_74a5e990-457e-4b89-8514-bc63abd308a4": "Local AI",
+          "project-tech_f2ab73ad-d25d-4dd8-8e47-621cbbc0ad6c": "Voice"
         }
       }
     }
