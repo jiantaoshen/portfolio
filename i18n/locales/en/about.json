@@ -11,20 +11,17 @@
     "items": {
       "price-watch": {
         "title": "Price Watch",
-        "description": "A personal price-tracking system for products and subscriptions with multi-source comparison, price history, review workflows, and automated scraping.",
+        "description": "PriceWatch is a local price-tracking app. It monitors product prices, shows price history, and sends email alerts when a new best price meets your target. The website and scraper share one SQLite database, so the scraper can run even when the website is closed.",
         "highlights": [
-          "Cloud web app + private local scraper architecture",
           "Multi-source price tracking with normalized unit comparison",
-          "Price history, target prices, and suspicious scrape review",
-          "Dockerized deployment with CI/CD and cloud hosting"
+          "Price history",
+          "Suspicious scrape review",
+          "Email alerts"
         ],
         "technologyCategories": {
           "frontend": "Frontend",
-          "backend": "Backend",
           "database-auth": "Database",
-          "automation-devops": "Authentication",
-          "project-tech_001bb19c-f579-4fd2-87b8-8be7d787ac24": "Automation",
-          "project-tech_d406690d-3cf7-49cf-b812-34e757e31bdf": "DevOps"
+          "project-tech_001bb19c-f579-4fd2-87b8-8be7d787ac24": "Automation"
         }
       },
       "project_b23afe49-7a88-4277-835b-9b4f3cc44e53": {

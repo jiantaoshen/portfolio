@@ -11,20 +11,17 @@
     "items": {
       "price-watch": {
         "title": "Price Watch",
-        "description": "一个面向商品与订阅的个人价格追踪系统，支持多来源价格比较、标准化价格、价格历史、审核流程和本地自动抓取。",
+        "description": "PriceWatch 是一款本地价格追踪应用程序。它可以监控商品价格、展示历史价格走势，并在出现符合您设定目标价格的新最低价时发送电子邮件提醒。网站和价格爬虫程序共用同一个 SQLite 数据库，因此即使网站已关闭，爬虫程序仍然可以独立运行。",
         "highlights": [
-          "云端 Web 应用与本地私有抓取分离架构",
           "多来源价格追踪与标准化单位价格比较",
-          "价格历史、目标价格与异常抓取结果审核",
-          "Docker 容器化与 CI/CD 自动部署"
+          "价格历史",
+          "异常抓取结果审核",
+          "电子邮件提醒"
         ],
         "technologyCategories": {
           "frontend": "前端",
-          "backend": "后端",
           "database-auth": "数据库",
-          "automation-devops": "身份认证",
-          "project-tech_001bb19c-f579-4fd2-87b8-8be7d787ac24": "自动化",
-          "project-tech_d406690d-3cf7-49cf-b812-34e757e31bdf": "DevOps"
+          "project-tech_001bb19c-f579-4fd2-87b8-8be7d787ac24": "自动化"
         }
       },
       "project_b23afe49-7a88-4277-835b-9b4f3cc44e53": {
