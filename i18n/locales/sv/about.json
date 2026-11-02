@@ -11,20 +11,17 @@
     "items": {
       "price-watch": {
         "title": "Price Watch",
-        "description": "Ett personligt prisbevakningssystem för produkter och abonnemang med stöd för flera källor, normaliserade prisjämförelser, prishistorik, granskningsflöden och lokal automatiserad insamling.",
+        "description": "PriceWatch är en lokal app för prisbevakning. Den övervakar produktpriser, visar prishistorik och skickar e-postaviseringar när ett nytt lägsta pris uppfyller ditt angivna målpris. Webbplatsen och webbskraparen delar samma SQLite-databas, vilket innebär att webbskraparen kan köras även när webbplatsen är stängd.",
         "highlights": [
-          "Separat arkitektur för molnbaserad webbapp och lokal privat datainsamling",
-          "Prisbevakning från flera källor och jämförelse av standardiserade enhetspriser",
-          "Prishistorik, målpriser och granskning av avvikande insamlade resultat",
-          "Containerisering med Docker och automatiserad distribution via CI/CD"
+          "Prisbevakning från flera källor med jämförelse av standardiserade enhetspriser",
+          "Prishistorik",
+          "Granskning av misstänkta insamlade prisuppgifter",
+          "E-postaviseringar"
         ],
         "technologyCategories": {
           "frontend": "Frontend",
-          "backend": "Backend",
           "database-auth": "Databas",
-          "automation-devops": "Autentisering",
-          "project-tech_001bb19c-f579-4fd2-87b8-8be7d787ac24": "Automation",
-          "project-tech_d406690d-3cf7-49cf-b812-34e757e31bdf": "DevOps"
+          "project-tech_001bb19c-f579-4fd2-87b8-8be7d787ac24": "Automation"
         }
       },
       "project_b23afe49-7a88-4277-835b-9b4f3cc44e53": {
